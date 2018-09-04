@@ -18,6 +18,11 @@
 \renewcommand{\thispagestyle}[1]{}
 \markright{\textbf{\textsc{AIF401/AIF402 \textemdash Rencana Kerja Skripsi \textemdash Sem. Ganjil 2018/2019}}}
 
+\newcommand{\HRule}{\rule{\linewidth}{0.4mm}}
+\renewcommand{\baselinestretch}{1}
+\setlength{\parindent}{0 pt}
+\setlength{\parskip}{6 pt}
+
 \onehalfspacing
  
 \begin{document}
@@ -30,7 +35,10 @@
 \newcommand{\@npm}{2015730029}
 \newcommand{\@judultopik}{Kolektor Pengumuman Informatika} % Judul/topik anda
 \newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
-\newcommand{\tanggal}{08/08/2018}
+\newcommand{\tanggal}{04/09/2018}
+
+% Dokumen hasil template ini harus dicetak bolak-balik !!!!
+
 \maketitle
 
 \pagenumbering{arabic}
@@ -42,7 +50,7 @@ Namun, email kurang terorganisir dengan baik. Email yang masuk sering tercampur 
 
 Pada skripsi ini, akan dibuat solusi masalah tadi dengan membuat suatu sistem. Sistem ini akan menangkap email-email pengumuman yang masuk ke sebuah email khusus untuk menangkap pengumuman. Pertama email yang masuk ke email khusus akan diperiksa pengirimnya. Apabila pengirim adalah email yang terdaftar sebagai email yang berhak melakukan pengumuman maka email tersebut adalah email pengumuman. Setelah itu email tersebut akan dibuatkan permanent link dan disisipkan pada basis data. Lalu, mahasiswa akan menerima permanent link tersebut melalui notifikasi dari akun Line@. Line@ adalah layanan dari Line Corporation yang memudahkan pemilik bisnis atau organisasi menyampaikan pesan kepada pengikutnya di aplikasi pengirim pesan Line.
 
-Sistem ini akan dibangun sebagai fitur tambahan pada BlueTape, sebuah website milik jurusan teknik Informatika Unpar. Pembangunan fitur ini membutuhkan modifikasi BlueTape sehingga dapat dijalankan di Heroku dan menggunakan basis data PostgreSQL. Selain itu, sistem ini membutuhkan beberapa fitur dari GMail dan Line@.
+Sistem ini akan dibangun sebagai fitur tambahan pada BlueTape, sebuah website milik jurusan teknik Informatika Unpar. Pembangunan fitur ini membutuhkan modifikasi BlueTape sehingga dapat dijalankan di Heroku dan menggunakan basis data PostgreSQL. Heroku adalah layanan yang memungkinkan pengembang membangun, menjalankan, dan mengoperasikan aplikasi di dalam internet. Selain itu, sistem ini membutuhkan beberapa fitur dari layanan surel GMail dan layanan pengirim pesan instan Line@.
 
 \section{Rumusan Masalah}
 \begin{itemize}
@@ -76,31 +84,26 @@ Bagian-bagian pekerjaan skripsi ini adalah sebagai berikut :
 	\end{enumerate}
 
 \section{Rencana Kerja}
-\begin{center}
-  \begin{tabular}{ | c | c | c | c | l |}
-    \hline
-    1*  & 2*(\%) & 3*(\%) & 4*(\%) &5*\\ \hline \hline
-    1   & 20 & 15 & 5  & {\footnotesize } \\ \hline
-    2   & 20 & 5  & 15 & {\footnotesize } \\ \hline
-    3   & 20 & 5  & 15 & {\footnotesize } \\ \hline
-    4   & 15 & 10 & 5  & {\footnotesize } \\ \hline
-    5   & 10 & 5  & 5  & {\footnotesize } \\ \hline
-    6   & 15 & 5  & 10 & {\footnotesize menulis sampai bab 3 pada S1} \\ \hline
-    Total  & 100  & 45 & 55 &  \\ \hline
-                          \end{tabular}
-\end{center}
+Rincian capaian yang direncanakan di Skripsi 1 adalah sebagai berikut:
+\begin{enumerate}
+\item BlueTape sudah dapat berjalan di Heroku menggunakan PostgreSQL
+\item BlueTape dapat menangkap email yang masuk ke email khusus
+\item Sudah menulis dokumen skripsi sampai Bab 3
+\end{enumerate}
 
-Keterangan (*)\\
-1 : Bagian pengerjaan Skripsi (nomor disesuaikan dengan detail pengerjaan di bagian 5)\\
-2 : Persentase total \\
-3 : Persentase yang akan diselesaikan di Skripsi 1 \\
-4 : Persentase yang akan diselesaikan di Skripsi 2 \\
-5 : Penjelasan singkat apa yang dilakukan di S1 (Skripsi 1) atau S2 (skripsi 2)
+Sedangkan yang akan diselesaikan di Skripsi 2 adalah sebagai berikut:
+\begin{enumerate}
+\item BlueTape dapat melakukan push notification ke akun Line@
+\item Melakukan pengujian
+\item Dokumen skripsi telah selesai ditulis
+\end{enumerate}
 
 \vspace{1cm}
 \centering Bandung, \tanggal\\
 \vspace{2cm} \nama \\ 
 \vspace{1cm}
+
+\newpage
 
 Menyetujui, \\
 \ifdefstring{\jumpemb}{2}{
@@ -119,5 +122,5 @@ Menyetujui, \\
 % \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
 \vspace{2cm} Nama: \makebox[3cm]{\hrulefill}\\ Pembimbing Tunggal
 }
-
 \end{document}
+
