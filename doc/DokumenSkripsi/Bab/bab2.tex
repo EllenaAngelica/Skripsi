@@ -1,29 +1,52 @@
 %versi 2 (8-10-2016)
 \chapter{Landasan Teori}
 \label{chap:teori}
-Pada bab ini dijelaskan dasar-dasar teori mengenai BlueTape, Heroku, PostgreSQL, GMail, dan Line@.
+Pada bab ini dijelaskan dasar-dasar teori mengenai \textit{BlueTape}, \textit{Heroku}, \textit{PostgreSQL}, \textit{GMail}, dan \textit{Line@}.
 
 %2.1 BlueTape
-\section{BlueTape}
+\section{\textit{BlueTape}}
 \label{sec:BlueTape}
-BlueTape adalah aplikasi+framework untuk membuat urusan-urusan paper-based di FTIS UNPAR menjadi paperless. Aplikasi ini berbasis web dengan memanfaatkan CodeIgniter + ZURB Foundation. Saat ini aplikasi ini memiliki layanan sebagai berikut :
-\begin{itemize}
-\item Transkrip Request / Manage untuk melakukan permohonan serta pencetakan transkrip mahasiswa.
-\item Perubahan Kuliah Request / Manage untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen.
-\end{itemize}
+\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Perangkat lunak ini berbasis web dengan memanfaatkan \textit{CodeIgniter} dan \textit{ZURB Foundation}. Saat ini aplikasi ini memiliki dua layanan, yaitu Transkrip \textit{Request} / \textit{Manage} dan Perubahan Kuliah \textit{Request} / \textit{Manage}. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Sedangkan layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. \footnotemark
+\footnotetext{https://github.com/ftisunpar/BlueTape}
 
 %2.2 Heroku
-\section{Heroku}
+\section{\textit{Heroku}}
 \label{sec:Heroku}
+\textit{Heroku} adalah \textit{platform cloud} yang memungkinkan \textit{developer} untuk membangun, menjalankan, dan mengoperasikan aplikasinya pada \textit{cloud}. Bahasa yang didukung oleh \textit{Heroku} adalah \textit{Ruby}, \textit{Node.js}, \textit{Java}, \textit{Python}, \textit{Clojure}, \textit{Scala}, \textit{Go} dan \textit{PHP}. \footnotemark
+\footnotetext{https://www.heroku.com/what}
+
+\subsection{Membangun Perangkat Lunak berbasis \textit{PHP} di \textit{Heroku}}
+Sebelum \textit{developer} dapat membangun perangkat lunak berbasis \textit{PHP} mereka di \textit{Heroku}, \textit{developer} harus membuat akun \textit{Heroku} terlebih dahulu. Selain itu, \textit{developer} perlu memasang \textit{PHP} dan \textit{Composer} di komputer yang digunakan untuk membangun perangkat lunak tersebut.\footnotemark
+\footnotetext{https://devcenter.heroku.com/articles/getting-started-with-php}
+
+\subsubsection{Mempersiapkan \textit{Heroku}}
+Sebelum \textit{developer} dapat memulai pembangunan perangkat lunak, \textit{developer} harus sudah memasang dan mempersiapkan \textit{Git}. Setelah itu, \textit{developer} perlu memasang \textit{Heroku Command Line Interface} (CLI). \textit{Heroku} CLI digunakan untuk mengelola perangkat lunak, \textit{add-ons}, melihat \textit{log} perangkat lunak, dan menjalankan aplikasi secara lokal.\footnotemark[\value{footnote}]
+
+Setelah \textit{Heroku} terpasang, \textit{developer} dapat menggunakan perintah \textit{Heroku} di \textit{command shell}. Perintah pertama yang harus dilakukan adalah \textit{"heroku login"}. Perintah ini berfungsi untuk otentikasi agar dapat masuk ke akun \textit{Heroku}. Otentikasi dibutuhkan agar \textit{Heroku} dan \textit{Git} dapat beroperasi. \footnotemark[\value{footnote}]
+
+\subsubsection{Menyiapkan Perangkat Lunak}
+Hal pertama yang harus dilakukan oleh \textit{developer} adalah \textit{clone} \textit{repository} ke komputer lokal. Caranya dengan mengetikkan perintah \textit{"git clone"} diikuti dengan alamat \textit{git heroku}-nya di \textit{command shell} atau \textit{terminal}. Di dalam \textit{repository} lokal sudah ada perangkat lunak sederhana dan juga \textit{file composer.json}. \textit{Heroku} menggunakan \textit{Composer} untuk mengelola \textit{dependency} dalam proyek \textit{PHP}, dan \textit{file composer.json} menjadi rujukan untuk Heroku bahwa perangkat lunak tersebut ditulis dalam bahasa \textit{PHP}. \footnotemark[\value{footnote}]
+
+\subsubsection{\textit{Deploy} Perangkat Lunak}
+Bagian ini menjelaskan cara \textit{deploy} perangkat lunak ke \textit{Heroku}. Pertama, \textit{developer} perlu membuat perangkat lunak pada \textit{Heroku}. Caranya dengan mengetikkan perintah \textit{"heroku create"} pada \textit{command shell} atau \textit{terminal}. Ketika perangkat lunak dibuat, sebuah \textit{git remote} yang otomatis dinamai \textit{heroku} juga terbentuk. \textit{Heroku} akan menamai perangkat lunak dengan nama acak yang nantinya bisa diganti. Untuk memulai deploy \textit{developer} perlu mengetikkan perintah \textit{"git push"} diikuti dengan nama \textit{git remote} lalu nama \textit{branch repository}. Contohnya : \textit{"git push heroku master"} \footnotemark[\value{footnote}]
+
+\subsubsection{Procfile}
+Procfile adalah \textit{file text} yang berfungsi untuk mendeklarasikan secara ekplisit perintah yang harus diekseskusi untuk menjalankan perangkat lunak di Heroku. Contoh isi Procfile : \textit{"web: vendor/bin/heroku-php-apache2 web/"}. Procfile dapat berisi \textit{single process type}, \textit{web}, dan perintah yang diperlukan untuk menjalankan perangkat lunak tersebut. \footnotemark[\value{footnote}]
+
+\subsubsection{Database}
+Heroku menyediakan tiga layanan data : Heroku Postgres, Heroku Redis, dan Apache Kafka on Heroku. Dalam skripsi ini, layanan data yang dipakai adalah Heroku Postgres yang berbasis PostgreSQL.
 
 %2.3 PostgreSQL
 \section{PostgreSQL}
 \label{sec:PostgreSQL}
+PostgreSQL adalah salah satu dari sistem manajemen database relational. Heroku memakai database ini sebagai database utamanya, yang diberi nama Heroku Postgres.
 
 %2.4 GMail
 \section{GMail}
 \label{sec:GMail}
+GMail adalah layanan surat elektronik milik Google.
 
 %2.5 Line@.
 \section{Line@}
 \label{sec:Line@}
+Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis.
