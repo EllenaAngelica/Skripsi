@@ -55,7 +55,7 @@ PostgreSQL adalah sistem basis data object-relational open source. Tipe data yan
 \label{sec:GMail}
 GMail adalah layanan surat elektronik milik Google. Salah satu fitur GMail untuk developer adalah GMail API.
 \subsection{Cloud Pub/Sub}
-Langkah-langkah yang diperlukan \footnotemark
+Cloud Pub/Sub adalah fondasi awal untuk stream analytics dan event-driven computing systems. Langkah-langkah yang diperlukan untuk memperolehnya adalah\footnotemark
 \footnotetext{https://cloud.google.com/pubsub/docs/quickstart-console} :
 \begin{itemize}
 \item Mempersiapkan GCP Console project.
@@ -66,9 +66,32 @@ Langkah-langkah yang diperlukan \footnotemark
 \item Menambahkan subcription
 \end{itemize}
 
+\subsection{IMAP}
+Agar dapat menggunakan IMAP untuk memeriksa Gmail di perangkat lunak lain, developer perlu menyiapkan dan mengubah setelan SMTP. Pertama, developer perlu masuk ke akun gmail dan pergi ke menu setelan. Di menu setelan, pilih tab Penerusan dan POP/IMAP. Pada bagian "Akses IMAP" pilih Aktifkan IMAP lalu tekan tombol "Simpan Perubahan". Pada perangkat lunak, ubah setelan SMTP dan setelan lainnya : \footnotemark
+\footnotetext{https://support.google.com/mail/answer/7126229?hl=id} :
+\begin{itemize}
+\item Server Email Masuk (IMAP):
+\begin{itemize}
+\item imap.gmail.com
+\item Gunakan SSL: Ya
+\item Port: 993
+\end{itemize}
+\item Server Email Keluar (SMTP):
+\begin{itemize}
+\item smtp.gmail.com
+\item Gunakan SSL: Ya
+\item Gunakan TLS: Ya (jika tersedia)
+\item Gunakan Autentikasi: Ya
+\item Port untuk SSL: 465
+\item Port untuk TLS/STARTTLS: 587
+\end{itemize}
+\item Nama Lengkap atau Nama Tampilan : Nama Anda
+\item Nama Akun, Nama pengguna, atau Alamat email : Alamat email lengkap Anda
+\item Sandi : Sandi Gmail Anda
+\end{itemize}
+
 %2.5 Line@.
 \section{Line@}
 \label{sec:Line@}
 Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui perangkat lunak mobile LINE@ atau melalui perangkat lunak komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.\footnotemark
 \footnotetext{https://at.line.me/en/}
-\subsubsection{•}
