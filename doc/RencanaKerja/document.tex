@@ -1,0 +1,146 @@
+\documentclass[a4paper,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[bahasa]{babel}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{float}
+\usepackage[cm]{fullpage}
+\pagestyle{myheadings}
+\usepackage{etoolbox}
+\usepackage{setspace} 
+\usepackage{lipsum} 
+\setlength{\headsep}{30pt}
+\usepackage[inner=2cm,outer=2.5cm,top=2.5cm,bottom=2cm]{geometry} %margin
+% \pagestyle{empty}
+
+\makeatletter
+\renewcommand{\@maketitle} {\begin{center} {\LARGE \textbf{ \textsc{\@title}} \par} \bigskip {\large \textbf{\textsc{\@author}} }\end{center} }
+\renewcommand{\thispagestyle}[1]{}
+<<<<<<< HEAD
+\markright{\textbf{\textsc{AIF401/AIF402 \textemdash Rencana Kerja Skripsi \textemdash Sem. Ganjil 2018/2019}}}
+=======
+\markright{\textbf{\textsc{AIF401/AIF402 \textemdash Rencana Kerja Skripsi \textemdash Sem. Genap 2016/2017}}}
+>>>>>>> d4d8dedfbbf776f625d0d7851aef2b41b4b2a91a
+
+\newcommand{\HRule}{\rule{\linewidth}{0.4mm}}
+\renewcommand{\baselinestretch}{1}
+\setlength{\parindent}{0 pt}
+\setlength{\parskip}{6 pt}
+
+\onehalfspacing
+ 
+\begin{document}
+
+\title{\@judultopik}
+\author{\nama \textendash \@npm} 
+
+%tulis nama dan NPM anda di sini:
+\newcommand{\nama}{Ellena Angelica}
+\newcommand{\@npm}{2015730029}
+\newcommand{\@judultopik}{Kolektor Pengumuman Informatika} % Judul/topik anda
+\newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
+<<<<<<< HEAD
+\newcommand{\tanggal}{04/09/2018}
+=======
+\newcommand{\tanggal}{01/01/1900}
+>>>>>>> d4d8dedfbbf776f625d0d7851aef2b41b4b2a91a
+
+% Dokumen hasil template ini harus dicetak bolak-balik !!!!
+
+\maketitle
+
+\pagenumbering{arabic}
+
+\section{Deskripsi}
+Pengumuman di jurusan Teknik Informatika Unpar pada umumnya dilakukan oleh email. Pengumuman lewat email ini praktis karena tidak perlu menunggu sampai email sampai ke tujuan dan dijamin sampai ke tujuan. Selain itu, konten yang disampaikan melalui email fleksibel. Konten tidak harus hanya tulisan tapi dapat menambahkan lampiran, mengubah gaya tulisan dan lain-lain.
+
+Namun, email kurang terorganisir dengan baik. Email yang masuk sering tercampur dengan email lain sehingga mahasiswa kesulitan mencari email yang penting. Dampaknya, pengumuman-pengumuman penting sering tidak terbaca secara tidak sengaja.
+
+Pada skripsi ini, akan dibuat solusi masalah tadi dengan membuat suatu sistem. Sistem ini akan menangkap email-email pengumuman yang masuk ke sebuah email khusus untuk menangkap pengumuman. Pertama email yang masuk ke email khusus akan diperiksa pengirimnya. Apabila pengirim adalah email yang terdaftar sebagai email yang berhak melakukan pengumuman maka email tersebut adalah email pengumuman. Setelah itu email tersebut akan dibuatkan permanent link dan disisipkan pada basis data. Lalu, mahasiswa akan menerima permanent link tersebut melalui notifikasi dari akun Line@. Line@ adalah layanan dari Line Corporation yang memudahkan pemilik bisnis atau organisasi menyampaikan pesan kepada pengikutnya di aplikasi pengirim pesan Line.
+
+Sistem ini akan dibangun sebagai fitur tambahan pada BlueTape, sebuah website milik jurusan teknik Informatika Unpar. Pembangunan fitur ini membutuhkan modifikasi BlueTape sehingga dapat dijalankan di Heroku dan menggunakan basis data PostgreSQL. Heroku adalah layanan yang memungkinkan pengembang membangun, menjalankan, dan mengoperasikan aplikasi di dalam internet. Selain itu, sistem ini membutuhkan beberapa fitur dari layanan surel GMail dan layanan pengirim pesan instan Line@.
+
+\section{Rumusan Masalah}
+\begin{itemize}
+\item Bagaimana cara mengubah BlueTape agar dapat mendukung fitur kolektor pengumuman dengan bantuan Heroku dan PostgreSQL ?
+\item Bagaimana cara mengimplementasikan kolektor pengumuman pada BlueTape ?
+\end{itemize}
+
+\section{Tujuan}
+\begin{itemize}
+\item Melakukan perawatan pada BlueTape agar dapat mendukung fitur kolektor pengumuman dengan bantuan Heroku dan PostgreSQL
+\item Mengimplementasikan fitur kolektor pengumuman pada BlueTape
+\end{itemize}
+
+\section{Deskripsi Perangkat Lunak}
+Sistem yang akan dibuat memiliki fitur minimal sebagai berikut:
+\begin{itemize}
+\item Sistem dapat menangkap email yang masuk ke suatu email khusus
+\item Sistem dapat memilah email pengumuman dari email lain yang masuk ke email khusus tersebut
+\item Sistem dapat melakukan push notification pada akun Line@ yang berisi link menuju pengumuman 
+\end{itemize}
+
+\section{Detail Pengerjaan Skripsi}
+Bagian-bagian pekerjaan skripsi ini adalah sebagai berikut :
+	\begin{enumerate}
+		\item Melakukan studi literatur tentang GMail, Line, Heroku dan PostgreSQL
+		\item Memodifikasi BlueTape sehingga dapat menangkap email yang masuk ke email khusus
+		\item Memodifikasi BlueTape sehingga dapat melakukan push notification ke akun Line@
+		\item Memodifikasi BlueTape sehingga dapat berjalan di Heroku menggunakan PostgreSQL
+		\item Melakukan pengujian
+		\item Menulis dokumen skripsi
+	\end{enumerate}
+
+\section{Rencana Kerja}
+Rincian capaian yang direncanakan di Skripsi 1 adalah sebagai berikut:
+\begin{enumerate}
+<<<<<<< HEAD
+\item BlueTape sudah dapat berjalan di Heroku menggunakan PostgreSQL
+\item BlueTape dapat menangkap email yang masuk ke email khusus
+\item Sudah menulis dokumen skripsi sampai Bab 3
+=======
+\item
+\item
+\item
+>>>>>>> d4d8dedfbbf776f625d0d7851aef2b41b4b2a91a
+\end{enumerate}
+
+Sedangkan yang akan diselesaikan di Skripsi 2 adalah sebagai berikut:
+\begin{enumerate}
+<<<<<<< HEAD
+\item BlueTape dapat melakukan push notification ke akun Line@
+\item Melakukan pengujian
+\item Dokumen skripsi telah selesai ditulis
+=======
+\item
+\item
+\item
+>>>>>>> d4d8dedfbbf776f625d0d7851aef2b41b4b2a91a
+\end{enumerate}
+
+\vspace{1cm}
+\centering Bandung, \tanggal\\
+\vspace{2cm} \nama \\ 
+\vspace{1cm}
+
+\newpage
+
+Menyetujui, \\
+\ifdefstring{\jumpemb}{2}{
+\vspace{1.5cm}
+\begin{centering} Menyetujui,\\ \end{centering} \vspace{0.75cm}
+\begin{minipage}[b]{0.45\linewidth}
+% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013 \\
+\vspace{2cm} Nama: \makebox[3cm]{\hrulefill}\\ Pembimbing Utama
+\end{minipage} \hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
+\vspace{2cm} Nama: \makebox[3cm]{\hrulefill}\\ Pembimbing Pendamping
+\end{minipage}
+\vspace{0.5cm}
+}{
+% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
+\vspace{2cm} Nama: \makebox[3cm]{\hrulefill}\\ Pembimbing Tunggal
+}
+\end{document}
+
