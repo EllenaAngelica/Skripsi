@@ -33,20 +33,43 @@ Bagian ini menjelaskan cara \textit{deploy} perangkat lunak ke \textit{Heroku}. 
 \subsubsection{Procfile}
 Procfile adalah \textit{file text} yang berfungsi untuk mendeklarasikan secara ekplisit perintah yang harus diekseskusi untuk menjalankan perangkat lunak di Heroku. Contoh isi Procfile : \textit{"web: vendor/bin/heroku-php-apache2 web/"}. Procfile dapat berisi \textit{single process type}, \textit{web}, dan perintah yang diperlukan untuk menjalankan perangkat lunak tersebut. \footnotemark[\value{footnote}]
 
-\subsubsection{Database}
-Heroku menyediakan tiga layanan data : Heroku Postgres, Heroku Redis, dan Apache Kafka on Heroku. Dalam skripsi ini, layanan data yang dipakai adalah Heroku Postgres yang berbasis PostgreSQL.
+\subsubsection{Basis Data}
+Heroku menyediakan tiga layanan data : Heroku Postgres, Heroku Redis, dan Apache Kafka on Heroku. Dalam skripsi ini, layanan data yang dipakai adalah Heroku Postgres yang berbasis PostgreSQL.\footnotemark
+\footnotetext{https://devcenter.heroku.com/categories/data-management}
 
 %2.3 PostgreSQL
 \section{PostgreSQL}
 \label{sec:PostgreSQL}
-PostgreSQL adalah salah satu dari sistem manajemen database relational. Heroku memakai database ini sebagai database utamanya, yang diberi nama Heroku Postgres.
+PostgreSQL adalah sistem basis data object-relational open source. Tipe data yang didukung oleh PostgreSQL adalah :\footnotemark
+\footnotetext{https://www.postgresql.org/about/}
+\begin{itemize}
+\item Primitives: Integer, Numeric, String, Boolean
+\item Structured: Date/Time, Array, Range, UUID
+\item Document: JSON/JSONB, XML, Key-value (Hstore)
+\item Geometry: Point, Line, Circle, Polygon
+\item Customizations: Composite, Custom Types
+\end{itemize}
 
 %2.4 GMail
 \section{GMail}
 \label{sec:GMail}
-GMail adalah layanan surat elektronik milik Google.
+GMail adalah layanan surat elektronik milik Google. Salah satu fitur GMail untuk developer adalah GMail API.
+\subsection{Cloud Pub/Sub}
+Langkah-langkah yang diperlukan :\footnotemark
+\footnotetext{https://cloud.google.com/pubsub/docs/quickstart-console}
+\begin{itemize}
+\item Mempersiapkan GCP Console project.
+\item Membuat project baru atau memilih project yang sudah ada
+\item Mengaktifkan Cloud Pub/Sub API untuk project tersebut.
+\item Memasang dan menginisialisasi Cloud SDK
+\item Membuat Topic
+\item Menambahkan subcription
+\end{itemize}
+\footnotemark
+\footnotetext{https://cloud.google.com/pubsub/docs/quickstart-console}
 
 %2.5 Line@.
 \section{Line@}
 \label{sec:Line@}
 Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis.
+\subsubsection{•}
