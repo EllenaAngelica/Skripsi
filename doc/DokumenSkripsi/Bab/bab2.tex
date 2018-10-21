@@ -24,11 +24,9 @@
 
 
 %2.2 Heroku
-\section{Heroku}
+\section{Heroku ~\cite{heroku}}
 \label{sec:Heroku}
-Heroku adalah \textit{platform cloud} yang memungkinkan pengembang untuk membangun, menjalankan, dan mengoperasikan perangkat lunak pada \textit{cloud}. Heroku mendukung beberapa bahasa pemrograman, meliputi : Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP. \footnotemark
-\footnotetext{https://www.heroku.com}
-
+Heroku adalah \textit{platform cloud} yang memungkinkan pengembang untuk membangun, menjalankan, dan mengoperasikan perangkat lunak pada \textit{cloud}. Heroku mendukung beberapa bahasa pemrograman, meliputi : Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP. 
 
 \subsection{Arsitektur Heroku}
 Heroku memungkinkan seorang pengembang untuk menyebarkan (\textit{deploy}), menjalankan (\textit{run}), dan mengelola (\textit{manage}) perangkat lunak yang ditulis di dalam bahasa Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP. Heroku mendefinisikan perangkat lunak sebagai gabungan dari \textit{source code} yang ditulis di dalam salah satu bahasa ini (dapat berupa \textit{framework}), deskripsi dependensi yang dipakai, dan Procfile (jika diperlukan).
@@ -461,15 +459,30 @@ Untuk melakukan deploy menggunakan Docker, pengembang harus sudah memasang Docke
 \end{itemize}
 
 \subsubsection{Deploy Menggunakan GitHub}
-Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke GitHub apabila build berhasil. Pengembang perlu mengaktifkan GitHub integration terlebih dahulu sebelum dapat melakukan deploy. Setelah itu, pengembang harus melakukan otentikasi dengan akun GitHub. Otentikasi ini hanya perlu dilakukan satu kali per satu akun Heroku. Setelah itu, pengembang dapat memilih repository yang ingin disambungkan dengan perangkat lunak Heroku. %Gambar deploy-github-dashboard.jpg
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{deploy-github-dashboard.jpg}  
+	\caption[Deploy menggunakan Github Dashboard]{Deploy menggunakan Github Dashboard} 
+	\label{fig:deploy-github-dashboard} 
+\end{figure}
+Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke GitHub apabila build berhasil. Pengembang perlu mengaktifkan GitHub integration terlebih dahulu sebelum dapat melakukan deploy. Setelah itu, pengembang harus melakukan otentikasi dengan akun GitHub. Otentikasi ini hanya perlu dilakukan satu kali per satu akun Heroku. Setelah itu, pengembang dapat memilih repository yang ingin disambungkan dengan perangkat lunak Heroku (Gambar~\ref{fig:deploy-github-dashboard}).
 
-Ada dua cara untuk melakukan deploy, yaitu secara manual dan secara otomatis. Untuk cara manual, pengembang melakukan deploy dari GitHub.
-% Gambar deploy-github-manual.jpg
-Untuk cara otomatis, pengembang harus mengaktifkan "Automatic deploys from GitHub".
-% Gambar deploy-github-automatic.jpg
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{deploy-github-manual.jpg}  
+	\caption[Deploy menggunakan Github secara manual]{Deploy menggunakan Github secara manual} 
+	\label{fig:deploy-github-manual} 
+\end{figure}
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{deploy-github-automatic.jpg}  
+	\caption[Deploy menggunakan Github secara otomatis]{Deploy menggunakan Github secara otomatis} 
+	\label{fig:deploy-github-automatic} 
+\end{figure}
+Ada dua cara untuk melakukan deploy, yaitu secara manual dan secara otomatis. Untuk cara manual, pengembang melakukan deploy dari GitHub (Gambar~\ref{fig:deploy-github-manual}). Untuk cara otomatis, pengembang harus mengaktifkan "Automatic deploys from GitHub" (Gambar~\ref{fig:deploy-github-automatic}).
 
 \subsubsection{Deploy Langsung di situs Heroku}
-Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy perangkat lunak tanpa meninggalkan situs Heroku dan hampir tidak memerlukan konfigurasi. Penggunaan tombol ini ideal untuk pelanggan, pemelihara proyek yang open-source.
+Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy perangkat lunak tanpa meninggalkan situs Heroku dan hampir tidak memerlukan konfigurasi. Penggunaan tombol ini ideal untuk pelanggan, dan pemelihara proyek yang bersifat open-source.
 % Contoh tampilan tombol di Node.js app
 
 Sebelum dapat melakukan deploy dengan cara ini, perangkat lunak harus memiliki dokumen \texttt{app.json} yang sah di direktori root, dan source code perangkat lunak harus berada di repository GitHub.
@@ -563,7 +576,7 @@ Pengembang harus memasang Python 2.7, node 8.x, .NET Framework, dan Visual C++ B
 \section{IMAP}
 \label{sec:IMAP}
 IMAP (Internet Message Access Protocol) adalah metode untuk mengakses pesan elektronik yang disimpan di sebuah mail server.
-\subsection{PHP IMAP}
+\subsection{PHP IMAP ~\cite{php-imap}}
 Ekstensi ini dapat digunakan apabila c-client library sudah terpasang. Library ini dapat ditemukan di https://www.washington.edu/imap/. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori system, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori system, lalu memasukkan dokumen IMAP ke dalamnya. Contoh : \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tamabahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua dokumen dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, dokumen bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
 
 Setelah itu, kompilasi PHP dengan --with-imap[=DIR]. DIR disini adalah tempat c-client. Contoh : \texttt{with-imap=/usr/local/imap-2000b}. Pengguna sistem operasi Windows mungkin harus mengaktifkan \texttt{php\_imap.dll}.
@@ -586,5 +599,4 @@ Di dalam sistem operasi Ubuntu, pemasangan PHP IMAP bisa dilakukan dengan mudah.
 %2.4 Line@.
 \section{Line@}
 \label{sec:Line@}
-Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui perangkat lunak mobile LINE@ atau melalui perangkat lunak komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.\footnotemark
-\footnotetext{https://at.line.me/en/}
+Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui perangkat lunak mobile LINE@ atau melalui perangkat lunak komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.
