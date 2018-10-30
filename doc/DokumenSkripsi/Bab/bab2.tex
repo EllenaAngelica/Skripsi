@@ -596,7 +596,120 @@ Di dalam sistem operasi Ubuntu, pemasangan PHP IMAP bisa dilakukan dengan mudah.
 		
 \end{lstlisting}
 
-%2.4 Line@.
-\section{Line@}
-\label{sec:Line@}
-Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui perangkat lunak mobile LINE@ atau melalui perangkat lunak komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.
+%%2.4 Line@.
+%\section{Line@}
+%\label{sec:Line@}
+%Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui perangkat lunak mobile LINE@ atau melalui perangkat lunak komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.
+
+%2.4 Line
+\section{Line}
+\label{sec:Line}
+Line adalah perangkat lunak pengirim pesan yang tersedia dalam platform android, ios, dan desktop. Line memiliki beberapa produk yang dapat digunakan pengembang perangkat lunak. Produk-produk tersebut adalah :
+\begin{enumerate}
+\item LINE Login
+
+LINE Login adalah produk dari LINE yang memungkinkan pengembang membua perangkat lunaknya menyediakan pilihan masuk melalui akun LINE.
+
+\item Messaging API
+
+Messaging API adalah produk LINE yang memungkinkan pengembang untuk membangun bot sebagai sarana komunikasi dua arah antara layanan yang dibangun pengembang dengan pengguna LINE. Dengan Messaging API, pengembang dapat mengirimkan push message dan reply message. Push message adalahh pesan yang bot kirimkan ke pengguna LINE. Reply message adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
+
+%messaging-api-push-reply-message.png
+
+\item LINE Bot Designer
+
+LINE Bot Designer adalah produk LINE yang memungkinkan pengembang membuat prototipe LINE bot lebih cepat dan lebih mudah tanpa mengetahui pemrograman. Dengan produk ini, pengembang dapat mendesain chatbots sesuai skenario yang diinginkan.
+
+%bot-designer.png
+
+\item Clova
+
+Clova adalah sebuah AI Assistant (perangkat lunak dengan kecerdasan buatan yang berfungsi sebagai asisten) yang dipasang di dalam Clova Wave dan Clova Friends. Clova masih dalam tahap pengembangan dan (pada saat skripsi ini dibuat) tersedia dalam versi beta. Tidak ada dokumentasi resmi untuk produk ini, namun disediakan situs web untuk menggali informasi tentang Clova : https://clova-developers.line.me. Pada saat skripsi ini ditulis, situs web ini hanya tersedia dalam bahasa Jepang sehingga membutuhkan penerjemah apabila tidak menguasai bahasa Jepang.
+
+% clova_site.png
+
+\item LINE Pay
+
+LINE Pay adalah produk LINE yang memungkinkan pengembang mengintegrasikan perangkat lunak yang dibuat pengembang dengan fitur pembayaran melalui LINE Pay. Pada saat skripsi ini dibuat, tidak ada dokumentasi resmi untuk mengintegrasikan LINE Pay dengan perangkat lunak yang pengembang buat. Namun, pengembang dapat menggali informasi tentang fitur LINE Pay di situs https://pay.line.me. Situs ini menyediakan informasi LINE Pay di negara Jepang, Republik Tiongkok / Taiwan, dan Thailand. Situs ini tersedia dalam bahasa Jepang, Korea, Inggris, China dengan aksara sederhana, China dengan aksara tradisional, dan Thailand.
+
+% line_pay_site.png
+
+\end{enumerate}
+
+Di antara produk-produk yang disediakan LINE, penulis menggunakan Messaging API untuk mengirimkan notifikasi melalui LINE@.
+
+\subsection{Messaging API } %~\cite{https://developers.line.me/en/docs/}
+Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memungkinkan data dioper antara server dari perangkat lunak bot dengan LINE Platform. Ketika pengguna Line mengirimkan pesan ke bot, sebuah webhook akan terpicu dan LINE Platform akan mengirimkan permintaan ke URL webhook bot. Server akan mengirim permintaan ke LINE Platform untuk merespon pengguna. Permintaan akan dikirimkan dalam format JSON. 
+
+% Gambar messaging-api-architecture.png
+
+Pengembang dapat melakukan hal-hal berikut dengan Messaging API :
+\begin{itemize}
+\item Mengirimkan reply message
+\item Mengirimkan push message
+\item Mengirimkan berbagai jenis pesan
+\item Mendapatkan profil pengguna yang berinteraksi dengan bot
+\item Bergabung dengan percakapan grup /group chats
+\end{itemize}
+
+Untuk menggunakan Messaging API, pengembang memerlukan akun LINE@. Messaging API juga dapat digunakan menggunakan akun resmi /official accounts. Akun resmi mendapatkan fitur tambahan untuk pengguna enterprise.
+
+Untuk memulai membangun bot dengan Messaging API, pengembang perlu membuat channel terlebih dahulu. Channel adalah penyambung antara LINE platform dan perangkat lunak yang dibuat pengembang. Berikut langkah-langkah untuk membuat channel :
+\begin{enumerate}
+\item Langkah ke-1 : Masuk ke LINE Developers console
+
+Pengembang perlu masuk ke LINE Developers console (https://developers.line.me/en/) dengan alamat email dan password dari akun LINE pengembang. Jika pengembang belum memiliki akun LINE, pengembang perlu mengunduh perangkat lunak LINE untuk mendaftar akun LINE.
+
+% line-developers-console-login.png
+
+\item Langkah ke-2 : Mendaftar sebagai developer (pengembang)
+
+Apabila pengembang baru pertama kali masuk ke LINE Developers console, pengembang perlu membuat akun developer. Pengembang hanya perlu mencantumkan nama dan alamat email untuk mendaftar.
+
+% line-developers-console-register-developer.png
+
+\item Langkah ke-3 : Membuat provider baru
+
+Provider adalah individu atau perusahaan yang menyediakan perangkat lunak yang akan dibuat. Pengembang perlu mencantumkan nama provider untuk membuat provider baru. Pengembang dapat menuliskan nama pengembang sendiri atau nama perusahaan pengembang.
+
+% line-developers-console-create-provider.png
+
+\item Langkah ke-4 : Membuat channel
+
+Pengembang perlu memasukkan informasi yang dibutuhkan untuk membuat channel :
+\begin{itemize}
+\item Ikon perangkat lunak
+
+Dokumen gambar untuk ikon perangkat lunak harus dibawah 3MB dengan ekstensi JPEG/PNG/GIF/BMP.
+
+\item Nama perangkat lunak
+
+Nama perangkat lunak tidak boleh lebih dari 20 karakter. Kata "LINE" tidak dapat digunakan sebagai nama perangkat lunak, walaupun kapitalisasinya tidak sama. Setelah dikonfirmasi, nama perangkat lunak tidak dapat diubah untuk tujuh hari ke depan.
+
+\item Deskripsi perangkat lunak
+
+Deskripsi perangkat lunak tidak boleh lebih dari 500 karakter.
+
+\item Plan
+
+Terdapat dua pilihan, Developer Trial dan Free. Plan Developer Trial memungkinkan pengembang untuk membuat bot yang dapat mengirimkan push message dan memiliki 50 teman. Apabila pengembang memilih plan ini, maka pengembang tidak dapat melakukan upgrade atau membeli ID premium. Plan Free memungkinkan pengembang untuk membuat bot dengan jumlah teman tak terbatas, namun pengembang tidak dapat mengirimkan push message. Pengembang dapat melakukan upgrade kapan saja dengan plan ini.
+
+\item Kategori dan Subkategori
+
+Pengembang dapat memilih kategori dan subkategori yang cocok dengan perangkat lunak yang sedang dikembangkan.
+
+\item Alamat email
+
+Alamat email yang dicantumkan adalah alamat email yang akan menerima notifikasi dan pengumuman penting dari LINE. Maksimal karakter pada alamat email adalah 100 karakter.
+
+\end{itemize}
+% line-developers-console-create-channel.png
+
+\item Konfirmasi
+
+Konfirmasi channel yang baru saja dibuat.
+
+%line-developers-console-confirm-channel.png
+\end{enumerate}
+
+%Setelah membangun channel, 
