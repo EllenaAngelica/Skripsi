@@ -18,7 +18,7 @@
 %2.1 BlueTape
 \section{\textit{BlueTape}}
 \label{sec:BlueTape}
-\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Perangkat lunak ini berbasis web dengan memanfaatkan \textit{CodeIgniter} dan \textit{ZURB Foundation}. Saat ini aplikasi ini memiliki dua layanan, yaitu Transkrip \textit{Request} / \textit{Manage} dan Perubahan Kuliah \textit{Request} / \textit{Manage}. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Sedangkan layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. \footnotemark
+\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Perangkat lunak ini berbasis web dengan memanfaatkan \textit{CodeIgniter} dan \textit{ZURB Foundation}. Saat skripsi ini ditulis, perangkat lunak BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen untuk merekam dan menampilkan jadwal dosen. \footnotemark
 \footnotetext{https://github.com/ftisunpar/BlueTape}
 
 
@@ -465,7 +465,7 @@ Untuk melakukan deploy menggunakan Docker, pengembang harus sudah memasang Docke
 	\caption[Deploy menggunakan Github Dashboard]{Deploy menggunakan Github Dashboard} 
 	\label{fig:deploy-github-dashboard} 
 \end{figure}
-Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke GitHub apabila build berhasil. Pengembang perlu mengaktifkan GitHub integration terlebih dahulu sebelum dapat melakukan deploy. Setelah itu, pengembang harus melakukan otentikasi dengan akun GitHub. Otentikasi ini hanya perlu dilakukan satu kali per satu akun Heroku. Setelah itu, pengembang dapat memilih repository yang ingin disambungkan dengan perangkat lunak Heroku (Gambar~\ref{fig:deploy-github-dashboard}).
+Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke GitHub apabila build berhasil. Pengembang perlu mengaktifkan GitHub integration terlebih dahulu sebelum dapat melakukan deploy. Setelah itu, pengembang harus melakukan autentikasi dengan akun GitHub. Autentikasi ini hanya perlu dilakukan satu kali per satu akun Heroku. Setelah itu, pengembang dapat memilih repository yang ingin disambungkan dengan perangkat lunak Heroku (Gambar~\ref{fig:deploy-github-dashboard}).
 
 \begin{figure}[H]
 	\centering  
@@ -609,7 +609,7 @@ LINE Login adalah produk dari LINE yang memungkinkan pengembang membua perangkat
 
 \begin{figure}[H]
 	\centering  
-	\includegraphics[scale=0.5]{messaging-api-push-reply-message.png}  
+	\includegraphics[width=\textwidth]{messaging-api-push-reply-message.png}  
 	\caption[Push message dan reply message pada Messaging API]{Messaging API memungkinkan pengembang mengirim push message dan reply message} 
 	\label{fig:messaging-api-push-reply-message} 
 \end{figure}
