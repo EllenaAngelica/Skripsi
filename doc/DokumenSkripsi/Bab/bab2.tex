@@ -596,13 +596,8 @@ Di dalam sistem operasi Ubuntu, pemasangan PHP IMAP bisa dilakukan dengan mudah.
 		
 \end{lstlisting}
 
-%%2.4 Line@.
-%\section{Line@}
-%\label{sec:Line@}
-%Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui perangkat lunak mobile LINE@ atau melalui perangkat lunak komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.
-
 %2.4 Line
-\section{Line}
+\section{Line \cite{LINE-developer}}
 \label{sec:Line}
 Line adalah perangkat lunak pengirim pesan yang tersedia dalam platform android, ios, dan desktop. Line memiliki beberapa produk yang dapat digunakan pengembang perangkat lunak. Produk-produk tersebut adalah :
 \begin{enumerate}
@@ -612,36 +607,60 @@ LINE Login adalah produk dari LINE yang memungkinkan pengembang membua perangkat
 
 \item Messaging API
 
-Messaging API adalah produk LINE yang memungkinkan pengembang untuk membangun bot sebagai sarana komunikasi dua arah antara layanan yang dibangun pengembang dengan pengguna LINE. Dengan Messaging API, pengembang dapat mengirimkan push message dan reply message. Push message adalahh pesan yang bot kirimkan ke pengguna LINE. Reply message adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{messaging-api-push-reply-message.png}  
+	\caption[Push message dan reply message pada Messaging API]{Messaging API memungkinkan pengembang mengirim push message dan reply message} 
+	\label{fig:messaging-api-push-reply-message} 
+\end{figure}
 
-%messaging-api-push-reply-message.png
+Messaging API adalah produk LINE yang memungkinkan pengembang untuk membangun bot sebagai sarana komunikasi dua arah antara layanan yang dibangun pengembang dengan pengguna LINE. Dengan Messaging API, pengembang dapat mengirimkan push message dan reply message (Gambar~\ref{fig:messaging-api-push-reply-message}) ke akun LINE@. Push message adalah pesan yang bot kirimkan ke pengguna LINE. Reply message adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
 
 \item LINE Bot Designer
 
-LINE Bot Designer adalah produk LINE yang memungkinkan pengembang membuat prototipe LINE bot lebih cepat dan lebih mudah tanpa mengetahui pemrograman. Dengan produk ini, pengembang dapat mendesain chatbots sesuai skenario yang diinginkan.
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{bot-designer.png}  
+	\caption[LINE Bot Designer]{LINE Bot Designer} 
+	\label{fig:bot-designer} 
+\end{figure}
 
-%bot-designer.png
+LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memungkinkan pengembang membuat prototipe LINE bot lebih cepat dan lebih mudah tanpa mengetahui pemrograman. Dengan produk ini, pengembang dapat mendesain chatbots sesuai skenario yang diinginkan.
 
 \item Clova
 
-Clova adalah sebuah AI Assistant (perangkat lunak dengan kecerdasan buatan yang berfungsi sebagai asisten) yang dipasang di dalam Clova Wave dan Clova Friends. Clova masih dalam tahap pengembangan dan (pada saat skripsi ini dibuat) tersedia dalam versi beta. Tidak ada dokumentasi resmi untuk produk ini, namun disediakan situs web untuk menggali informasi tentang Clova : https://clova-developers.line.me. Pada saat skripsi ini ditulis, situs web ini hanya tersedia dalam bahasa Jepang sehingga membutuhkan penerjemah apabila tidak menguasai bahasa Jepang.
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{clova_site.png}  
+	\caption[Situs web Clova]{Situs web Clova (https://clova-developers.line.me)} 
+	\label{fig:clova_site} 
+\end{figure}
 
-% clova_site.png
+Clova adalah sebuah AI Assistant (perangkat lunak dengan kecerdasan buatan yang berfungsi sebagai asisten) yang dipasang di dalam Clova Wave dan Clova Friends. Clova masih dalam tahap pengembangan dan (pada saat skripsi ini dibuat) tersedia dalam versi beta. Tidak ada dokumentasi resmi untuk produk ini, namun disediakan situs web untuk menggali informasi tentang Clova : https://clova-developers.line.me (Gambar~\ref{fig:clova_site}). Pada saat skripsi ini ditulis, situs web ini hanya tersedia dalam bahasa Jepang sehingga membutuhkan penerjemah apabila tidak menguasai bahasa Jepang.
 
 \item LINE Pay
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{line_pay_site.png}  
+	\caption[Situs web LINE Pay]{Situs web LINE Pay (https://pay.line.me)} 
+	\label{fig:line_pay_site} 
+\end{figure}
 
-LINE Pay adalah produk LINE yang memungkinkan pengembang mengintegrasikan perangkat lunak yang dibuat pengembang dengan fitur pembayaran melalui LINE Pay. Pada saat skripsi ini dibuat, tidak ada dokumentasi resmi untuk mengintegrasikan LINE Pay dengan perangkat lunak yang pengembang buat. Namun, pengembang dapat menggali informasi tentang fitur LINE Pay di situs https://pay.line.me. Situs ini menyediakan informasi LINE Pay di negara Jepang, Republik Tiongkok / Taiwan, dan Thailand. Situs ini tersedia dalam bahasa Jepang, Korea, Inggris, China dengan aksara sederhana, China dengan aksara tradisional, dan Thailand.
-
-% line_pay_site.png
+LINE Pay adalah produk LINE yang memungkinkan pengembang mengintegrasikan perangkat lunak yang dibuat pengembang dengan fitur pembayaran melalui LINE Pay. Pada saat skripsi ini dibuat, tidak ada dokumentasi resmi untuk mengintegrasikan LINE Pay dengan perangkat lunak yang pengembang buat. Namun, pengembang dapat menggali informasi tentang fitur LINE Pay di situs https://pay.line.me (Gambar~\ref{fig:line_pay_site}). Situs ini menyediakan informasi LINE Pay di negara Jepang, Republik Tiongkok / Taiwan, dan Thailand. Situs ini tersedia dalam bahasa Jepang, Korea, Inggris, China dengan aksara sederhana, China dengan aksara tradisional, dan Thailand.
 
 \end{enumerate}
 
-Di antara produk-produk yang disediakan LINE, penulis menggunakan Messaging API untuk mengirimkan notifikasi melalui LINE@.
+Di antara produk-produk yang disediakan LINE, penulis menggunakan Messaging API untuk mengirimkan push message melalui LINE@. Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui perangkat lunak mobile LINE@ atau melalui perangkat lunak komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.
 
-\subsection{Messaging API } %~\cite{https://developers.line.me/en/docs/}
-Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memungkinkan data dioper antara server dari perangkat lunak bot dengan LINE Platform. Ketika pengguna Line mengirimkan pesan ke bot, sebuah webhook akan terpicu dan LINE Platform akan mengirimkan permintaan ke URL webhook bot. Server akan mengirim permintaan ke LINE Platform untuk merespon pengguna. Permintaan akan dikirimkan dalam format JSON. 
+\subsection{Messaging API } 
+Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memungkinkan data dioper antara server dari perangkat lunak bot dengan LINE Platform. Ketika pengguna Line mengirimkan pesan ke bot, sebuah webhook akan terpicu dan LINE Platform akan mengirimkan permintaan ke URL webhook bot. Server akan mengirim permintaan ke LINE Platform untuk merespon pengguna. Permintaan akan dikirimkan dalam format JSON. Arsitektur dari Messaging API dapat dilihat pada Gambar~\ref{fig:messaging_api_architecture}.
 
-% Gambar messaging-api-architecture.png
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{messaging-api-architecture.png}  
+	\caption[Arsitektur Messaging API]{Arsitektur Messaging API} 
+	\label{fig:messaging_api_architecture} 
+\end{figure}
 
 Pengembang dapat melakukan hal-hal berikut dengan Messaging API :
 \begin{itemize}
@@ -654,27 +673,42 @@ Pengembang dapat melakukan hal-hal berikut dengan Messaging API :
 
 Untuk menggunakan Messaging API, pengembang memerlukan akun LINE@. Messaging API juga dapat digunakan menggunakan akun resmi /official accounts. Akun resmi mendapatkan fitur tambahan untuk pengguna enterprise.
 
+\subsubsection{Membuat Channel}
 Untuk memulai membangun bot dengan Messaging API, pengembang perlu membuat channel terlebih dahulu. Channel adalah penyambung antara LINE platform dan perangkat lunak yang dibuat pengembang. Berikut langkah-langkah untuk membuat channel :
 \begin{enumerate}
 \item Langkah ke-1 : Masuk ke LINE Developers console
 
-Pengembang perlu masuk ke LINE Developers console (https://developers.line.me/en/) dengan alamat email dan password dari akun LINE pengembang. Jika pengembang belum memiliki akun LINE, pengembang perlu mengunduh perangkat lunak LINE untuk mendaftar akun LINE.
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{line-developers-console-login.png}  
+	\caption[Tampilan LINE developer console saat login]{Tampilan LINE developer console saat login} 
+	\label{fig:line-developers-console-login} 
+\end{figure}
 
-% line-developers-console-login.png
+Pengembang perlu masuk ke LINE Developers console (https://developers.line.me/en/) dengan alamat email dan password dari akun LINE pengembang (Gambar~\ref{fig:line-developers-console-login}). Jika pengembang belum memiliki akun LINE, pengembang perlu mengunduh perangkat lunak LINE untuk mendaftar akun LINE.
 
 \item Langkah ke-2 : Mendaftar sebagai developer (pengembang)
 
-Apabila pengembang baru pertama kali masuk ke LINE Developers console, pengembang perlu membuat akun developer. Pengembang hanya perlu mencantumkan nama dan alamat email untuk mendaftar.
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{line-developers-console-register-developer.png}  
+	\caption[Tampilan LINE developer console saat register developer]{Tampilan LINE developer console saat register developer} 
+	\label{fig:line-developers-console-register-developer} 
+\end{figure}
 
-% line-developers-console-register-developer.png
+Apabila pengembang baru pertama kali masuk ke LINE Developers console, pengembang perlu membuat akun developer (Gambar~\ref{fig:line-developers-console-register-developer}). Pengembang hanya perlu mencantumkan nama dan alamat email untuk mendaftar.
 
 \item Langkah ke-3 : Membuat provider baru
 
 Provider adalah individu atau perusahaan yang menyediakan perangkat lunak yang akan dibuat. Pengembang perlu mencantumkan nama provider untuk membuat provider baru. Pengembang dapat menuliskan nama pengembang sendiri atau nama perusahaan pengembang.
 
-% line-developers-console-create-provider.png
-
 \item Langkah ke-4 : Membuat channel
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{line-developers-console-create-channel.png}  
+	\caption[Tampilan LINE developer console saat membuat channel]{Tampilan LINE developer console saat membuat channel} 
+	\label{fig:line-developers-console-create-channel} 
+\end{figure}
 
 Pengembang perlu memasukkan informasi yang dibutuhkan untuk membuat channel :
 \begin{itemize}
@@ -703,7 +737,6 @@ Pengembang dapat memilih kategori dan subkategori yang cocok dengan perangkat lu
 Alamat email yang dicantumkan adalah alamat email yang akan menerima notifikasi dan pengumuman penting dari LINE. Maksimal karakter pada alamat email adalah 100 karakter.
 
 \end{itemize}
-% line-developers-console-create-channel.png
 
 \item Konfirmasi
 
@@ -712,4 +745,129 @@ Konfirmasi channel yang baru saja dibuat.
 %line-developers-console-confirm-channel.png
 \end{enumerate}
 
-%Setelah membangun channel, 
+
+\subsubsection{Membuat bot}
+Setelah membangun channel, pengembang perlu menyiapkan server untuk menjadi host dari bot. Pengembang dapat menggunakan layanan cloud platform, seperti Heroku. Setelah itu, pengembang dapat mulai mengatur bot pada console.
+
+Perangkat lunak bot membutuhkan channel access token untuk membuat API call dan webhook URL untuk menerima webhook payload dari LINE Platform. Channel access token adalah long-lived token (token yang tidak memiliki kadaluarsa) yang harus diatur di dalam authorization header ketika membuat API call. Pengembang dapat menerbitkan lagi channel access token kapanpun melalui console. Untuk menerbitkan channel access token, klik Issue pada "Channel settings" di halaman console. Sedangkan webhook URL adalah titik akhir dari server perangkat lunak bot dimana webhook payload dikirimkan.
+
+%Gambar pas issue token
+
+Untuk mengatur webhook URL, pengembang dapat memasukkannya ke halaman Channel settings pada console. Webhooks harus diaktifkan terlebih dahulu dengan menekan tombol enable webhooks. Untuk memeriksa apakah webhook URL dapat menerima event webhook, tekan tombol Verify dan pastikan hasilnya "Success". Webhook URL harus menggunakan HTTPS dan memiliki sertifikat SSL yang diterbitkan oleh certificate authority (CA) yang terotorisasi.
+
+%Gambar gagal verify
+%Gambar sukses verify
+
+Setelah token dan webhook URL berhasil diset, tambahkan bot sebagai teman melalui akun LINE. Pengembang dapat melakukannya dengan scan kode QR pada Channel Settings.
+
+%Gambar Kode QR
+
+\subsubsection{Menkonfigurasi Keamanan}
+Pengembang dapat mengkonfigurasi keamanan tapi tidak wajib dilakukan. Untuk meningkatkan keamanan, pengembang dapat mengatur server yang dapat memanggil API pada LINE Platform pada Security settings. Pengembang dapat mendaftarkan alamat IP secara individual atau jika pengembang memiliki server yang banyak pengembang dapat menggunakan notasi classless inter-domain routing (CIDR) untuk mendaftarkan alamat jaringan.
+
+\subsubsection{Alur kerja Messaging API}
+Ketika user berinteraksi dengan bot seperti mengirimkan pesan atau menambah bot sebagai teman, LINE Platform mengirimkan HTTP POST request yang berisi webhook event object ke bot server yang disebutkan di kolom "Webhook URL" pada console. Request header berisi signature. 
+
+Untuk mengecek apakah server dapat menerima webhook event, blok bot pada LINE dan cek server logs untuk menkorfimasi bahwa server dapat menerima unfollow event dari LINE Platform.
+
+%Gambar contoh log
+
+Untuk memastikan request yang dikirim berasal dari LINE Platform, bot server harus memvalidasi X-Line-Signature pada request header. Caranya dengan :
+1. Menggunakan channel secret sebagai secret key, mengenerate Base64-encoded digest dari request body menggunakan algoritma HMAC-SHA256
+2. Menkonfirmasi signature X-Line-Signature dalam request header cocok dengan digest.
+
+%contoh di php 
+
+\subsubsection{Webhook Event Object}
+Webhook Event Object
+
+\begin{enumerate}
+\item Khusus untuk one-on-one chat
+
+\begin{itemize}
+\item Message Event
+
+Menunjukkan bahwa ada user yang mengirim pesan. Event ini dapat dibalas.
+
+\item Follow Event
+
+Menunjukkan bahwa akun bot ditambahkan sebagai teman (atau unblocked). Event ini dapat dibalas.
+
+\item Unfollow Event
+
+Menunjukkan bahwa akun bot diblok
+
+\item Postback event
+
+Menunjukkan user melakukan aksi postback. Event ini dapat dibalas.
+
+\item Beacon event
+
+Menunjukkan bahwa user telah masuk atau keluar dari jangkauan LINE Beacon. Event ini dapat dibalas.
+
+\item Account link event 
+
+Menunjukkan bahwa user telah melink akun LINE dengan akun layanan pengembang. 
+
+\end{itemize}
+
+\item Group chats
+
+\begin{itemize}
+\item Message event
+
+Menunjukkan bahwa ada user yang mengirim pesan. Event ini dapat dibalas.
+
+\item Join event
+
+Menunjukkan bot telah bergabung ke sebuah group chat
+
+\item Leave event
+
+Menunjukkan bot telah keluar dari sebuah group chat
+
+\item Postback event
+
+Menunjukkan user melakukan aksi postback. Event ini dapat dibalas.
+
+\end{itemize}
+
+\end{enumerate}
+
+\subsubsection{Operasi pada bot}
+Pengembang dapat melakukan operasi berikut lewat bot :
+\begin{enumerate}
+\item Mengirim reply message
+
+Reply message adalah pesan yang dikirim sebagai respons dari user-generated event. User-generated event adalah event yang muncul karena user berinteraksi dengan bot, misalnya mengirim pesan. Pengembang hanya dapat membalas webhook events yang memiliki reply token.
+Untuk membalas pesan, kirim HTTP POST request ke /bot/message/reply. Sertakan channel access token di dalam authorization header dan reply token di request body. Pengembang dapat mengirimkan sampai 5 message object per request.
+
+\item Mengirim push message
+
+Untuk mengirim push message, pengembang harus memerhatikan plan yang dipakai. Apabila pengembang memakai plan Free maka pengembang tidak dapat melakukan operasi ini. Push message adalah pesan yang dapat bot kirimkan ke user kapanpun. Push message tidak membutuhkan reply token seperti saat mengirim reply message. Ketika mengirim push message, sebutkan user ID di dalam property to. ID penerima dapat ditemukan dari webhook event object. Apabila penerima hanya satu, kirimkan request ke /bot/message/push. Sedangkan apabila penerima ada beberapa, kirimkan ke /bot/message/multicast. Pengembang dapat mengirimkan sampai 5 message object per request.
+
+\item Mendapatkan konten yang dikirim oleh user
+
+Untuk mengambil gambar, video, atau audio yang dikirim user, kirimkan HTTP GET request ke /bot/message/{messageId}/content. Konten yang dikirim oleh user otomatis dihapus dalam jangka waktu tertentu.
+
+\item Mendapatkan informasi user profile
+
+Untuk mendapatkan informasi user profile dari user yang menambahkan bot atau mengirim pesan ke bot, kirimkan HTTP GET request ke /bot/profile/{userId}. Request ini akan mengembalikan display name, user ID, profile image URL, dan status message (jika tersedia) dari user.
+\end{enumerate}
+
+\subsubsection{LINE@ Manager}
+LINE@ Manager adalah alat untuk mengatur akun LINE@ (LINE bot). Pengembang dapat meningkatkan user experience dengan mengatur halaman akun, membuat Timeline post, dan menggunakan fitur lain yang disediakan LINE@ Manager. Berikut adalah hal-hal yang bisa dilakukan :
+\begin{enumerate}
+\item Mengubah tampilan halaman akun
+
+Pengembang dapat mengubah gambar cover, logo, tombol, dan informasi yang disediakan
+%Gambar
+
+\item Mengatur greeting message
+
+Jika pengembang mengaktifkan Greeting message pada Channel settings, maka pengembang dapat mengatur greeting message yang akan dikirim ke user saat pertama kali menambahkan bot sebagai teman. Pengembang dapat melakukannya juga dengan program melalui follow webhook event.
+
+\item Mengatur auto reply message
+
+Jika pengembang mengaktifkan "Auto reply message" pada Channel settings, maka pengembang dapat mengatur pesan balasan otomatis setiap user mengirimkan pesan ke bot.
+\end{enumerate}
