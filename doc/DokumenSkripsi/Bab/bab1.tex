@@ -4,25 +4,23 @@
    
 \section{Latar Belakang}
 \label{sec:latarBelakang}
-Pengumuman di jurusan Teknik Informatika UNPAR pada umumnya dilakukan oleh email. Pengumuman lewat email ini praktis karena tidak perlu menunggu sampai email sampai ke tujuan dan dijamin sampai ke tujuan. Selain itu, konten yang disampaikan melalui email fleksibel. Konten tidak harus hanya tulisan tapi dapat menambahkan lampiran, mengubah gaya tulisan dan lain-lain.
+Pengumuman di jurusan Teknik Informatika UNPAR pada umumnya dilakukan lewat email. Pengumuman lewat email ini praktis karena tidak perlu menunggu email sampai ke tujuan dan dijamin sampai ke tujuan. Selain itu, konten yang disampaikan melalui email fleksibel. Konten tidak harus hanya tulisan tapi dapat ditambah dengan lampiran, dapat diubah gaya tulisannya, dan lain-lain. Namun, email kurang terorganisir dengan baik. Email yang masuk sering tercampur dengan email lain sehingga mahasiswa kesulitan mencari email yang penting. Dampaknya, pengumuman-pengumuman penting sering tidak terbaca secara tidak sengaja.
 
-Namun, email kurang terorganisir dengan baik. Email yang masuk sering tercampur dengan email lain sehingga mahasiswa kesulitan mencari email yang penting. Dampaknya, pengumuman-pengumuman penting sering tidak terbaca secara tidak sengaja.
+Pada skripsi ini, akan dibuat solusi masalah tadi dengan membangun suatu fitur. Fitur ini akan menangkap email-email pengumuman yang masuk ke sebuah email khusus untuk menangkap pengumuman. Pertama, email yang masuk ke email khusus akan diperiksa pengirimnya. Apabila pengirim adalah email yang terdaftar sebagai email yang berhak melakukan pengumuman, maka email tersebut adalah email pengumuman. Setelah itu, email tersebut akan dibuatkan permanent link dan disisipkan pada basis data. Lalu, mahasiswa akan menerima permanent link tersebut melalui notifikasi dari akun Line@. Line@ adalah layanan dari Line Corporation yang memudahkan pemilik bisnis atau organisasi menyampaikan pesan kepada pengikutnya melalui perangkat lunak pengirim pesan LINE.
 
-Pada skripsi ini, akan dibuat solusi masalah tadi dengan membuat suatu fitur. Fitur ini akan menangkap email-email pengumuman yang masuk ke sebuah email khusus untuk menangkap pengumuman. Pertama email yang masuk ke email khusus akan diperiksa pengirimnya. Apabila pengirim adalah email yang terdaftar sebagai email yang berhak melakukan pengumuman maka email tersebut adalah email pengumuman. Setelah itu email tersebut akan dibuatkan permanent link dan disisipkan pada basis data. Lalu, mahasiswa akan menerima permanent link tersebut melalui notifikasi dari akun Line@. Line@ adalah layanan dari Line Corporation yang memudahkan pemilik bisnis atau organisasi menyampaikan pesan kepada pengikutnya di aplikasi pengirim pesan Line.
-
-Fitur ini akan dibangun sebagai fitur tambahan pada BlueTape, sebuah website milik jurusan teknik Informatika Unpar. Pembangunan fitur ini membutuhkan modifikasi BlueTape sehingga dapat dijalankan di Heroku dan menggunakan basis data PostgreSQL. Heroku adalah layanan yang memungkinkan pengembang membangun, menjalankan, dan mengoperasikan aplikasi di dalam internet. Selain itu, sistem ini membutuhkan beberapa fitur dari PHP IMAP dan layanan pengirim pesan instan Line@.
+Fitur ini akan dibangun sebagai fitur tambahan pada BlueTape, sebuah website milik jurusan teknik Informatika Unpar. Pembangunan fitur ini membutuhkan modifikasi BlueTape sehingga dapat dijalankan di Heroku dan menggunakan basis data PostgreSQL. Heroku adalah layanan yang memungkinkan pengembang membangun, menjalankan, dan mengoperasikan perangkat lunak di dalam internet. Selain itu, sistem ini membutuhkan beberapa fitur dari PHP IMAP dan layanan pengirim pesan LINE.
 
 \section{Rumusan Masalah}
 \label{sec:rumusanmasalah}
 \begin{itemize}
-\item Bagaimana cara mengubah BlueTape agar dapat mendukung fitur kolektor pengumuman dengan bantuan Heroku dan PostgreSQL ?
+\item Bagaimana cara memodifikasi BlueTape agar fitur kolektor pengumuman dapat diimplementasikan dengan bantuan Heroku dan PostgreSQL ?
 \item Bagaimana cara mengimplementasikan kolektor pengumuman pada BlueTape ?
 \end{itemize}
 
 \section{Tujuan}
 \label{sec:tujuan}
 \begin{itemize}
-\item Melakukan perawatan pada BlueTape agar dapat mendukung fitur kolektor pengumuman dengan bantuan Heroku dan PostgreSQL
+\item Melakukan perawatan pada BlueTape agar fitur kolektor pengumuman dapat diimplementasikan dengan bantuan Heroku dan PostgreSQL
 \item Mengimplementasikan fitur kolektor pengumuman pada BlueTape
 \end{itemize}
 
@@ -30,7 +28,7 @@ Fitur ini akan dibangun sebagai fitur tambahan pada BlueTape, sebuah website mil
 \label{sec:batasan}
 Pada skripsi ini masalah dibatasi dengan batasan-batasan sebagai berikut :
 \begin{itemize}
-\item Fitur ini tidak mendukung mengunduh lampiran langsung dari BlueTape karena memerlukan biaya dan lebih kompleks
+\item Fitur ini tidak mendukung pengunduhan lampiran dari BlueTape karena memerlukan biaya dan lebih kompleks
 \end{itemize}
 
 \section{Metodologi}
@@ -49,15 +47,27 @@ Metode penelitian pada skripsi ini sebagai berikut :
 \label{sec:sispem}
 \begin{enumerate}
 \item Bab 1 : Pendahuluan
+
 Bab ini membahas gambaran umum dari skripsi.
+
 \item Bab 2 : Dasar Teori
+
 Bab ini membahas dasar teori yang mendukung pembuatan skripsi ini.
+
 \item Bab 3 : Analisis
+
 Bab ini membahas analisis yang dilakukan terhadap masalah yang diusung dalam skripsi ini.
+
 \item Bab 4 : Perancangan
+
 Bab ini membahas perancangan sistem yang dibangun pada skripsi ini.
+
 \item Bab 5 : Implementasi dan Pengujian
+
 Bab ini membahas hasil implementasi yang dilakukan beserta pengujian sistem.
+
 \item Bab 6 : Kesimpulan dan saran
+
 Bab ini berisi kesimpulan yang didapat dari penelitian dan saran oleh penulis kepada pembaca yang hendak melanjutkan penelitian ini. 
+
 \end{enumerate}
