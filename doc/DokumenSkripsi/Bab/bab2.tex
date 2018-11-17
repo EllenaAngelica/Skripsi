@@ -18,9 +18,8 @@
 %2.1 BlueTape
 \section{\textit{BlueTape}}
 \label{sec:BlueTape}
-\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Perangkat lunak ini berbasis web dengan memanfaatkan \textit{CodeIgniter} dan \textit{ZURB Foundation}. Saat skripsi ini ditulis, perangkat lunak BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen untuk merekam dan menampilkan jadwal dosen. \footnotemark
+\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Perangkat lunak ini berbasis web dengan memanfaatkan \textit{CodeIgniter} dan \textit{ZURB Foundation}. Saat skripsi ini ditulis, perangkat lunak BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen memberikan layanan untuk merekam dan menampilkan jadwal dosen. \footnotemark
 \footnotetext{https://github.com/ftisunpar/BlueTape}
-
 
 
 %2.2 Heroku
@@ -29,28 +28,35 @@
 Heroku adalah \textit{platform cloud} yang memungkinkan pengembang untuk membangun, menjalankan, dan mengoperasikan perangkat lunak pada \textit{cloud}. Heroku mendukung beberapa bahasa pemrograman, meliputi : Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP. 
 
 \subsection{Arsitektur Heroku}
-Heroku memungkinkan seorang pengembang untuk menyebarkan (\textit{deploy}), menjalankan (\textit{run}), dan mengelola (\textit{manage}) perangkat lunak yang ditulis di dalam bahasa Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP. Heroku mendefinisikan perangkat lunak sebagai gabungan dari \textit{source code} yang ditulis di dalam salah satu bahasa ini (dapat berupa \textit{framework}), deskripsi dependensi yang dipakai, dan Procfile (jika diperlukan).
+Heroku memungkinkan seorang pengembang untuk melakukan \textit{deploy} (menyebarkan), \textit{run} (menjalankan), dan \textit{manage} (mengelola) kepada perangkat lunak yang ditulis di dalam bahasa yang didukung oleh Heroku. Heroku mendefinisikan perangkat lunak sebagai gabungan dari \textit{source code} yang ditulis di dalam salah satu bahasa yang didukung Heroku (dapat berupa \textit{framework}), deskripsi dependensi yang dipakai, dan Procfile (jika diperlukan).
 
 \subsubsection{Dependensi}
 Pengembang perlu mendeskripsikan dependensi tambahan yang diperlukan agar perangkat lunak dapat dibangun dan dijalankan. Aturan penulisan deskripsi dependensi berbeda-beda untuk tiap bahasa. Contohnya pada bahasa Ruby deskripsi dependensi dituliskan dalam dokumen \texttt{Gemfile}, pada bahasa Python ditulis di dokumen \texttt{requirements.txt}, pada bahasa Node.js ditulis di dokumen \texttt{package.json}, pada bahasa Java ditulis di dokumen \texttt{pom.xml}, dan seterusnya.
 
-\subsubsection{Tipe Proses (Proccess Type)}
-Di dalam perangkat lunak web, terdapat dua atau lebih titik masuk. Itu artinya ada dua atau lebih perintah untuk menjalankan perangkat lunak. Setiap titik masuk ini disebut tipe proses (\texttt{process type}). Tipe proses berbeda untuk tiap perangkat lunak.
+\subsubsection{Tipe Proses}
+Perangkat lunak web biasanya terdapat dua atau lebih titik masuk. Setiap titik masuk ini disebut tipe proses (\texttt{process type}). Tipe proses berbeda untuk tiap perangkat lunak.
 
-Tipe proses dapat berupa web server dari perangkat lunak, berbagai tipe \textit{worker process}, \textit{singleton process} (contoh : clock), dan tugas yang harus dijalankan sebelum sebuah release disebar. Di antara beragam tipe proses tersebut, ada dua tipe proses spesial : tipe proses \texttt{web} dan \texttt{release}. Tipe proses \texttt{web} adalah satu-satunya tipe proses yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah perangkat lunak melibatkan web server, pengembang harus menyatakannya sebagai proses \texttt{web}. Tipe proses \texttt{release} adalah tipe proses yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
-
-Tipe proses dan dyno saling berhubungan. Tipe proses adalah prototipe yang menjadi tempat dimana dyno dibentuk. Semakin banyak dyno pada suatu tipe proses maka konkurensi untuk pekerjaan yang ditangani tipe proses tersebut akan meningkat. Semakin banyak tipe proses maka semakin beragam beban kerja.
+Ada tiga kelompok tipe proses : tipe proses \texttt{web}, tipe proses \texttt{worker}, dan tipe proses \texttt{singleton}. Di antara beragam tipe proses, ada dua tipe proses spesial : tipe proses \texttt{web} dan \texttt{release}. Tipe proses \texttt{web} adalah satu-satunya tipe proses yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah perangkat lunak melibatkan web server, pengembang harus menyatakannya sebagai proses \texttt{web}. Tipe proses \texttt{release} adalah tipe proses yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
 
 Setiap tipe proses memiliki spesialisasinya sediri pada jenis pekerjaan tertentu. Misalnya, sebuah perangkat lunak memiliki dua jenis pekerja : pekerja untuk pekerjaan yang mendesak dan pekerja untuk pekerjaan yang berlangsung dengan lama. Dengan melakukan pembagian seperti itu, pekerjaan yang mendesak lebih cepat tertangani. Selain itu, penggunaan sumber daya lebih mudah dikontrol dan dikalkulasi.
+
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{process-type-dyno-relationship.jpg}  
+	\caption[Diagram hubungan antara tipe proses dan dyno]{Diagram hubungan antara tipe proses dan dyno} 
+	\label{fig:process-type-dyno-relationship} 
+\end{figure}
+
+Tipe proses dan dyno saling berhubungan. Tipe proses adalah prototipe yang menjadi tempat dimana dyno dibentuk. Hubungan tipe proses dan dyno dapat dilihat di diagram pada Gambar~\ref{fig:process-type-dyno-relationship}. Sumbu x menyatakan tipe proses yang dipakai, sementara sumbu y menyatakan jumlah dyno yang berjalan pada tipe proses tersebut. Semakin banyak dyno pada suatu tipe proses maka konkurensi untuk pekerjaan yang ditangani tipe proses tersebut akan meningkat. Semakin banyak tipe proses maka semakin beragam beban kerja.
 
 Untuk mengatur berapa banyak dyno yang bekerja di suatu proses, perintah yang dibutuhkan adalah \texttt{heroku ps:scale} diikuti dengan daftar pasangan tipe proses dengan jumlah dyno yang ditugaskan untuk proses tersebut. Contoh :
 \begin{lstlisting}
 
-	heroku ps:scale web=2 worker=4 clock=1
+	$ heroku ps:scale web=2 worker=4 clock=1
 	
 \end{lstlisting}
 
-Selain dapat mengatur jumlah dyno yang ditugaskan pada suatu pekerjaan, jangka waktu pekerjaan itu dilakukan juga dapat diatur. Caranya dengan menggunakan add-on Heroku Scheduler atau menggunakan tipe proses khusus untuk mengatur jadwal pekerjaan.
+Selain dapat mengatur jumlah dyno yang ditugaskan pada suatu pekerjaan, pengembang dapat menjadwalkan proses yang berjalan pada suatu waktu atau jangka waktu tertentu. Caranya dengan menggunakan add-on Heroku Scheduler atau menggunakan tipe proses khusus untuk mengatur jadwal pekerjaan.
 
 \subsubsection{Procfile}
 Pengembang perlu memberitahu Heroku bagian perangkat lunak yang dapat dijalankan. Jika pengembang menggunakan framework yang sudah ada, Heroku dapat mencari tahu. Contohnya, di dalam Ruby pada Rails, biasanya \texttt{rails server}, di dalam Django adalah \texttt{python <app>/manage.py runserver} dan di dalam Node.js adalah \texttt{main} field di dalam \texttt{package.json}. Untuk perangkat lunak lain, pengembang mungkin perlu untuk secara eksplisit menyatakan apa yang harus dieksekusi. Caranya dengan menyertakan sebuah dokumen teks bernama Procfile. 
@@ -69,41 +75,187 @@ Isi dari Procfile adalah satu atau lebih baris yang menyatakan sebuah tipe prose
 	web: java -jar lib/foobar.jar \textdollar PORT
 
 \end{lstlisting}
-Pada contoh, \texttt{web} merupakan \texttt{<process type>}, sedangkan \texttt{web: java -jar lib/foobar.jar \textdollar PORT} adalah perintah yang harus dijalankan pada saat startup.
+Pada contoh, \texttt{web} merupakan \texttt{<process type>}, sedangkan \texttt{web: java -jar lib/foobar.jar \textdollar PORT} adalah perintah yang harus dijalankan agar tipe proses tersebut berjalan. Perintah tersebut berfungsi untuk menyalakan web server.
 
-Heroku adalah polyglot platform : Heroku memungkinkan Anda membangun, menjalankan, dan mengatur perangkat lunak di cara yang serupa dalam segala bahasa pemrograman - menggunakan dependensi dan Procfile. Procfile menyingkap aspek arsitektur dari perangkat lunak dan arsitektur ini memungkinkan pengembang, contohnya, mengatur setiap bagian secara independen. Namun, membuat Procfile tidak wajib untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat tipe proses \texttt{web} untuk menjalankan server perangkat lunak. Apabila perangkat lunak menggunakan \texttt{heroku.yml} sebagai build manifest, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile.
+Heroku adalah polyglot platform : Heroku memungkinkan Anda membangun, menjalankan, dan mengatur perangkat lunak di cara yang serupa dalam segala bahasa pemrograman - menggunakan dependensi dan Procfile. Procfile menyingkap aspek arsitektur dari perangkat lunak dan arsitektur ini memungkinkan pengembang, contohnya, mengatur setiap bagian secara independen. Namun, membuat Procfile tidak wajib untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat tipe proses \texttt{web} untuk menjalankan server perangkat lunak. Apabila perangkat lunak menggunakan \texttt{heroku.yml} sebagai build manifest, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile (kecuali tipe proses release).
 
-\subsubsection{Deploy Perangkat Lunak}
-Heroku menggunakan Git sebagai sarana  utama untuk melakukan deploy perangkat lunak. Deploy disini adalah proses penyebaran perangkat lunak dari satu lingkungan ke lingkungan lain, misalnya dari lingkungan mesin pengembang perangkat lunak ke lingkungan heroku. Sedangkan Git adalah sistem version control terdistribusi yang kuat yang digunakan banyak pengembang untuk mengelola dan menerjemahkan source code (https://git-scm.com/). Heroku juga menyediakan cara lain untuk melakukan deploy, seperti dengan menggunakan GitHub integration atau Heroku API.  
+\subsubsection{Dyno}
+Heroku mengeksekusi perangkat lunak dengan menjalankan perintah yang telah ditulis di dalam Procfile. Heroku akan menjalankan dyno yang telah dimuat dengan slug yang telah disiapkan. Dyno adalah wadah perangkat lunak berbasis Unix yang terisolasi, tervirtualisasi, dan menyediakan lingkungan yang dibutuhkan untuk menjalankan suatu perangkat lunak. Umumnya, jika perangkat lunak di-\textit{deploy} ke Heroku untuk pertama kali, Heroku akan menjalankan satu web dyno secara otomatis.
 
-Ketika perangkat lunak baru dibuat di Heroku, Heroku secara otomatis membuat Git remote baru. Heroku secara otomatis menamainya \texttt{Heroku}, namun pengembang dapat menggantinya. Git remote ini terhubung dengan perangkat lunak tersebut dan berfungsi sebagai alamat yang digunakan saat melakukan deploy. Sehingga apabila pengembang ingin melakukan deploy, maka pengembang hanya perlu melakukan \texttt{git push} diikuti dengan nama remote dan nama branch repository. Contoh :
+Setiap dyno termasuk dalam salah satu dari konfigurasi berikut :
+\begin{itemize}
+\item Web dyno
+
+Web dyno adalah dyno dari tipe proses "web" yang disebutkan di dalam Procfile. Web dyno adalah satu-satunya dyno yang dapat menerima arus HTTP dari router Heroku.
+
+\item Worker dyno
+
+Worker dyno adalah dyno dari tipe proses apapun selain "web" yang disebutkan di dalam Procfile. Worker dyno biasanya digunakan untuk pekerjaan di latar belakang, sistem antrian, dan pekerjaan yang memiliki jangka waktu.
+\item One-off dyno
+
+One-off dyno adalah dyno yang bersifat sementara yang dapat berjalan terpisah atau dengan masukan/keluaran dari terminal lokal. Dyno ini dapat digunakan untuk tugas yang bersifat administratif, seperti migrasi basis data dan sesi konsol. Dyno ini juga dapat digunakan untuk melakukan pekerjaan di latar belakang yang bersifat sesekali, seperti Heroku Scheduler.
+
+\end{itemize}. 
+
+Heroku menyediakan beberapa tipe dyno yang berbeda. Tiap dyno memiliki sifat yang unik dan kinerja yang berbeda. Untuk semua pengguna Heroku, tersedia pilihan dyno tipe Free, Hobby, Standard, dan Performance. Ada satu tipe dyno lagi, yaitu tipe Private. Dyno tipe Private hanya tersedia di Heroku Enterpise yang diperuntukkan untuk organisasi.
+
+Dyno dapat diskala secara horizontal dan vertikal. Untuk melakukan skala secara horizontal, tambahkan lebih banyak dyno. Contohnya, menambah web dyno agar dapat menangani arus yang lebih besar. Untuk menskala secara vertikal, gunakan dyno yang lebih besar. Dyno yang lebih besar berarti jumlah pemakaian memori RAM yang lebih besar. Jumlah RAM maksimal yang tersedia untuk perangkat lunak tergantung dari tipe dyno yang digunakan. Penskalaan secara horizontal dan vertikal ini adalah fitur dari dyno profesional, dan tidak tersedia untuk dyno tipe free dan hobby.
+
+Perangkat lunak dengan banyak dyno yang berjalan akan memiliki resiko kegagalan yang lebih rendah daripada yang sedikit. Jika ada dyno yang hilang, perangkat lunak dapat terus memproses permintaan sementara dyno yang hilang diganti. Dyno yang hilang biasanya langsung dimulai ulang, tapi terkadang membutuhkan waktu yang lama.
+
+Semua dyno terisolasi dari dyno lain untuk alasan keamanan. Walaupun dyno tipe Free, Hobby, dan Standard terisolasi, dyno mungkin berbagi komputasi dasar yang sama. Heroku memiliki teknik tersendiri untuk memastikan penggunaannya adil. Di sisi lain, dyno tipe Performance dan Private tidak berbagi komputasi dasar yang sama dengan dyno lain. Hal ini membuat dyno tipe Performance dan Private memiliki kinerja yang lebih stabil dibanding dengan dyno tipe Free, Hobby, dan Standard. Selain memiliki sumber daya komputasi yang dikhususkan untuknya, Private dyno juga memiliki jaringan virtual yang terisolasi.
+
+Tiap dyno memiliki sistem dokumen ephemeral, dengan salinan kode dari hasil deploy terbaru. Saat masa hidup dyno, proses yang dijalankannya dapat menggunakan sistem dokumen ini sebagai tempat menulis sementara. Namun, dokumen yang ditulis tidak dapat dilihat oleh proses dari dyno lain dan dokumen yang ditulis akan dihapus saat dyno berhenti bekerja atau dimulai ulang.
+
+Tiap dyno memiliki antarmuka jaringannya sendiri. Konfigurasi dari jaringan bergantung pada tipe Runtime yang dipakai. Ada dua tipe Runtime : Common Runtime dan Private Space Runtime. 
+
+Common Runtime menyediakan isolasi yang kuat dengan menghalangi tiap dyno dari dyno lainnya. Pada runtime ini, hanya web dyno yang dapat mendengarkan angka yang disebutkan di variabel \texttt{\textdollar PORT} dan melakukan inbound request. Tiap dyno pada runtime ini memiliki IP atau subnet sendiri. Semua tipe dyno dapat membuat outbound request ke layanan yang bekerja di tempat lain selama terkoneksi ke internet. Namun, alamat IP asal untuk permintaan ini tidak dapat dikontrol oleh pengguna.
+
+Private Space Runtime menghubungkan dyno lewat jaringan virtual privat yang dikonfigurasi sebagai bagian dari suatu ruang. Pada runtime ini, dyno jenis apapun dapat mendengarkan \texttt{\textdollar PORT} dan menerima koneksi dari dyno lain pada jaringan privat. Runtime ini memungkinkan penggunaan Trusted IP Ranges untuk mengontrol IP klien yang dapat berkomunikasi dengan perangkat lunak dalam Private Space. Outbound request ke layanan internet dilakukan melalui NAT gateway untuk memastikan koneksi asal berasal dari kumpulan alamat IP outbound yang stabil.
+
+\subsubsection{Dyno manager}
+Dyno manager adalah bagian dari Heroku yang bertanggungjawab untuk menjaga dyno tetap berjalan. Dyno manager melakukan pekerjaan seperti memastikan dyno didaur ulang setidaknya satu kali sehari atau setiap dyno manager mendeteksi kesalahan di dalam perangkat lunak yang berjalan. Daur ulang dyno ini berlangsung secara transparan dan otomatis secara teratur dan tercatat.
+
+Perangkat lunak yang menggunakan dyno tipe Free akan masuk mode sleep (tidur) jika tidak ada arus HTTP selama jangka waktu 30 menit. Ketika perangkat lunak yang tidur menerima arus HTTP, maka perangkat lunak tersebut akan terbangun. Hal ini menyebabkan perangkat lunak lebih lambat beberapa detik dari perangkat lunak yang menggunakan dyno tipe lain. Dyno tipe lain tidak memiliki mode sleep, dan akan selalu terjaga.
+
+\subsubsection{Config vars}
+Konfigurasi perangkat lunak dapat berubah-ubah tergantung lingkungannya. Misalnya, konfigurasi perangkat lunak saat pengembangan dapat berbeda saat perangkat lunak siap dirilis ke penggunanya. Konfigurasi perangkat lunak dapat berupa informasi database, informasi kredensial, atau informasi lain yang bersifat spesifik pada perangkat lunak. Konfigurasi ini harus diletakkan pada environment variable, bukan di source code. Dengan menggunakan environment variable, konfigurasi dapat diubah secara terpisah. Selain itu, konfigurasi yang bersifat kredensial dapat terhindar dari tersimpan pada \textit{version control} (pengontrol versi, contoh : Git).
+
+Heroku memungkinkan pengembang untuk menjalankan perangkat lunak dengan konfigurasi yang dapat diubah dengan mudah. Konfigurasi tersebut diletakkan di luar dari source code perangkat lunak. Konfigurasi dapat diubah secara independen tanpa harus mengubah source code. Konfigurasi tersebut disimpan di dalam config vars.
+
+Untuk mengatur config vars ada tiga cara : 
+\begin{itemize}
+\item Menggunakan Heroku CLI
+
+Config var diatur menggunakan command shell. Berikut perintah-perintah untuk mengatur config var menggunakan Heroku CLI:
+\begin{itemize}
+\item Menampilkan seluruh config var beserta nilainya : 
+
 \begin{lstlisting}
 
-	$ git push heroku master
-	
+	$ heroku config
+
 \end{lstlisting}
 
-\subsubsection{Membangun Perangkat Lunak}
-Ketika platform Heroku menerima source code perangkat lunak, heroku akan memulai pembangunan (build) berdasarkan source code. Mekanisme build biasanya tergantung bahasa pemrograman yang dipakai, tapi mengikuti pola yang sama. Mekanisme build biasanya mengambil dependensi yang ditentukan, dan menciptakan aset yang diperlukan. Contohnya, perangkat lunak Java mungkin mengambil dependensi library biner menggunakan Maven, mengompilasinya, lalu menghasilkan dokumen JAR untuk dieksekusi.
+\item Menampilkan nilai dari config var tertentu 
+\begin{lstlisting}
 
-Source code untuk perangkat lunak, dependensi yang diraih, dan hasil dari fase build digabungkan ke dalam slug. Slug adalah gabungan dari source code, dependensi yang diambil, language runtime, dan hasil kompilasi atau keluaran yang dihasilkan oleh sistem build yang siap untuk dieksekusi. Slug ini adalah aspek dasar dari eksekusi perangkat lunak. Slug berisi perangkat lunak yang sudah dikompilasi, digabungkan, dan siap untuk dijalankan.
+	$ heroku config : get <config var>
 
-Di belakang proses kompilasi slug terdapat buildpack. Buildpack mengambil perangkat lunak, dependensi, dan language runtime dan kemudian menghasilkan slug. Buildpack bersifat open source, sehingga memungkinkan pengembang memperluas Heroku ke bahasa pemrograman lain dan framework.
+\end{lstlisting}
+dimana \texttt{config var} adalah nama config var
+
+\item Menambah config var
+
+\begin{lstlisting}
+
+	$ heroku config : set <config var> = <config value>
+
+\end{lstlisting}
+dimana \texttt{config var} adalah nama config var dan \texttt{config value} adalah nilai dari config var tersebut
+
+\item Menghapus config var
+
+\begin{lstlisting}
+
+	$ heroku config : unset <config var>
+
+\end{lstlisting}
+dimana \texttt{config var} adalah nama config var
+
+\end{itemize}
+
+\item Menggunakan Heroku Dashboard
+
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{bluetape-config-vars-example.png}  
+	\caption[Config vars pada dashboard Heroku]{Config vars pada dashboard Heroku} 
+	\label{fig:bluetape-config-vars-example} 
+\end{figure}
+
+Config var dapat dilihat, ditambah, dan dihapus melalui menu \texttt{Settings} bagian config vars (Gambar~\ref{fig:bluetape-config-vars-example}).
+
+\item Menggunakan Heroku Platform API
+
+Config var dapat diatur dengan Heroku Platform API menggunakan HTTPS REST client sederhana dan data struktur data JSON. Pengembang perlu Heroku \textit{access token} yang valid yang mewakili pengguna dengan izin yang tepat untuk perangkat lunak.
+You need a valid Heroku access token representing a user with proper permissions on the app.
+
+\end{itemize}
+
+Config vars akan diperlakukan sebagai environment variable oleh program. Contohnya, environment variable dapat diakses dengan getEnv() pada program dengan bahasa PHP.
+ 
+Dalam mengatur config var, ada beberapa hal yang harus diperhatikan :
+\begin{itemize}
+\item Setiap config var ditambah atau dihapus, perangkat lunak akan dimulai ulang dan release baru akan dibuat.
+\item Jika perangkat lunak menggunakan add-on, biasanya add-on tersebut akan menambahkan satu atau lebih config var ke perangkat lunak. Nilai dari config var tersebut mungkin diperbarui oleh penyedia add-on kapan saja.
+\item Config var data (kombinasi dari semua kunci dan nilainya) tidak dapat melebihi 32kb per perangkat lunak
+\item Nama config var tidak boleh diawali dengan garis bawah dua kali (\texttt{\_\_}).
+\item Nama config var tidak bisa diawali dengan \texttt{HEROKU\_}, kecuali ditambahkan oleh platform Heroku sendiri.
+\end{itemize}
+
+\subsubsection{Add-ons}
+Perangkat lunak biasanya memanfaatkan add-ons untuk menyediakan layanan penyokong seperti basis data, sistem antrean, layanan email, dan lainnya. Add-ons disediakan oleh Heroku atau pihak ketiga. Pengembang dapat mencari add-ons di Elements Marketplace (\url{https://elements.heroku.com/addons}). 
+
+Menambah add-ons selain add-ons Heroku Postgres dan Heroku Connect membutuhkan verifikasi akun. Pengembang dapat menambah add-ons melalui tombol Install di Elements Marketplace atau dengan mengetikkan perintah berikut pada command shell :
+\begin{lstlisting}
+
+	$ heroku addons:create <nama addons>:<tipe addons>
+
+\end{lstlisting}
+Contoh :
+\begin{lstlisting}
+
+	$ heroku addons:create heroku-redis:hobby-dev
+
+\end{lstlisting}
+
+\subsubsection{Slug}
+Ketika platform Heroku menerima source code perangkat lunak, heroku akan memulai proses \textit{build} (pembangunan) berdasarkan source code. Mekanisme build biasanya tergantung bahasa pemrograman yang dipakai, tapi mengikuti pola yang sama. Mekanisme build biasanya mengambil dependensi yang ditentukan, dan menciptakan aset yang diperlukan. Source code untuk perangkat lunak, dependensi yang diraih, dan hasil dari fase build digabungkan ke dalam slug. 
+
+Slug adalah gabungan dari source code, dependensi yang diambil, language runtime, dan hasil kompilasi atau keluaran yang dihasilkan oleh sistem build yang siap untuk dieksekusi. Slug ini adalah aspek dasar dari eksekusi perangkat lunak. Slug berisi perangkat lunak yang sudah dikompilasi, digabungkan, dan siap untuk dijalankan.
+
+Slug dikompilasi oleh slug compiler menggunakan buildpack. Buildpack akan mengambil perangkat lunak, dependensi, dan language runtime dan kemudian menghasilkan slug. Buildpack bersifat open source, sehingga memungkinkan pengembang memperluas Heroku ke bahasa pemrograman lain dan framework.
+
+Apabila ada dokumen yang tidak diperlukan untuk menjalankan perangkat lunak, pengembang dapat menambahkannya ke \texttt{.slugignore}. Dokumen ini harus dibuat di direktori root. Contoh dokumen yang mungkin ingin dimasukkan ke \texttt{.slugignore} :
+\begin{itemize}
+\item Dokumen pengolah gambar (contoh : dokumen .psd)
+\item Dokumen desain (contoh : dokumen .pdf)
+\item Data untuk pengujian
+\end{itemize}
+
+Contoh isi \texttt{.slugignore} :
+\begin{lstlisting}
+# Heres a comment
+*.psd
+*.pdf
+/test
+/spec
+\end{lstlisting}
+
+Ukuran slug dapat terlihat di akhir kompilasi (apabila kompilasi berhasil). Maksimum ukuran slug adalah 500 MB. Ukuran slug bervariasi berdasarkan bahasa atau framework yang digunakan, banyak dependensi yang ditammbahkan, dan faktor lain dari perangkat luank. Slug yang ukurannya lebih kecil dapat ditransfer ke dyno manager dengan lebih cepat.
 
 \subsubsection{Buildpack}
 Buildpack bertanggung jawab untuk mengubah source code menjadi slug, sehingga dyno dapat mengeksekusinya. Buildpack terdiri dari sekumpulan script yang ditulis dalam bahasa pemrograman yang sama dengan source code. Script tersebut akan mengambil dependensi, mengeluarkan aset atau kode yang sudah dikompilasi, dan sebagainya. Keluaran ini akan digabungkan ke dalam slug oleh slug compiler.
 
-% Gambar tabel buildpack (https://devcenter.heroku.com/articles/buildpacks)
+Heroku memiliki sekumpulan \textit{officially supported buildpack} yang tersedia secara default untuk semua perangkat lunak Heroku selama kompilasi slug. Daftar \textit{officially supported buildpack} terdapat pada Gambar~\ref{fig:heroku-buildpack-table}. Kolom Buildpack menyatakan nama buildpack dan kolom shorthand menyatakan nama panggil buildpack saat di CLI.
+
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{heroku-buildpack-table.png}  
+	\caption[Tabel buildpack heroku]{Tabel buildpack heroku} 
+	\label{fig:heroku-buildpack-table} 
+\end{figure}
 
 Heroku akan mencari buildpack yang sesuai dan menggunakannya untuk mengompilasi perangkat lunak. Jika build sukses, buildpack yang sudah terdeteksi sesuai akan secara permanen diatur untuk push selanjutnya. Buildpack yang telah dimodifikasi dapat dipakai untuk mendukung bahasa atau framework yang tidak dapat di cakup oleh buildpack resmi.
 
-Buildpack yang digunakan dapat diubah dengan mengatur nilai buildpack. Caranya dengan mengetikkan perintah ini pada command shell :
+Buildpack yang digunakan dapat diubah dengan mengatur nilai buildpack. Caranya dengan mengetikkan perintah berikut pada command shell :
 \begin{lstlisting}
 
 	$ heroku buildpacks:set <nama buildpack>
 	
 \end{lstlisting}
-<nama buildpack> adalah nama buildpack yang ingin dipakai, contoh : \texttt{heroku/php}. Buildpack baru akan digunakan saat push berikutnya. 
+<nama buildpack> adalah nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}. Buildpack baru akan digunakan saat push berikutnya. 
 
 Apabila pengembang ingin mengatur buildpack yang dipakai saat perangkat lunak pertama kali dibuat, maka dapat menggunakan perintah ini :
 \begin{lstlisting}
@@ -111,7 +263,7 @@ Apabila pengembang ingin mengatur buildpack yang dipakai saat perangkat lunak pe
 	$ heroku create myapp --buildpack <nama buildpack>
 	
 \end{lstlisting}
-<nama buildpack> adalah nama buildpack yang ingin dipakai.
+<nama buildpack> adalah nama panggil buildpack yang ingin dipakai.
 
 Buildpack juga dapat secara eksplisit diatur di dalam app.json sehingga perangkat lunak yang dibuat menggunakan tombol Heroku dapat menggunakan buildpack yang telah dimodifikasi.
 
@@ -121,9 +273,9 @@ Apabila pengembang ingin menghilangkan buildpack dari perangkat lunak, pengemban
 	$ heroku buildpacks:remove <nama buildpack>
 	
 \end{lstlisting}
-<nama buildpack> adalah nama buildpack yang ingin dipakai. Hal yang harus diperhatikan adalah jika buildpack tidak ada, maka proses mendeteksi buildpack yang sesuai akan dijalankan lagi saat push berikutnya.
+<nama buildpack> adalah nama panggil buildpack yang ingin dipakai. Hal yang harus diperhatikan adalah jika buildpack tidak ada, maka proses mendeteksi buildpack yang sesuai akan dijalankan lagi saat push berikutnya.
 
-Selain dapat menggunakan buildpack yang telah dimodifikasi, terdapat third-party buildpack tersedia di Element marketplace atau menggunakan CLI. Pada CLI, ketikkan perintah :
+Selain dapat menggunakan buildpack yang telah dimodifikasi, terdapat third-party buildpack (buildpack buatan pihak ketiga) yang tersedia di Element marketplace atau menggunakan CLI. Pada CLI, ketikkan perintah :
 \begin{lstlisting}
 
 	$ heroku buildpacks:search <kata kunci>
@@ -135,7 +287,7 @@ Selain dapat menggunakan buildpack yang telah dimodifikasi, terdapat third-party
 	$ heroku buildpacks:info <kata kunci>
 	
 \end{lstlisting}
-<nama buildpack> adalah nama buildpack yang ingin dipakai. Dengan perintah tersebut, informasi seperti deskripsi, kategori, lisensi, source, dan informasi lainnya dapat dilihat.
+<nama buildpack> adalah nama panggil buildpack yang ingin dipakai. Dengan perintah tersebut, informasi seperti deskripsi, kategori, lisensi, source, dan informasi lainnya dapat dilihat.
 
 Apabila pengembang ingin mengembalikan perangkat lunak ke buildpack awalnya, maka pengembang dapat mengetikkan perintah :
 \begin{lstlisting}
@@ -157,7 +309,7 @@ Pengembang dapat menentukan buildpack-buildpack yang diperlukan perangkat lunak 
 	$ heroku buildpacks:add --index <index> <nama buildpack>
 
 \end{lstlisting}
-<index> adalah urutan eksekusi buildpack, sedangkan <nama buildpack> adalah nama buildpack yang ingin dipakai.
+<index> adalah urutan eksekusi buildpack, sedangkan <nama buildpack> adalah nama panggil buildpack yang ingin dipakai.
 
 Untuk mengubah buildpack yang dipakai pada urutan eksekusi tertentu, pengembang dapat mengetikkan perintah :
 \begin{lstlisting}
@@ -165,7 +317,7 @@ Untuk mengubah buildpack yang dipakai pada urutan eksekusi tertentu, pengembang 
 	$ heroku buildpacks:set --index <index> <nama buildpack>
 	
 \end{lstlisting}
-<index> adalah urutan eksekusi buildpack, sedangkan <nama buildpack> adalah nama buildpack yang ingin dipakai.
+<index> adalah urutan eksekusi buildpack, sedangkan <nama buildpack> adalah nama panggil buildpack yang ingin dipakai.
 
 Untuk melihat daftar buildpack yang dipakai oleh perangkat lunak, ketikkan perintah :
 \begin{lstlisting}
@@ -182,118 +334,23 @@ Untuk melihat daftar perintah yang dapat digunakan untuk mengatur buildpack, pen
 
 \end{lstlisting}
 
-\subsubsection{Dyno}
-Heroku mengeksekusi perangkat lunak dengan menjalankan perintah yang telah ditulis di dalam Procfile. Heroku akan menjalankan dyno yang telah dimuat dengan slug yang telah disiapkan. Dyno adalah wadah perangkat lunak berbasis Unix yang terisolasi, tervirtualisasi, dan menyediakan lingkungan yang dibutuhkan untuk menjalankan suatu perangkat lunak. Umumnya, jika perangkat lunak di-deploy ke Heroku untuk pertama kali, Heroku akan menjalankan satu web dyno secara otomatis.
+\subsubsection{Stack}
+Stack adalah sistem operasi yang dikelola dan dipelihara oleh Heroku. Stack biasanya berlandaskan distribusi dari Linux yang ada, seperti Ubuntu. Pengembang dapat menentukan stack yang dipakai, dan buildpack akan mengubah source code menjadi paket yang dapat dieksekusi dengan stack tersebut. Saat skripsi ini dibuat, Heroku menyediakan tiga stack : Cedar-14, Heroku-16, dan Heroku-18. Cedar-14 berbasis Ubuntu 14.04 dan didukung sampai bulan April tahun 2019. Heroku-16 berbasis Ubuntu 16.04 dan didukung sampai bulan April tahun 2021. Heroku-18 berbasis Ubuntu 18.04 dan didukung sampai bulan April tahun 2023. Semua buildpack dari Heroku dapat bekerja dengan ketiga stack tersebut, namun buildpack yang merupakan hasil modifikasi belum tentu dapat bekerja dengan semua stack.
 
-Setiap dyno termasuk dalam salah satu dari konfigurasi berikut :
-\begin{itemize}
-\item Web : Web dyno adalah dyno dari tipe proses "web" yang disebutkan di dalam Procfile. Web dyno adalah satu-satunya dyno yang dapat menerima arus HTTP dari router Heroku.
-\item Worker : Worker dyno adalah dyno dari tipe proses apapun selain "web" yang disebutkan di dalam Procfile. Worker dyno biasanya digunakan untuk pekerjaan di latar belakang, sistem antrian, dan pekerjaan yang memiliki jangka waktu.
-\item One-off : One-off dyno adalah dyno yang bersifat sementara yang dapat berjalan terpisah atau dengan masukan/keluaran dari terminal lokal.
-\end{itemize}. Dyno ini dapat digunakan untuk tugas yang bersifat administratif, seperti migrasi basis data dan sesi konsol. Dyno ini juga dapat digunakan untuk melakukan pekerjaan di latar belakang yang bersifat sesekali, seperti Heroku Scheduler.
-
-Heroku menyediakan beberapa tipe dyno yang berbeda. Tiap dyno memiliki sifat yang unik dan kinerja yang berbeda. Untuk semua pengguna Heroku, tersedia pilihan dyno tipe Free, Hobby, Standard, dan Performance. Ada satu tipe dyno lagi, yaitu tipe Private. Dyno tipe Private hanya tersedia di Heroku Enterpise yang diperuntukkan untuk organisasi.
-
-Dyno dapat diskala secara horizontal dan vertikal. Untuk menskala secara horizontal, tambahkan lebih banyak dyno. Contohnya, menambah web dyno agar dapat menangani arus yang lebih besar. Untuk menskala secara vertikal, gunakan dyno yang lebih besar. Dyno yang lebih besar berarti jumlah pemakaian memori RAM yang lebih besar. Jumlah RAM maksimal yang tersedia untuk perangkat lunak tergantung dari tipe dyno yang digunakan. Penskalaan secara horizontal dan vertikal ini adalah fitur dari dyno profesional, dan tidak tersedia untuk dyno tipe free dan hobby.
-
-Perangkat lunak dengan banyak dyno yang berjalan akan memiliki resiko kegagalan yang lebih rendah daripada yang sedikit. Jika ada dyno yang hilang, perangkat lunak dapat terus memproses permintaan sementara dyno yang hilang diganti. Dyno yang hilang biasanya langsung dimulai ulang, tapi terkadang membutuhkan waktu yang lama.
-
-Semua dyno terisolasi dari dyno lain untuk alasan keamanan. Walaupun dyno tipe Free, Hobby, dan Standard terisolasi, dyno mungkin berbagi komputasi dasar yang sama. Heroku memiliki teknik tersendiri untuk memastikan penggunaannya adil. Di sisi lain, dyno tipe Performance dan Private tidak berbagi komputasi dasar yang sama dengan dyno lain. Hal ini membuat dyno tipe Performance dan Private memiliki kinerja yang lebih stabil dibanding dengan dyno tipe Free, Hobby, dan Standard. Selain memiliki sumber daya komputasi yang dikhususkan untuknya, Private dyno juga memiliki jaringan virtual yang terisolasi.
-
-Tiap dyno memiliki sistem dokumen ephemeral, dengan salinan kode dari hasil deploy terbaru. Saat masa hidup dyno, proses yang dijalankannya dapat menggunakan sistem dokumen ini sebagai tempat menulis sementara. Namun, dokumen yang ditulis tidak dapat dilihat oleh proses dari dyno lain dan dokumen yang ditulis akan dihapus saat dyno berhenti bekerja atau dimulai ulang.
-
-Tiap dyno memiliki antarmuka jaringannya sendiri. Konfigurasi dari jaringan bergantung pada tipe Runtime yang dipakai. Ada dua tipe Runtime : Common Runtime dan Private Space Runtime. 
-
-Common Runtime menyediakan isolasi yang kuat dengan menghalangi tiap dyno dari dyno lainnya. Pada runtime ini, hanya web dyno yang dapat mendengarkan angka yang disebutkan di variabel \texttt{\textdollar PORT} dan melakukan inbound request. Tiap dyno pada runtime ini memiliki IP atau subnet sendiri. Semua tipe dyno dapat membuat outbound request ke layanan yang bekerja di tempat lain selama terkoneksi ke internet. Namun, alamat IP asal untuk permintaan ini tidak dapat dikontrol oleh pengguna.
-
-Private Space Runtime menghubungkan dyno lewat jaringan virtual privat yang dikonfigurasi sebagai bagian dari suatu ruang. Pada runtime ini, dyno jenis apapun dapat mendengarkan \texttt{\textdollar PORT} dan menerima koneksi dari dyno lain pada jaringan privat. Runtime ini memungkinkan penggunaan Trusted IP Ranges untuk mengontrol IP klien yang dapat berkomunikasi dengan perangkat lunak dalam Private Space. Outbound request ke layanan internet dilakukan melalui NAT gateway untuk memastikan koneksi asal berasal dari kumpulan alamat IP outbound yang stabil.
-
-\subsubsection{Dyno manager}
-Dyno manager adalah bagian dari Heroku yang bertanggungjawab untuk menjaga dyno tetap berjalan. Dyno manager melakukan pekerjaan seperti memastikan dyno didaur ulang setidaknya satu kali sehari atau setiap dyno manager mendeteksi kesalahan di dalam perangkat lunak yang berjalan. Daur ulang dyno ini berlangsung secara transparan dan otomatis secara teratur dan tercatat.
-
-Perangkat lunak yang menggunakan dyno tipe Free akan masuk mode sleep (tidur) jika tidak ada arus HTTP selama jangka waktu 30 menit. Ketika perangkat lunak yang tidur menerima arus HTTP, maka perangkat lunak tersebut akan terbangun. Hal ini menyebabkan perangkat lunak lebih lambat beberapa detik dari perangkat lunak yang menggunakan dyno tipe lain. Dyno tipe lain tidak memiliki mode sleep, dan akan selalu terjaga.
-
-\subsubsection{Config vars}
-Suatu perangkat lunak selalu berjalan di lingkungan (environment) yang berbeda, meliputi setidaknya mesin yang digunakan untuk mengembangkan perangkat lunak dan Heroku. Suatu perangkat lunak yang bersifat open-source mungkin disebar ke lingkungan yang berbeda. Walaupun lingkungan-lingkungan tersebut mungkin menjalankan kode yang sama, lingkungan-lingkungan tersebut biasanya memiliki konfigurasi khusus untuk tiap lingkungan. Konfigurasi ini harus diletakkan pada environment variable, bukan di source code. Dengan menggunakan environment variable, konfigurasi dapat diubah secara terpisah. Selain itu, konfigurasi yang bersifat kredensial dapat terhindar dari tersimpan pada version control. Pada host tradisional atau saat bekerja secara lokal, environment variable sering diset di dalam dokumen \texttt{.bashrc}.
-
-Heroku memungkinkan pengembang untuk menjalankan perangkat lunak dengan konfigurasi yang dapat diubah dengan mudah. Konfigurasi tersebut diletakkan di luar dari source code perangkat lunak. Konfigurasi dapat diubah secara independen tanpa harus mengubah source code. Konfigurasi tersebut disimpan di dalam config vars.
-
-Untuk mengatur config vars ada tiga cara : dengan menggunakan Heroku CLI, dengan menggunakan Heroku Dashboard, dan dengan menggunakan Heroku Platform API. Apabila menggunakan Heroku Platform API, config var dapat diatur menggunakan HTTPS REST client sederhana dan data struktur JSON. Apabila menggunakan Heroku Dashboard, config var dapat dilihat, ditambah, dan dihapus dengan mudah menggunakan tombol yang ada %seperti pada gambar ... /
-. Sedangkan apabila menggunakan Heroku CLI, config var diatur menggunakan command shell. Berikut perintah-perintah untuk mengatur config var menggunakan Heroku CLI:
-\begin{itemize}
-\item Menampilkan seluruh config var beserta nilainya : \texttt{\textdollar heroku config}
-\item Menampilkan nilai dari config var tertentu : \texttt{\textdollar heroku config : get <config var>} dimana \texttt{config var} adalah nama config var
-\item Menambah config var : \texttt{\textdollar heroku config:set <config var> = <config value>} dimana \texttt{config var} adalah nama config var dan \texttt{config value} adalah nilai dari config var tersebut
-\item Menghapus config var : \texttt{\textdollar heroku config:unset <config var>} dimana \texttt{config var} adalah nama config var
-\end{itemize}
-
-Dalam mengatur config var, ada beberapa hal yang harus diperhatikan :
-\begin{itemize}
-\item Setiap config var ditambah atau dihapus, perangkat lunak akan dimulai ulang dan release baru akan dibuat.
-\item Jika perangkat lunak menggunakan add-on, biasanya add-on tersebut akan menambahkan satu atau lebih config var ke perangkat lunak. Nilai dari config var tersebut mungkin diperbarui oleh penyedia add-on kapan saja.
-\item Config var data (kombinasi dari semua kunci dan nilainya) tidak dapat melebihi 32kb per perangkat lunak
-\item Nama config var tidak boleh diawali dengan garis bawah dua kali (\texttt{\_\_}).
-\item Nama config var tidak bisa diawali dengan \texttt{HEROKU\_}, kecuali ditambahkan oleh platform Heroku sendiri.
-\end{itemize}
-
-\subsubsection{Releases}
-Releases adalah buku besar yang mencatat setiap ada deploy baru. Deploy baru ini termasuk build perangkat lunak, perubahan di config vars, dan perubahan di daftar add-ons. Pengembang dapat melihat catatan releases ini dengan menggunakan perintah :
+Untuk melihat stack yang dipakai oleh perangkat lunak, pengembang dapat mengetikkan perintah :
 \begin{lstlisting}
 
-	$ heroku releases
-
-\end{lstlisting}
-Isi dari releases adalah satu atau lebih baris dari release yang tiap barisnya memiliki format : \texttt{<versi deploy> Deploy <commit hash> <username pengembang> <waktu deploy>} Contoh isi releases :
-\begin{lstlisting}
-
-	== demoapp Releases
-	v103 Deploy 582fc95  jon@heroku.com   2013/01/31 12:15:35
-	v102 Deploy 990d916  jon@heroku.com   2013/01/31 12:01:12
-	
-\end{lstlisting}
-
-Releases ini berguna saat pengembang ingin mengembalikan perangkat lunak ke deploy lama. Cara mengembalikan perangkat lunak ke deploy lama dengan mengetikkan perintah :
-\begin{lstlisting}
-
-	$ heroku releases:rollback <versi deploy>
-
-\end{lstlisting}
-Contoh :
-\begin{lstlisting}
-
-	$ heroku releases:rollback v102
+	$ heroku stack
 
 \end{lstlisting}
 
-\subsubsection{Add-ons}
-Perangkat lunak biasanya memanfaatkan add-ons untuk menyediakan layanan penyokong seperti basis data, sistem antrean, layanan email, dan lainnya. Add-ons disediakan oleh Heroku atau pihak ketiga. Cara menambah addons melalui command shell :
+Untuk mengganti stack yang dipakai, pengembang dapat mengetikkan perintah :
 \begin{lstlisting}
 
-	$ heroku addons:create <nama addons>:<tipe addons>
+	$ heroku stack:set <stack>
 
 \end{lstlisting}
-Contoh :
-\begin{lstlisting}
-
-	$ heroku addons:create heroku-redis:hobby-dev
-
-\end{lstlisting}
-
-\subsubsection{Log}
-Log adalah catatan setiap proses yang terjadi di perangkat lunak. Heroku menggunakan Logplex untuk menyampaikan log ini. Logplex akan secara otomatis menambahkan entri log baru dari semua dyno yang berjalan di perangkat lunak, dan juga komponen lain seperti router. Pengembang dapat memeriksa log dengan cara mengetikkan perintah :
-\begin{lstlisting}
-
-	$ heroku logs
-
-\end{lstlisting}
-Contoh isi log adalah :
-\begin{lstlisting}
-
-	2013-02-11T15:19:10+00:00 heroku[router]: at=info method=GET path=/articles/custom-domains host=mydemoapp.heroku.com fwd=74.58.173.188 dyno=web.1 queue=0 wait=0ms connect=0ms service=1452ms status=200 bytes=5783
-	2013-02-11T15:19:10+00:00 app[web.2]: Started GET "/" for 1.169.38.175 at 2013-02-11 15:19:10 +0000
-	2013-02-11T15:19:10+00:00 app[web.1]: Started GET "/" for 2.161.132.15 at 2013-02-11 15:20:10 +0000
-
-\end{lstlisting}
+<stack> disini dapat diisi dengan \texttt{cedar-14}, \texttt{heroku-16}, atau \texttt{heroku-18}.
 
 \subsubsection{Region}
 Perangkat lunak di dalam Heroku dapat disebarkan ke lokasi geografis yang berbeda. Lokasi yang tersedia untuk suatu perangkat lunak tergantung pada Runtime yang dipakai oleh perangkat lunak (Common Runtime atau Private Space). Untuk perangkat lunak yang memakai Common Runtime, pengembang perlu menyebutkan region perangkat lunak saat membuat perangkat lunak. Untuk perangkat lunak yang memakai Private Space, region diatur saat membuat Private Space. Apabila pengembang tidak menyebutkan region yang dipakai, maka region akan diisi secara otomatis sebagai \texttt{us} (apabila memakai Common Runtime) atau \texttt{virginia} (apabila memakai Private Spaces).
@@ -328,28 +385,55 @@ Untuk memeriksa region yang dipakai oleh perangkat lunak, pengembang dapat menge
 
 \end{lstlisting}
 
-% Belum membahas migrasi region
+Region berpengaruh terhadap add-ons. Apabila add-ons tidak tersedia di region yang sama dengan perangkat lunak, maka add-ons akan gagal terpasang. Region juga dapat mempengaruhi cara kerja SSL.
 
-\subsubsection{Stack}
-Stack adalah operating system image yang dikelola dan dipelihara oleh Heroku. Stack biasanya berlandaskan distribusi dari Linux yang ada, seperti Ubuntu. Pengembang dapat menentukan stack yang dipakai, dan buildpack akan mengubah source code menjadi paket yang dapat dieksekusi dengan stack tersebut. Saat skripsi ini dibuat, Heroku menyediakan tiga stack : Cedar-14, Heroku-16, dan Heroku-18. Cedar-14 berbasis Ubuntu 14.04 dan didukung sampai bulan April tahun 2019. Heroku-16 berbasis Ubuntu 16.04 dan didukung sampai bulan April tahun 2021. Heroku-18 berbasis Ubuntu 18.04 dan didukung sampai bulan April tahun 2023. Semua buildpack dari Heroku dapat bekerja dengan ketiga stack tersebut, namun buildpack yang merupakan hasil modifikasi belum tentu dapat bekerja dengan semua stack.
-
-Untuk melihat stack yang dipakai oleh perangkat lunak, pengembang dapat mengetikkan perintah :
+\subsubsection{Releases}
+Setiap ada deploy baru, perubahan di config vars, dan perubahan di daftar add-ons, Heroku akan membuat release baru dan memulai ulang perangkat lunak. Releases adalah buku besar yang mencatat setiap release tersebut. Pengembang dapat melihat catatan releases ini dengan menggunakan perintah :
 \begin{lstlisting}
 
-	$ heroku stack
+	$ heroku releases
+
+\end{lstlisting}
+Isi dari releases adalah satu atau lebih baris dari release yang tiap barisnya memiliki format : \texttt{<versi deploy> Deploy <commit hash> <username pengembang> <waktu deploy>} Contoh isi releases :
+\begin{lstlisting}
+
+	== demoapp Releases
+	v103 Deploy 582fc95  jon@heroku.com   2013/01/31 12:15:35
+	v102 Deploy 990d916  jon@heroku.com   2013/01/31 12:01:12
+	
+\end{lstlisting}
+
+Releases ini berguna saat pengembang ingin mengembalikan perangkat lunak ke deploy lama. Cara mengembalikan perangkat lunak ke deploy lama dengan mengetikkan perintah :
+\begin{lstlisting}
+
+	$ heroku releases:rollback <versi deploy>
+
+\end{lstlisting}
+Contoh :
+\begin{lstlisting}
+
+	$ heroku releases:rollback v102
 
 \end{lstlisting}
 
-Untuk mengganti stack yang dipakai, pengembang dapat mengetikkan perintah :
+\subsubsection{Log}
+Log adalah catatan setiap proses yang terjadi di perangkat lunak. Heroku menggunakan Logplex untuk menyampaikan log ini. Logplex akan secara otomatis menambahkan entri log baru dari semua dyno yang berjalan di perangkat lunak, dan juga komponen lain seperti router. Pengembang dapat memeriksa log dengan cara mengetikkan perintah :
 \begin{lstlisting}
 
-	$ heroku stack:set <stack>
+	$ heroku logs
 
 \end{lstlisting}
-<stack> disini dapat diisi dengan \texttt{cedar-14}, \texttt{heroku-16}, atau \texttt{heroku-18}.
+Contoh isi log adalah :
+\begin{lstlisting}
+
+	2013-02-11T15:19:10+00:00 heroku[router]: at=info method=GET path=/articles/custom-domains host=mydemoapp.heroku.com fwd=74.58.173.188 dyno=web.1 queue=0 wait=0ms connect=0ms service=1452ms status=200 bytes=5783
+	2013-02-11T15:19:10+00:00 app[web.2]: Started GET "/" for 1.169.38.175 at 2013-02-11 15:19:10 +0000
+	2013-02-11T15:19:10+00:00 app[web.1]: Started GET "/" for 2.161.132.15 at 2013-02-11 15:20:10 +0000
+
+\end{lstlisting}
 
 \subsection{Command Line}
-Pengembang perlu memasang heroku Command-Line Interface (CLI) agar dapat mengetikkan perintah-perintah \texttt{heroku} di command shell. Pengembang dapat mengikuti petunjuk unduhan pada \texttt{https://devcenter.heroku.com/articles/heroku-cli} untuk memasang heroku CLI sesuai sistem operasi yang ia pakai. Pengembang dapat memastikan heroku CLI sudah terpasang dengan mengetikkan perintah :
+Pengembang perlu memasang heroku Command-Line Interface (CLI) agar dapat mengetikkan perintah-perintah \texttt{heroku} di command shell. Pengembang dapat mengikuti petunjuk unduhan pada \url{https://devcenter.heroku.com/articles/heroku-cli} untuk memasang heroku CLI sesuai sistem operasi yang dipakai. Pengembang dapat memastikan heroku CLI sudah terpasang dengan mengetikkan perintah :
 \begin{lstlisting}
 
 	$ heroku -version
@@ -370,8 +454,8 @@ Untuk membuat perangkat lunak yang baru di heroku, pengembang perlu mengetikkan 
 
 \end{lstlisting}
 
-\subsection{Deployment}
-Sebagian besar proses deploy ke Heroku menggunakan Git, tapi pengembang juga dapat melakukannya dengan :
+\subsection{Deploy Perangkat Lunak}
+Heroku menggunakan Git sebagai sarana  utama untuk melakukan deploy perangkat lunak. Deploy adalah proses penyebaran perangkat lunak dari satu lingkungan ke lingkungan lain, misalnya dari lingkungan mesin pengembang perangkat lunak ke lingkungan heroku. Namun, Heroku juga menyediakan cara lain untuk melakukan deploy :
 \begin{itemize}
 \item Docker
 \item GitHub
@@ -380,7 +464,7 @@ Sebagian besar proses deploy ke Heroku menggunakan Git, tapi pengembang juga dap
 \end{itemize}
 
 \subsubsection{Deploy Menggunakan Git}
-Untuk melakukan deploy menggunakan Git, pengembang harus sudah memasang Git. Pengembang dapat mengikuti petunjuk unduhan pada https://git-scm.com. Sebelum pengembang dapat melakukan deploy dengan Git, pengembang perlu menginisialisasi git. Berikut perintah-perintah yang harus dijalankan :
+Untuk melakukan deploy menggunakan Git, pengembang harus sudah memasang Git. Pengembang dapat mengikuti petunjuk unduhan pada \url{https://git-scm.com}. Sebelum pengembang dapat melakukan deploy dengan Git, pengembang perlu menginisialisasi git. Berikut perintah-perintah yang harus dijalankan :
 \begin{lstlisting}
 
 	$ git init
@@ -482,10 +566,7 @@ Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke 
 Ada dua cara untuk melakukan deploy, yaitu secara manual dan secara otomatis. Untuk cara manual, pengembang melakukan deploy dari GitHub (Gambar~\ref{fig:deploy-github-manual}). Untuk cara otomatis, pengembang harus mengaktifkan "Automatic deploys from GitHub" (Gambar~\ref{fig:deploy-github-automatic}).
 
 \subsubsection{Deploy Langsung di situs Heroku}
-Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy perangkat lunak tanpa meninggalkan situs Heroku dan hampir tidak memerlukan konfigurasi. Penggunaan tombol ini ideal untuk pelanggan, dan pemelihara proyek yang bersifat open-source.
-% Contoh tampilan tombol di Node.js app
-
-Sebelum dapat melakukan deploy dengan cara ini, perangkat lunak harus memiliki dokumen \texttt{app.json} yang sah di direktori root, dan source code perangkat lunak harus berada di repository GitHub.
+Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy perangkat lunak tanpa meninggalkan situs Heroku dan hampir tidak memerlukan konfigurasi. Penggunaan tombol ini ideal untuk pelanggan, dan pemelihara proyek yang bersifat open-source. Sebelum dapat melakukan deploy dengan cara ini, perangkat lunak harus memiliki dokumen \texttt{app.json} yang sah di direktori root, dan source code perangkat lunak harus berada di repository GitHub.
 
 \texttt{app.json} adalah dokumen berisi deskripsi perangkat lunak web. Isinya dapat berupa environment variable, add-ons, dan informasi lain yang diperlukan untuk menjalankan perangkat lunak pada Heroku. Heroku tidak mewajibkan pengembang menuliskan informasi tertentu, tapi Heroku merekomendasikan untuk setidaknya menuliskan nama perangkat lunak(\texttt{name}), deskripsi perangkat lunak (\texttt{description}), dan logo perangkat lunak (\texttt{logo}). Berikut contoh isi dari \texttt{app.json} :
 \begin{lstlisting}
@@ -499,6 +580,11 @@ Sebelum dapat melakukan deploy dengan cara ini, perangkat lunak harus memiliki d
 }
 
 \end{lstlisting}
+
+\subsubsection{WAR Deployment}
+WAR (Web Application ARchive) adalah jenis dokumen arsip yang digunakan untuk membungkus perangkat lunak web. Dokumen ini dapat berisi halaman web statis, dokumen XML, dan lain-lain. \cite{etzkorn2017introduction}
+ 
+Heroku mendukung deploy dokumen WAR melalui Git deployment dan melalui Heroku Maven plugin. Setelan standar server untuk keduanya adalah Tomcat 8.
 
 \subsection{Basis Data dan Manajemen Data}
 Heroku menyediakan tiga layanan data untuk semua pelanggan :
@@ -516,9 +602,9 @@ Heroku Postgres adalah basis data SQL yang disediakan secara langsung oleh Herok
 	$ heroku addons:create heroku-postgresql:<PLAN_NAME>
 	
 \end{lstlisting}
-<PLAN\_NAME> adalah tipe Heroku Postgres yang ingin dipakai. Heroku secara otomatis menggunakan Heroku Postgres tipe \texttt{hobby-dev}.
+<PLAN\_NAME> adalah nama plan Heroku Postgres yang ingin dipakai. Heroku secara otomatis menggunakan Heroku Postgres tipe \texttt{hobby-dev}.
 
-Heroku Postgres memiliki lima tipe Heroku Postgres :
+Heroku Postgres memiliki lima plan :
 \begin{itemize}
 \item Hobby Tier : untuk perangkat lunak dengan toleransi gagal bekerja sampai 4 jam per bulan.
 \item Standard Tier : untuk perangkat lunak dengan toleransi gagal bekerja sampai 1 jam per bulan.
@@ -526,7 +612,26 @@ Heroku Postgres memiliki lima tipe Heroku Postgres :
 \item Private Tier : untuk pengguna Heroku Enterprise, memiliki toleransi gagal bekerja sampai 15 menit per bulan.
 \item Shield Tier : untuk pengguna Heroku Enterprise yang menginginkan basis data yang compliance-capable, memiliki toleransi gagal bekerja sampai 15 menit per bulan.
 \end{itemize}
-Selain tipe Hobby, basis data memiliki fitur fork, follow, rollback, dan Disk Encryption. Hanya tipe Hobby yang gratis.
+
+Gambar~\ref{fig:heroku-postgres-plan-table} menunjukkan tabel perbedaan antara plan. Hanya plan Hobby yang gratis. Plan lain memiliki harga yang bervariasi berdasarkan ukuran RAM, batas penyimpanan, dan batas koneksi yang bisa dibuat.
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{heroku-postgres-plan-table.png}  
+	\caption[Tabel plan Heroku Postgres]{Tabel plan Heroku Postgres} 
+	\label{fig:heroku-postgres-plan-table} 
+\end{figure}
+
+Semua plan memiliki fitur yang sama :
+\begin{itemize}
+\item Dapat mengelola layanan basis data secara menyeluruh dengan fitur \textit{automatic health checks}
+\item Write-ahead log (WAL) menjauh dari tempat penyimpanan setiap 60 detik, memastikan resiko kehilangan data dan kesalahan lainnya seminimal mungkin
+\item Backup basis data harian menggunakan PG Backups (opsional, tapi gratis)
+\item Dataclips untuk berbagi data dan query yang mudah dan aman
+\item Akses psql/libpq dengan SSL-protected
+\item Menjalankan Postgres 9.4, 9.5, 9.6, atau 10 tanpa modifikasi
+\item Ekstensi Postgres
+\item Fitur web UI (\url{https://data.heroku.com/})
+\end{itemize}
 
 Pengembang juga dapat menambahkan versi yang ingin dipakai dengan cara menambahkan \texttt{--version} di belakang perintah tersebut, contoh :
 \begin{lstlisting}
@@ -544,6 +649,142 @@ Apabila pengembang menggunakan lebih dari satu basis data, pengembang dapat meng
 	$ heroku pg:promote <database_url>
 	
 \end{lstlisting}
+<database\_url> adalah url dari basis data.
+
+Apabila pengembang ingin berbagi Heroku Postgres kepada banyak perangkat lunak, pengembang dapat mengetikkan perintah : 
+\begin{lstlisting}
+
+	$ heroku addons:attach <originating_app>::DATABASE --app <receiver-app>
+	
+\end{lstlisting}
+<originating\_app> adalah nama perangkat lunak yang memiliki basis data yang ingin dibagi ke perangkat lunak lain. Sedangkan <receiver-app> adalah nama perangkat lunak yang akan menerima basis data dari perangkat lunak lain.
+
+Pengembang dapat berhenti berbagi basis data dengan mengetikkan perintah :
+\begin{lstlisting}
+
+	$ heroku addons:detach <database_url> --app <application_name>
+
+\end{lstlisting}
+<database\_url> adalah url dari basis data, sedangkan <application\_name> adalah nama perangkat lunaknya.
+
+Berikut adalah perintah-perintah dasar dari Heroku Postgres :
+\begin{itemize}
+\item Melihat semua basis data milik perangkat lunak dan karakteristiknya
+
+\begin{lstlisting}
+
+	$ heroku pg:info
+
+\end{lstlisting}
+
+\item Mengawasi status basis data secara terus menerus
+
+\begin{lstlisting}
+
+	$ watch heroku pg:info
+
+\end{lstlisting}
+
+\item Mengadakan sesi \texttt{psql} dengan basis data
+
+\begin{lstlisting}
+
+	$ heroku pg:psql
+
+\end{lstlisting}
+atau
+\begin{lstlisting}
+
+	$ heroku pg:psql <database_name>
+
+\end{lstlisting}
+<database\_name> diisi dengan nama basis data atau cukup warna basis data (misal : \texttt{gray}).
+
+\item Menarik data dari basis data Heroku Postgres ke basis data di mesin lokal
+
+\begin{lstlisting}
+
+	$ heroku pg:pull
+
+\end{lstlisting}
+
+\item Memasukkan data dari basis data di mesin lokal ke basis data di Heroku Postgres
+
+\begin{lstlisting}
+
+	$ heroku pg:push <nama_db_lokal> <nama_db_heroku> --app <nama_perangkat lunak>
+
+\end{lstlisting}
+
+\item Melihat daftar query yang berjalan
+
+\begin{lstlisting}
+
+	$ heroku pg:ps
+	// Contoh hasil :
+	procpid |         source            |   running_for   | waiting |         query
+	---------+---------------------------+-----------------+---------+-----------------------
+	   31776 | psql                      | 00:19:08.017088 | f       | <IDLE> in transaction
+	   31912 | psql                      | 00:18:56.12178  | t       | select * from hello;
+	   32670 | Heroku Postgres Data Clip | 00:00:25.625609 | f       | BEGIN READ ONLY; select 'hi'
+	(3 rows)
+	
+\end{lstlisting}
+
+\item Menghentikan query yang berjalan
+
+\begin{lstlisting}
+
+	$ heroku pg:kill <procpid>
+
+\end{lstlisting}
+
+\item Menghentikan query yang berjalan secara paksa
+
+\begin{lstlisting}
+
+	$ heroku pg:kill --force <procpid>
+
+\end{lstlisting}
+
+\item Menghentikan semua query yang berjalan
+
+\begin{lstlisting}
+
+	$ heroku pg:killall
+
+\end{lstlisting}
+
+\item Menghapus semua data di dalam basis data
+
+\begin{lstlisting}
+
+	$ heroku pg:reset <nama database>
+
+\end{lstlisting}
+\end{itemize}
+
+Basis data Heroku Postgres dapat diakses secara langsung oleh komputer. Informasi yang dibutuhkan untuk mengakses data dari komputer dapat dilihat dengan mengetikkan perintah :
+\begin{lstlisting}
+
+	$ heroku pg:credentials DATABASE
+	
+\end{lstlisting}
+atau
+\begin{lstlisting}
+
+	$ heroku config | grep HEROKU_POSTGRESQL
+	
+\end{lstlisting}
+Pada saat akan melakukan koneksi langsung di komputer, pengembang harus memastikan pengaturan \texttt{sslmode=require} pada pengaturan SSL.
+
+\subsubsection{Heroku Redis}
+Heroku Redis adalah basis data berbasis \textit{key-value store} yang bersifat \textit{in-memory}. Heroku dijalankan oleh Heroku dan dikelola sebagai add-on Heroku Redis dapat diakses oleh bahasa apapun dengan Redis driver. Cara memasang add-on Heroku Redis :
+\begin{lstlisting}
+	
+	$ heroku addons:create heroku-redis: <PLAN_NAME>
+	
+\end{lstlisting}
 <PLAN\_NAME> adalah tipe Heroku Redis yang ingin dipakai. Heroku Redis memiliki dua tipe : Hobby Dev dan Premium. Hobby Dev gratis, sedangkan Premium berbayar. Perbedaannya terletak pada jumlah memori dan batas koneksi yang dapat dibuat.
 
 Heroku Redis memiliki kelebihan sebagai berikut :
@@ -551,16 +792,6 @@ Heroku Redis memiliki kelebihan sebagai berikut :
 \item Memiliki analisa performa yang dapat membantu menemukan masalah basis data dengan mudah
 \item Heroku dapat diskala sesuai kebutuhan memori dan koneksi.
 \end{itemize}
-
-
-
-\subsubsection{Heroku Redis}
-Heroku Redis adalah basis data berbasis key-value store yang bersifat in-memory. Heroku dijalankan oleh Heroku dan dikelola sebagai add-on Heroku Redis dapat diakses oleh bahasa apapun dengan Redis driver. Cara memasang add-on Heroku Redis :
-\begin{lstlisting}
-	
-	$ heroku addons:create heroku-redis: <PLAN_NAME>
-	
-\end{lstlisting}
 
 \subsubsection{Apache Kafka}
 Apache Kafka adalah salah satu add-on di Heroku yang disediakan oleh Kafka yang berintegrasi penuh dengan Heroku. Apache Kafka dideskripsikan Kafka dideskripsikan oleh Heroku sebagai add-on yang memungkinkan pengembang mendistribusikan perangkat lunak yang dapat menangani jutaan event dan miliaran transaksi. Kafka didesain untuk memindahkan ephemeral data yang sangat besar dengan reliabilitas yang tinggi dan toleran akan kerusakan.
@@ -571,6 +802,28 @@ Pengembang harus memasang Python 2.7, node 8.x, .NET Framework, dan Visual C++ B
 	$ heroku plugins:install heroku-kafka
 	
 \end{lstlisting}
+
+\subsection{Verifikasi Akun}
+Heroku membutuhkan identitas terpecaya dan kontak dari pengguna. Heroku menganggap mempunyai informasi kartu kredit adalah cara yang paling dapat diandalkan untuk mendapatkan informasi kontak yang terverifikasi. Verifikasi akun juga membantu Heroku untuk menghindari penyalahgunaan.
+
+Verifikasi akun dibutuhkan untuk :
+\begin{itemize}
+\item Menggunakan lebih dari satu dyno di dalam perangkat lunak.
+\item Menambah add-on, termasuk yang gratis. Pengecualian untuk Heroku Postgres dan Heroku Connect.
+\item Mengubah domain perangkat lunak.
+\item Menerima transfer dari perangkat lunak yang memiliki sumber daya berbayar.
+\item Menambah batas standar penggunaan one-off dyno.
+\item Memiliki lebih dari 5 perangkat lunak dalam satu waktu.  Akun yang terverifikasi dapat memiliki sampai 100 perangkat lunak.
+\end{itemize}
+
+Cara melakukan verifikasi akun Heroku :
+\begin{itemize}
+\item Pergi ke Account Settings (\url{https://dashboard.heroku.com/account})
+\item Menekan tab Billing
+\item Menekan tombol Add Credit Card
+\end{itemize}
+
+Kartu kredit yang diterima oleh Heroku adalah kartu Visa, MasterCard, American Express, Discover dan JCB. Kartu debit juga diterima untuk kartu Visa, MasterCard atau JCB. Kartu lain tidak diterima. Beberapa bank mungkin mensyaratkan penahanan satu dollar oleh pelaku verifikasi sebelum kartu dapat dikonfirmasi.
 
 %2.3 IMAP
 \section{IMAP}
@@ -739,10 +992,15 @@ Alamat email yang dicantumkan adalah alamat email yang akan menerima notifikasi 
 \end{itemize}
 
 \item Konfirmasi
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{line-developers-console-confirm-channel.png}  
+	\caption[Tampilan LINE developer console saat konfirmasi pembuatan channel]{Tampilan LINE developer console saat konfirmasi pembuatan channel} 
+	\label{fig:line-developers-console-confirm-channel} 
+\end{figure}
 
 Konfirmasi channel yang baru saja dibuat.
 
-%line-developers-console-confirm-channel.png
 \end{enumerate}
 
 
