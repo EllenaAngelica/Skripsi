@@ -22,7 +22,7 @@ Pengumpulan data dalam skripsi ini dilakukan dengan cara studi pustaka.
 
 \textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Pada saat skripsi ini dibuat, BlueTape dapat diakses melalui situs web \url{https://bluetape.azurewebsites.net/} (Gambar~\ref{fig:bluetape-login}). Perangkat lunak ini bersifat open source, sehingga kode program BlueTape bisa dipelajari, diubah, dan distribusi oleh siapapun untuk tujuan apapun. Kode program ini dapat diakses di \url{https://github.com/ftisunpar/BlueTape}. BlueTape memanfaatkan CodeIgniter (versi 3.1.4) dan ZURB Foundation.
 
-Perangkat lunak BlueTape menggunakan CodeIgniter, sehingga pola pengembangan yang dipakai adalah MVC (Model-View-Controller). MVC (Model-View-Controller) adalah sebuah metode untuk membuat perangkat lunak menjadi tiga bagian : Model, View, dan Controller. Model adalah kelas yang merepresentasikan struktur data. View adalah informasi yang disajikan ke pengguna. Controller adalah penghubung antara Model, View, dan sumber daya lain yang dibutuhkan untuk mengolah HTTP request dan menghasilkan situs web.
+Pola pengembangan yang dipakai BlueTape adalah MVC (Model-View-Controller). MVC (Model-View-Controller) adalah sebuah metode untuk membuat perangkat lunak menjadi tiga bagian : Model, View, dan Controller. Model adalah kelas yang merepresentasikan struktur data. View adalah informasi yang disajikan ke pengguna. Controller adalah penghubung antara Model, View, dan sumber daya lain yang dibutuhkan untuk mengolah HTTP request dan menghasilkan situs web.
 
 \subsection{Aturan Konstribusi BlueTape}
 Terdapat beberapa aturan apabila ingin berkonstribusi pada pengembangan BlueTape. Aturan-aturan tersebut tertera pada dokumen \texttt{CONTRIBUTING.md} (\url{https://github.com/ftisunpar/BlueTape/blob/master/CONTRIBUTING.md}).
@@ -187,9 +187,6 @@ Setiap \textit{role} memiliki batasan dalam mengakses module di BlueTape. \texti
 
 \section{Analisis Heroku}
 \label{sec:analisisheroku}
-Heroku adalah platform cloud yang memungkinkan pengembang untuk membangun, menjalankan dan mengoperasikan perangkat lunak pada cloud. Untuk mendapatkan fasilitas yang disediakan Heroku, pembuatan akun Heroku diperlukan. Pembuatan akun tidak dikenakan biaya, namun untuk menggunakan layanan tertentu perlu membayar sejumlah uang. Beberapa layanan yang tidak berbayar membutuhkan informasi kartu kredit.
-
-
 \subsection{BlueTape pada Arsitektur Heroku}
 \subsubsection{Dependensi}
 BlueTape membutuhkan dependensi tambahan agar perangkat lunak dapat dijalankan. Dependensi tambahan perangkat lunak BlueTape tertera pada dokumen \texttt{composer.json}. Berikut isinya :
@@ -207,41 +204,93 @@ BlueTape membutuhkan dependensi tambahan agar perangkat lunak dapat dijalankan. 
 Pada saat skripsi ini ditulis, BlueTape telah memakai dua package : package \texttt{google/apiclient} dan package \texttt{phpoffice/phpexcel}. Package \texttt{google/apiclient} adalah package yang diperlukan untuk autentikasi akun saat masuk ke BlueTape. Sedangkan package \texttt{phpoffice/phpexcel} adalah package yang digunakan untuk menghasilkan dokumen excel. Package yang ditambahkan untuk skripsi ini adalah package \texttt{ext-imap} dan \texttt{line-bot-sdk}. Package \texttt{ext-imap} digunakan untuk mengakses email. Package \texttt{line-bot-sdk} digunakan untuk menghubungkan perangkat lunak dengan layanan yang disediakan oleh LINE.
 
 \subsubsection{Tipe Proses}
-
+BlueTape memiliki satu tipe proses, yaitu tipe proses \texttt{web} dan tipe proses \texttt{release}. Tipe proses \texttt{web} adalah tipe proses yang digunakan untuk menerima arus HTTP eksternal dari router Heroku. Penulis tidak dapat menambahkan tipe proses lain karena itu berarti penulis harus menambah dyno. Penambahan dyno perlu informasi kartu kredit untuk verifikasi akun.
 
 \subsubsection{Procfile}
+Procfile adalah dokumen yang menjelaskan Heroku bagian-bagian perangkat lunak yang dapat dieksekusi. Procfile berisi daftar tipe proses beserta cara menjalankannya. BlueTape hanya memiliki satu tipe proses, yaitu tipe proses \texttt{web}. Isi Procfile adalah :
 \begin{lstlisting}
 web: vendor/bin/heroku-php-apache2 www/
 \end{lstlisting}
 
-\subsubsection{Deploy Perangkat Lunak}
+Maksud dari satu baris Procfile tersebut adalah : untuk menjalankan tipe proses web, heroku harus menjalankan server apache di heroku dan kemudian server menjalankan perangkat lunak web yang ada di direktori \texttt{www}. Perintah \texttt{vendor/bin/heroku-php-apache2} adalah perintah untuk menjalankan server apache di heroku yang ada di package \texttt{heroku-php-apache2}. Package \texttt{heroku-php-apache2} ini otomatis disediakan saat membuat perangkat lunak php di heroku sehingga tidak perlu ditambahkan di composer.json. Perintah \texttt{www/} berguna untuk mengarahkan server apache heroku ke direktori \texttt{www}.
 
-\subsubsection{Membangun Perangkat Lunak}
+\subsubsection{Slug}
+Penulis tidak menambahkan dokumen \texttt{.slugignore} karena tidak diperlukan.
 
 \subsubsection{Buildpack}
-Buildpack adalah script yang berjalan ketika perangkat lunak di-deploy. Buildpack digunakan untuk memasang dependensi yang diperlukan perangkat lunak dan menkonfigurasi lingkungan. Buildpack yang dipakai pada skripsi ini hanya \texttt{heroku/php}
+Buildpack yang dipakai pada skripsi ini hanya \texttt{heroku/php}. Buildpack ini secara otomatis dipakai oleh Heroku karena BlueTape memakai bahasa PHP.
 
-\subsubsection{Dyno dan Dyno Manager}
-Jenis dyno yang dipakai pada skripsi ini adalah free dyno.
+\subsubsection{Dyno}
+Jenis dyno yang dipakai pada skripsi ini adalah free dyno. Jumlah dyno hanya satu. Dyno tersebut merupakan dyno untuk tipe proses \texttt{web}.
 
 \subsubsection{Config Vars}
-Config vars dibutuhkan untuk menyembunyikan informasi sensitif dan memudahkan pengubahan nilai. Config vars yang dipakai di skripsi ini ada banyak : config vars untuk informasi database (CI\_DB\_DATABASE, CI\_DB\_HOSTNAME,CI\_DB\_USERNAME,CI\_DB\_PASSWORD,DATABASE\_URL), config vars untuk autentikasi (GOOGLE\_CLIENTID, GOOGLE\_CLIENTSECRET), config vars untuk memeriksa email (ANNOUNCEMENT\_EMAIL, ANNOUNCEMENT\_PASSWORD, HOSTNAME\_INCOMING\_EMAIL), config vars untuk informasi dasar situs(CI\_BASE\_URL), config vars untuk terhubung ke layanan LINE(LINE\_BOT\_CHANNEL\_SECRET,LINE\_BOT\_CHANNEL\_TOKEN), config vars untuk SMTP (SMTP\_HOST,SMTP\_PASS, SMTP\_PORT,SMTP\_USER), dan config vars yang secara otomatis dibuat oleh add ons (HEROKU\_POSTGRESQL\_BLUE\_URL).
+Config vars yang dipakai di skripsi ini ada banyak : 
+\begin{itemize}
+\item Config vars untuk informasi database 
 
-\subsubsection{Releases}
+\begin{itemize}
+\item CI\_DB\_DATABASE 
+\item CI\_DB\_HOSTNAME 
+\item CI\_DB\_USERNAME
+\item CI\_DB\_PASSWORD
+\item DATABASE\_URL
+\item HEROKU\_POSTGRESQL\_BLUE\_URL
+\end{itemize}
 
-\subsubsection{Log}
+\item Config vars untuk autentikasi
+
+\begin{itemize}
+\item GOOGLE\_CLIENTID 
+\item GOOGLE\_CLIENTSECRET
+\end{itemize}
+
+\item Config vars untuk memeriksa email
+
+\begin{itemize}
+\item ANNOUNCEMENT\_EMAIL 
+\item ANNOUNCEMENT\_PASSWORD
+\item HOSTNAME\_INCOMING\_EMAIL
+\end{itemize}
+
+\item Config vars untuk informasi dasar situs
+
+\begin{itemize}
+\item CI\_BASE\_URL
+\end{itemize}
+
+\item Config vars untuk terhubung ke layanan LINE
+
+\begin{itemize}
+\item LINE\_BOT\_CHANNEL\_SECRET
+\item LINE\_BOT\_CHANNEL\_TOKEN
+\end{itemize}
+
+\item Config vars untuk SMTP 
+
+\begin{itemize}
+\item SMTP\_HOST
+\item SMTP\_PASS
+\item SMTP\_PORT
+\item SMTP\_USER
+\end{itemize}
+
+\end{itemize}
 
 \subsubsection{Region}
 Region yang dipakai adalah region default, yaitu United States.
 
 \subsubsection{Stack}
-Stack yang dipakai adalah stack yang paling baru, yaitu heroku-18.
+Stack yang dipakai adalah stack yang paling baru, yaitu heroku-18. Stack ini dipilih karena Heroku masa kadaluarsa dukungan untuk stack ini yang paling lama. Alasan lain adalah komputer lokal yang digunakan untuk mengerjakan skripsi ini menggunakan lingkungan yang mirip dengan Heroku, yaitu menggunakan Ubuntu 18.04.
 
-\subsection{Command Line}
+\subsection{Basis Data}
+Basis data yang digunakan untuk skripsi ini adalah basis data Heroku Postgres dengan plan hobby-dev. Alasan utama basis data ini digunakan adalah karena penggunaan basis data lain seperti Heroku Redis dan Apache Kafka tidak memungkinkan. Basis data tersebut membutuhkan informasi akun kredit untuk verifikasi akun. Alasan lain adalah basis data ini adalah basis data yang langsung disediakan oleh Heroku.
 
-\subsection{Deployment}
-
-\subsection{Basis Data dan Manajemen Data}
+Sebelumnya BlueTape menggunakan MySQL untuk basis datanya. Proses migrasi dari MySQL ke Heroku Postgres tidak rumit, karena menggunakan fitur Migration dari CodeIgniter. Namun, ada beberapa perubahan pada dokumen Migration. Perubahan-perubahan tersebut adalah :
+\begin{itemize}
+\item Menyelaraskan nama tabel karena sifat case sensitive pada Postgres
+\item Mengubah Replace menjadi Insert dan Update karena Replace tidak didukung oleh Postgres
+\item Mengubah tipe data kolom yang sebelumnya menggunakan DATETIME menjadi timestamp
+\end{itemize}  
 
 \section{Analisis PHP IMAP}
 \label{sec:analisisimap}
