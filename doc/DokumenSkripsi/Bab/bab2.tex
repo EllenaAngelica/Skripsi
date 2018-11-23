@@ -36,7 +36,7 @@ Pengembang perlu mendeskripsikan dependensi tambahan yang diperlukan agar perang
 \subsubsection{Tipe Proses}
 Perangkat lunak web biasanya terdapat dua atau lebih titik masuk. Setiap titik masuk ini disebut tipe proses (\texttt{process type}). Tipe proses berbeda untuk tiap perangkat lunak.
 
-Ada tiga kelompok tipe proses : tipe proses \texttt{web}, tipe proses \texttt{worker}, dan tipe proses \texttt{singleton}. Di antara beragam tipe proses, ada dua tipe proses spesial : tipe proses \texttt{web} dan \texttt{release}. Tipe proses \texttt{web} adalah satu-satunya tipe proses yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah perangkat lunak melibatkan web server, pengembang harus menyatakannya sebagai proses \texttt{web}. Tipe proses \texttt{release} adalah tipe proses yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
+Ada tiga kelompok tipe proses : tipe proses \texttt{web}, tipe proses \texttt{worker}(tipe proses apapun selain \texttt{web}), dan tipe proses \texttt{singleton} (tipe proses yang bersifat sementara dan dapat berjalan terpisah). Di antara beragam tipe proses, ada dua tipe proses spesial : tipe proses \texttt{web} dan \texttt{release}. Tipe proses \texttt{web} adalah satu-satunya tipe proses yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah perangkat lunak melibatkan web server, pengembang harus menyatakannya sebagai proses \texttt{web}. Tipe proses \texttt{release} adalah tipe proses yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
 
 Setiap tipe proses memiliki spesialisasinya sediri pada jenis pekerjaan tertentu. Misalnya, sebuah perangkat lunak memiliki dua jenis pekerja : pekerja untuk pekerjaan yang mendesak dan pekerja untuk pekerjaan yang berlangsung dengan lama. Dengan melakukan pembagian seperti itu, pekerjaan yang mendesak lebih cepat tertangani. Selain itu, penggunaan sumber daya lebih mudah dikontrol dan dikalkulasi.
 
@@ -459,7 +459,7 @@ Heroku menggunakan Git sebagai sarana  utama untuk melakukan deploy perangkat lu
 \begin{itemize}
 \item Docker
 \item GitHub
-\item Tombol \texttt{Deploy} di situs Heroku
+\item Tombol \texttt{Deploy} di dashboard Heroku
 \item WAR deployment
 \end{itemize}
 
@@ -804,7 +804,7 @@ Pengembang harus memasang Python 2.7, node 8.x, .NET Framework, dan Visual C++ B
 \end{lstlisting}
 
 \subsection{Verifikasi Akun}
-Heroku membutuhkan identitas terpecaya dan kontak dari pengguna. Heroku menganggap mempunyai informasi kartu kredit adalah cara yang paling dapat diandalkan untuk mendapatkan informasi kontak yang terverifikasi. Verifikasi akun juga membantu Heroku untuk menghindari penyalahgunaan.
+Heroku membutuhkan identitas terpercaya dan kontak dari pengguna. Heroku menganggap mempunyai informasi kartu kredit adalah cara yang paling dapat diandalkan untuk mendapatkan informasi kontak yang terverifikasi. Verifikasi akun juga membantu Heroku untuk menghindari penyalahgunaan.
 
 Verifikasi akun dibutuhkan untuk :
 \begin{itemize}
@@ -861,11 +861,11 @@ Setting mengontrol perilaku fitur pada Gmail kepda User. Setting tersedia untuk 
 \end{itemize}  
 
 \subsection{Scope}
-Gmail API menggunakan OAuth 2.0 untuk menangani autentikasi dan authorization. Pengembang harus menyebutkan scope ynag dipakai di perangkat lunak. Scope adalah string yang mengidentifikasi resource yang ingin di akses. Scope ini digunakan bersama dengan token untuk mengamankan akses ke resource pengguna. Contoh scope :
+Gmail API menggunakan OAuth 2.0 untuk menangani autentikasi dan authorization. Pengembang harus menyebutkan scope yang dipakai di perangkat lunak. Scope adalah string yang mengidentifikasi resource yang ingin di akses. Scope ini digunakan bersama dengan token untuk mengamankan akses ke resource pengguna. Contoh scope :
 \begin{itemize}
-\item Membaca message dari Gmail (https://www.googleapis.com/auth/gmail.readonly)
-\item Mengubah label pada thread atau message(https://www.googleapis.com/auth/gmail.modify)
-\item Mengirim message mewakili pengguna (https://www.googleapis.com/auth/gmail.compose)
+\item \url{https://www.googleapis.com/auth/gmail.readonly} : scope untuk membaca message dari Gmail
+\item \url{https://www.googleapis.com/auth/gmail.modify} : scope untuk mengubah label pada thread atau message
+\item \url{https://www.googleapis.com/auth/gmail.compose} : scope untuk mengirim message mewakili pengguna
 \end{itemize}
 
 \subsection{Penggunaan pada umumnya}
@@ -890,7 +890,7 @@ Label yang diberikan ke sebuah thread juga diberikan ke semua message di dalam t
 \label{sec:PHPIMAP}
 IMAP (Internet Message Access Protocol) adalah metode untuk mengakses pesan elektronik yang disimpan di sebuah mail server.
 
-Ekstensi ini dapat digunakan apabila c-client library sudah terpasang. Library ini dapat ditemukan di https://www.washington.edu/imap/. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori system, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori system, lalu memasukkan dokumen IMAP ke dalamnya. Contoh : \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tamabahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua dokumen dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, dokumen bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
+Ekstensi ini dapat digunakan apabila c-client library sudah terpasang. Library ini dapat ditemukan di \url{https://www.washington.edu/imap/}. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori system, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori system, lalu memasukkan dokumen IMAP ke dalamnya. Contoh : \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tamabahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua dokumen dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, dokumen bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
 
 Setelah itu, kompilasi PHP dengan --with-imap[=DIR]. DIR disini adalah tempat c-client. Contoh : \texttt{with-imap=/usr/local/imap-2000b}. Pengguna sistem operasi Windows mungkin harus mengaktifkan \texttt{php\_imap.dll}.
 
@@ -908,6 +908,29 @@ Di dalam sistem operasi Ubuntu, pemasangan PHP IMAP bisa dilakukan dengan mudah.
 	sudo apt-get install php5-imap
 		
 \end{lstlisting}
+
+Berikut adalah \textit{function} dasar dari imap :
+\begin{itemize}
+\item imap\_8bit : melakukan konversi 8bit string ke quoted-printable string
+\item imap\_alerts : mengembalikan semua pesan peringatan dari IMAP yang telah terjadi
+\item imap\_base64 : decode BASE64 encoded text
+\item imap\_binary : melakukan konversi 8bit string ke base64 string
+\item imap\_body : membaca message body
+\item imap\_bodystruct : membaca struktur dari bagian body tertentu dari message tertentu
+\item imap\_check : mengecek mailbox (kotak surat)
+\item imap\_close : menutup IMAP stream
+\item imap\_errors : mengembalikan semua error dari IMAP yang telah terjadi
+\item imap\_fetch\_overview : membaca informasi pada header dari message yang diberikan
+\item imap\_fetchbody : mengambil bagian tertentu dari message body
+\item imap\_fetchheader : mengembalikan header dari message
+\item imap\_fetchmime : mengambil MIME headers dari bagian tertentu dari message
+\item imap\_fetchstructure : membaca struktur dari message tertentu
+\item imap\_headerinfo : membaca header dari message
+\item imap\_open : membuka IMAP stream ke mailbox
+\item imap\_qprint : melakukan konversi dari quoted-printable string ke 8 bit string
+\item imap\_sort : mendapatkan dan menyortir message
+\item imap\_utf8 : melakukan konversi dari MIME-encoded text ke UTF-8
+\end{itemize}
 
 %2.4 Line
 \section{Line \cite{LINE-developer}}
