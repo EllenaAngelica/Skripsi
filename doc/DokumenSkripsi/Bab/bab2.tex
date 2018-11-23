@@ -77,7 +77,7 @@ Isi dari Procfile adalah satu atau lebih baris yang menyatakan sebuah tipe prose
 \end{lstlisting}
 Pada contoh, \texttt{web} merupakan \texttt{<process type>}, sedangkan \texttt{web: java -jar lib/foobar.jar \textdollar PORT} adalah perintah yang harus dijalankan agar tipe proses tersebut berjalan. Perintah tersebut berfungsi untuk menyalakan web server.
 
-Heroku adalah polyglot platform : Heroku memungkinkan Anda membangun, menjalankan, dan mengatur perangkat lunak di cara yang serupa dalam segala bahasa pemrograman - menggunakan dependensi dan Procfile. Procfile menyingkap aspek arsitektur dari perangkat lunak dan arsitektur ini memungkinkan pengembang, contohnya, mengatur setiap bagian secara independen. Namun, membuat Procfile tidak wajib untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat tipe proses \texttt{web} untuk menjalankan server perangkat lunak. Apabila perangkat lunak menggunakan \texttt{heroku.yml} sebagai build manifest, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile (kecuali tipe proses release).
+Heroku adalah polyglot platform : Heroku memungkinkan Anda membangun, menjalankan, dan mengatur perangkat lunak di cara yang serupa dalam segala bahasa pemrograman - menggunakan dependensi dan Procfile. Namun, membuat Procfile tidak wajib untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat tipe proses \texttt{web} untuk menjalankan server perangkat lunak. Apabila perangkat lunak menggunakan \texttt{heroku.yml} sebagai build manifest, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile (kecuali tipe proses release).
 
 \subsubsection{Dyno}
 Heroku mengeksekusi perangkat lunak dengan menjalankan perintah yang telah ditulis di dalam Procfile. Heroku akan menjalankan dyno yang telah dimuat dengan slug yang telah disiapkan. Dyno adalah wadah perangkat lunak berbasis Unix yang terisolasi, tervirtualisasi, dan menyediakan lingkungan yang dibutuhkan untuk menjalankan suatu perangkat lunak. Umumnya, jika perangkat lunak di-\textit{deploy} ke Heroku untuk pertama kali, Heroku akan menjalankan satu web dyno secara otomatis.
@@ -1093,8 +1093,7 @@ Untuk mengecek apakah server dapat menerima webhook event, blok bot pada LINE da
 Untuk memastikan request yang dikirim berasal dari LINE Platform, bot server harus memvalidasi X-Line-Signature pada request header. Caranya dengan :
 1. Menggunakan channel secret sebagai secret key, mengenerate Base64-encoded digest dari request body menggunakan algoritma HMAC-SHA256
 2. Menkonfirmasi signature X-Line-Signature dalam request header cocok dengan digest.
-
-%contoh di php 
+ 
 
 \subsubsection{Webhook Event Object}
 Webhook Event Object
