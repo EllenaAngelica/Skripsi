@@ -16,118 +16,154 @@
 
 
 %2.1 BlueTape
-\section{\textit{BlueTape}}
+\section{BlueTape}
 \label{sec:BlueTape}
-\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Perangkat lunak ini berbasis web dengan memanfaatkan \textit{CodeIgniter} dan \textit{ZURB Foundation}. Saat skripsi ini ditulis, perangkat lunak BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen memberikan layanan untuk merekam dan menampilkan jadwal dosen. \footnotemark
+BlueTape adalah aplikasi yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Aplikasi ini berbasis web dengan memanfaatkan \textit{framework} CodeIgniter dan ZURB Foundation. Selain itu, BlueTape menggunakan layanan OAuth dari Google untuk autentikasi pengguna. Saat skripsi ini ditulis, aplikasi BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen memberikan layanan untuk menyimpan dan menampilkan jadwal dosen. \footnotemark
 \footnotetext{https://github.com/ftisunpar/BlueTape}
 
 
 %2.2 Heroku
 \section{Heroku ~\cite{heroku}}
 \label{sec:Heroku}
-Heroku adalah \textit{platform cloud} yang memungkinkan pengembang untuk membangun, menjalankan, dan mengoperasikan perangkat lunak pada \textit{cloud}. Heroku mendukung beberapa bahasa pemrograman, meliputi : Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP. 
+Heroku adalah \textit{cloud platform} yang memungkinkan \textit{developer} untuk membangun, menjalankan, dan mengoperasikan aplikasi pada \textit{cloud}. Heroku mendukung beberapa bahasa pemrograman, meliputi : Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP.
 
 \subsection{Arsitektur Heroku}
-Heroku memungkinkan seorang pengembang untuk melakukan \textit{deploy} (menyebarkan), \textit{run} (menjalankan), dan \textit{manage} (mengelola) kepada perangkat lunak yang ditulis di dalam bahasa yang didukung oleh Heroku. Heroku mendefinisikan perangkat lunak sebagai gabungan dari \textit{source code} yang ditulis di dalam salah satu bahasa yang didukung Heroku (dapat berupa \textit{framework}), deskripsi dependensi yang dipakai, dan Procfile (jika diperlukan).
+Heroku memungkinkan seorang \textit{developer} untuk melakukan \textit{deploy} (menyebarkan), \textit{run} (menjalankan), dan \textit{manage} (mengelola) pada aplikasi yang ditulis di dalam bahasa yang didukung oleh Heroku. Heroku mendefinisikan aplikasi sebagai gabungan dari \textit{source code} yang ditulis di dalam salah satu bahasa yang didukung Heroku, deskripsi \textit{dependency} yang dipakai, dan Procfile.
 
-\subsubsection{Dependensi}
-Pengembang perlu mendeskripsikan dependensi tambahan yang diperlukan agar perangkat lunak dapat dibangun dan dijalankan. Aturan penulisan deskripsi dependensi berbeda-beda untuk tiap bahasa. Contohnya pada bahasa Ruby deskripsi dependensi dituliskan dalam dokumen \texttt{Gemfile}, pada bahasa Python ditulis di dokumen \texttt{requirements.txt}, pada bahasa Node.js ditulis di dokumen \texttt{package.json}, pada bahasa Java ditulis di dokumen \texttt{pom.xml}, dan seterusnya.
+\subsubsection{\textit{Dependency}}
+\textit{Developer} perlu mendeskripsikan \textit{dependency} tambahan yang diperlukan agar aplikasi dapat dibangun dan dijalankan. Aturan penulisan deskripsi \textit{dependency} berbeda-beda untuk tiap bahasa. Contoh : pada aplikasi dengan bahasa Node.js, deskripsi \textit{dependency} ditulis di dokumen \texttt{package.json}.
 
-\subsubsection{Tipe Proses}
-Perangkat lunak web biasanya terdapat dua atau lebih titik masuk. Setiap titik masuk ini disebut tipe proses (\texttt{process type}). Tipe proses berbeda untuk tiap perangkat lunak.
+\subsubsection{Procfile}
+\textit{Developer} perlu memberitahu Heroku bagian aplikasi yang dapat dijalankan. Jika \textit{developer} menggunakan framework yang sudah ada, Heroku dapat mencari tahu. Contoh : pada aplikasi dengan bahasa Node.js, Heroku dapat mengetahui bagian aplikasi yang dijalankan pada bagian \texttt{main} di dalam \texttt{package.json}. Untuk aplikasi lain, \textit{developer} mungkin perlu menyatakan apa yang harus dieksekusi secara eksplisit. Caranya dengan menyertakan sebuah dokumen teks bernama Procfile. 
 
-Ada tiga kelompok tipe proses : tipe proses \texttt{web}, tipe proses \texttt{worker}(tipe proses apapun selain \texttt{web}), dan tipe proses \texttt{singleton} (tipe proses yang bersifat sementara dan dapat berjalan terpisah). Di antara beragam tipe proses, ada dua tipe proses spesial : tipe proses \texttt{web} dan \texttt{release}. Tipe proses \texttt{web} adalah satu-satunya tipe proses yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah perangkat lunak melibatkan web server, pengembang harus menyatakannya sebagai proses \texttt{web}. Tipe proses \texttt{release} adalah tipe proses yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
+Dokumen Procfile tidak memiliki ekstensi dokumen, seperti \texttt{.txt}, \texttt{.docx}, \texttt{.jpg} dan lain-lain. Apabila Procfile diberi ekstensi dokumen (contoh : Procfile.txt), maka Procfile tersebut tidak sah. Selain itu, Procfile harus diletakkan di direktori \texttt{root}. Jika diletakkan di tempat lain, Procfile tidak akan berfungsi sebagaimana mestinya.
 
-Setiap tipe proses memiliki spesialisasinya sediri pada jenis pekerjaan tertentu. Misalnya, sebuah perangkat lunak memiliki dua jenis pekerja : pekerja untuk pekerjaan yang mendesak dan pekerja untuk pekerjaan yang berlangsung dengan lama. Dengan melakukan pembagian seperti itu, pekerjaan yang mendesak lebih cepat tertangani. Selain itu, penggunaan sumber daya lebih mudah dikontrol dan dikalkulasi.
+Isi dari Procfile adalah satu atau lebih baris yang menyatakan \textit{process type}. Format penulisan tiap baris Procfile adalah : 
+\begin{lstlisting}
+
+	<process type>: <command>
+
+\end{lstlisting}
+Keterangan :
+\begin{itemize}
+\item \texttt{<process type>} : nama perintah yang mengandung huruf dan angka. Contoh : \texttt{web}, \texttt{worker}, \texttt{urgentworker}, \texttt{clock}, dan lain-lain. Untuk aplikasi sederhana, \textit{developer} cukup menuliskan \textit{process type} \texttt{web} saja.
+\item \texttt{<command>} : perintah yang setiap dyno dari \textit{process type} tersebut harus jalankan pada saat startup.
+\end{itemize}
+ 
+Contoh isi Procfile :
+\begin{lstlisting}
+
+	web: java -jar lib/foobar.jar \textdollar PORT
+
+\end{lstlisting}
+
+Pada contoh, \texttt{web} merupakan \texttt{<process type>}, sedangkan \texttt{web: java -jar lib/foobar.jar \textdollar PORT} adalah perintah yang harus dijalankan agar \textit{process type} tersebut berjalan. Perintah tersebut berfungsi untuk menyalakan web server.
+
+Procfile tidak wajib dibuat untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat \textit{process type} \texttt{web} untuk menjalankan server aplikasi. Apabila aplikasi menggunakan \texttt{heroku.yml} sebagai \textit{build manifest}, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile (kecuali \textit{process type} release).
+
+
+\subsubsection{\textit{Process Type}}
+Ada tiga kelompok \textit{process type} : 
+\begin{itemize}
+\item \textit{process type} \texttt{web}
+\item \textit{process type} \texttt{worker} : \textit{process type} apapun selain \texttt{web}
+\item \textit{process type} \texttt{singleton} : \textit{process type} yang bersifat sementara dan dapat berjalan terpisah
+\end{itemize}
+
+Di antara beragam \textit{process type}, ada dua \textit{process type} spesial : \textit{process type} \texttt{web} dan \texttt{release}. \textit{Process type} \texttt{web} adalah satu-satunya \textit{process type} yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah aplikasi melibatkan web server, \textit{developer} harus menyatakannya sebagai proses \texttt{web}. \textit{Process type} \texttt{release} adalah \textit{process type} yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[scale=0.5]{process-type-dyno-relationship.jpg}  
-	\caption[Diagram hubungan antara tipe proses dan dyno]{Diagram hubungan antara tipe proses dan dyno} 
+	\caption[Diagram hubungan antara \textit{process type} dan dyno]{Diagram hubungan antara \textit{process type} dan dyno} 
 	\label{fig:process-type-dyno-relationship} 
 \end{figure}
 
-Tipe proses dan dyno saling berhubungan. Tipe proses adalah prototipe yang menjadi tempat dimana dyno dibentuk. Hubungan tipe proses dan dyno dapat dilihat di diagram pada Gambar~\ref{fig:process-type-dyno-relationship}. Sumbu x menyatakan tipe proses yang dipakai, sementara sumbu y menyatakan jumlah dyno yang berjalan pada tipe proses tersebut. Semakin banyak dyno pada suatu tipe proses maka konkurensi untuk pekerjaan yang ditangani tipe proses tersebut akan meningkat. Semakin banyak tipe proses maka semakin beragam beban kerja.
+\textit{Process type} dan dyno saling berhubungan. \textit{Process type} adalah prototipe yang menjadi tempat dimana dyno dibentuk. Hubungan \textit{process type} dan dyno dapat dilihat di diagram pada Gambar~\ref{fig:process-type-dyno-relationship}. Sumbu x menyatakan \textit{process type} yang dipakai, sementara sumbu y menyatakan jumlah dyno yang berjalan pada \textit{process type} tersebut. Semakin banyak dyno pada suatu \textit{process type} maka konkurensi untuk pekerjaan yang ditangani \textit{process type} tersebut akan meningkat. Semakin banyak \textit{process type} maka semakin beragam beban kerja.
 
-Untuk mengatur berapa banyak dyno yang bekerja di suatu proses, perintah yang dibutuhkan adalah \texttt{heroku ps:scale} diikuti dengan daftar pasangan tipe proses dengan jumlah dyno yang ditugaskan untuk proses tersebut. Contoh :
+Untuk mengatur berapa banyak dyno yang bekerja di satu \textit{process type}, perintah yang dapat diketikkan pada command shell adalah :
+\begin{lstlisting}
+
+	$ heroku ps:scale <process=dyno list>
+	
+\end{lstlisting}
+Keterangan :
+\begin{itemize}
+\item \texttt{<process=dyno list>} : daftar pasangan \textit{process type} dengan jumlah dyno yang ditugaskan untuk proses tersebut.
+\end{itemize}
+
+Contoh : 
 \begin{lstlisting}
 
 	$ heroku ps:scale web=2 worker=4 clock=1
 	
 \end{lstlisting}
 
-Selain dapat mengatur jumlah dyno yang ditugaskan pada suatu pekerjaan, pengembang dapat menjadwalkan proses yang berjalan pada suatu waktu atau jangka waktu tertentu. Caranya dengan menggunakan add-on Heroku Scheduler atau menggunakan tipe proses khusus untuk mengatur jadwal pekerjaan.
-
-\subsubsection{Procfile}
-Pengembang perlu memberitahu Heroku bagian perangkat lunak yang dapat dijalankan. Jika pengembang menggunakan framework yang sudah ada, Heroku dapat mencari tahu. Contohnya, di dalam Ruby pada Rails, biasanya \texttt{rails server}, di dalam Django adalah \texttt{python <app>/manage.py runserver} dan di dalam Node.js adalah \texttt{main} field di dalam \texttt{package.json}. Untuk perangkat lunak lain, pengembang mungkin perlu untuk secara eksplisit menyatakan apa yang harus dieksekusi. Caranya dengan menyertakan sebuah dokumen teks bernama Procfile. 
-
-Dokumen Procfile tidak memiliki ekstensi dokumen, seperti \texttt{.txt}, \texttt{.docx}, \texttt{.jpg} dan lain-lain. Apabila Procfile diberi ekstensi dokumen (contoh : Procfile.txt), maka Procfile tersebut tidak sah. Selain itu, Procfile harus diletakkan di direktori root. Jika diletakkan di tempat lain, Procfile tidak akan berfungsi sebagaimana mestinya.
-
-Isi dari Procfile adalah satu atau lebih baris yang menyatakan sebuah tipe proses. Format penulisan tiap baris Procfile adalah : 
-\begin{lstlisting}
-
-	<process type>: <command>
-
-\end{lstlisting}
-\texttt{<process type>} (tipe proses) adalah nama perintah yang mengandung huruf dan angka, seperti : \texttt{web}, \texttt{worker}, \texttt{urgentworker}, \texttt{clock}, dan lain-lain. Untuk perangkat lunak sederhana, pengembang cukup menuliskan tipe proses \texttt{web} saja. \texttt{<command>} adalah perintah yang setiap dyno dari tipe proses tersebut harus jalankan pada saat startup, seperti \texttt{rake jobs : work}. Contoh isi Procfile :
-\begin{lstlisting}
-
-	web: java -jar lib/foobar.jar \textdollar PORT
-
-\end{lstlisting}
-Pada contoh, \texttt{web} merupakan \texttt{<process type>}, sedangkan \texttt{web: java -jar lib/foobar.jar \textdollar PORT} adalah perintah yang harus dijalankan agar tipe proses tersebut berjalan. Perintah tersebut berfungsi untuk menyalakan web server.
-
-Heroku adalah polyglot platform : Heroku memungkinkan Anda membangun, menjalankan, dan mengatur perangkat lunak di cara yang serupa dalam segala bahasa pemrograman - menggunakan dependensi dan Procfile. Namun, membuat Procfile tidak wajib untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat tipe proses \texttt{web} untuk menjalankan server perangkat lunak. Apabila perangkat lunak menggunakan \texttt{heroku.yml} sebagai build manifest, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile (kecuali tipe proses release).
+Selain dapat mengatur jumlah dyno yang ditugaskan pada suatu pekerjaan, \textit{developer} dapat menjadwalkan proses yang berjalan pada suatu waktu atau jangka waktu tertentu. Caranya dengan menggunakan add-on Heroku Scheduler atau menggunakan \textit{process type} khusus untuk mengatur jadwal pekerjaan.
 
 \subsubsection{Dyno}
-Heroku mengeksekusi perangkat lunak dengan menjalankan perintah yang telah ditulis di dalam Procfile. Heroku akan menjalankan dyno yang telah dimuat dengan slug yang telah disiapkan. Dyno adalah wadah perangkat lunak berbasis Unix yang terisolasi, tervirtualisasi, dan menyediakan lingkungan yang dibutuhkan untuk menjalankan suatu perangkat lunak. Umumnya, jika perangkat lunak di-\textit{deploy} ke Heroku untuk pertama kali, Heroku akan menjalankan satu web dyno secara otomatis.
+Dyno adalah wadah aplikasi berbasis Unix yang terisolasi, tervirtualisasi, dan menyediakan lingkungan yang dibutuhkan untuk menjalankan suatu aplikasi. Umumnya, jika aplikasi di-\textit{deploy} ke Heroku untuk pertama kali, Heroku akan menjalankan satu web dyno secara otomatis.
 
 Setiap dyno termasuk dalam salah satu dari konfigurasi berikut :
 \begin{itemize}
 \item Web dyno
 
-Web dyno adalah dyno dari tipe proses "web" yang disebutkan di dalam Procfile. Web dyno adalah satu-satunya dyno yang dapat menerima arus HTTP dari router Heroku.
+Web dyno adalah dyno dari \textit{process type} \texttt{web} yang disebutkan di dalam Procfile. Web dyno adalah satu-satunya dyno yang dapat menerima arus HTTP dari router Heroku.
 
 \item Worker dyno
 
-Worker dyno adalah dyno dari tipe proses apapun selain "web" yang disebutkan di dalam Procfile. Worker dyno biasanya digunakan untuk pekerjaan di latar belakang, sistem antrian, dan pekerjaan yang memiliki jangka waktu.
+Worker dyno adalah dyno dari \textit{process type} apapun selain \texttt{web} yang disebutkan di dalam Procfile. Worker dyno biasanya digunakan untuk pekerjaan di latar belakang, sistem antrian, dan pekerjaan yang memiliki jangka waktu.
+
 \item One-off dyno
 
-One-off dyno adalah dyno yang bersifat sementara yang dapat berjalan terpisah atau dengan masukan/keluaran dari terminal lokal. Dyno ini dapat digunakan untuk tugas yang bersifat administratif, seperti migrasi basis data dan sesi konsol. Dyno ini juga dapat digunakan untuk melakukan pekerjaan di latar belakang yang bersifat sesekali, seperti Heroku Scheduler.
+One-off dyno adalah dyno yang bersifat sementara yang dapat berjalan terpisah atau dengan masukan/keluaran dari terminal lokal. Dyno ini dapat digunakan untuk tugas yang bersifat administratif, contoh : migrasi basis data. Dyno ini juga dapat digunakan untuk melakukan pekerjaan di latar belakang yang bersifat sesekali, contoh : Heroku Scheduler.
 
-\end{itemize}. 
+\end{itemize} 
 
-Heroku menyediakan beberapa tipe dyno yang berbeda. Tiap dyno memiliki sifat yang unik dan kinerja yang berbeda. Untuk semua pengguna Heroku, tersedia pilihan dyno tipe Free, Hobby, Standard, dan Performance. Ada satu tipe dyno lagi, yaitu tipe Private. Dyno tipe Private hanya tersedia di Heroku Enterpise yang diperuntukkan untuk organisasi.
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{dyno-type-features.png}  
+	\caption[Tabel perbedaan fitur pada tipe dyno yang berbeda]{Tabel perbedaan fitur pada tipe dyno yang berbeda} 
+	\label{fig:dyno-type-features} 
+\end{figure}
 
-Dyno dapat diskala secara horizontal dan vertikal. Untuk melakukan skala secara horizontal, tambahkan lebih banyak dyno. Contohnya, menambah web dyno agar dapat menangani arus yang lebih besar. Untuk menskala secara vertikal, gunakan dyno yang lebih besar. Dyno yang lebih besar berarti jumlah pemakaian memori RAM yang lebih besar. Jumlah RAM maksimal yang tersedia untuk perangkat lunak tergantung dari tipe dyno yang digunakan. Penskalaan secara horizontal dan vertikal ini adalah fitur dari dyno profesional, dan tidak tersedia untuk dyno tipe free dan hobby.
+Heroku menyediakan beberapa tipe dyno yang berbeda. Tiap tipe dyno memiliki sifat yang unik dan kinerja yang berbeda. Untuk semua pengguna Heroku, tersedia pilihan dyno tipe Free, Hobby, Standard, dan Performance. Perbedaan fitur untuk tiap tipe terdapat pada Gambar~\ref{fig:dyno-type-features}. Ada satu tipe dyno lagi, yaitu tipe Private. Dyno tipe Private hanya tersedia di Heroku Enterpise yang diperuntukkan untuk organisasi.
 
-Perangkat lunak dengan banyak dyno yang berjalan akan memiliki resiko kegagalan yang lebih rendah daripada yang sedikit. Jika ada dyno yang hilang, perangkat lunak dapat terus memproses permintaan sementara dyno yang hilang diganti. Dyno yang hilang biasanya langsung dimulai ulang, tapi terkadang membutuhkan waktu yang lama.
+Fitur-fitur utama dyno adalah :
+\begin{itemize}
+\item \textit{Scalability}
 
-Semua dyno terisolasi dari dyno lain untuk alasan keamanan. Walaupun dyno tipe Free, Hobby, dan Standard terisolasi, dyno mungkin berbagi komputasi dasar yang sama. Heroku memiliki teknik tersendiri untuk memastikan penggunaannya adil. Di sisi lain, dyno tipe Performance dan Private tidak berbagi komputasi dasar yang sama dengan dyno lain. Hal ini membuat dyno tipe Performance dan Private memiliki kinerja yang lebih stabil dibanding dengan dyno tipe Free, Hobby, dan Standard. Selain memiliki sumber daya komputasi yang dikhususkan untuknya, Private dyno juga memiliki jaringan virtual yang terisolasi.
+Dyno dapat di-\textit{scale} secara horizontal dan vertikal. Untuk melakukan \textit{scale} secara horizontal (\textit{scale out}), tambahkan lebih banyak dyno. Contoh : menambah web dyno agar dapat menangani arus yang lebih besar. Untuk melakukan \textit{scale} secara vertikal (\textit{scale up}), gunakan dyno yang lebih besar. Dyno yang lebih besar berarti jumlah pemakaian memori RAM yang lebih besar. Jumlah RAM maksimal yang tersedia untuk aplikasi tergantung dari tipe dyno yang digunakan. \textit{Scale} secara horizontal dan vertikal ini adalah fitur yang tersedia untuk dyno tipe Standard dan Performance saja.
 
-Tiap dyno memiliki sistem dokumen ephemeral, dengan salinan kode dari hasil deploy terbaru. Saat masa hidup dyno, proses yang dijalankannya dapat menggunakan sistem dokumen ini sebagai tempat menulis sementara. Namun, dokumen yang ditulis tidak dapat dilihat oleh proses dari dyno lain dan dokumen yang ditulis akan dihapus saat dyno berhenti bekerja atau dimulai ulang.
+\item \textit{Redundancy}
 
-Tiap dyno memiliki antarmuka jaringannya sendiri. Konfigurasi dari jaringan bergantung pada tipe Runtime yang dipakai. Ada dua tipe Runtime : Common Runtime dan Private Space Runtime. 
+Aplikasi dengan banyak dyno yang berjalan akan memiliki resiko kegagalan yang lebih rendah daripada yang sedikit. Jika ada dyno yang hilang, aplikasi dapat terus memproses permintaan sementara dyno yang hilang diganti. Dyno yang hilang biasanya langsung dimulai ulang, tapi terkadang membutuhkan waktu yang lama.
 
-Common Runtime menyediakan isolasi yang kuat dengan menghalangi tiap dyno dari dyno lainnya. Pada runtime ini, hanya web dyno yang dapat mendengarkan angka yang disebutkan di variabel \texttt{\textdollar PORT} dan melakukan inbound request. Tiap dyno pada runtime ini memiliki IP atau subnet sendiri. Semua tipe dyno dapat membuat outbound request ke layanan yang bekerja di tempat lain selama terkoneksi ke internet. Namun, alamat IP asal untuk permintaan ini tidak dapat dikontrol oleh pengguna.
+\item \textit{Isolation and security}
 
-Private Space Runtime menghubungkan dyno lewat jaringan virtual privat yang dikonfigurasi sebagai bagian dari suatu ruang. Pada runtime ini, dyno jenis apapun dapat mendengarkan \texttt{\textdollar PORT} dan menerima koneksi dari dyno lain pada jaringan privat. Runtime ini memungkinkan penggunaan Trusted IP Ranges untuk mengontrol IP klien yang dapat berkomunikasi dengan perangkat lunak dalam Private Space. Outbound request ke layanan internet dilakukan melalui NAT gateway untuk memastikan koneksi asal berasal dari kumpulan alamat IP outbound yang stabil.
+Semua dyno terisolasi dari dyno lain untuk alasan keamanan. Walaupun dyno tipe Free, Hobby, dan Standard terisolasi, dyno mungkin berbagi komputasi dasar yang sama. Heroku memiliki teknik tersendiri untuk memastikan penggunaannya adil. Di sisi lain, dyno tipe Performance dan Private tidak berbagi komputasi dasar yang sama dengan dyno lain. Hal ini membuat dyno tipe Performance dan Private memiliki kinerja yang lebih stabil dibanding dengan dyno tipe Free, Hobby, dan Standard. Selain memiliki sumber daya komputasi yang dikhususkan untuknya, dyno tipe Private juga memiliki jaringan virtual yang terisolasi.
+
+\item \textit{Ephemeral filesystem}
+
+Tiap dyno memiliki \textit{ephemeral filesystem}, dengan salinan kode dari hasil deploy terbaru. Saat masa hidup dyno, proses yang dijalankannya dapat menggunakan \textit{filesystem} ini sebagai tempat menulis sementara. Namun, dokumen yang ditulis tidak dapat dilihat oleh proses dari dyno lain dan dokumen yang ditulis akan dihapus saat dyno berhenti bekerja atau dimulai ulang.
+
+\end{itemize}
 
 \subsubsection{Dyno manager}
-Dyno manager adalah bagian dari Heroku yang bertanggungjawab untuk menjaga dyno tetap berjalan. Dyno manager melakukan pekerjaan seperti memastikan dyno didaur ulang setidaknya satu kali sehari atau setiap dyno manager mendeteksi kesalahan di dalam perangkat lunak yang berjalan. Daur ulang dyno ini berlangsung secara transparan dan otomatis secara teratur dan tercatat.
+Dyno manager adalah bagian dari Heroku yang bertanggungjawab untuk menjaga dyno tetap berjalan. Dyno manager melakukan pekerjaan seperti memastikan dyno didaur ulang setidaknya satu kali sehari atau setiap dyno manager mendeteksi kesalahan di dalam aplikasi yang berjalan. Daur ulang dyno ini berlangsung secara transparan dan otomatis secara teratur dan tercatat.
 
-Perangkat lunak yang menggunakan dyno tipe Free akan masuk mode sleep (tidur) jika tidak ada arus HTTP selama jangka waktu 30 menit. Ketika perangkat lunak yang tidur menerima arus HTTP, maka perangkat lunak tersebut akan terbangun. Hal ini menyebabkan perangkat lunak lebih lambat beberapa detik dari perangkat lunak yang menggunakan dyno tipe lain. Dyno tipe lain tidak memiliki mode sleep, dan akan selalu terjaga.
+Aplikasi yang menggunakan dyno tipe Free akan masuk mode \texttt{sleep} (tidur) jika tidak ada arus HTTP selama jangka waktu 30 menit. Ketika aplikasi yang tidur menerima arus HTTP, maka aplikasi tersebut akan terbangun. Hal ini menyebabkan aplikasi lebih lambat beberapa detik dari aplikasi yang menggunakan dyno tipe lain. Dyno tipe lain tidak memiliki mode sleep, dan akan selalu terjaga.
 
 \subsubsection{Config vars}
-Konfigurasi perangkat lunak dapat berubah-ubah tergantung lingkungannya. Misalnya, konfigurasi perangkat lunak saat pengembangan dapat berbeda saat perangkat lunak siap dirilis ke penggunanya. Konfigurasi perangkat lunak dapat berupa informasi database, informasi kredensial, atau informasi lain yang bersifat spesifik pada perangkat lunak. Konfigurasi ini harus diletakkan pada environment variable, bukan di source code. Dengan menggunakan environment variable, konfigurasi dapat diubah secara terpisah. Selain itu, konfigurasi yang bersifat kredensial dapat terhindar dari tersimpan pada \textit{version control} (pengontrol versi, contoh : Git).
+Konfigurasi aplikasi dapat berubah-ubah tergantung lingkungannya. Misalnya, konfigurasi aplikasi saat pengembangan dapat berbeda saat aplikasi siap dirilis ke pengguna. Konfigurasi aplikasi dapat berupa informasi \textit{database}, informasi kredensial, atau informasi lain yang bersifat spesifik pada aplikasi. Konfigurasi ini harus diletakkan pada \textit{environment variable}, bukan di \textit{source code}. Dengan menggunakan \textit{environment variable}, konfigurasi dapat diubah secara terpisah. Selain itu, konfigurasi yang bersifat kredensial dapat terhindar dari tersimpan pada \textit{version control} (pengontrol versi, contoh : Git).
 
-Heroku memungkinkan pengembang untuk menjalankan perangkat lunak dengan konfigurasi yang dapat diubah dengan mudah. Konfigurasi tersebut diletakkan di luar dari source code perangkat lunak. Konfigurasi dapat diubah secara independen tanpa harus mengubah source code. Konfigurasi tersebut disimpan di dalam config vars.
+Heroku memungkinkan \textit{developer} untuk menjalankan aplikasi dengan konfigurasi yang dapat diubah dengan mudah. Konfigurasi tersebut diletakkan di luar dari \textit{source code} aplikasi. Konfigurasi dapat diubah secara independen tanpa harus mengubah \textit{source code}. Konfigurasi tersebut disimpan di dalam config vars.
 
 Untuk mengatur config vars ada tiga cara : 
 \begin{itemize}
 \item Menggunakan Heroku CLI
 
-Config var diatur menggunakan command shell. Berikut perintah-perintah untuk mengatur config var menggunakan Heroku CLI:
+Config var diatur menggunakan \textit{command shell}. Berikut perintah-perintah untuk mengatur config var menggunakan Heroku CLI:
 \begin{itemize}
 \item Menampilkan seluruh config var beserta nilainya : 
 
@@ -143,7 +179,10 @@ Config var diatur menggunakan command shell. Berikut perintah-perintah untuk men
 	$ heroku config : get <config var>
 
 \end{lstlisting}
-dimana \texttt{config var} adalah nama config var
+Keterangan :
+\begin{itemize}
+\item \texttt{config var} : nama config var
+\end{itemize}
 
 \item Menambah config var
 
@@ -152,7 +191,11 @@ dimana \texttt{config var} adalah nama config var
 	$ heroku config : set <config var> = <config value>
 
 \end{lstlisting}
-dimana \texttt{config var} adalah nama config var dan \texttt{config value} adalah nilai dari config var tersebut
+Keterangan :
+\begin{itemize}
+\item \texttt{config var} : nama config var
+\item \texttt{config value} : nilai dari config var tersebut
+\end{itemize}
 
 \item Menghapus config var
 
@@ -161,7 +204,10 @@ dimana \texttt{config var} adalah nama config var dan \texttt{config value} adal
 	$ heroku config : unset <config var>
 
 \end{lstlisting}
-dimana \texttt{config var} adalah nama config var
+Keterangan :
+\begin{itemize}
+\item \texttt{config var} : nama config var
+\end{itemize}
 
 \end{itemize}
 
@@ -178,31 +224,36 @@ Config var dapat dilihat, ditambah, dan dihapus melalui menu \texttt{Settings} b
 
 \item Menggunakan Heroku Platform API
 
-Config var dapat diatur dengan Heroku Platform API menggunakan HTTPS REST client sederhana dan data struktur data JSON. Pengembang perlu Heroku \textit{access token} yang valid yang mewakili pengguna dengan izin yang tepat untuk perangkat lunak.
-You need a valid Heroku access token representing a user with proper permissions on the app.
+Config var dapat diatur dengan Heroku Platform API menggunakan HTTPS REST client sederhana dan data struktur data JSON. \textit{Developer} perlu Heroku \textit{access token} yang valid yang mewakili pengguna dengan izin yang tepat untuk aplikasi.
 
 \end{itemize}
 
-Config vars akan diperlakukan sebagai environment variable oleh program. Contohnya, environment variable dapat diakses dengan getEnv() pada program dengan bahasa PHP.
+Config vars akan diperlakukan sebagai \textit{environment variable} oleh program. Contoh : \textit{environment variable} dapat diakses dengan getEnv() pada program dengan bahasa PHP.
  
 Dalam mengatur config var, ada beberapa hal yang harus diperhatikan :
 \begin{itemize}
-\item Setiap config var ditambah atau dihapus, perangkat lunak akan dimulai ulang dan release baru akan dibuat.
-\item Jika perangkat lunak menggunakan add-on, biasanya add-on tersebut akan menambahkan satu atau lebih config var ke perangkat lunak. Nilai dari config var tersebut mungkin diperbarui oleh penyedia add-on kapan saja.
-\item Config var data (kombinasi dari semua kunci dan nilainya) tidak dapat melebihi 32kb per perangkat lunak
+\item Setiap config var ditambah atau dihapus, aplikasi akan dimulai ulang dan release baru akan dibuat.
+\item Jika aplikasi menggunakan add-on, biasanya add-on tersebut akan menambahkan satu atau lebih config var ke aplikasi. Nilai dari config var tersebut mungkin diperbarui oleh penyedia add-on kapan saja.
+\item Config var data (kombinasi dari semua kunci dan nilainya) tidak dapat melebihi 32kb per aplikasi
 \item Nama config var tidak boleh diawali dengan garis bawah dua kali (\texttt{\_\_}).
 \item Nama config var tidak bisa diawali dengan \texttt{HEROKU\_}, kecuali ditambahkan oleh platform Heroku sendiri.
 \end{itemize}
 
 \subsubsection{Add-ons}
-Perangkat lunak biasanya memanfaatkan add-ons untuk menyediakan layanan penyokong seperti basis data, sistem antrean, layanan email, dan lainnya. Add-ons disediakan oleh Heroku atau pihak ketiga. Pengembang dapat mencari add-ons di Elements Marketplace (\url{https://elements.heroku.com/addons}). 
+Aplikasi biasanya memanfaatkan add-ons untuk menyediakan layanan penyokong seperti basis data, sistem antrean, layanan email, dan lainnya. Add-ons disediakan oleh Heroku atau pihak ketiga. \textit{Developer} dapat mencari add-ons di Elements Marketplace (\url{https://elements.heroku.com/addons}). 
 
-Menambah add-ons selain add-ons Heroku Postgres dan Heroku Connect membutuhkan verifikasi akun. Pengembang dapat menambah add-ons melalui tombol Install di Elements Marketplace atau dengan mengetikkan perintah berikut pada command shell :
+Menambah add-ons selain add-ons Heroku Postgres dan Heroku Connect membutuhkan verifikasi akun. \textit{Developer} dapat menambah add-ons melalui tombol Install di Elements Marketplace atau dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
 
 	$ heroku addons:create <nama addons>:<tipe addons>
 
 \end{lstlisting}
+Keterangan :
+\begin{itemize}
+\item \texttt{<nama addons>} : nama addons
+\item \texttt{<tipe addons>} : tipe addons
+\end{itemize}
+
 Contoh :
 \begin{lstlisting}
 
@@ -211,13 +262,13 @@ Contoh :
 \end{lstlisting}
 
 \subsubsection{Slug}
-Ketika platform Heroku menerima source code perangkat lunak, heroku akan memulai proses \textit{build} (pembangunan) berdasarkan source code. Mekanisme build biasanya tergantung bahasa pemrograman yang dipakai, tapi mengikuti pola yang sama. Mekanisme build biasanya mengambil dependensi yang ditentukan, dan menciptakan aset yang diperlukan. Source code untuk perangkat lunak, dependensi yang diraih, dan hasil dari fase build digabungkan ke dalam slug. 
+Ketika platform Heroku menerima \textit{source code} aplikasi, heroku akan memulai proses \textit{build} berdasarkan \textit{source code}. Mekanisme \textit{build} biasanya tergantung pada bahasa pemrograman yang dipakai, tapi mengikuti pola yang sama. Mekanisme \textit{build} biasanya mengambil \textit{dependency} yang ditentukan, dan menciptakan aset yang diperlukan. \textit{Source code} untuk aplikasi, \textit{dependency}, dan hasil dari fase \textit{build} digabungkan ke dalam slug. 
 
-Slug adalah gabungan dari source code, dependensi yang diambil, language runtime, dan hasil kompilasi atau keluaran yang dihasilkan oleh sistem build yang siap untuk dieksekusi. Slug ini adalah aspek dasar dari eksekusi perangkat lunak. Slug berisi perangkat lunak yang sudah dikompilasi, digabungkan, dan siap untuk dijalankan.
+Slug adalah gabungan dari \textit{source code}, \textit{dependency} yang diambil, \textit{language runtime}, dan hasil kompilasi atau keluaran yang dihasilkan oleh \textit{build system} yang siap untuk dieksekusi. Slug ini adalah aspek dasar dari eksekusi aplikasi. Slug berisi aplikasi yang sudah dikompilasi, digabungkan, dan siap untuk dijalankan.
 
-Slug dikompilasi oleh slug compiler menggunakan buildpack. Buildpack akan mengambil perangkat lunak, dependensi, dan language runtime dan kemudian menghasilkan slug. Buildpack bersifat open source, sehingga memungkinkan pengembang memperluas Heroku ke bahasa pemrograman lain dan framework.
+Slug dikompilasi oleh slug compiler menggunakan buildpack. Buildpack akan mengambil aplikasi, \textit{dependency}, dan \textit{language runtime} dan kemudian menghasilkan slug. Buildpack bersifat \textit{open source}, sehingga memungkinkan \textit{developer} memperluas Heroku ke bahasa pemrograman lain dan \textit{framework}.
 
-Apabila ada dokumen yang tidak diperlukan untuk menjalankan perangkat lunak, pengembang dapat menambahkannya ke \texttt{.slugignore}. Dokumen ini harus dibuat di direktori root. Contoh dokumen yang mungkin ingin dimasukkan ke \texttt{.slugignore} :
+Apabila ada dokumen yang tidak diperlukan untuk menjalankan aplikasi, \textit{developer} dapat menambahkannya ke \texttt{.slugignore}. Dokumen ini harus dibuat di direktori \texttt{root}. Contoh dokumen yang mungkin ingin dimasukkan ke \texttt{.slugignore} :
 \begin{itemize}
 \item Dokumen pengolah gambar (contoh : dokumen .psd)
 \item Dokumen desain (contoh : dokumen .pdf)
@@ -233,12 +284,12 @@ Contoh isi \texttt{.slugignore} :
 /spec
 \end{lstlisting}
 
-Ukuran slug dapat terlihat di akhir kompilasi (apabila kompilasi berhasil). Maksimum ukuran slug adalah 500 MB. Ukuran slug bervariasi berdasarkan bahasa atau framework yang digunakan, banyak dependensi yang ditammbahkan, dan faktor lain dari perangkat luank. Slug yang ukurannya lebih kecil dapat ditransfer ke dyno manager dengan lebih cepat.
+Ukuran slug dapat terlihat di akhir kompilasi (apabila kompilasi berhasil). Maksimum ukuran slug adalah 500 MB. Ukuran slug bervariasi berdasarkan bahasa atau \textit{framework} yang digunakan, banyak \textit{dependency} yang ditambahkan, dan faktor lain dari aplikasi. Slug yang ukurannya lebih kecil dapat ditransfer ke dyno manager dengan lebih cepat.
 
 \subsubsection{Buildpack}
-Buildpack bertanggung jawab untuk mengubah source code menjadi slug, sehingga dyno dapat mengeksekusinya. Buildpack terdiri dari sekumpulan script yang ditulis dalam bahasa pemrograman yang sama dengan source code. Script tersebut akan mengambil dependensi, mengeluarkan aset atau kode yang sudah dikompilasi, dan sebagainya. Keluaran ini akan digabungkan ke dalam slug oleh slug compiler.
+Buildpack bertanggung jawab untuk mengubah \textit{source code} menjadi slug, sehingga dyno dapat mengeksekusinya. Buildpack terdiri dari sekumpulan \textit{script} yang ditulis dalam bahasa pemrograman yang sama dengan \textit{source code}. Script tersebut akan mengambil \textit{dependency}, mengeluarkan aset atau kode yang sudah dikompilasi, dan sebagainya. Keluaran ini akan digabungkan ke dalam slug oleh slug compiler.
 
-Heroku memiliki sekumpulan \textit{officially supported buildpack} yang tersedia secara default untuk semua perangkat lunak Heroku selama kompilasi slug. Daftar \textit{officially supported buildpack} terdapat pada Gambar~\ref{fig:heroku-buildpack-table}. Kolom Buildpack menyatakan nama buildpack dan kolom shorthand menyatakan nama panggil buildpack saat di CLI.
+Heroku memiliki sekumpulan \textit{officially supported buildpack} yang tersedia secara default untuk semua aplikasi Heroku selama kompilasi slug. Daftar \textit{officially supported buildpack} terdapat pada Gambar~\ref{fig:heroku-buildpack-table}. Kolom \texttt{Buildpack} menyatakan nama buildpack dan kolom \texttt{shorthand} menyatakan nama panggil buildpack saat di CLI.
 
 \begin{figure}[H]
 	\centering  
@@ -247,154 +298,183 @@ Heroku memiliki sekumpulan \textit{officially supported buildpack} yang tersedia
 	\label{fig:heroku-buildpack-table} 
 \end{figure}
 
-Heroku akan mencari buildpack yang sesuai dan menggunakannya untuk mengompilasi perangkat lunak. Jika build sukses, buildpack yang sudah terdeteksi sesuai akan secara permanen diatur untuk push selanjutnya. Buildpack yang telah dimodifikasi dapat dipakai untuk mendukung bahasa atau framework yang tidak dapat di cakup oleh buildpack resmi.
+Heroku akan mencari buildpack yang sesuai dan menggunakannya untuk mengompilasi aplikasi. Jika build sukses, buildpack yang sudah terdeteksi sesuai akan secara permanen diatur untuk push selanjutnya. Buildpack yang telah dimodifikasi dapat dipakai untuk mendukung bahasa atau framework yang tidak dapat di cakup oleh buildpack resmi.
 
-Buildpack yang digunakan dapat diubah dengan mengatur nilai buildpack. Caranya dengan mengetikkan perintah berikut pada command shell :
-\begin{lstlisting}
+Biasanya buildpack yang dipakai oleh aplikasi hanya satu, tapi ada beberapa kasus buildpack yang dipakai tidak cukup hanya satu. Beberapa kasus tersebut adalah :
+\begin{itemize}
+\item Menjalankan buildpack untuk tiap bahasa pemrograman yang aplikasi gunakan. Contohnya, menjalankan JavaScript buildpack untuk aset dan buildpack Ruby untuk aplikasi.
+\item Menjalankan proses daemon seperti \texttt{pgbouncer} dengan aplikasi.
+\item Menarik \textit{dependency} sistem dengan apt.
+\end{itemize}
 
-	$ heroku buildpacks:set <nama buildpack>
-	
-\end{lstlisting}
-<nama buildpack> adalah nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}. Buildpack baru akan digunakan saat push berikutnya. 
-
-Apabila pengembang ingin mengatur buildpack yang dipakai saat perangkat lunak pertama kali dibuat, maka dapat menggunakan perintah ini :
+Berikut adalah perintah-perintah dasar buildpack yang dapat diketikkan pada \textit{command shell} :
+\begin{itemize}
+\item Mengatur buildpack yang dipakai saat aplikasi pertama kali dibuat
 \begin{lstlisting}
 
 	$ heroku create myapp --buildpack <nama buildpack>
 	
 \end{lstlisting}
-<nama buildpack> adalah nama panggil buildpack yang ingin dipakai.
+Keterangan :
+\begin{itemize}
+\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\end{itemize}
 
-Buildpack juga dapat secara eksplisit diatur di dalam app.json sehingga perangkat lunak yang dibuat menggunakan tombol Heroku dapat menggunakan buildpack yang telah dimodifikasi.
+Buildpack juga dapat secara eksplisit diatur di dalam app.json sehingga aplikasi yang dibuat menggunakan tombol Heroku dapat menggunakan buildpack yang telah dimodifikasi.
 
-Apabila pengembang ingin menghilangkan buildpack dari perangkat lunak, pengembang dapat mengetikkan perintah :
+\item Mengubah dengan mengatur nilai buildpack
+
+\begin{lstlisting}
+
+	$ heroku buildpacks:set <nama buildpack>
+	
+\end{lstlisting}
+Keterangan :
+\begin{itemize}
+\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\end{itemize}
+
+\item Menghilangkan buildpack dari aplikasi
+
 \begin{lstlisting}
 
 	$ heroku buildpacks:remove <nama buildpack>
 	
 \end{lstlisting}
-<nama buildpack> adalah nama panggil buildpack yang ingin dipakai. Hal yang harus diperhatikan adalah jika buildpack tidak ada, maka proses mendeteksi buildpack yang sesuai akan dijalankan lagi saat push berikutnya.
+Keterangan :
+\begin{itemize}
+\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\end{itemize}
 
-Selain dapat menggunakan buildpack yang telah dimodifikasi, terdapat third-party buildpack (buildpack buatan pihak ketiga) yang tersedia di Element marketplace atau menggunakan CLI. Pada CLI, ketikkan perintah :
+\item Mencari buildpack
+
 \begin{lstlisting}
 
 	$ heroku buildpacks:search <kata kunci>
 	
 \end{lstlisting}
-<kata kunci> misalnya adalah nama bahasa pemrograman yang dipakai, misalnya \texttt{elixir}. Apabila ingin melihat informasi tentang buildpack yang didapat, maka ketikkan perintah :
+Keterangan :
+\begin{itemize}
+\item \texttt{<kata kunci>} : kata kunci pencarian, misalnya : bahasa pemrograman yang dipakai. Contoh : \texttt{elixir}.
+\end{itemize}
+
+\item Menampilkan informasi buildpack
+
 \begin{lstlisting}
 
-	$ heroku buildpacks:info <kata kunci>
+	$ heroku buildpacks:info <nama buildpack>
 	
 \end{lstlisting}
-<nama buildpack> adalah nama panggil buildpack yang ingin dipakai. Dengan perintah tersebut, informasi seperti deskripsi, kategori, lisensi, source, dan informasi lainnya dapat dilihat.
+Keterangan :
+\begin{itemize}
+\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\end{itemize}
 
-Apabila pengembang ingin mengembalikan perangkat lunak ke buildpack awalnya, maka pengembang dapat mengetikkan perintah :
+\item Mengembalikan aplikasi ke buildpack awalnya
+
 \begin{lstlisting}
 
 	$ heroku buildpacks:clear
 	
 \end{lstlisting}
 
-Biasanya buildpack yang dipakai oleh perangkat lunak hanya satu, tapi ada beberapa kasus buildpack yang dipakai tidak cukup hanya satu. Beberapa kasus tersebut adalah :
-\begin{itemize}
-\item Menjalankan buildpack untuk tiap bahasa pemrograman yang perangkat lunak gunakan. Contohnya, menjalankan JavaScript buildpack untuk aset dan buildpack Ruby untuk perangkat lunak.
-\item Menjalankan proses daemon seperti \texttt{pgbouncer} dengan perangkat lunak.
-\item Menarik dependensi sistem dengan apt.
-\end{itemize}
+\item Mengatur urutan eksekusi buildpack
 
-Pengembang dapat menentukan buildpack-buildpack yang diperlukan perangkat lunak dan mengatur urutan eksekusinya dengan Heroku CLI. Untuk menambahkan buildpack yang ingin dipakai, pengembang dapat mengetikkan perintah :
-\begin{lstlisting}
-
-	$ heroku buildpacks:add --index <index> <nama buildpack>
-
-\end{lstlisting}
-<index> adalah urutan eksekusi buildpack, sedangkan <nama buildpack> adalah nama panggil buildpack yang ingin dipakai.
-
-Untuk mengubah buildpack yang dipakai pada urutan eksekusi tertentu, pengembang dapat mengetikkan perintah :
 \begin{lstlisting}
 
 	$ heroku buildpacks:set --index <index> <nama buildpack>
-	
-\end{lstlisting}
-<index> adalah urutan eksekusi buildpack, sedangkan <nama buildpack> adalah nama panggil buildpack yang ingin dipakai.
 
-Untuk melihat daftar buildpack yang dipakai oleh perangkat lunak, ketikkan perintah :
+\end{lstlisting}
+Keterangan :
+\begin{itemize}
+\item \texttt{<index>} : urutan eksekusi buildpack
+\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\end{itemize}
+
+\item Melihat daftar buildpack
+
 \begin{lstlisting}
 
 	$ heroku buildpacks
 
 \end{lstlisting}
-Buildpack terakhir pada daftar adalah buildpack yang digunakan untuk menentukan tipe proses dari perangkat lunak. Tipe proses lain yang disebutkan akan diabaikan.
 
-Untuk melihat daftar perintah yang dapat digunakan untuk mengatur buildpack, pengembang dapat mengetikkan perintah :
-\begin{lstlisting}
-
-	$ heroku help buildpacks
-
-\end{lstlisting}
+\end{itemize}
 
 \subsubsection{Stack}
-Stack adalah sistem operasi yang dikelola dan dipelihara oleh Heroku. Stack biasanya berlandaskan distribusi dari Linux yang ada, seperti Ubuntu. Pengembang dapat menentukan stack yang dipakai, dan buildpack akan mengubah source code menjadi paket yang dapat dieksekusi dengan stack tersebut. Saat skripsi ini dibuat, Heroku menyediakan tiga stack : Cedar-14, Heroku-16, dan Heroku-18. Cedar-14 berbasis Ubuntu 14.04 dan didukung sampai bulan April tahun 2019. Heroku-16 berbasis Ubuntu 16.04 dan didukung sampai bulan April tahun 2021. Heroku-18 berbasis Ubuntu 18.04 dan didukung sampai bulan April tahun 2023. Semua buildpack dari Heroku dapat bekerja dengan ketiga stack tersebut, namun buildpack yang merupakan hasil modifikasi belum tentu dapat bekerja dengan semua stack.
+Stack adalah sistem operasi yang dikelola dan dipelihara oleh Heroku. Stack biasanya berlandaskan distribusi dari Linux yang ada, seperti Ubuntu. \textit{Developer} dapat menentukan stack yang dipakai, dan buildpack akan mengubah \textit{source code} menjadi paket yang dapat dieksekusi dengan stack tersebut. Saat skripsi ini dibuat, Heroku menyediakan tiga stack : Cedar-14, Heroku-16, dan Heroku-18. Cedar-14 berbasis Ubuntu 14.04 dan didukung sampai bulan April tahun 2019. Heroku-16 berbasis Ubuntu 16.04 dan didukung sampai bulan April tahun 2021. Heroku-18 berbasis Ubuntu 18.04 dan didukung sampai bulan April tahun 2023. Semua buildpack dari Heroku dapat bekerja dengan ketiga stack tersebut, namun buildpack yang merupakan hasil modifikasi belum tentu dapat bekerja dengan semua stack.
 
-Untuk melihat stack yang dipakai oleh perangkat lunak, pengembang dapat mengetikkan perintah :
+Untuk melihat stack yang dipakai oleh aplikasi, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
 
 	$ heroku stack
 
 \end{lstlisting}
 
-Untuk mengganti stack yang dipakai, pengembang dapat mengetikkan perintah :
+Untuk mengganti stack yang dipakai, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
 
 	$ heroku stack:set <stack>
 
 \end{lstlisting}
-<stack> disini dapat diisi dengan \texttt{cedar-14}, \texttt{heroku-16}, atau \texttt{heroku-18}.
+Keterangan :
+\begin{itemize}
+\item \texttt{<stack>} dapat diisi dengan \texttt{cedar-14}, \texttt{heroku-16}, atau \texttt{heroku-18}.
+\end{itemize}
 
 \subsubsection{Region}
-Perangkat lunak di dalam Heroku dapat disebarkan ke lokasi geografis yang berbeda. Lokasi yang tersedia untuk suatu perangkat lunak tergantung pada Runtime yang dipakai oleh perangkat lunak (Common Runtime atau Private Space). Untuk perangkat lunak yang memakai Common Runtime, pengembang perlu menyebutkan region perangkat lunak saat membuat perangkat lunak. Untuk perangkat lunak yang memakai Private Space, region diatur saat membuat Private Space. Apabila pengembang tidak menyebutkan region yang dipakai, maka region akan diisi secara otomatis sebagai \texttt{us} (apabila memakai Common Runtime) atau \texttt{virginia} (apabila memakai Private Spaces).
+Aplikasi di dalam Heroku dapat disebarkan ke lokasi geografis yang berbeda. Lokasi yang tersedia untuk suatu aplikasi tergantung pada Runtime yang dipakai oleh aplikasi (Common Runtime atau Private Space). Untuk aplikasi yang memakai Common Runtime, \textit{developer} perlu menyebutkan region aplikasi saat membuat aplikasi. Untuk aplikasi yang memakai Private Space, region diatur saat membuat Private Space. Apabila \textit{developer} tidak menyebutkan region yang dipakai, maka region akan diisi secara otomatis sebagai \texttt{us} (apabila memakai Common Runtime) atau \texttt{virginia} (apabila memakai Private Spaces).
 
-Untuk memeriksa region yang tersedia di Heroku, pengembang dapat mengetikkan perintah :
+Region berpengaruh terhadap add-ons. Apabila add-ons tidak tersedia di region yang sama dengan aplikasi, maka add-ons akan gagal terpasang. Region juga dapat mempengaruhi cara kerja SSL.
+
+Berikut perintah-perintah dasar region yang dapat diketikkan pada \textit{command shell} :
+\begin{itemize}
+\item Memeriksa region yang tersedia di Heroku
+
 \begin{lstlisting}
 
 	$ heroku regions
 
 \end{lstlisting}
 
-Pengembang juga dapat memeriksa daftar region yang tersedia berdasarkan Runtime yang dipakai :
-\begin{lstlisting}
+\item Mengatur region aplikasi
 
-	$ heroku regions <runtime>
-
-\end{lstlisting}
-<runtime> disini adalah \texttt{--common} untuk melihat daftar untuk Common Runtime dan \texttt{--private} untuk melihat daftar untuk Private Spaces.
-
-Untuk mengatur region perangkat lunak, ketikkan perintah :
 \begin{lstlisting}
 
 	$ heroku create --region <id region>
 
 \end{lstlisting}
-<id region> disini diisi dengan id region yang ingin dipakai, contoh : \texttt{eu}.Id region bisa dilihat dengan memeriksa daftar region yang tersedia.
+Keterangan :
+\begin{itemize}
+\item \texttt{<id region>} : id region yang ingin dipakai, contoh : \texttt{eu}.Id region bisa dilihat dengan memeriksa daftar region yang tersedia.
+\end{itemize}
 
-Untuk memeriksa region yang dipakai oleh perangkat lunak, pengembang dapat mengetikkan perintah :
+\item Memeriksa region yang dipakai oleh aplikasi
+
 \begin{lstlisting}
 
 	$ heroku info
 
 \end{lstlisting}
 
-Region berpengaruh terhadap add-ons. Apabila add-ons tidak tersedia di region yang sama dengan perangkat lunak, maka add-ons akan gagal terpasang. Region juga dapat mempengaruhi cara kerja SSL.
+\end{itemize}
 
 \subsubsection{Releases}
-Setiap ada deploy baru, perubahan di config vars, dan perubahan di daftar add-ons, Heroku akan membuat release baru dan memulai ulang perangkat lunak. Releases adalah buku besar yang mencatat setiap release tersebut. Pengembang dapat melihat catatan releases ini dengan menggunakan perintah :
+Setiap ada deploy baru, perubahan di config vars, dan perubahan di daftar add-ons, Heroku akan membuat release baru dan memulai ulang aplikasi. Releases adalah buku besar yang mencatat setiap release tersebut. \textit{Developer} dapat melihat catatan releases ini dengan menggunakan perintah :
 \begin{lstlisting}
 
 	$ heroku releases
 
 \end{lstlisting}
-Isi dari releases adalah satu atau lebih baris dari release yang tiap barisnya memiliki format : \texttt{<versi deploy> Deploy <commit hash> <username pengembang> <waktu deploy>} Contoh isi releases :
+
+Isi dari releases adalah satu atau lebih baris dari release yang tiap barisnya memiliki format : 
+\begin{lstlisting}
+
+	<versi deploy> Deploy <commit hash> <username \textit{developer}> <waktu deploy> 
+
+\end{lstlisting}
+
+Contoh isi releases :
 \begin{lstlisting}
 
 	== demoapp Releases
@@ -403,12 +483,17 @@ Isi dari releases adalah satu atau lebih baris dari release yang tiap barisnya m
 	
 \end{lstlisting}
 
-Releases ini berguna saat pengembang ingin mengembalikan perangkat lunak ke deploy lama. Cara mengembalikan perangkat lunak ke deploy lama dengan mengetikkan perintah :
+Releases ini berguna saat \textit{developer} ingin mengembalikan aplikasi ke deploy lama. Cara mengembalikan aplikasi ke deploy lama dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
 
-	$ heroku releases:rollback <versi deploy>
+	$ heroku releases:rollback <version>
 
 \end{lstlisting}
+Keterangan :
+\begin{itemize}
+\item \texttt{<version>} : versi deploy
+\end{itemize}
+
 Contoh :
 \begin{lstlisting}
 
@@ -417,12 +502,13 @@ Contoh :
 \end{lstlisting}
 
 \subsubsection{Log}
-Log adalah catatan setiap proses yang terjadi di perangkat lunak. Heroku menggunakan Logplex untuk menyampaikan log ini. Logplex akan secara otomatis menambahkan entri log baru dari semua dyno yang berjalan di perangkat lunak, dan juga komponen lain seperti router. Pengembang dapat memeriksa log dengan cara mengetikkan perintah :
+Log adalah catatan setiap proses yang terjadi di aplikasi. Heroku menggunakan Logplex untuk menyampaikan log ini. Logplex akan secara otomatis menambahkan entri log baru dari semua dyno yang berjalan di aplikasi, dan juga komponen lain seperti router. \textit{Developer} dapat memeriksa log dengan cara mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
 
 	$ heroku logs
 
 \end{lstlisting}
+
 Contoh isi log adalah :
 \begin{lstlisting}
 
@@ -432,30 +518,8 @@ Contoh isi log adalah :
 
 \end{lstlisting}
 
-\subsection{Command Line}
-Pengembang perlu memasang heroku Command-Line Interface (CLI) agar dapat mengetikkan perintah-perintah \texttt{heroku} di command shell. Pengembang dapat mengikuti petunjuk unduhan pada \url{https://devcenter.heroku.com/articles/heroku-cli} untuk memasang heroku CLI sesuai sistem operasi yang dipakai. Pengembang dapat memastikan heroku CLI sudah terpasang dengan mengetikkan perintah :
-\begin{lstlisting}
-
-	$ heroku -version
-
-\end{lstlisting}
-
-Setelah memasang heroku CLI, hal pertama yang harus dilakukan adalah masuk ke akun heroku. Caranya dengan mengetikkan perintah :
-\begin{lstlisting}
-
-	$ heroku login
-
-\end{lstlisting}
-
-Untuk membuat perangkat lunak yang baru di heroku, pengembang perlu mengetikkan perintah :
-\begin{lstlisting}
-
-	$ heroku create
-
-\end{lstlisting}
-
 \subsection{Deploy Perangkat Lunak}
-Heroku menggunakan Git sebagai sarana  utama untuk melakukan deploy perangkat lunak. Deploy adalah proses penyebaran perangkat lunak dari satu lingkungan ke lingkungan lain, misalnya dari lingkungan mesin pengembang perangkat lunak ke lingkungan heroku. Namun, Heroku juga menyediakan cara lain untuk melakukan deploy :
+Heroku menggunakan Git sebagai sarana  utama untuk melakukan deploy aplikasi. Deploy adalah proses penyebaran aplikasi dari satu lingkungan ke lingkungan lain, misalnya dari lingkungan mesin \textit{developer} aplikasi ke lingkungan heroku. Namun, Heroku juga menyediakan cara lain untuk melakukan deploy :
 \begin{itemize}
 \item Docker
 \item GitHub
@@ -464,16 +528,20 @@ Heroku menggunakan Git sebagai sarana  utama untuk melakukan deploy perangkat lu
 \end{itemize}
 
 \subsubsection{Deploy Menggunakan Git}
-Untuk melakukan deploy menggunakan Git, pengembang harus sudah memasang Git. Pengembang dapat mengikuti petunjuk unduhan pada \url{https://git-scm.com}. Sebelum pengembang dapat melakukan deploy dengan Git, pengembang perlu menginisialisasi git. Berikut perintah-perintah yang harus dijalankan :
+Untuk melakukan deploy menggunakan Git, \textit{developer} harus sudah memasang Git. \textit{Developer} dapat mengikuti petunjuk unduhan pada \url{https://git-scm.com}. Sebelum \textit{developer} dapat melakukan deploy dengan Git, \textit{developer} perlu menginisialisasi git. Berikut perintah-perintah yang harus dijalankan pada \textit{command shell} :
 \begin{lstlisting}
 
 	$ git init
 	$ git add .
-	$ git commit -m "Commit message"
+	$ git commit -m "<message>"
 
 \end{lstlisting}
+Keterangan :
+\begin{itemize}
+\item \texttt{<message>} : pesan yang mewakili commit.
+\end{itemize}
 
-Setelahnya, pengembang dapat membuat perangkat lunak Heroku. Setiap perangkat lunak Heroku dibuat, maka \texttt{git remote} secara otomatis juga dibuat. Pengembang dapat memeriksanya dengan mengetikkan perintah :
+Setelahnya, \textit{developer} dapat membuat aplikasi Heroku. Setiap aplikasi Heroku dibuat, maka \texttt{git remote} secara otomatis juga dibuat. \textit{Developer} dapat memeriksanya dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
 
 	$ git remote // Untuk daftar nama remote saja
@@ -481,24 +549,32 @@ Setelahnya, pengembang dapat membuat perangkat lunak Heroku. Setiap perangkat lu
 
 \end{lstlisting}
 
-Untuk mengubah nama remote, pengembang dapat mengetikkan perintah :
+Untuk mengubah nama remote, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
 
 	$ git remote rename <nama lama> <nama baru>
 
 \end{lstlisting}
-<nama lama> adalah nama remote yang ingin diganti. <nama baru> adalah nama baru untuk remote tersebut.
+Keterangan :
+\begin{itemize}
+\item \texttt{<nama lama>} : nama remote yang ingin diganti.
+\item \texttt{<nama baru>} : nama baru untuk remote tersebut.
+\end{itemize}
 
-Untuk melakukan deploy, pengembang dapat mengetikkan perintah :
+Untuk melakukan deploy, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
 
 	$ git push <nama remote> <nama branch>
 
 \end{lstlisting}
-<nama remote> adalah nama remote dari tujuan deploy. Bila pengembang tidak mengubah nama remote, nama remotenya adalah \texttt{heroku}. <nama branch> adalah nama cabang dari tujuan deploy. Heroku secara otomatis membuat satu cabang bernama \texttt{master}. 
+Keterangan :
+\begin{itemize}
+\item \texttt{<nama remote>} : nama remote dari tujuan deploy. Bila \textit{developer} tidak mengubah nama remote, nama remotenya adalah \texttt{heroku}. 
+\item \texttt{<nama branch>} : nama cabang dari tujuan deploy. Heroku secara otomatis membuat satu cabang bernama \texttt{master}.
+\end{itemize}
 
 \subsubsection{Deploy Menggunakan Docker}
-Untuk melakukan deploy menggunakan Docker, pengembang harus sudah memasang Docker dan telah masuk ke akun Heroku (\texttt{heroku login}). Setelah itu, pengembang harus mengikuti langkah-langkah ini :
+Untuk melakukan deploy menggunakan Docker, \textit{developer} harus sudah memasang Docker dan telah masuk ke akun Heroku (\texttt{heroku login}). Setelah itu, \textit{developer} harus mengikuti langkah-langkah ini :
 \begin{itemize}
 \item Masuk ke Container Registry
 \begin{lstlisting}
@@ -514,7 +590,7 @@ Untuk melakukan deploy menggunakan Docker, pengembang harus sudah memasang Docke
 
 \end{lstlisting}
 
-\item Membuat perangkat lunak Heroku baru
+\item Membuat aplikasi Heroku baru
 \begin{lstlisting}
 
 	$ heroku create
@@ -528,13 +604,13 @@ Untuk melakukan deploy menggunakan Docker, pengembang harus sudah memasang Docke
 
 \end{lstlisting}
 
-\item Melepaskan image ke perangkat lunak
+\item Melepaskan image ke aplikasi
 \begin{lstlisting}
 
 	$ heroku container:release web
 
 \end{lstlisting}
-\item Membuka perangkat lunak
+\item Membuka aplikasi
 \begin{lstlisting}
 
 	$ heroku open
@@ -549,7 +625,7 @@ Untuk melakukan deploy menggunakan Docker, pengembang harus sudah memasang Docke
 	\caption[Deploy menggunakan Github Dashboard]{Deploy menggunakan Github Dashboard} 
 	\label{fig:deploy-github-dashboard} 
 \end{figure}
-Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke GitHub apabila build berhasil. Pengembang perlu mengaktifkan GitHub integration terlebih dahulu sebelum dapat melakukan deploy. Setelah itu, pengembang harus melakukan autentikasi dengan akun GitHub. Autentikasi ini hanya perlu dilakukan satu kali per satu akun Heroku. Setelah itu, pengembang dapat memilih repository yang ingin disambungkan dengan perangkat lunak Heroku (Gambar~\ref{fig:deploy-github-dashboard}).
+Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke GitHub apabila build berhasil. \textit{Developer} perlu mengaktifkan GitHub integration terlebih dahulu sebelum dapat melakukan deploy. Setelah itu, \textit{developer} harus melakukan autentikasi dengan akun GitHub. Autentikasi ini hanya perlu dilakukan satu kali per satu akun Heroku. Setelah itu, \textit{developer} dapat memilih repository yang ingin disambungkan dengan aplikasi Heroku (Gambar~\ref{fig:deploy-github-dashboard}).
 
 \begin{figure}[H]
 	\centering  
@@ -563,12 +639,12 @@ Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke 
 	\caption[Deploy menggunakan Github secara otomatis]{Deploy menggunakan Github secara otomatis} 
 	\label{fig:deploy-github-automatic} 
 \end{figure}
-Ada dua cara untuk melakukan deploy, yaitu secara manual dan secara otomatis. Untuk cara manual, pengembang melakukan deploy dari GitHub (Gambar~\ref{fig:deploy-github-manual}). Untuk cara otomatis, pengembang harus mengaktifkan "Automatic deploys from GitHub" (Gambar~\ref{fig:deploy-github-automatic}).
+Ada dua cara untuk melakukan deploy, yaitu secara manual dan secara otomatis. Untuk cara manual, \textit{developer} melakukan deploy dari GitHub (Gambar~\ref{fig:deploy-github-manual}). Untuk cara otomatis, \textit{developer} harus mengaktifkan "Automatic deploys from GitHub" (Gambar~\ref{fig:deploy-github-automatic}).
 
 \subsubsection{Deploy Langsung di situs Heroku}
-Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy perangkat lunak tanpa meninggalkan situs Heroku dan hampir tidak memerlukan konfigurasi. Penggunaan tombol ini ideal untuk pelanggan, dan pemelihara proyek yang bersifat open-source. Sebelum dapat melakukan deploy dengan cara ini, perangkat lunak harus memiliki dokumen \texttt{app.json} yang sah di direktori root, dan source code perangkat lunak harus berada di repository GitHub.
+Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy aplikasi tanpa meninggalkan situs Heroku dan hampir tidak memerlukan konfigurasi. Penggunaan tombol ini ideal untuk pelanggan, dan pemelihara proyek yang bersifat open-source. Sebelum dapat melakukan deploy dengan cara ini, aplikasi harus memiliki dokumen \texttt{app.json} yang sah di direktori root, dan source code aplikasi harus berada di repository GitHub.
 
-\texttt{app.json} adalah dokumen berisi deskripsi perangkat lunak web. Isinya dapat berupa environment variable, add-ons, dan informasi lain yang diperlukan untuk menjalankan perangkat lunak pada Heroku. Heroku tidak mewajibkan pengembang menuliskan informasi tertentu, tapi Heroku merekomendasikan untuk setidaknya menuliskan nama perangkat lunak(\texttt{name}), deskripsi perangkat lunak (\texttt{description}), dan logo perangkat lunak (\texttt{logo}). Berikut contoh isi dari \texttt{app.json} :
+\texttt{app.json} adalah dokumen berisi deskripsi aplikasi web. Isinya dapat berupa environment variable, add-ons, dan informasi lain yang diperlukan untuk menjalankan aplikasi pada Heroku. Heroku tidak mewajibkan \textit{developer} menuliskan informasi tertentu, tapi Heroku merekomendasikan untuk setidaknya menuliskan nama aplikasi(\texttt{name}), deskripsi aplikasi (\texttt{description}), dan logo aplikasi (\texttt{logo}). Berikut contoh isi dari \texttt{app.json} :
 \begin{lstlisting}
 
 {
@@ -582,7 +658,7 @@ Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy perangkat
 \end{lstlisting}
 
 \subsubsection{WAR Deployment}
-WAR (Web Application ARchive) adalah jenis dokumen arsip yang digunakan untuk membungkus perangkat lunak web. Dokumen ini dapat berisi halaman web statis, dokumen XML, dan lain-lain. \cite{etzkorn2017introduction}
+WAR (Web Application ARchive) adalah jenis dokumen arsip yang digunakan untuk membungkus aplikasi web. Dokumen ini dapat berisi halaman web statis, dokumen XML, dan lain-lain. \cite{etzkorn2017introduction}
  
 Heroku mendukung deploy dokumen WAR melalui Git deployment dan melalui Heroku Maven plugin. Setelan standar server untuk keduanya adalah Tomcat 8.
 
@@ -596,19 +672,22 @@ Heroku menyediakan tiga layanan data untuk semua pelanggan :
 Heroku juga menyediakan pilihan lain untuk pelanggan Heroku Enterprise, yaitu Heroku Connect. Selain itu, Heroku juga memungkinkan penggunaan layanan data dari pihak ketiga. Layanan data dari pihak ketiga ini tersedia sebagai add-ons.
 
 \subsubsection{Heroku Postgres}
-Heroku Postgres adalah basis data SQL yang disediakan secara langsung oleh Heroku. Heroku Postgres dapat diakses oleh bahasa apapun dengan PostgreSQL driver. Heroku secara otomatis menambahkan add-ons Heroku Postgres setiap perangkat lunak dibuat, sehingga pengembang tidak perlu menambahkannya secara manual. Namun, pengembang dapat menambahkannya secara manual, dengan mengetikkan perintah :
+Heroku Postgres adalah basis data SQL yang disediakan secara langsung oleh Heroku. Heroku Postgres dapat diakses oleh bahasa apapun dengan PostgreSQL driver. Heroku secara otomatis menambahkan add-ons Heroku Postgres setiap aplikasi dibuat, sehingga \textit{developer} tidak perlu menambahkannya secara manual. Namun, \textit{developer} dapat menambahkannya secara manual, dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
 	
 	$ heroku addons:create heroku-postgresql:<PLAN_NAME>
 	
 \end{lstlisting}
-<PLAN\_NAME> adalah nama plan Heroku Postgres yang ingin dipakai. Heroku secara otomatis menggunakan Heroku Postgres tipe \texttt{hobby-dev}.
+Keterangan :
+\begin{itemize}
+\item \texttt{<PLAN\_NAME>} : nama plan Heroku Postgres yang ingin dipakai. Heroku secara otomatis menggunakan Heroku Postgres tipe \texttt{hobby-dev}.
+\end{itemize}
 
 Heroku Postgres memiliki lima plan :
 \begin{itemize}
-\item Hobby Tier : untuk perangkat lunak dengan toleransi gagal bekerja sampai 4 jam per bulan.
-\item Standard Tier : untuk perangkat lunak dengan toleransi gagal bekerja sampai 1 jam per bulan.
-\item Premium Tier : untuk perangkat lunak dengan toleransi gagal bekerja sampai 15 menit per bulan.
+\item Hobby Tier : untuk aplikasi dengan toleransi gagal bekerja sampai 4 jam per bulan.
+\item Standard Tier : untuk aplikasi dengan toleransi gagal bekerja sampai 1 jam per bulan.
+\item Premium Tier : untuk aplikasi dengan toleransi gagal bekerja sampai 15 menit per bulan.
 \item Private Tier : untuk pengguna Heroku Enterprise, memiliki toleransi gagal bekerja sampai 15 menit per bulan.
 \item Shield Tier : untuk pengguna Heroku Enterprise yang menginginkan basis data yang compliance-capable, memiliki toleransi gagal bekerja sampai 15 menit per bulan.
 \end{itemize}
@@ -633,7 +712,7 @@ Semua plan memiliki fitur yang sama :
 \item Fitur web UI (\url{https://data.heroku.com/})
 \end{itemize}
 
-Pengembang juga dapat menambahkan versi yang ingin dipakai dengan cara menambahkan \texttt{--version} di belakang perintah tersebut, contoh :
+\textit{Developer} juga dapat menambahkan versi yang ingin dipakai dengan cara menambahkan \texttt{--version} di belakang perintah tersebut, contoh :
 \begin{lstlisting}
 	
 	$ heroku addons:create heroku-postgresql:<PLAN_NAME--version=9.5
@@ -641,35 +720,46 @@ Pengembang juga dapat menambahkan versi yang ingin dipakai dengan cara menambahk
 \end{lstlisting}
 Secara otomatis, Heroku menggunakan versi paling baru dari Heroku Postgres. Saat skripsi ini ditulis, versi terbaru adalah versi 10.
 
-Setelah dipasang, Heroku akan secara otomatis menambahkan config var \texttt{DATABASE\_URL} ke perangkat lunak. Apabila Heroku Postgres yang dipakai ada lebih dari satu, nama config var akan menjadi \texttt{HEROKU\_POSTGRESQL\_<COLOR>\_URL} dengan <COLOR> adalah nama warna yang dihasilkan secara acak. Contoh : \texttt{HEROKU\_POSTGRESQL\_<BLUE>\_URL}.
+Setelah dipasang, Heroku akan secara otomatis menambahkan config var \texttt{DATABASE\_URL} ke aplikasi. Apabila Heroku Postgres yang dipakai ada lebih dari satu, nama config var akan menjadi \texttt{HEROKU\_POSTGRESQL\_<COLOR>\_URL} dengan <COLOR> adalah nama warna yang dihasilkan secara acak. Contoh : \texttt{HEROKU\_POSTGRESQL\_<BLUE>\_URL}.
 
-Apabila pengembang menggunakan lebih dari satu basis data, pengembang dapat mengatur basis data utama. Basis data utama dapat diatur dengan perintah :
+Apabila \textit{developer} menggunakan lebih dari satu basis data, \textit{developer} dapat mengatur basis data utama. Basis data utama dapat diatur dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
 	
 	$ heroku pg:promote <database_url>
 	
 \end{lstlisting}
-<database\_url> adalah url dari basis data.
+Keterangan :
+\begin{itemize}
+\item \texttt{<database\_url>} : url dari basis data.
+\end{itemize}
 
-Apabila pengembang ingin berbagi Heroku Postgres kepada banyak perangkat lunak, pengembang dapat mengetikkan perintah : 
+Apabila \textit{developer} ingin berbagi Heroku Postgres kepada banyak aplikasi, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell} : 
 \begin{lstlisting}
 
 	$ heroku addons:attach <originating_app>::DATABASE --app <receiver-app>
 	
 \end{lstlisting}
-<originating\_app> adalah nama perangkat lunak yang memiliki basis data yang ingin dibagi ke perangkat lunak lain. Sedangkan <receiver-app> adalah nama perangkat lunak yang akan menerima basis data dari perangkat lunak lain.
+Keterangan :
+\begin{itemize}
+\item \texttt{<originating\_app>} : nama aplikasi yang memiliki basis data yang ingin dibagi ke aplikasi lain. 
+\item \texttt{<receiver-app>} : nama aplikasi yang akan menerima basis data dari aplikasi lain.
+\end{itemize}
 
-Pengembang dapat berhenti berbagi basis data dengan mengetikkan perintah :
+\textit{Developer} dapat berhenti berbagi basis data dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
 
 	$ heroku addons:detach <database_url> --app <application_name>
 
 \end{lstlisting}
-<database\_url> adalah url dari basis data, sedangkan <application\_name> adalah nama perangkat lunaknya.
-
-Berikut adalah perintah-perintah dasar dari Heroku Postgres :
+Keterangan :
 \begin{itemize}
-\item Melihat semua basis data milik perangkat lunak dan karakteristiknya
+\item \texttt{<database\_url>} : url dari basis data
+\item \texttt{<application\_name>} : nama aplikasinya.
+\end{itemize}
+
+Berikut adalah perintah-perintah dasar dari Heroku Postgres yang dapat diketikkan pada \textit{command shell}:
+\begin{itemize}
+\item Melihat semua basis data milik aplikasi dan karakteristiknya
 
 \begin{lstlisting}
 
@@ -698,7 +788,10 @@ atau
 	$ heroku pg:psql <database_name>
 
 \end{lstlisting}
-<database\_name> diisi dengan nama basis data atau cukup warna basis data (misal : \texttt{gray}).
+Keterangan :
+\begin{itemize}
+\item \texttt{<database\_name>} diisi dengan nama basis data atau cukup warna basis data (misal : \texttt{gray}).
+\end{itemize}
 
 \item Menarik data dari basis data Heroku Postgres ke basis data di mesin lokal
 
@@ -712,7 +805,7 @@ atau
 
 \begin{lstlisting}
 
-	$ heroku pg:push <nama_db_lokal> <nama_db_heroku> --app <nama_perangkat lunak>
+	$ heroku pg:push <nama_db_lokal> <nama_db_heroku> --app <nama_aplikasi>
 
 \end{lstlisting}
 
@@ -776,16 +869,19 @@ atau
 	$ heroku config | grep HEROKU_POSTGRESQL
 	
 \end{lstlisting}
-Pada saat akan melakukan koneksi langsung di komputer, pengembang harus memastikan pengaturan \texttt{sslmode=require} pada pengaturan SSL.
+Pada saat akan melakukan koneksi langsung di komputer, \textit{developer} harus memastikan pengaturan \texttt{sslmode=require} pada pengaturan SSL.
 
 \subsubsection{Heroku Redis}
-Heroku Redis adalah basis data berbasis \textit{key-value store} yang bersifat \textit{in-memory}. Heroku dijalankan oleh Heroku dan dikelola sebagai add-on Heroku Redis dapat diakses oleh bahasa apapun dengan Redis driver. Cara memasang add-on Heroku Redis :
+Heroku Redis adalah basis data berbasis \textit{key-value store} yang bersifat \textit{in-memory}. Heroku dijalankan oleh Heroku dan dikelola sebagai add-on Heroku Redis dapat diakses oleh bahasa apapun dengan Redis driver. Cara memasang add-on Heroku Redis pada \textit{command shell}:
 \begin{lstlisting}
 	
 	$ heroku addons:create heroku-redis: <PLAN_NAME>
 	
 \end{lstlisting}
-<PLAN\_NAME> adalah tipe Heroku Redis yang ingin dipakai. Heroku Redis memiliki dua tipe : Hobby Dev dan Premium. Hobby Dev gratis, sedangkan Premium berbayar. Perbedaannya terletak pada jumlah memori dan batas koneksi yang dapat dibuat.
+Keterangan :
+\begin{itemize}
+\item \texttt{<PLAN\_NAME>} : tipe Heroku Redis yang ingin dipakai. Heroku Redis memiliki dua tipe : Hobby Dev dan Premium. Hobby Dev gratis, sedangkan Premium berbayar. Perbedaannya terletak pada jumlah memori dan batas koneksi yang dapat dibuat.
+\end{itemize}
 
 Heroku Redis memiliki kelebihan sebagai berikut :
 \begin{itemize}
@@ -794,9 +890,9 @@ Heroku Redis memiliki kelebihan sebagai berikut :
 \end{itemize}
 
 \subsubsection{Apache Kafka}
-Apache Kafka adalah salah satu add-on di Heroku yang disediakan oleh Kafka yang berintegrasi penuh dengan Heroku. Apache Kafka dideskripsikan Kafka dideskripsikan oleh Heroku sebagai add-on yang memungkinkan pengembang mendistribusikan perangkat lunak yang dapat menangani jutaan event dan miliaran transaksi. Kafka didesain untuk memindahkan ephemeral data yang sangat besar dengan reliabilitas yang tinggi dan toleran akan kerusakan.
+Apache Kafka adalah salah satu add-on di Heroku yang disediakan oleh Kafka yang berintegrasi penuh dengan Heroku. Apache Kafka dideskripsikan Kafka dideskripsikan oleh Heroku sebagai add-on yang memungkinkan \textit{developer} mendistribusikan aplikasi yang dapat menangani jutaan event dan miliaran transaksi. Kafka didesain untuk memindahkan \textit{ephemeral data} yang sangat besar dengan reliabilitas yang tinggi dan toleran akan kerusakan.
 
-Pengembang harus memasang Python 2.7, node 8.x, .NET Framework, dan Visual C++ Build Tools terlebih dahulu sebelum memasang Apache Kafka. Setelah itu, pengembang mengetikkan perintah :
+\textit{Developer} harus memasang Python 2.7, node 8.x, .NET Framework, dan Visual C++ Build Tools terlebih dahulu sebelum memasang Apache Kafka. Setelah itu, \textit{developer} mengetikkan perintah :
 \begin{lstlisting}
 	
 	$ heroku plugins:install heroku-kafka
@@ -808,12 +904,12 @@ Heroku membutuhkan identitas terpercaya dan kontak dari pengguna. Heroku mengang
 
 Verifikasi akun dibutuhkan untuk :
 \begin{itemize}
-\item Menggunakan lebih dari satu dyno di dalam perangkat lunak.
+\item Menggunakan lebih dari satu dyno di dalam aplikasi.
 \item Menambah add-on, termasuk yang gratis. Pengecualian untuk Heroku Postgres dan Heroku Connect.
-\item Mengubah domain perangkat lunak.
-\item Menerima transfer dari perangkat lunak yang memiliki sumber daya berbayar.
+\item Mengubah domain aplikasi.
+\item Menerima transfer dari aplikasi yang memiliki sumber daya berbayar.
 \item Menambah batas standar penggunaan one-off dyno.
-\item Memiliki lebih dari 5 perangkat lunak dalam satu waktu.  Akun yang terverifikasi dapat memiliki sampai 100 perangkat lunak.
+\item Memiliki lebih dari 5 aplikasi dalam satu waktu.  Akun yang terverifikasi dapat memiliki sampai 100 aplikasi.
 \end{itemize}
 
 Cara melakukan verifikasi akun Heroku :
@@ -827,20 +923,20 @@ Kartu kredit yang diterima oleh Heroku adalah kartu Visa, MasterCard, American E
 
 \section{Gmail API ~\cite{gmail-api}}
 \label{sec:gmail-api}
-Gmail adalah layanan surat elektronik yang disediakan oleh Google LLC. 
+Gmail adalah layanan email yang disediakan oleh Google LLC. Gmail API dapat digunakan untuk mengakses email Gmail.
 
 \subsection{Resource}
 Gmail API menyediakan beberapa jenis \textit{resource} :
 \begin{itemize}
 \item Message
 
-Message merepresentasikan surat elektronik. Message hanya bisa dibuat atau dihapus. Tidak ada properti dari message yang bisa diubah selain label yang diberikan ke message.
+Message merepresentasikan pesan dalam email. Message hanya bisa dibuat atau dihapus. Tidak ada properti dari message yang bisa diubah selain label yang diberikan ke message.
 
 \item Label
 
 Label berfungsi sebagai sarana utama untuk mengelompokkan dan mengatur message dan thread. Label mempunyai hubungan banyak ke banyak dengan message. Artinya, satu message dapat memiliki beberapa label dan satu label dapat diberikan ke beberapa message.
 
-Label ada dua jenis : label sistem dan label pengguna. Contoh label sistem adalah label INBOX, TRASH, dan SPAM. Label sistem dibuat secara internal dan tidak dapat dibuat, dihapus, dan dimodifikasi. Namun, beberapa label sistem dapat diberikan ke message atau dilepaskan dari message. Label pengguna dapat ditambah, dihapus, dan dimodifikasi oleh pengguna atau perangkat lunak.
+Label ada dua jenis : label sistem dan label pengguna. Contoh label sistem adalah label \texttt{INBOX}, \texttt{TRASH}, dan \texttt{SPAM}. Label sistem dibuat secara internal dan tidak dapat dibuat, dihapus, dan dimodifikasi. Namun, beberapa label sistem dapat diberikan ke message atau dilepaskan dari message. Label pengguna dapat ditambah, dihapus, dan dimodifikasi oleh pengguna atau aplikasi.
 
 \item Draft
 
@@ -861,7 +957,7 @@ Setting mengontrol perilaku fitur pada Gmail kepda User. Setting tersedia untuk 
 \end{itemize}  
 
 \subsection{Scope}
-Gmail API menggunakan OAuth 2.0 untuk menangani autentikasi dan authorization. Pengembang harus menyebutkan scope yang dipakai di perangkat lunak. Scope adalah string yang mengidentifikasi resource yang ingin di akses. Scope ini digunakan bersama dengan token untuk mengamankan akses ke resource pengguna. Contoh scope :
+Gmail API menggunakan OAuth 2.0 untuk menangani autentikasi dan authorization. \textit{Developer} harus menyebutkan scope yang dipakai di aplikasi. Scope adalah string yang mengidentifikasi resource yang ingin di akses. Scope ini digunakan bersama dengan token untuk mengamankan akses ke resource pengguna. Token tersebut memiliki masa kadaluarsa. Contoh scope :
 \begin{itemize}
 \item \url{https://www.googleapis.com/auth/gmail.readonly} : scope untuk membaca message dari Gmail
 \item \url{https://www.googleapis.com/auth/gmail.modify} : scope untuk mengubah label pada thread atau message
@@ -881,7 +977,7 @@ Gmail API menggunakan OAuth 2.0 untuk menangani autentikasi dan authorization. P
 Mengambil email yang diterima membutuhkan ID email. Mengambil email yang diterima dapat dilakukan dengan metode \texttt{get} dari resource User.messages. Saat mengambil message, format dari respon dapat diatur. Format \texttt{FULL} mengembalikan seluruh informasi dari message. Format \texttt{MINIMAL} hanya mengembalikan metadata seperti label. Format \texttt{RAW} mengembalikan properti \texttt{raw} saja. Secara otomatis, format dari respon memakai format \texttt{FULL}.
 
 \subsubsection{Perubahan di history}
-Perubahan message direpresentasikan oleh \texttt{History objects}. Properti \texttt{start\_history\_id} memperbolehkan pengembang mengatur dari titik mana perubahan ingin dikembalikan. Beberapa perubahan dapat mempengaruhi lebih dari satu message, sehingga history yang merepresentasikan perubahan tersebut akan berisi beberapa message.
+Perubahan message direpresentasikan oleh \texttt{History objects}. Properti \texttt{start\_history\_id} memperbolehkan \textit{developer} mengatur dari titik mana perubahan ingin dikembalikan. Beberapa perubahan dapat mempengaruhi lebih dari satu message, sehingga history yang merepresentasikan perubahan tersebut akan berisi beberapa message.
 
 \subsubsection{Manajemen Label}
 Label yang diberikan ke sebuah thread juga diberikan ke semua message di dalam thread. Jika sebuah label dihapus, label tersebut akan dihapus dari semua thread dan message yang memiliki label tersebut. Properti \texttt{messageListVisibility} digunakan untuk menentukan apakah message dengan label tersebut ada di message list. Properti \texttt{labelListVisibility} digunakan untuk menentukan apakah ada label tersebut di daftar label. Untuk mengubah label, gunakan \texttt{messages.modify} dan\texttt{threads.modify}.
@@ -935,22 +1031,22 @@ Berikut adalah \textit{function} dasar dari imap :
 %2.4 Line
 \section{Line \cite{LINE-developer}}
 \label{sec:Line}
-Line adalah perangkat lunak pengirim pesan yang tersedia dalam platform android, ios, dan desktop. Line memiliki beberapa produk yang dapat digunakan pengembang perangkat lunak. Produk-produk tersebut adalah :
+Line adalah aplikasi pengirim pesan yang tersedia dalam platform android, ios, dan desktop. Line memiliki beberapa produk yang dapat digunakan \textit{developer} aplikasi. Produk-produk tersebut adalah :
 \begin{enumerate}
 \item LINE Login
 
-LINE Login adalah produk dari LINE yang memungkinkan pengembang membua perangkat lunaknya menyediakan pilihan masuk melalui akun LINE.
+LINE Login adalah produk dari LINE yang memungkinkan \textit{developer} membua aplikasinya menyediakan pilihan masuk melalui akun LINE.
 
 \item Messaging API
 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{messaging-api-push-reply-message.png}  
-	\caption[Push message dan reply message pada Messaging API]{Messaging API memungkinkan pengembang mengirim push message dan reply message} 
+	\caption[Push message dan reply message pada Messaging API]{Messaging API memungkinkan \textit{developer} mengirim push message dan reply message} 
 	\label{fig:messaging-api-push-reply-message} 
 \end{figure}
 
-Messaging API adalah produk LINE yang memungkinkan pengembang untuk membangun bot sebagai sarana komunikasi dua arah antara layanan yang dibangun pengembang dengan pengguna LINE. Dengan Messaging API, pengembang dapat mengirimkan push message dan reply message (Gambar~\ref{fig:messaging-api-push-reply-message}) ke akun LINE@. Push message adalah pesan yang bot kirimkan ke pengguna LINE. Reply message adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
+Messaging API adalah produk LINE yang memungkinkan \textit{developer} untuk membangun bot sebagai sarana komunikasi dua arah antara layanan yang dibangun \textit{developer} dengan pengguna LINE. Dengan Messaging API, \textit{developer} dapat mengirimkan push message dan reply message (Gambar~\ref{fig:messaging-api-push-reply-message}) ke akun LINE@. Push message adalah pesan yang bot kirimkan ke pengguna LINE. Reply message adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
 
 \item LINE Bot Designer
 
@@ -961,7 +1057,7 @@ Messaging API adalah produk LINE yang memungkinkan pengembang untuk membangun bo
 	\label{fig:bot-designer} 
 \end{figure}
 
-LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memungkinkan pengembang membuat prototipe LINE bot lebih cepat dan lebih mudah tanpa mengetahui pemrograman. Dengan produk ini, pengembang dapat mendesain chatbots sesuai skenario yang diinginkan.
+LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memungkinkan \textit{developer} membuat prototipe LINE bot lebih cepat dan lebih mudah tanpa mengetahui pemrograman. Dengan produk ini, \textit{developer} dapat mendesain chatbots sesuai skenario yang diinginkan.
 
 \item Clova
 
@@ -972,7 +1068,7 @@ LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memung
 	\label{fig:clova_site} 
 \end{figure}
 
-Clova adalah sebuah AI Assistant (perangkat lunak dengan kecerdasan buatan yang berfungsi sebagai asisten) yang dipasang di dalam Clova Wave dan Clova Friends. Clova masih dalam tahap pengembangan dan (pada saat skripsi ini dibuat) tersedia dalam versi beta. Tidak ada dokumentasi resmi untuk produk ini, namun disediakan situs web untuk menggali informasi tentang Clova : https://clova-developers.line.me (Gambar~\ref{fig:clova_site}). Pada saat skripsi ini ditulis, situs web ini hanya tersedia dalam bahasa Jepang sehingga membutuhkan penerjemah apabila tidak menguasai bahasa Jepang.
+Clova adalah sebuah AI Assistant (aplikasi dengan kecerdasan buatan yang berfungsi sebagai asisten) yang dipasang di dalam Clova Wave dan Clova Friends. Clova masih dalam tahap \textit{developer}an dan (pada saat skripsi ini dibuat) tersedia dalam versi beta. Tidak ada dokumentasi resmi untuk produk ini, namun disediakan situs web untuk menggali informasi tentang Clova : https://clova-developers.line.me (Gambar~\ref{fig:clova_site}). Pada saat skripsi ini ditulis, situs web ini hanya tersedia dalam bahasa Jepang sehingga membutuhkan penerjemah apabila tidak menguasai bahasa Jepang.
 
 \item LINE Pay
 \begin{figure}[H]
@@ -982,14 +1078,14 @@ Clova adalah sebuah AI Assistant (perangkat lunak dengan kecerdasan buatan yang 
 	\label{fig:line_pay_site} 
 \end{figure}
 
-LINE Pay adalah produk LINE yang memungkinkan pengembang mengintegrasikan perangkat lunak yang dibuat pengembang dengan fitur pembayaran melalui LINE Pay. Pada saat skripsi ini dibuat, tidak ada dokumentasi resmi untuk mengintegrasikan LINE Pay dengan perangkat lunak yang pengembang buat. Namun, pengembang dapat menggali informasi tentang fitur LINE Pay di situs https://pay.line.me (Gambar~\ref{fig:line_pay_site}). Situs ini menyediakan informasi LINE Pay di negara Jepang, Republik Tiongkok / Taiwan, dan Thailand. Situs ini tersedia dalam bahasa Jepang, Korea, Inggris, China dengan aksara sederhana, China dengan aksara tradisional, dan Thailand.
+LINE Pay adalah produk LINE yang memungkinkan \textit{developer} mengintegrasikan aplikasi yang dibuat \textit{developer} dengan fitur pembayaran melalui LINE Pay. Pada saat skripsi ini dibuat, tidak ada dokumentasi resmi untuk mengintegrasikan LINE Pay dengan aplikasi yang \textit{developer} buat. Namun, \textit{developer} dapat menggali informasi tentang fitur LINE Pay di situs https://pay.line.me (Gambar~\ref{fig:line_pay_site}). Situs ini menyediakan informasi LINE Pay di negara Jepang, Republik Tiongkok / Taiwan, dan Thailand. Situs ini tersedia dalam bahasa Jepang, Korea, Inggris, China dengan aksara sederhana, China dengan aksara tradisional, dan Thailand.
 
 \end{enumerate}
 
-Di antara produk-produk yang disediakan LINE, penulis menggunakan Messaging API untuk mengirimkan push message melalui LINE@. Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui perangkat lunak mobile LINE@ atau melalui perangkat lunak komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.
+Di antara produk-produk yang disediakan LINE, penulis menggunakan Messaging API untuk mengirimkan push message melalui LINE@. Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui aplikasi mobile LINE@ atau melalui aplikasi komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.
 
 \subsection{Messaging API } 
-Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memungkinkan data dioper antara server dari perangkat lunak bot dengan LINE Platform. Ketika pengguna Line mengirimkan pesan ke bot, sebuah webhook akan terpicu dan LINE Platform akan mengirimkan permintaan ke URL webhook bot. Server akan mengirim permintaan ke LINE Platform untuk merespon pengguna. Permintaan akan dikirimkan dalam format JSON. Arsitektur dari Messaging API dapat dilihat pada Gambar~\ref{fig:messaging_api_architecture}.
+Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memungkinkan data dioper antara server dari aplikasi bot dengan LINE Platform. Ketika pengguna Line mengirimkan pesan ke bot, sebuah webhook akan terpicu dan LINE Platform akan mengirimkan permintaan ke URL webhook bot. Server akan mengirim permintaan ke LINE Platform untuk merespon pengguna. Permintaan akan dikirimkan dalam format JSON. Arsitektur dari Messaging API dapat dilihat pada Gambar~\ref{fig:messaging_api_architecture}.
 
 \begin{figure}[H]
 	\centering  
@@ -998,7 +1094,7 @@ Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memu
 	\label{fig:messaging_api_architecture} 
 \end{figure}
 
-Pengembang dapat melakukan hal-hal berikut dengan Messaging API :
+\textit{Developer} dapat melakukan hal-hal berikut dengan Messaging API :
 \begin{itemize}
 \item Mengirimkan reply message
 \item Mengirimkan push message
@@ -1007,10 +1103,10 @@ Pengembang dapat melakukan hal-hal berikut dengan Messaging API :
 \item Bergabung dengan percakapan grup /group chats
 \end{itemize}
 
-Untuk menggunakan Messaging API, pengembang memerlukan akun LINE@. Messaging API juga dapat digunakan menggunakan akun resmi /official accounts. Akun resmi mendapatkan fitur tambahan untuk pengguna enterprise.
+Untuk menggunakan Messaging API, \textit{developer} memerlukan akun LINE@. Messaging API juga dapat digunakan menggunakan akun resmi/\textit{official accounts}. Akun resmi mendapatkan fitur tambahan untuk pengguna enterprise.
 
 \subsubsection{Membuat Channel}
-Untuk memulai membangun bot dengan Messaging API, pengembang perlu membuat channel terlebih dahulu. Channel adalah penyambung antara LINE platform dan perangkat lunak yang dibuat pengembang. Berikut langkah-langkah untuk membuat channel :
+Untuk memulai membangun bot dengan Messaging API, \textit{developer} perlu membuat channel terlebih dahulu. Channel adalah penyambung antara LINE platform dan aplikasi yang dibuat \textit{developer}. Berikut langkah-langkah untuk membuat channel :
 \begin{enumerate}
 \item Langkah ke-1 : Masuk ke LINE Developers console
 
@@ -1021,9 +1117,9 @@ Untuk memulai membangun bot dengan Messaging API, pengembang perlu membuat chann
 	\label{fig:line-developers-console-login} 
 \end{figure}
 
-Pengembang perlu masuk ke LINE Developers console (https://developers.line.me/en/) dengan alamat email dan password dari akun LINE pengembang (Gambar~\ref{fig:line-developers-console-login}). Jika pengembang belum memiliki akun LINE, pengembang perlu mengunduh perangkat lunak LINE untuk mendaftar akun LINE.
+\textit{Developer} perlu masuk ke LINE Developers console (https://developers.line.me/en/) dengan alamat email dan password dari akun LINE \textit{developer} (Gambar~\ref{fig:line-developers-console-login}). Jika \textit{developer} belum memiliki akun LINE, \textit{developer} perlu mengunduh aplikasi LINE untuk mendaftar akun LINE.
 
-\item Langkah ke-2 : Mendaftar sebagai developer (pengembang)
+\item Langkah ke-2 : Mendaftar sebagai developer (\textit{developer})
 
 \begin{figure}[H]
 	\centering  
@@ -1032,11 +1128,11 @@ Pengembang perlu masuk ke LINE Developers console (https://developers.line.me/en
 	\label{fig:line-developers-console-register-developer} 
 \end{figure}
 
-Apabila pengembang baru pertama kali masuk ke LINE Developers console, pengembang perlu membuat akun developer (Gambar~\ref{fig:line-developers-console-register-developer}). Pengembang hanya perlu mencantumkan nama dan alamat email untuk mendaftar.
+Apabila \textit{developer} baru pertama kali masuk ke LINE Developers console, \textit{developer} perlu membuat akun developer (Gambar~\ref{fig:line-developers-console-register-developer}). \textit{Developer} hanya perlu mencantumkan nama dan alamat email untuk mendaftar.
 
 \item Langkah ke-3 : Membuat provider baru
 
-Provider adalah individu atau perusahaan yang menyediakan perangkat lunak yang akan dibuat. Pengembang perlu mencantumkan nama provider untuk membuat provider baru. Pengembang dapat menuliskan nama pengembang sendiri atau nama perusahaan pengembang.
+Provider adalah individu atau perusahaan yang menyediakan aplikasi yang akan dibuat. \textit{Developer} perlu mencantumkan nama provider untuk membuat provider baru. \textit{Developer} dapat menuliskan nama \textit{developer} sendiri atau nama perusahaan \textit{developer}.
 
 \item Langkah ke-4 : Membuat channel
 \begin{figure}[H]
@@ -1046,27 +1142,27 @@ Provider adalah individu atau perusahaan yang menyediakan perangkat lunak yang a
 	\label{fig:line-developers-console-create-channel} 
 \end{figure}
 
-Pengembang perlu memasukkan informasi yang dibutuhkan untuk membuat channel :
+\textit{Developer} perlu memasukkan informasi yang dibutuhkan untuk membuat channel :
 \begin{itemize}
-\item Ikon perangkat lunak
+\item Ikon aplikasi
 
-Dokumen gambar untuk ikon perangkat lunak harus dibawah 3MB dengan ekstensi JPEG/PNG/GIF/BMP.
+Dokumen gambar untuk ikon aplikasi harus dibawah 3MB dengan ekstensi JPEG/PNG/GIF/BMP.
 
-\item Nama perangkat lunak
+\item Nama aplikasi
 
-Nama perangkat lunak tidak boleh lebih dari 20 karakter. Kata "LINE" tidak dapat digunakan sebagai nama perangkat lunak, walaupun kapitalisasinya tidak sama. Setelah dikonfirmasi, nama perangkat lunak tidak dapat diubah untuk tujuh hari ke depan.
+Nama aplikasi tidak boleh lebih dari 20 karakter. Kata "LINE" tidak dapat digunakan sebagai nama aplikasi, walaupun kapitalisasinya tidak sama. Setelah dikonfirmasi, nama aplikasi tidak dapat diubah untuk tujuh hari ke depan.
 
-\item Deskripsi perangkat lunak
+\item Deskripsi aplikasi
 
-Deskripsi perangkat lunak tidak boleh lebih dari 500 karakter.
+Deskripsi aplikasi tidak boleh lebih dari 500 karakter.
 
 \item Plan
 
-Terdapat dua pilihan, Developer Trial dan Free. Plan Developer Trial memungkinkan pengembang untuk membuat bot yang dapat mengirimkan push message dan memiliki 50 teman. Apabila pengembang memilih plan ini, maka pengembang tidak dapat melakukan upgrade atau membeli ID premium. Plan Free memungkinkan pengembang untuk membuat bot dengan jumlah teman tak terbatas, namun pengembang tidak dapat mengirimkan push message. Pengembang dapat melakukan upgrade kapan saja dengan plan ini.
+Terdapat dua pilihan, Developer Trial dan Free. Plan Developer Trial memungkinkan \textit{developer} untuk membuat bot yang dapat mengirimkan push message dan memiliki 50 teman. Apabila \textit{developer} memilih plan ini, maka \textit{developer} tidak dapat melakukan upgrade atau membeli ID premium. Plan Free memungkinkan \textit{developer} untuk membuat bot dengan jumlah teman tak terbatas, namun \textit{developer} tidak dapat mengirimkan push message. \textit{Developer} dapat melakukan upgrade kapan saja dengan plan ini.
 
 \item Kategori dan Subkategori
 
-Pengembang dapat memilih kategori dan subkategori yang cocok dengan perangkat lunak yang sedang dikembangkan.
+\textit{Developer} dapat memilih kategori dan subkategori yang cocok dengan aplikasi yang sedang dikembangkan.
 
 \item Alamat email
 
@@ -1088,30 +1184,21 @@ Konfirmasi channel yang baru saja dibuat.
 
 
 \subsubsection{Membuat bot}
-Setelah membangun channel, pengembang perlu menyiapkan server untuk menjadi host dari bot. Pengembang dapat menggunakan layanan cloud platform, seperti Heroku. Setelah itu, pengembang dapat mulai mengatur bot pada console.
+Setelah membangun channel, \textit{developer} perlu menyiapkan server untuk menjadi host dari bot. \textit{Developer} dapat menggunakan layanan cloud platform, seperti Heroku. Setelah itu, \textit{developer} dapat mulai mengatur bot pada console.
 
-Perangkat lunak bot membutuhkan channel access token untuk membuat API call dan webhook URL untuk menerima webhook payload dari LINE Platform. Channel access token adalah long-lived token (token yang tidak memiliki kadaluarsa) yang harus diatur di dalam authorization header ketika membuat API call. Pengembang dapat menerbitkan lagi channel access token kapanpun melalui console. Untuk menerbitkan channel access token, klik Issue pada "Channel settings" di halaman console. Sedangkan webhook URL adalah titik akhir dari server perangkat lunak bot dimana webhook payload dikirimkan.
+Aplikasi bot membutuhkan channel access token untuk membuat API call dan webhook URL untuk menerima webhook payload dari LINE Platform. Channel access token adalah long-lived token (token yang tidak memiliki kadaluarsa) yang harus diatur di dalam authorization header ketika membuat API call. \textit{Developer} dapat menerbitkan lagi channel access token kapanpun melalui console. Untuk menerbitkan channel access token, klik Issue pada "Channel settings" di halaman console. Sedangkan webhook URL adalah titik akhir dari server aplikasi bot dimana webhook payload dikirimkan.
 
-%Gambar pas issue token
+Untuk mengatur webhook URL, \textit{developer} dapat memasukkannya ke halaman Channel settings pada console. Webhooks harus diaktifkan terlebih dahulu dengan menekan tombol enable webhooks. Untuk memeriksa apakah webhook URL dapat menerima event webhook, tekan tombol Verify dan pastikan hasilnya "Success". Webhook URL harus menggunakan HTTPS dan memiliki sertifikat SSL yang diterbitkan oleh certificate authority (CA) yang terotorisasi.
 
-Untuk mengatur webhook URL, pengembang dapat memasukkannya ke halaman Channel settings pada console. Webhooks harus diaktifkan terlebih dahulu dengan menekan tombol enable webhooks. Untuk memeriksa apakah webhook URL dapat menerima event webhook, tekan tombol Verify dan pastikan hasilnya "Success". Webhook URL harus menggunakan HTTPS dan memiliki sertifikat SSL yang diterbitkan oleh certificate authority (CA) yang terotorisasi.
-
-%Gambar gagal verify
-%Gambar sukses verify
-
-Setelah token dan webhook URL berhasil diset, tambahkan bot sebagai teman melalui akun LINE. Pengembang dapat melakukannya dengan scan kode QR pada Channel Settings.
-
-%Gambar Kode QR
+Setelah token dan webhook URL berhasil diset, tambahkan bot sebagai teman melalui akun LINE. \textit{Developer} dapat melakukannya dengan scan kode QR pada Channel Settings.
 
 \subsubsection{Menkonfigurasi Keamanan}
-Pengembang dapat mengkonfigurasi keamanan tapi tidak wajib dilakukan. Untuk meningkatkan keamanan, pengembang dapat mengatur server yang dapat memanggil API pada LINE Platform pada Security settings. Pengembang dapat mendaftarkan alamat IP secara individual atau jika pengembang memiliki server yang banyak pengembang dapat menggunakan notasi classless inter-domain routing (CIDR) untuk mendaftarkan alamat jaringan.
+\textit{Developer} dapat mengkonfigurasi keamanan tapi tidak wajib dilakukan. Untuk meningkatkan keamanan, \textit{developer} dapat mengatur server yang dapat memanggil API pada LINE Platform pada Security settings. \textit{Developer} dapat mendaftarkan alamat IP secara individual atau jika \textit{developer} memiliki server yang banyak \textit{developer} dapat menggunakan notasi classless inter-domain routing (CIDR) untuk mendaftarkan alamat jaringan.
 
 \subsubsection{Alur kerja Messaging API}
 Ketika user berinteraksi dengan bot seperti mengirimkan pesan atau menambah bot sebagai teman, LINE Platform mengirimkan HTTP POST request yang berisi webhook event object ke bot server yang disebutkan di kolom "Webhook URL" pada console. Request header berisi signature. 
 
 Untuk mengecek apakah server dapat menerima webhook event, blok bot pada LINE dan cek server logs untuk menkorfimasi bahwa server dapat menerima unfollow event dari LINE Platform.
-
-%Gambar contoh log
 
 Untuk memastikan request yang dikirim berasal dari LINE Platform, bot server harus memvalidasi X-Line-Signature pada request header. Caranya dengan :
 1. Menggunakan channel secret sebagai secret key, mengenerate Base64-encoded digest dari request body menggunakan algoritma HMAC-SHA256
@@ -1119,8 +1206,6 @@ Untuk memastikan request yang dikirim berasal dari LINE Platform, bot server har
  
 
 \subsubsection{Webhook Event Object}
-Webhook Event Object
-
 \begin{enumerate}
 \item Khusus untuk one-on-one chat
 
@@ -1147,7 +1232,7 @@ Menunjukkan bahwa user telah masuk atau keluar dari jangkauan LINE Beacon. Event
 
 \item Account link event 
 
-Menunjukkan bahwa user telah melink akun LINE dengan akun layanan pengembang. 
+Menunjukkan bahwa user telah melink akun LINE dengan akun layanan \textit{developer}. 
 
 \end{itemize}
 
@@ -1175,16 +1260,16 @@ Menunjukkan user melakukan aksi postback. Event ini dapat dibalas.
 \end{enumerate}
 
 \subsubsection{Operasi pada bot}
-Pengembang dapat melakukan operasi berikut lewat bot :
+\textit{Developer} dapat melakukan operasi berikut lewat bot :
 \begin{enumerate}
 \item Mengirim reply message
 
-Reply message adalah pesan yang dikirim sebagai respons dari user-generated event. User-generated event adalah event yang muncul karena user berinteraksi dengan bot, misalnya mengirim pesan. Pengembang hanya dapat membalas webhook events yang memiliki reply token.
-Untuk membalas pesan, kirim HTTP POST request ke /bot/message/reply. Sertakan channel access token di dalam authorization header dan reply token di request body. Pengembang dapat mengirimkan sampai 5 message object per request.
+Reply message adalah pesan yang dikirim sebagai respons dari user-generated event. User-generated event adalah event yang muncul karena user berinteraksi dengan bot, misalnya mengirim pesan. \textit{Developer} hanya dapat membalas webhook events yang memiliki reply token.
+Untuk membalas pesan, kirim HTTP POST request ke /bot/message/reply. Sertakan channel access token di dalam authorization header dan reply token di request body. \textit{Developer} dapat mengirimkan sampai 5 message object per request.
 
 \item Mengirim push message
 
-Untuk mengirim push message, pengembang harus memerhatikan plan yang dipakai. Apabila pengembang memakai plan Free maka pengembang tidak dapat melakukan operasi ini. Push message adalah pesan yang dapat bot kirimkan ke user kapanpun. Push message tidak membutuhkan reply token seperti saat mengirim reply message. Ketika mengirim push message, sebutkan user ID di dalam property to. ID penerima dapat ditemukan dari webhook event object. Apabila penerima hanya satu, kirimkan request ke /bot/message/push. Sedangkan apabila penerima ada beberapa, kirimkan ke /bot/message/multicast. Pengembang dapat mengirimkan sampai 5 message object per request.
+Untuk mengirim push message, \textit{developer} harus memerhatikan plan yang dipakai. Apabila \textit{developer} memakai plan Free maka \textit{developer} tidak dapat melakukan operasi ini. Push message adalah pesan yang dapat bot kirimkan ke user kapanpun. Push message tidak membutuhkan reply token seperti saat mengirim reply message. Ketika mengirim push message, sebutkan user ID di dalam property to. ID penerima dapat ditemukan dari webhook event object. Apabila penerima hanya satu, kirimkan request ke /bot/message/push. Sedangkan apabila penerima ada beberapa, kirimkan ke /bot/message/multicast. \textit{Developer} dapat mengirimkan sampai 5 message object per request.
 
 \item Mendapatkan konten yang dikirim oleh user
 
@@ -1195,19 +1280,18 @@ Untuk mengambil gambar, video, atau audio yang dikirim user, kirimkan HTTP GET r
 Untuk mendapatkan informasi user profile dari user yang menambahkan bot atau mengirim pesan ke bot, kirimkan HTTP GET request ke /bot/profile/{userId}. Request ini akan mengembalikan display name, user ID, profile image URL, dan status message (jika tersedia) dari user.
 \end{enumerate}
 
-\subsubsection{LINE@ Manager}
-LINE@ Manager adalah alat untuk mengatur akun LINE@ (LINE bot). Pengembang dapat meningkatkan user experience dengan mengatur halaman akun, membuat Timeline post, dan menggunakan fitur lain yang disediakan LINE@ Manager. Berikut adalah hal-hal yang bisa dilakukan :
+\subsection{LINE@ Manager}
+LINE@ Manager adalah alat untuk mengatur akun LINE@ (LINE bot). \textit{Developer} dapat meningkatkan user experience dengan mengatur halaman akun, membuat Timeline post, dan menggunakan fitur lain yang disediakan LINE@ Manager. Berikut adalah hal-hal yang bisa dilakukan :
 \begin{enumerate}
 \item Mengubah tampilan halaman akun
 
-Pengembang dapat mengubah gambar cover, logo, tombol, dan informasi yang disediakan
-%Gambar
+\textit{Developer} dapat mengubah gambar cover, logo, tombol, dan informasi yang disediakan
 
 \item Mengatur greeting message
 
-Jika pengembang mengaktifkan Greeting message pada Channel settings, maka pengembang dapat mengatur greeting message yang akan dikirim ke user saat pertama kali menambahkan bot sebagai teman. Pengembang dapat melakukannya juga dengan program melalui follow webhook event.
+Jika \textit{developer} mengaktifkan Greeting message pada Channel settings, maka \textit{developer} dapat mengatur greeting message yang akan dikirim ke user saat pertama kali menambahkan bot sebagai teman. \textit{Developer} dapat melakukannya juga dengan program melalui follow webhook event.
 
 \item Mengatur auto reply message
 
-Jika pengembang mengaktifkan "Auto reply message" pada Channel settings, maka pengembang dapat mengatur pesan balasan otomatis setiap user mengirimkan pesan ke bot.
+Jika \textit{developer} mengaktifkan "Auto reply message" pada Channel settings, maka \textit{developer} dapat mengatur pesan balasan otomatis setiap user mengirimkan pesan ke bot.
 \end{enumerate}
