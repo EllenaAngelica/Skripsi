@@ -1,0 +1,70 @@
+\chapter{Perancangan dan Implementasi}
+\label{chap:perancanganDanImplementasi}
+
+\section{Perancangan Kelas}
+
+
+\section{Perancangan Basis Data}
+Tabel-tabel yang sudah ada di BlueTape tidak diubah, namun ada dua tabel yang ditambahkan. Kedua tabel tersebut adalah tabel Pengumuman dan tabel Line\_followers. Tabel pengumuman berguna untuk menyimpan informasi dari email pengumuman. Sedangkan tabel Line\_followers berguna untuk menyimpan user id dari follower akun bot BlueTape.
+
+\subsubsection{Tabel pengumuman}
+\begin{center}
+	\begin{table}[H]
+	\caption{Perancangan Tabel jadwal\_dosen}
+	\begin{tabular}{|c|c|c|c|c|c|}
+ 			\hline
+			\textbf{Atribut} & \textbf{Tipe Data} & \textbf{Constraint} & \textbf{PK*}  & \textbf{FK*} \\
+			\hline
+		 	 id & int & - & Ya & Tidak\\
+			\hline
+			 namaPengirim & VARCHAR & 256 & Tidak & Tidak\\
+            \hline
+			 emailPengirim & VARCHAR & 256 & Tidak & Tidak\\
+            \hline
+			 waktuTerkirim & timestamp & - & Tidak & Tidak\\
+            \hline
+			 subjek & VARCHAR & 256 & Tidak & Tidak\\
+            \hline
+			 isi & TEXT & 256 & Tidak & Tidak\\
+            \hline
+			 ketersediaanLampiran & VARCHAR & 1 & Tidak & Tidak\\
+			\hline
+	\end{tabular}
+	\end{table}
+\end{center}
+\textit{*PK = Primary Key} \\
+\textit{*FK = Foreign Key} \\
+
+Keterangan atribut :
+\begin{itemize}
+\item \textbf{id} : Id pengumuman. Auto increment.
+\item \textbf{namaPengirim} : Nama pengirim email pengumuman.
+\item \textbf{emailPengirim} : Alamat email pengirim email pengumuman.
+\item \textbf{waktuTerkirim} : Waktu terkirim email pengumuman.
+\item \textbf{subjek} : Subjek email pengumuman.
+\item \textbf{isi} : Isi email pengumuman. Boleh kosong.
+\item \textbf{ketersediaanLampiran} : Jika email pengumuman memiliki lampiran maka atribut ini memiliki value 'Y'. Jika tidak, maka valuenya 'N'.
+\end{itemize}
+
+\subsubsection{Tabel Line\_followers}
+\begin{center}
+	\begin{table}[H]
+	\caption{Perancangan Tabel jadwal\_dosen}
+	\begin{tabular}{|c|c|c|c|c|c|}
+ 			\hline
+			\textbf{Atribut} & \textbf{Tipe Data} & \textbf{Constraint} & \textbf{PK*}  & \textbf{FK*} \\
+			\hline
+			 userId & VARCHAR & 256 & Ya & Tidak\\
+            \hline
+	\end{tabular}
+	\end{table}
+\end{center}
+\textit{*PK = Primary Key} \\
+\textit{*FK = Foreign Key} \\
+
+Keterangan atribut :
+\begin{itemize}
+\item \textbf{userId} : User id dari akun LINE yang follow akun bot BlueTape.
+\end{itemize}
+
+\section{Perancangan Antarmuka}
