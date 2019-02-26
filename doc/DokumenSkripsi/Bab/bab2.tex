@@ -47,7 +47,7 @@ Isi dari Procfile adalah satu atau lebih baris yang menyatakan \textit{process t
 Keterangan :
 \begin{itemize}
 \item \texttt{<process type>} : nama perintah yang mengandung huruf dan angka. Contoh : \texttt{web}, \texttt{worker}, \texttt{urgentworker}, \texttt{clock}, dan lain-lain. Untuk aplikasi sederhana, \textit{developer} cukup menuliskan \textit{process type} \texttt{web} saja.
-\item \texttt{<command>} : perintah yang setiap dyno dari \textit{process type} tersebut harus jalankan pada saat startup.
+\item \texttt{<command>} : perintah yang harus dijalankan oleh setiap dyno dari \textit{process type} tersebut pada saat startup.
 \end{itemize}
  
 Contoh isi Procfile :
@@ -59,7 +59,7 @@ Contoh isi Procfile :
 
 Pada contoh, \texttt{web} merupakan \texttt{<process type>}, sedangkan \texttt{web: java -jar lib/foobar.jar \textdollar PORT} adalah perintah yang harus dijalankan agar \textit{process type} tersebut berjalan. Perintah tersebut berfungsi untuk menyalakan web server.
 
-Procfile tidak wajib dibuat untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat \textit{process type} \texttt{web} untuk menjalankan server aplikasi. Apabila aplikasi menggunakan \texttt{heroku.yml} sebagai \textit{build manifest}, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile (kecuali \textit{process type} release).
+Procfile tidak wajib dibuat untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat \textit{process type} \texttt{web} untuk menjalankan server aplikasi. Apabila aplikasi menggunakan \texttt{heroku.yml} sebagai \textit{build manifest}, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile (kecuali \textit{process type} \textit{release}).
 
 
 \subsubsection{\textit{Process Type}}
@@ -70,7 +70,7 @@ Ada tiga kelompok \textit{process type} :
 \item \textit{process type} \texttt{singleton} : \textit{process type} yang bersifat sementara dan dapat berjalan terpisah
 \end{itemize}
 
-Di antara beragam \textit{process type}, ada dua \textit{process type} spesial : \textit{process type} \texttt{web} dan \texttt{release}. \textit{Process type} \texttt{web} adalah satu-satunya \textit{process type} yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah aplikasi melibatkan web server, \textit{developer} harus menyatakannya sebagai proses \texttt{web}. \textit{Process type} \texttt{release} adalah \textit{process type} yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
+Di antara beragam \textit{process type}, ada dua \textit{process type} spesial : \textit{process type} \texttt{web} dan \texttt{release}. \textit{Process type} \texttt{web} adalah satu-satunya \textit{process type} yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah aplikasi melibatkan \textit{web server}, \textit{developer} harus menyatakannya sebagai proses \texttt{web}. \textit{Process type} \texttt{release} adalah \textit{process type} yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
 
 \begin{figure}[H]
 	\centering  
@@ -921,6 +921,10 @@ Cara melakukan verifikasi akun Heroku :
 
 Kartu kredit yang diterima oleh Heroku adalah kartu Visa, MasterCard, American Express, Discover dan JCB. Kartu debit juga diterima untuk kartu Visa, MasterCard atau JCB. Kartu lain tidak diterima. Beberapa bank mungkin mensyaratkan penahanan satu dollar oleh pelaku verifikasi sebelum kartu dapat dikonfirmasi.
 
+\section{Cron}
+%http://www.unixgeeks.org/security/newbie/unix/cron-1.html
+Cron adalah nama program yang memperbolehkan user sistem operasi unix untuk mengeksekusi command atau script (sekumpulan command) secara otomatis pada waktu yang telah ditentukan.
+
 \section{Gmail API ~\cite{gmail-api}}
 \label{sec:gmail-api}
 Gmail adalah layanan email yang disediakan oleh Google LLC. Gmail API dapat digunakan untuk mengakses email Gmail.
@@ -1007,25 +1011,261 @@ Di dalam sistem operasi Ubuntu, pemasangan PHP IMAP bisa dilakukan dengan mudah.
 
 Berikut adalah \textit{function} dasar dari imap :
 \begin{itemize}
-\item imap\_8bit : melakukan konversi 8bit string ke quoted-printable string
-\item imap\_alerts : mengembalikan semua pesan peringatan dari IMAP yang telah terjadi
-\item imap\_base64 : decode BASE64 encoded text
-\item imap\_binary : melakukan konversi 8bit string ke base64 string
-\item imap\_body : membaca message body
-\item imap\_bodystruct : membaca struktur dari bagian body tertentu dari message tertentu
-\item imap\_check : mengecek mailbox (kotak surat)
-\item imap\_close : menutup IMAP stream
-\item imap\_errors : mengembalikan semua error dari IMAP yang telah terjadi
-\item imap\_fetch\_overview : membaca informasi pada header dari message yang diberikan
-\item imap\_fetchbody : mengambil bagian tertentu dari message body
-\item imap\_fetchheader : mengembalikan header dari message
-\item imap\_fetchmime : mengambil MIME headers dari bagian tertentu dari message
-\item imap\_fetchstructure : membaca struktur dari message tertentu
-\item imap\_headerinfo : membaca header dari message
-\item imap\_open : membuka IMAP stream ke mailbox
-\item imap\_qprint : melakukan konversi dari quoted-printable string ke 8 bit string
-\item imap\_sort : mendapatkan dan menyortir message
-\item imap\_utf8 : melakukan konversi dari MIME-encoded text ke UTF-8
+\item imap\_alerts
+\begin{itemize}
+\item Deskripsi : Fungsi ini mengembalikan semua \textit{alert message} yang telah terjadi. Ketika fungsi ini dipanggil, semua \textit{alert message} yang ada di \textit{stack} dihapus.
+\item \textit{Parameter} : Tidak ada.
+\item \textit{Return values} : Mengembalikan array yang berisi semua \textit{alert message} yang dihasilkan atau FALSE jika tidak ada satupun \textit{alert message}.
+\end{itemize}
+ 
+\item imap\_close
+\begin{itemize}
+\item Deskripsi : Fungsi ini berfungsi untuk menutup \textit{IMAP stream}.
+\item \textit{Parameter} :
+\begin{itemize}
+\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item flag : Jika diatur ke CL\_EXPUNGE, fungsi akan secara diam-diam menghapus semua pesan yang ditandai untuk dihapus sebelum menutup \textit{IMAP stream}.
+\end{itemize}
+\item \textit{Return values} : Mengembalikan TRUE jika sukses atau FALSE jika gagal.
+\end{itemize}
+ 
+\item imap\_errors
+\begin{itemize}
+\item Deskripsi : Fungsi ini mengembalikan semua \textit{error} yang telah terjadi. Ketika fungsi ini dipanggil, semua \textit{error} yang ada di \textit{stack} dihapus.
+\item \textit{Parameter} : Tidak ada.
+\item \textit{Return values} : Mengembalikan array yang berisi semua \textit{error} yang dihasilkan atau FALSE jika tidak ada satupun \textit{error}.
+\end{itemize}
+ 
+\item imap\_fetch\_overview
+\begin{itemize}
+\item Deskripsi : Fungsi ini mengambil \textit{mail header} berdasarkan urutan yang diberikan dan mengembalikan ikhtisar kontennya.
+\item \textit{Parameter} :
+\begin{itemize}
+\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item sequence : Deskripsi cara pengurutan message. Cara penyebutan urutan bisa menggunakan sintaks X,Y atau mengambil semua dalam interval dengan sintaks X:Y.
+\item options : sequence akan berisi \textit{message index} atau UID, jika parameter ini diatur ke FT\_UID.
+\end{itemize}
+\item \textit{Return values} : Mengembalikan \textit{array of objects}. Tiap \textit{object} mendeskripsikan satu \textit{message header}. \textit{Object} berisi macam-macam \textit{property}. Object hanya akan menyebutkan sebuah \textit{property} jika \textit{property} tersebut memang ada. \textit{Property} yang mungkin adalah :
+ \begin{itemize}
+ \item subject : Subyek pesan
+ \item from : pengirim
+ \item to : penerima
+ \item date : tanggal pengiriman
+ \item message\_id : Message-ID
+ \item references : Message id yang behubungan
+ \item in\_reply\_to : Message id untuk membalas
+ \item size : ukuran dalam bytes
+ \item uid : UID yang dimiliki di dalam \textit{mailbox}
+ \item msgno : urutan message di dalam \textit{mailbox}
+ \item recent : menandakan bahwa message ini adalah message yang baru-baru ini diterima
+ \item flagged : menandakan bahwa message ini adalah message yang ditandai
+ \item answered : menandakan bahwa message ini adalah message yang ditandai sebagai telah dijawab
+ \item deleted : menandakan bahwa message ini adalah message yang ditandai untuk dihapus
+ \item seen : menandakan bahwa message ini adalah message yang sudah dibaca
+ \item draft : menandakan bahwa message ini adalah message yang ditandai sebagai draft
+ \item udate : UNIX timestamp dari tanggal kedatangan pesan
+ \end{itemize} 
+\end{itemize}
+ 
+\item imap\_fetchbody
+\begin{itemize}
+\item Deskripsi : Mengambil bagian tertentu dari \textit{body} dari message yang disebutkan. Bagian dari \textit{body} tidak di-\textit{decode} oleh fungsi ini.
+\item \textit{Parameter} :
+\begin{itemize}
+\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item msg\_number : nomor \textit{message}
+\item section : Nomor bagian. Ini adalah serangkaian bilangan bulat yang dibatasi oleh periode yang diindeks ke daftar bagian \textit{body} sesuai spesifikasi IMAP4.
+\item options : bitmask dengan satu atau lebih dari :
+\begin{itemize}
+\item FT\_UID : msg\_number adalah UID
+\item FT\_PEEK : Jangan memberikan seen flag jika belum diberikan.
+\item FT\_INTERNAL : Return string di dalam internal format, tidak akan dikanonikkan ke CRLF.
+\end{itemize}
+\end{itemize}
+\item \textit{Return values} : Mengembalikan bagian tertentu dari body dari message yang disebutkan sebagai text string.
+\end{itemize}
+ 
+\item imap\_fetchheader
+\begin{itemize}
+\item Deskripsi : Fungsi ini mengambil header yang lengkap dan tidak terfilter (RFC2822 format) dari message.
+\item \textit{Parameter} :
+\begin{itemize}
+\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item msg\_number : nomor message
+\item options : options yang mungkin adalah :
+\begin{itemize}
+\item FT\_UID : msgno argument adalah UID
+\item FT\_INTERNAL : Return string di dalam internal format, tidak akan dikanonikkan ke CRLF.
+\item FT\_PREFETCHTEXT : RFC822.TEXT harus diambil sebelumnya pada saat yang sama. Ini menghindari RTT tambahan pada koneksi IMAP jika teks pesan lengkap diinginkan (mis. Dalam operasi "simpan ke file lokal")
+\end{itemize}
+\end{itemize}
+\item \textit{Return values} : Mengembalikan header dari message yang disebutkan sebagai text string.
+\end{itemize}
+
+\item imap\_fetchstructure
+\begin{itemize}
+\item Deskripsi : Mengambil semua informasi terstruktur untuk message yang diberikan.
+\item \textit{Parameter} :
+\begin{itemize}
+\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item msg\_number : nomor message
+\item options : parameter opsional ini hanya memiliki satu opsi, FT\_UID, yang memberitahu fungsi untuk memperlakukan msg\_number argument sebagai UID.
+\end{itemize}
+\item \textit{Return values} : Mengembalikan sebuah object termasuk envelope, internal date, size, flags dan body structure serta object serupa untuk tiap mime attachment. Struktur dari object adalah sebagai berikut :
+ \begin{itemize}
+ \item type : Primary body type
+ \item encoding : Body transfer encoding
+ \item ifsubtype : TRUE jika ada subtype string
+ \item subtype : MIME subtype
+ \item ifdescription : TRUE jika ada description string
+ \item description : Content description string
+ \item ifid : TRUE jika ada identification string
+ \item id : Identification string
+ \item lines : Jumlah lines
+ \item bytes : Jumlah bytes
+ \item ifdisposition : TRUE jika ada disposition string
+ \item disposition : Disposition string
+ \item ifdparameters : TRUE jika dparameters array tersedia
+ \item dparameters : Array of objects dimana tiap object memiliki "attribute" dan "value" property berdasarkan parameter pada Content-disposition MIME header.
+ \item ifparameters : TRUE jika parameters array tersedia
+ \item parameters : Array of objects dimana tiap object memiliki "attribute" and a "value" property.
+ \item parts : Array of objects identik dalam structure dengan top-level object, masing-masing berdasarkan pada MIME body part.
+ \end{itemize}
+\end{itemize}
+
+\item imap\_headerinfo
+\begin{itemize}
+\item Deskripsi : Fungsi ini berfungsi untuk mendapatkan informasi dari message number yang diberikan dengan membaca headernya.
+\item \textit{Parameter} :
+\begin{itemize}
+\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item msg\_number : nomor message
+\item fromlength : jumlah karakter untuk fetchfrom property. Harus lebih besar atau sama dengan nol.
+\item subjectlength : jumlah karakter untuk fetchsubject property. Harus lebih besar atau sama dengan nol.
+\item defaulthost
+\end{itemize}
+\item \textit{Return values} : Mengembalikan FALSE jika terjadi error. Jika sukses, mengembalikan informasi di dalam object dengan property berikut :
+ \begin{itemize}
+ \item toaddress : full "to" : line, sampai dengan 1024 karakter.
+ \item to : array of objects dari To: line, dengan property berikut : personal, adl, mailbox, and host
+ \item fromaddress : full "from" : line, sampai dengan 1024 characters
+ \item from : array of objects dari From: line, dengan property berikut : personal, adl, mailbox, and host
+ \item ccaddress : full "cc" : line, sampai dengan 1024 karakter.
+ \item cc : array of objects dari Cc: line, dengan property berikut : personal, adl, mailbox, and host
+ \item bccaddress : full "bcc" : line, sampai dengan 1024 karakter.
+ \item bcc : array of objects dari Bcc: line, dengan property berikut : personal, adl, mailbox, and host
+ \item reply\_toaddress : full "Reply-To" : line, sampai dengan 1024 karakter.
+ \item reply\_to : array of objects dari Reply-To: line, dengan property berikut : personal, adl, mailbox, and hostt
+ \item senderaddress : full "sender" : line, sampai dengan 1024 karakter.
+ \item sender : array of objects dari Sender: line, dengan property berikut : personal, adl, mailbox, and host
+ \item return\_pathaddress  : full "Return-Path" : line, sampai dengan 1024 karakter.
+ \item return\_path : array of objects dari Return-Path: line, dengan property berikut : personal, adl, mailbox, and host
+ \item remail
+ \item date : tanggal message yang ditemukan di header
+ \item Date : sama dengan date
+ \item subject : subyek pesan
+ \item Subject : sama dengan subject
+ \item in\_reply\_to
+ \item message\_id
+ \item newsgroups
+ \item followup\_to
+ \item references
+ \item Recent : R jika diterima baru-baru ini dan telah dilihat, N jika diterima baru-baru ini dan belum pernah dilihat, dan ' ' jika tidak diterima baru-baru ini.
+ \item Unseen : U jika belum pernah dilihat dan tidak diterima baru-baru ini, ' ' jika telah dilihat atau belum pernah dilihat dan diterima baru-baru ini.
+ \item Flagged : F jika telah ditandai, ' ' jika tidak ditandai.
+ \item Answered : A jika telah dijawab, ' ' jika belum dijawab.
+ \item Deleted : D jika telah dihapus, ' ' jika belum dihapus.
+ \item Draft : X jika message adalah sebuah draft, ' ' jika bukan draft.
+ \item Msgno : nomor message
+ \item MailDate
+ \item Size : ukuran message
+ \item udate : tanggal message diterima dalam format Unix time
+ \item fetchfrom : from line diformat untuk memenuhi fromlength characters
+ \item fetchsubject : subject line diformat untuk memenuhi subjectlength characters
+ \end{itemize}
+\end{itemize}
+ 
+
+\item imap\_last\_error
+\begin{itemize}
+\item Deskripsi : Fungsi ini berfungsi untuk Mengembalikan full text dari IMAP error message terakhir yang terjadi pada page sekarang. Error stack tidak diganggu-gugat.
+\item \textit{Parameter} : Tidak ada
+\item \textit{Return values} : Mengembalikan full text dari IMAP error message terakhir yang terjadi pada page sekarang. Mengembalikan FALSE jika tidak ada error message.
+\end{itemize}
+ 
+\item imap\_open
+\begin{itemize}
+\item Deskripsi : Fungsi ini berfungsi untuk membuka IMAP stream ke sebuah mailbox. Fungsi ini dapat juga digunakan untuk membuka stream ke POP3 dan NNTP server, tapi beberapa fungsi dan fitur hanya tersedia pada IMAP server.
+\item \textit{Parameter} :
+ \begin{itemize}
+ \item mailbox : nama mailbox yang terdiri dari server dan mailbox path pada server ini.
+ \item username
+ \item password
+ \item options : option adalah bit mask dengan satu atau lebih dari berikut : 
+   \begin{itemize}
+   \item OP\_READONLY : Membuka mailbox, read-only
+   \item OP\_ANONYMOUS : Tidak menggunakan atau memperbarui .newsrc untuk news (hanya NNTP)
+   \item OP\_HALFOPEN : Untuk nama IMAP dan NNTP, membuka koneksi tapi tidak membuka mailbox
+   \item CL\_EXPUNGE : Menghapus pesan yang ditandai untuk dihapus sebelum menutup mailbox
+   \item OP\_DEBUG : Debug protocol negotiations
+   \item OP\_SHORTCACHE : Short (elt-only) caching
+   \item OP\_SILENT : Jangan mengoper events (penggunaan internal)
+   \item OP\_PROTOTYPE : Mengembalikan driver prototype
+   \item OP\_SECURE : Jangan melakukan autentikasi yang tidak aman
+   \end{itemize}
+ \item n\_retries : Jumlah maksimum percobaan untuk terkoneksi
+ \item params : parameter koneksi, string/key berikut mungkin dapat digunakan untuk mengatur satu atau lebih parameter koneksi : DISABLE\_AUTHENTICATOR (Menonaktifkan property autentikasi).
+
+\end{itemize}
+\item \textit{Return values} : Mengembalikan IMAP stream jika berhasil dan FALSE jika terjadi error.
+\end{itemize}
+ 
+\item imap\_qprint
+\begin{itemize}
+\item Deskripsi : Menkonversi quoted-printable string ke dalam 8 bit string berdasarkan RFC2045, section 6.7.
+\item \textit{Parameter} : quoted-printable string
+\item \textit{Return values} : 8 bit string
+\end{itemize}
+ 
+\item imap\_search
+\begin{itemize}
+\item Deskripsi : Fungsi ini berfungsi untuk melakukan pencarian pada mailbox yang sedang terbuka pada IMAP stream yang diberikan.
+\item \textit{Parameter} :
+\begin{itemize}
+\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item criteria : string yang dibatasi dengan spasi, di dalamnya berisi satu atau lebih kata kunci berikut : 
+  \begin{itemize}
+  \item ALL : mengembalikan semua message yang sesuai dengan kriteria lainnya.
+  \item ANSWERED : mengembalikan message yang bertanda ANSWERED
+  \item BCC "string" : mengembalikan message dengan "string" di dalam Bcc: field
+  \item BEFORE "date" : mengembalikan message dengan Date: sebelum "date"
+  \item BODY "string" : mengembalikan message dengan "string" di dalam body message
+  \item CC "string" : mengembalikan message dengan "string" di dalam Cc: field
+  \item DELETED : mengembalikan message yang dihapus
+  \item FLAGGED : mengembalikan message yang bertanda FLAGGED (terkadang merujuk ke message bertanda Important atau Urgent)
+  \item FROM "string" : mengembalikan message dengan "string" di dalam From: field
+  \item KEYWORD "string" : mengembalikan message dengan "string" sebagai keyword
+  \item NEW : mengembalikan message baru
+  \item OLD : mengembalikan message lama
+  \item ON "date" : mengembalikan message dengan Date: cocok dengan "date"
+  \item RECENT : mengembalikan message yang baru-baru ini diterima atau yang bertanda RECENT
+  \item SEEN : mengembalikan message yang telah dilihat atau yang bertanda SEEN
+  \item SINCE "date" : mengembalikan message dengan Date: sejak "date"
+  \item SUBJECT "string" : mengembalikan message dengan "string" di dalam Subject
+  \item TEXT "string" : mengembalikan message dengan text "string"
+  \item TO "string" : mengembalikan message dengan "string" di dalam To:
+  \item UNANSWERED : mengembalikan message yang belum dijawab
+  \item UNDELETED : mengembalikan message yang belum dihapus
+  \item UNFLAGGED : mengembalikan message yang belum ada tandanya
+  \item UNKEYWORD "string" : mengembalikan message yang tidak memiliki keyword "string"
+  \item UNSEEN : mengembalikan message yang belum pernah dilihat
+  \end{itemize}
+\item options : Valid values untuk options adalah SE\_UID, yang menyebabkan array yang dikembalikan berisi UID daripada message sequence number.
+\item charset : MIME character set untuk digunakan saat mencari strings.
+\end{itemize}
+\item \textit{Return values} : Mengembalikan array dari message number atau UID.
+\end{itemize}
+ 
 \end{itemize}
 
 %2.4 Line
@@ -1034,21 +1274,24 @@ Berikut adalah \textit{function} dasar dari imap :
 Line adalah aplikasi pengirim pesan yang tersedia dalam platform android, ios, dan desktop. Line memiliki beberapa produk yang dapat digunakan \textit{developer} aplikasi. Produk-produk tersebut adalah :
 \begin{enumerate}
 \item LINE Login
-
-LINE Login adalah produk dari LINE yang memungkinkan \textit{developer} membua aplikasinya menyediakan pilihan masuk melalui akun LINE.
-
+\item LINE Bot Designer
+\item Clova
+\item LINE Pay
 \item Messaging API
+\end{enumerate}
+
+\subsection{LINE Login}
 
 \begin{figure}[H]
 	\centering  
-	\includegraphics[width=\textwidth]{messaging-api-push-reply-message.png}  
-	\caption[Push message dan reply message pada Messaging API]{Messaging API memungkinkan \textit{developer} mengirim push message dan reply message} 
-	\label{fig:messaging-api-push-reply-message} 
+	\includegraphics[scale=0.5]{line-login-main-contents.png}  
+	\caption[LINE Login]{LINE Login} 
+	\label{fig:line-login} 
 \end{figure}
 
-Messaging API adalah produk LINE yang memungkinkan \textit{developer} untuk membangun bot sebagai sarana komunikasi dua arah antara layanan yang dibangun \textit{developer} dengan pengguna LINE. Dengan Messaging API, \textit{developer} dapat mengirimkan push message dan reply message (Gambar~\ref{fig:messaging-api-push-reply-message}) ke akun LINE@. Push message adalah pesan yang bot kirimkan ke pengguna LINE. Reply message adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
+LINE Login adalah produk dari LINE yang memungkinkan \textit{developer} membuat aplikasinya menyediakan pilihan login melalui akun LINE. Pengguna aplikasi yang dibuat \textit{developer} tidak perlu mendaftar menggunakan email dan password. Login menjadi lebih mudah dan cepat. LINE menyediakan LINE SDK untuk mengintegrasikan LINE Login dengan native apps.
 
-\item LINE Bot Designer
+\subsection{LINE Bot Designer}
 
 \begin{figure}[H]
 	\centering  
@@ -1059,7 +1302,7 @@ Messaging API adalah produk LINE yang memungkinkan \textit{developer} untuk memb
 
 LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memungkinkan \textit{developer} membuat prototipe LINE bot lebih cepat dan lebih mudah tanpa mengetahui pemrograman. Dengan produk ini, \textit{developer} dapat mendesain chatbots sesuai skenario yang diinginkan.
 
-\item Clova
+\subsection{Clova}
 
 \begin{figure}[H]
 	\centering  
@@ -1070,7 +1313,7 @@ LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memung
 
 Clova adalah sebuah AI Assistant (aplikasi dengan kecerdasan buatan yang berfungsi sebagai asisten) yang dipasang di dalam Clova Wave dan Clova Friends. Clova masih dalam tahap \textit{developer}an dan (pada saat skripsi ini dibuat) tersedia dalam versi beta. Tidak ada dokumentasi resmi untuk produk ini, namun disediakan situs web untuk menggali informasi tentang Clova : https://clova-developers.line.me (Gambar~\ref{fig:clova_site}). Pada saat skripsi ini ditulis, situs web ini hanya tersedia dalam bahasa Jepang sehingga membutuhkan penerjemah apabila tidak menguasai bahasa Jepang.
 
-\item LINE Pay
+\subsection{LINE Pay}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{line_pay_site.png}  
@@ -1080,11 +1323,16 @@ Clova adalah sebuah AI Assistant (aplikasi dengan kecerdasan buatan yang berfung
 
 LINE Pay adalah produk LINE yang memungkinkan \textit{developer} mengintegrasikan aplikasi yang dibuat \textit{developer} dengan fitur pembayaran melalui LINE Pay. Pada saat skripsi ini dibuat, tidak ada dokumentasi resmi untuk mengintegrasikan LINE Pay dengan aplikasi yang \textit{developer} buat. Namun, \textit{developer} dapat menggali informasi tentang fitur LINE Pay di situs https://pay.line.me (Gambar~\ref{fig:line_pay_site}). Situs ini menyediakan informasi LINE Pay di negara Jepang, Republik Tiongkok / Taiwan, dan Thailand. Situs ini tersedia dalam bahasa Jepang, Korea, Inggris, China dengan aksara sederhana, China dengan aksara tradisional, dan Thailand.
 
-\end{enumerate}
-
-Di antara produk-produk yang disediakan LINE, penulis menggunakan Messaging API untuk mengirimkan push message melalui LINE@. Line@ adalah layanan oleh LINE yang didesain khusus untuk bisnis atau organisasi. Line@ menyediakan berbagai fitur untuk mempromosikan suatu perusahaan, merek, atau produk dalam cara yang baru dan dengan jangkauan yang luas. Salah satu fitur tersebut adalah fitur "Message Broadcasts". Fitur ini memungkinkan pengguna mengirimkan pesan melalui aplikasi mobile LINE@ atau melalui aplikasi komputer LINE@ Manager dan menyebarkannya ke pelanggan dan fans yang telah menjadikan akun pengguna sebagai teman. LINE@ menawarkan beberapa fitur bawaan yang bisa digunakan di pesan, seperti kupon dan survei. Fitur "1-on-1 chat" memungkinkan pengguna membalas secara langsung pesan yang dikirimkan pelanggan dan fans yang menjadikan pengguna teman. Fitur "Timeline Posts" memungkinkan pengguna mengirimkan postingan di linimasa. Postingan tersebut bisa diberi "like" atau dikomentari sehingga dapat memaksimalkan potensi linimasi sebagai media pemasaran.
-
 \subsection{Messaging API } 
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{messaging-api-push-reply-message.png}  
+	\caption[Push message dan reply message pada Messaging API]{Messaging API memungkinkan \textit{developer} mengirim push message dan reply message} 
+	\label{fig:messaging-api-push-reply-message} 
+\end{figure}
+
+Messaging API adalah produk LINE yang memungkinkan \textit{developer} untuk membangun bot sebagai sarana komunikasi dua arah antara layanan yang dibangun \textit{developer} dengan pengguna LINE. Dengan Messaging API, \textit{developer} dapat mengirimkan push message dan reply message (Gambar~\ref{fig:messaging-api-push-reply-message}) ke akun LINE@. Push message adalah pesan yang bot kirimkan ke pengguna LINE. Reply message adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
+
 Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memungkinkan data dioper antara server dari aplikasi bot dengan LINE Platform. Ketika pengguna Line mengirimkan pesan ke bot, sebuah webhook akan terpicu dan LINE Platform akan mengirimkan permintaan ke URL webhook bot. Server akan mengirim permintaan ke LINE Platform untuk merespon pengguna. Permintaan akan dikirimkan dalam format JSON. Arsitektur dari Messaging API dapat dilihat pada Gambar~\ref{fig:messaging_api_architecture}.
 
 \begin{figure}[H]
