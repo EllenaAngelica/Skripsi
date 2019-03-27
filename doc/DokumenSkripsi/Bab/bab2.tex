@@ -921,9 +921,42 @@ Cara melakukan verifikasi akun Heroku :
 
 Kartu kredit yang diterima oleh Heroku adalah kartu Visa, MasterCard, American Express, Discover dan JCB. Kartu debit juga diterima untuk kartu Visa, MasterCard atau JCB. Kartu lain tidak diterima. Beberapa bank mungkin mensyaratkan penahanan satu dollar oleh pelaku verifikasi sebelum kartu dapat dikonfirmasi.
 
-\section{Cron}
-%http://www.unixgeeks.org/security/newbie/unix/cron-1.html
-Cron adalah nama program yang memperbolehkan user sistem operasi unix untuk mengeksekusi command atau script (sekumpulan command) secara otomatis pada waktu yang telah ditentukan.
+\section{Cron ~\cite{vixie1cron}}
+\label{cron}
+Cron adalah program yang menjalankan command (perintah) yang tertera di file crontab pada jadwal tertentu di latar belakang secara otomatis. File crontab dapat ditemukan di direktori /var/spool/cron/crontabs. Crontab di  direktori ini sebaiknya tidak diakses secara langsung, melainkan menggunakan command crontab. File crontab juga dapat ditemukan di direktori /etc atau subdirektori /etc. File crontab di direktori tersebut adalah file system crontab.
+
+Setiap command di crontab diawali dengan lima penanda waktu dan diikuti dengan nama user (jika berada di file system crontab). Lima penanda waktu tersebut secara berurutan adalah :
+\begin{itemize}
+\item minute : menandakan tiap menit berapa command dijalankan. Value yang valid adalah angka 0-59 atau tanda asterisk (*).
+\item hour : menandakan tiap jam berapa command dijalankan. Value yang valid adalah angka 0-23 atau tanda asterisk (*).
+\item day of the month : menandakan tiap tanggal berapa command dijalankan. Value yang valid adalah angka 1-31 atau tanda asterisk (*).
+\item month : menandakan tiap bulan berapa command dijalankan. Value yang valid adalah angka 1-12 atau tanda asterisk (*).
+\item day of the week : menandakan tiap hari apa command dijalankan. Value yang valid adalah angka 0-7 atau tanda asterisk (*) atau "Sun". Hari minggu dapat ditulis dengan angka 0 atau 7 atau "Sun".
+\end{itemize}
+
+Contoh penulisan command di crontab :
+\begin{lstlisting}
+0 12 * * * /home/myscripts/lunch.sh
+\end{lstlisting}
+Pada contoh di atas, cron akan menjalanksan script lunch.sh pada direktori /home/myscripts setiap hari pada jam 12:00. Tanda asterisk menandakan eksekusi dilakukan dari range value terendah sampai value tertinggi.
+
+Penanda waktu boleh memiliki value lebih dari satu. Penanda waktu yang memiliki value lebih dari satu ditulis dalam bentuk range, list, atau step. Range ditulis dalam format dua value yang dipisahkan dengan tanda hubung (-). Range bersifat inklusif. Contoh : 8-11 untuk hour berarti command akan dieksekusi pada jam 8, 9, 10, dan 11. List ditulis dalam format dua atau lebih value yang dipisahkan dengan koma. Contoh : 1,5,7. Range dan list dapat disatukan. Contoh : 1,2,8-12. Step ditulis dalam format : range / <number>. Contoh : '0-23/2' untuk hour. Tanda tersebut berarti eksekusi dijalankan setiap dua jam sekali. Tanda asterisk juga dapat digunakan untuk menggantikan range. Contoh : */4 untuk hour. Tanda tersebut berarti eksekusi dijalankan setiap empat jam sekali.
+
+Nama juga dapat digunakan untuk penanda waktu month atau day of week. Cukup dengan menggunakan tiga huruf pertama dari kata bahasa Inggrisnya tanpa menghiraukan huruf besar atau huruf kecil. Namun, nama tidak bisa dipakai untuk range atau list.  
+
+Selain itu, kelima penanda waktu dapat diganti dengan salah satu "nickname" berikut :
+\begin{itemize}
+\item @reboot : Eksekusi sekali saat startup.
+\item @yearly : Eksekusi setiap tahun (setiap tanggal 1 Januari), "0 0 1 1 *"
+\item @anually : Sama seperti @yearly.
+\item @monthly : Eksekusi setiap bulan, "0 0 1 * *".
+\item @weekly : Eksekusi setiap minggu, "0 0 * * 0".
+\item @daily : Eksekusi setiap hari (jam 00:00), "0 0 * * *"
+\item @midnight : Sama seperti @daily.
+\item @hourly : Eksekusi setiap jam, "0 * * * *"
+\end{itemize}
+
+Baris kosong, spasi di awal baris, dan tab akan diabaikan oleh cron. Baris yang karakter bukan spasi pertamanya  adalah \# akan dianggap sebagai comment (komentar) dan akan diabaikan. Comment tidak boleh diletakkan di baris yang sama dengan command karena comment tersebut akan dianggap sebagai bagian dari command.
 
 \section{Gmail API ~\cite{gmail-api}}
 \label{sec:gmail-api}
@@ -986,6 +1019,21 @@ Perubahan message direpresentasikan oleh \texttt{History objects}. Properti \tex
 \subsubsection{Manajemen Label}
 Label yang diberikan ke sebuah thread juga diberikan ke semua message di dalam thread. Jika sebuah label dihapus, label tersebut akan dihapus dari semua thread dan message yang memiliki label tersebut. Properti \texttt{messageListVisibility} digunakan untuk menentukan apakah message dengan label tersebut ada di message list. Properti \texttt{labelListVisibility} digunakan untuk menentukan apakah ada label tersebut di daftar label. Untuk mengubah label, gunakan \texttt{messages.modify} dan\texttt{threads.modify}.
 
+\subsection{Implementasi Otorisasi dari Sisi Server}
+Setiap request ke Gmail API harus menggunakan OAuth 2.0. Developer perlu menggunakan alur dari sisi server ketika aplikasinya membutuhkan akses Google API mewakili user. Pendekatan ini membutuhkan access token dan refresh token untuk server. Untuk mulai menggunakan Gmail API, developer harus mendapatkan client id dan client secret terlebih dahulu. Client id dan client secret dapat dimiliki apabila developer telah membuat project di Google API Console dan menyalakan Gmail API.
+
+Ketika user membuka aplikasi untuk pertama kalinya, sebuah dialog akan muncuk dan menanyakan izin dari user agar aplikasi boleh mengakses akun Gmail miliknya. Dialog tersebut akan menyatakan scope yang dipakai aplikasi. Setelah user mengizinkan, dialog tersebut tidak akan muncul lagi. Kecuali, scope aplikasi diubah.
+
+Setelah user sign-in untuk pertama kalinya, authorization result object akan dikembalikan ke server. Object tersebut berisi authorization code. Authorization code adalah code sekali pakai yang dapat ditukar dengan access token. Access token ini akan diberikan ke Gmail API agar aplikasi diberi izin untuk mengakses ke data user pada waktu yang terbatas. Selain access token, server juga mendapatkan refresh token. Refresh token ini dapat digunakan untuk menerima access token baru setelah token yang lama kadaluarsa. Refresh token ini harus disimpan di suatu tempat di database agar bisa dipakai. Jika refresh token ini tidak disimpan, maka aplikasi harus mengirim request dengan query approval\_prompt yang diset ke force. Ini dapat mengakibatkan user mendapat dialog untuk meminta izin lagi.
+
+%https://developers.google.com/identity/protocols/OAuth2
+Refresh token dapat kadaluarsa. Refresh token kadaluarsa jika :
+\begin{itemize}
+\item User mencabut izinnya.
+\item Refresh token sudah tidak digunakan selama enam bulan.
+\item User mengganti password dan refresh token berisi Gmail scopes.
+\item Akun user telah melebihi batas maksimal dari refresh token yang diizinkan. Batas maksimalnya adalah 50 refresh token per akun per klien. Jika batas ini dilampaui, membuat refresh token baru akan menggugurkan refresh token yang lama tanpa peringatan. Batas ini tidak berlaku untuk service account.
+\end{itemize}
 \section{PHP IMAP ~\cite{php-imap}}
 \label{sec:PHPIMAP}
 IMAP (Internet Message Access Protocol) adalah metode untuk mengakses pesan elektronik yang disimpan di sebuah mail server.
