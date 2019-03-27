@@ -1,8 +1,19 @@
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  showlines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
 \chapter{Implementasi dan Pengujian}
 \label{chap:implementasiDanPengujian}
 
+Bab ini membahas proses implementasi dan proses pengujian fitur Kolektor Pengumuman Informatika.
 \section{Implementasi}
-\subsubsection{Lingkungan Pengembangan dan Pengujian Fungsional}
+Bagian ini membahas implementasi dari perancangan yang telah dilakukan di Bab 3.
+\subsection{Lingkungan Pengembangan dan Pengujian Fungsional}
 Berikut spesifikasi perangkat keras dan perangkat lunak yang dipakai pada skripsi ini :
 
 \textbf{Spesifikasi Perangkat keras}
@@ -26,9 +37,73 @@ Berikut spesifikasi perangkat keras dan perangkat lunak yang dipakai pada skrips
 \item heroku/7.21.0 linux-x64 node-v11.9.0
 \end{itemize}
 
-\subsubsection{Implementasi Basis Data}
-Pada pembangunan fitur kolektor pengumuman, ada dua tabel yang ditambahkan. Kedua tabel itu adalah tabel Pengumuman dan tabel Line\_followers. Pembuatan tabel menggunakan dua file migration terpisah.
+\subsection{Implementasi Basis Data}
+Pada pembangunan fitur Kolektor Pengumuman Informatika, ada dua tabel yang ditambahkan. Kedua tabel itu adalah tabel Pengumuman dan tabel PengumumanLineFollowers. Pembuatan tabel menggunakan dua file migration terpisah : file 20181011103200\_Pengumuman\_Initial.php dan 20190210224400\_PengumumanLineFollowers\_initial.php.
 
 \subsection{Implementasi Kelas}
+Pada pembangunan fitur Kolektor Pengumuman Informatika, dibuat kelas-kelas berikut : 
+\begin{itemize}
+\item Kelas model Pengumuman\_model
+
+Pengumuman\_model merupakan kelas yang berisi algoritma yang dibutuhkan oleh fitur Kolektor Pengumuman Informatika.
+
+\item Kelas model Pengumuman\_Line\_model
+
+Pengumuman\_model merupakan kelas yang dikhususkan untuk algoritma untuk menghubungkan BlueTape dengan LINE API.
+
+\item Kelas controller Cron
+
+Cron merupakan kelas yang berfungsi untuk menjalankan perintah-perintah yang harus dijalankan pada jadwal tertentu. Pada skripsi ini perintah yang dijadwalkan adalah memeriksa email tiap hari.
+
+\item Kelas controller Pengumuman
+
+Pengumuman merupakan kelas yang berfungsi untuk mengatur hubungan antara Pengumuman\_model dan view yang ada di package Pengumuman.
+
+\item Kelas controller PengumumanLine
+
+Pengumuman\_Line merupakan kelas yang berfungsi untuk menerima webhook dari LineAPI.
+
+\end{itemize}
+
+Untuk mendukung kinerja kelas-kelas tersebut, dibuat juga file :
+\begin{itemize}
+\item File view main.php.
+
+File ini digunakan untuk mengatur tampilan halaman utama Pengumuman.
+
+\item File view read.php.
+
+File ini digunakan untuk mengatur tampilan halaman saat detail pengumuman ditampilkan.
+
+\item File config pengumuman.php.
+
+File ini digunakan untuk menyimpan daftar pengirim pengumuman yang terverifikasi.
+
+\item File migration 20181011103200\_Pengumuman\_Initial.php 
+
+File ini digunakan untuk membuat tabel Pengumuman.
+
+\item File migration 20190210224400\_PengumumanLineFollowers\_initial.php.
+
+File ini digunakan untuk membuat tabel PengumumanLineFollowers.
+\end{itemize}
+
+Selain itu, ada beberapa file yang harus diubah :
+\begin{itemize}
+\item file config database.php
+
+Pada file ini informasi database disesuaikan dengan informasi database yang dipakai di skripsi ini.
+
+\item file config modules.php
+
+Pada file ini ditambahkan modules Pengumuman pada config 'modules'.
+
+\item file config routes.php
+
+Pada file ini ditambahkan routing berikut :
+\begin{lstlisting}
+$route['pengumuman/page-(:num)'] = '/pengumuman/page/$1';
+\end{lstlisting}
+\end{itemize}
 
 \section{Pengujian}
