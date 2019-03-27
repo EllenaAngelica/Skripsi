@@ -11,7 +11,7 @@
 \label{chap:analisis}
 	Pengumpulan data dalam skripsi ini dilakukan dengan cara studi pustaka.
 
-\section{Analisis Sistem Kini}
+\section{Analisis Sistem yang Sudah Ada}
 \label{sec:analisiskini}
 \begin{figure}[H]
 	\centering  
@@ -27,7 +27,7 @@
 \subsection{Aturan Konstribusi BlueTape}
 	Terdapat beberapa aturan apabila ingin berkonstribusi pada pengembangan BlueTape. Aturan-aturan tersebut tertera pada dokumen \texttt{CONTRIBUTING.md} (\url{https://github.com/ftisunpar/BlueTape/blob/master/CONTRIBUTING.md}).
 
-	\subsubsection{Pengelompokkan Module}
+	\subsubsection{Pengelompokan Module}
 		Perangkat lunak BlueTape dikelompokkan dalam module. Setiap module memiliki nama yang mengikuti aturan CamelCase. Jika beberapa module tergabung pada satu topik yang sama, topik tersebut harus digunakan sebagai kata pertama dalam penamaan module. Contohnya : apabila nama topik adalah \texttt{Transkrip}, maka contoh nama modulenya adalah \texttt{TranskripRequest} dan \texttt{TranskripManage}.
 		
 		Penamaan dokumen pada controller, view, model, config file, nama tabel, dan migration script menggunakan nama module atau topik. Contoh penamaan :
@@ -119,13 +119,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 \subsection{Fitur - Fitur BlueTape}
 	Saat skripsi ini ditulis, BlueTape memiliki perangkat lunak BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen untuk merekam dan menampilkan jadwal dosen.
 
-	\subsubsection{Transkrip \textit{Request}}
+	\subsubsection{Transkrip \textit{Request}} 
 	\begin{figure}[H]
 		\centering  
 		\includegraphics[width=\textwidth]{bluetape-cetak-transkrip.png}  
 		\caption[Tampilan Cetak Transkrip]{Tampilan Cetak Transkrip} 
 		\label{fig:bluetape-cetak-transkrip} 
 	\end{figure}
+	
+	Gambar~ \ref{fig:bluetape-cetak-transkrip} menampilkan halaman utama saat cetak transkrip. Halaman ini hanya bisa diakses oleh user yang termasuk roles 'root' dan 'mahasiswa.ftis'. Terdapat form yang meminta input alamat email pemohon, npm, nama, tipe transkrip, dan keperluan. Input alamat email pemohon, npm, dan nama sudah terisi otomatis dan tidak bisa diubah lagi sehingga user hanya perlu mengganti tipe transkrip dan mengisi keperluan. Tipe transkrip memiliki tiga pilihan, yaitu : DPS Bahasa Indonesia (Seluruh Semester), DPS Bahasa Inggris (Seluruh Semester), dan LHS (Semester Terakhir). Selain form tersebut, terdapat tabel histori permohonan yang akan menampilkan riwayat permohonan cetak transkrip jika sudah pernah memohon. Tabel histori permohonan memiliki tujuh kolom, yaitu : ID, Status, Tanggal Permohonan, Tipe Transkrip, Tanggal Jawab/Cetak, Keterangan, dan Aksi (tindakan yang bisa dilakukan dengan record). Gambar~ \ref{fig:bluetape-cetak-transkrip-request} menampilkan tampilan setelah form permohonan transkrip baru dikirimkan. Pada Gambar~ \ref{fig:bluetape-cetak-transkrip-request} aksi yang tersedia hanya melihat detail permohonan.
 
 	\begin{figure}[H]
 		\centering  
@@ -142,6 +144,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		\label{fig:bluetape-manajemen-transkrip} 
 	\end{figure}
 	
+	Gambar~ \ref{fig:bluetape-manajemen-transkrip} menampilkan tampilan halaman Manajemen Cetak Transkrip. Halaman ini hanya bisa diakses oleh user yang termasuk roles 'root' dan 'tu.ftis'. Halaman ini memiliki kolom pencarian yang dapat diisi dengan npm mahasiswa. Angka "2013730013" pada Gambar~ \ref{fig:bluetape-manajemen-transkrip} merupakan placeholder saja, bukan input user. Apabila input kosong, maka semua permohonan akan ditampilkan pada tabel di bawah kolom pencarian. Pada Gambar~ \ref{fig:bluetape-manajemen-transkrip}, permohonan yang masuk baru satu saja. Apabila input diisi dan tombol "Cari ditekan", maka permohonan yang ditampilkan hanya permohonan milik npm yang diinput. User dapat melakukan empat aksi untuk tiap record yang ditampilkan : melihat detail permohonan (simbol mata), menolak permohonan (simbol jempol ke bawah), menyetujui permohonan (simbol print), dan menghapus permohonan (simbol tempat sampah).
+	
 	\subsubsection{Perubahan Kuliah \textit{Request}}
 	\begin{figure}[H]
 		\centering  
@@ -149,6 +153,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		\caption[Tampilan request perubahan kuliah]{Tampilan request perubahan kuliah} 
 		\label{fig:bluetape-perubahan-kuliah-request} 
 	\end{figure}
+	
+	Gambar~ \ref{fig:bluetape-perubahan-kuliah-request} menampilkan halaman Perubahan Kuliah. Halaman ini hanya bisa diakses oleh user yang termasuk roles 'root' dan 'staf.unpar'. Terdapat form yang meminta input alamat email pemohon, nama, kode mk, nama mata kuliah, kelas, jenis perubahan, hari dan jam sebelum dan sesudah diubah, serta ruang sebelum dan sesudah diubah. Input alamat email pemohon dan nama sudah terisi otomatis dan tidak bisa diubah lagi. Jenis perubahan memiliki tiga pilihan, yaitu : diganti, tambahan, dan ditadakan. Selain form tersebut, terdapat tabel histori permohonan yang akan menampilkan riwayat permohonan perubahan jadwal kuliah. Tabel histori permohonan memiliki delapan kolom, yaitu : ID, Status, Tanggal Permohonan, Kode MK, Perubahan, Tanggal Jawab, Keterangan, dan Aksi (tindakan yang bisa dilakukan dengan record).
 	
 	\subsubsection{Perubahan Kuliah \textit{Manage}}
 	\begin{figure}[H]
@@ -158,7 +164,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		\label{fig:bluetape-perubahan-kuliah-manajemen} 
 	\end{figure}
 	
-	\subsubsection{Perekam Jadwal Dosen}
+	Gambar~ \ref{fig:bluetape-perubahan-kuliah-manajemen} menampilkan halaman Manajemen Perubahan Kuliah. Halaman ini hanya bisa diakses oleh user yang termasuk roles 'root' dan 'tu.ftis'. Halaman ini berisi riwayat permohonan perubahan kuliah. User dapat melakukan empat aksi untuk tiap record yang ditampilkan : melihat detail permohonan (simbol mata), menolak permohonan (simbol jempol ke bawah), menyetujui permohonan (simbol print), dan menghapus permohonan (simbol tempat sampah).
+	
+	\subsubsection{Entri Jadwal Dosen}
 	\begin{figure}[H]
 		\centering  
 		\includegraphics[width=\textwidth]{bluetape-entri-jadwal-dosen-tambah.png}  
@@ -166,12 +174,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		\label{fig:bluetape-entri-jadwal-dosen-tambah} 
 	\end{figure}
 	
+	Gambar~ \ref{fig:bluetape-entri-jadwal-dosen-tambah}
 	\begin{figure}[H]
 		\centering  
 		\includegraphics[width=\textwidth]{bluetape-entri-jadwal-dosen-daftar.png}  
 		\caption[Tampilan jadwal dosen]{Tampilan jadwal dosen} 
 		\label{fig:bluetape-entri-jadwal-dosen-daftar} 
 	\end{figure}
+	
+	Halaman Entri Jadwal Dosen hanya bisa diakses oleh user yang termasuk roles 'root' dan 'dosen.informatika'. Halaman ini terdiri dari dua bagian : form tambah jadwal dan daftar jadwal. Gambar~ \ref{fig:bluetape-entri-jadwal-dosen-tambah} menunjukkan form tambah jadwal. Form ini meminta input hari, durasi, label, jam mulai dan jenis. Gambar~ \ref{fig:bluetape-entri-jadwal-dosen-daftar} menunjukkan daftar jadwal milik user. Kolom yang memiliki isi bisa diklik untuk diedit. Gambar~ \ref{fig:bluetape-edit-jadwal-dosen} menunjukkan tampilan edit jadwal.
 	
 	\begin{figure}[H]
 		\centering  
@@ -180,16 +191,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		\label{fig:bluetape-edit-jadwal-dosen} 
 	\end{figure}
 
+	\subsubsection{Lihat Jadwal Dosen}
+	\begin{figure}[H]
+		\centering  
+		\includegraphics[width=\textwidth]{bluetape-lihat-jadwal-dosen.png}  
+		\caption[Tampilan lihat jadwal dosen]{Tampilan lihat jadwal dosen} 
+		\label{fig:bluetape-lihat-jadwal-dosen} 
+	\end{figure}
+	
+	Gambar~ \ref{fig:bluetape-lihat-jadwal-dosen} menampilkan halaman Lihat Jadwal Dosen. Halaman ini bisa diakses oleh user yang termasuk roles 'root', 'mahasiswa.informatika', dan 'dosen.informatika'. Halaman ini memiliki tab-tab yang masing-masing diberi label nama dosen. Di bawah tab terdapat tabel jadwal dari dosen yang tabnya aktif.
+
 \subsection{Hak Akses}
 	Hak akses dan nama module diatur pada dokumen \texttt{config/modules.php} yang terletak di dalam direktori \texttt{config}. Hak akses dikelompokkan di dalam kelompok yang disebut \textit{role}. Saat skripsi ini dibuat, hak akses dibagi ke dalam lima \textit{role} : root, mahasiswa.ftis, tu.ftis, staf.unpar, dosen.informatika, dan mahasiswa.informatika. \textit{Role} root berisi daftar alamat email dari pengembang bluetape. \textit{Role} tu.ftis berisi daftar alamat email dari tata usaha ftis. \textit{Role} mahasiswa.ftis berisi daftar alamat email dari mahasiswa ftis. \textit{Role} staf.unpar berisi daftar alamat email dari staf unpar. \textit{Role} dosen.informatika berisi daftar alamat email dari dosen informatika.
 
 	Setiap \textit{role} memiliki batasan dalam mengakses module di BlueTape. \textit{Role} root tidak memiliki batasan dan dapat mengakses setiap module yang ada. \textit{Role} tu.ftis hanya dapat mengakses module \texttt{TranskripManage}, dan module \texttt{PerubahanKuliahManage}. \textit{Role} mahasiswa.ftis hanya dapat mengakses module \texttt{TranskripRequest} dan module \texttt{LihatJadwalDosen}. \textit{Role} staf.unpar hanya dapat mengakses module \texttt{PerubahanKuliahRequest}. \texttt{Role} dosen.informatika hanya dapat mengakses module \texttt{EntriJadwalDosen}.
 
-\section{Analisis Sistem yang Dibangun}
+\section{Analisis Fitur yang Dibangun}
 \label{sec:analisisYangDibangun}
 	Implementasi fitur kolektor pengumuman dapat dibagi ke dalam beberapa langkah :
 \begin{itemize}
-	\item Memodifikasi BlueTape agar dapat berjalan di Heroku
+	\item Modifikasi BlueTape agar dapat berjalan di Heroku
 	\item Sinkronisasi email
 	\item Menghubungkan BlueTape dengan LINE
 \end{itemize}
@@ -256,7 +277,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		Region yang dipakai adalah region default, yaitu United States.
 		
 	\subsubsection{Stack}
-		Stack yang dipakai adalah stack yang paling baru, yaitu heroku-18. Stack ini dipilih karena Heroku masa kadaluarsa dukungan untuk stack ini yang paling lama. Alasan lain adalah komputer lokal yang digunakan untuk mengerjakan skripsi ini menggunakan lingkungan yang mirip dengan Heroku, yaitu menggunakan Ubuntu 18.04.
+		Stack yang dipakai adalah stack yang paling baru, yaitu heroku-18. Stack ini dipilih karena Heroku masa kadaluarsa dukungan untuk stack ini yang paling lama (didukung sampai bulan April 2023). Alasan lain adalah komputer lokal yang digunakan untuk mengerjakan skripsi ini menggunakan lingkungan yang mirip dengan Heroku, yaitu menggunakan Ubuntu 18.04.
 
 	\subsubsection{Basis Data}
 		Basis data yang digunakan untuk skripsi ini adalah basis data Heroku Postgres dengan plan hobby-dev. Alasan utama basis data ini digunakan adalah karena penggunaan basis data lain seperti Heroku Redis dan Apache Kafka tidak memungkinkan. Basis data tersebut membutuhkan informasi akun kredit untuk verifikasi akun. Alasan lain adalah basis data ini adalah basis data yang langsung disediakan oleh Heroku.
