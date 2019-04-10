@@ -13,8 +13,8 @@
 Bab ini membahas proses implementasi dan proses pengujian fitur Kolektor Pengumuman Informatika.
 \section{Implementasi}
 Bagian ini membahas implementasi dari perancangan yang telah dilakukan di Bab 3.
-\subsection{Lingkungan Pengembangan dan Pengujian Fungsional}
-Berikut spesifikasi perangkat keras dan perangkat lunak yang dipakai pada skripsi ini :
+\subsection{Lingkungan Pengembangan}
+Berikut spesifikasi perangkat keras dan perangkat lunak yang dipakai untuk pengembangan pada skripsi ini :
 
 \textbf{Spesifikasi Perangkat keras}
 \begin{itemize}
@@ -53,7 +53,7 @@ Pengumuman\_model merupakan kelas yang dikhususkan untuk algoritma untuk menghub
 
 \item Kelas controller Cron
 
-Cron merupakan kelas yang berfungsi untuk menjalankan perintah-perintah yang harus dijalankan pada jadwal tertentu. Pada skripsi ini perintah yang dijadwalkan adalah memeriksa email tiap hari.
+Cron merupakan kelas yang berfungsi untuk menjalankan perintah-perintah yang harus dijalankan pada jadwal tertentu. Pada skripsi ini perintah yang dijadwalkan adalah memeriksa email. Pada tahap perancangan, perintah untuk memeriksa email dijadwalkan tiap lima belas menit. Namun, karena keterbatasan dana, perintah ini dijadwalkan tiap hari pada jam 12 tepat siang.
 
 \item Kelas controller Pengumuman
 
@@ -107,3 +107,23 @@ $route['pengumuman/page-(:num)'] = '/pengumuman/page/$1';
 \end{itemize}
 
 \section{Pengujian}
+\subsection{Lingkungan Pengujian}
+Berikut spesifikasi yang dipakai untuk pengujian pada skripsi ini :
+\begin{itemize}
+\item Heroku
+\item Line
+\end{itemize}
+
+\subsection{Tata Cara Pengujian}
+Pengujian dilakukan dengan melibatkan partisipasi dari kelas ADPL sebagai penguji. Berikut langkah - langkah pengujian fitur Kolektor Pengumuman Informatika :
+\begin{enumerate}
+\item Mahasiswa kelas ADPL mengikuti bot BlueTape dengan menambahkan id LINE "@ibz3613t" sebagai teman atau menambahkan melalui kode QR.
+\item Dosen kelas ADPL mengirimkan email berisi pengumuman menggunakan alamat email yang terdaftar di BlueTape, yaitu alamat email dengan domain unpar.
+\item Mahasiswa kelas ADPL menerima notifikasi LINE tentang pengumuman tersebut jam 12 siang setelah email dikirim.
+\item Mahasiswa kelas ADPL membuka url yang dikirimkan melalui notifikasi LINE.
+\item Mahasiswa kelas ADPL perlu login terlebih dahulu menggunakan email student miliknya sebelum diarahkan kembali ke url pengumuman.
+\end{enumerate} 
+
+\subsection{Pengujian Fungsional}
+
+\subsection{Pengujian Eksperimental}
