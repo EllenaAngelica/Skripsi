@@ -208,13 +208,76 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 \section{Analisis Fitur yang Dibangun}
 \label{sec:analisisYangDibangun}
-	Implementasi fitur kolektor pengumuman dapat dibagi ke dalam beberapa langkah :
+	Bagian ini membahas analisis fitur Kolektor Pengumuman Informatika.
+
+\subsection{Diagram Use Case}
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{use-case-diagram.jpg}  
+	\caption[Use case diagram fitur Kolektor Pengumuman Informatika]{Use case diagram fitur Kolektor Pengumuman Informatika} 
+	\label{fig:use-case-diagram} 
+\end{figure}
+
+Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram use case fitur Kolektor Pengumuman Informatika. Pada diagram use case fitur Kolektor Pengumuman Informatika terdapat tiga aktor : dosen informatika, mahasiswa informatika, dan root (admin). Berikut ini adalah penjelasan dari skenario pada diagram use case tersebut :
+\begin{enumerate}
+\item Menerbitkan pengumuman via email
+
 \begin{itemize}
-	\item Modifikasi BlueTape agar dapat berjalan di Heroku
-	\item Sinkronisasi email
-	\item Menghubungkan BlueTape dengan LINE
+	\item Aktor : Dosen Informatika.
+	\item Skenario Normal
+
+	\begin{enumerate}
+		\item Dosen mengirimkan email ke alamat email yang dikhususkan untuk menampung pengumuman di jurusan Teknik Informatika.
+		\item BlueTape mengecek email tersebut pada periode tertentu.
+		\item Jika alamat email yang dosen pakai terdaftar di BlueTape, maka BlueTape akan menampilkannya dan mengirim notifikasi ke LINE.
+	\end{enumerate}
+	
+	\item Skenario Exception
+	\begin{enumerate}
+		\item Dosen mengirimkan email ke alamat email yang dikhususkan untuk menampung pengumuman di jurusan Teknik Informatika.
+		\item BlueTape mengecek email tersebut pada periode tertentu.
+		\item Jika alamat email yang dosen pakai tidak terdaftar di BlueTape, maka BlueTape akan mengabaikan email tersebut.
+	\end{enumerate}
 \end{itemize}
-	Berikut adalah analisis dari langkah-langkah tersebut :
+
+\item Mendaftar sebagai penerima notifikasi pengumuman di LINE
+
+\begin{itemize}
+	\item Aktor : Mahasiswa Informatika.
+	\item Skenario Normal
+
+	\begin{enumerate}
+		\item Mahasiswa mengikuti bot BlueTape dengan menambahkannya sebagai teman.
+		\item Bot BlueTape akan mengirim notifikasi kepada mahasiswa jika ada pengumuman baru di BlueTape.
+	\end{enumerate}
+\end{itemize}
+
+\item Menerima notifikasi pengumuman di LINE
+
+\begin{itemize}
+	\item Aktor : Mahasiswa Informatika.
+	\item Skenario Normal
+
+	\begin{enumerate}
+		\item Mahasiswa menerima notifikasi dari bot BlueTape saat ada pengumuman baru di BlueTape.
+		\item Mahasiswa mengunjungi url yang dicantumkan di pesan dari notifikasi tersebut. 
+		\item Mahasiswa perlu login menggunakan email student miliknya terlebih dahulu sebelum dapat mengunjungi url tersebut.
+	\end{enumerate}
+\end{itemize}
+
+\item Melihat pengumuman terkirim di dashboard
+
+\begin{itemize}
+	\item Aktor : Dosen Informatika, Mahasiswa Informatika, dan root (admin).
+	\item Skenario Normal
+
+	\begin{enumerate}
+		\item Dosen Informatika, Mahasiswa Informatika, atau root (admin) mengunjungi menu Pengumuman. Menu Pengumuman berisi daftar pengumuman yang masuk ke BlueTape. Daftar tersebut disortir dari yang paling baru.
+		\item Saat salah satu pengumuman diklik, maka isi dan detail pengumuman tersebut akan ditampilkan.
+	\end{enumerate}
+\end{itemize}
+\end{enumerate}
+
 \subsection{Modifikasi BlueTape agar Dapat Berjalan di Heroku}
 	\subsubsection{Dependensi}
 		BlueTape membutuhkan dependensi tambahan agar perangkat lunak dapat dijalankan. Dependensi tambahan perangkat lunak BlueTape tertera pada dokumen \texttt{composer.json}. Berikut isinya :
