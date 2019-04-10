@@ -35,10 +35,10 @@ Kelas yang berhubungan &  - \\
 \hline
 Deskripsi	& Method ini digunakan untuk konstruksi\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Konstruksi dari parent.
 				\item Load config auth dan modules.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -62,12 +62,12 @@ Kelas yang berhubungan & - \\
 \hline
 Deskripsi	& \\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Membuka koneksi imap ke email pengumuman.
 				\item Mencari email yang belum dibaca.
 				\item Apabila ada email yang belum dibaca, maka email tersebut dan informasinya dimasukkan ke dalam array.
 				\item Menutup koneksi imap dan mengembalikan array.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -81,9 +81,9 @@ Algoritma	& \begin{itemize}
 \hline
 Nama Method 	& 	 proceedEmail	\\
 \hline
-Parameter Input & Array dua dimensi. Dimensi pertama mewakili satu email, sedangkan dimensi kedua mewakili informasi dari email tersebut. \\
+Parameter Input & Array asosiatif berisi informasi dari sebuah email. \\
 \hline
-Parameter Output & - \\
+Parameter Output & Mengembalikan true apabila email termasuk email pengumuman dan mengembalikan false apabila email tidak termasuk email pengumuman.  \\
 \hline
 Tabel yang berhubungan & Pengumuman \\
 \hline
@@ -91,11 +91,12 @@ Kelas yang berhubungan &  Pengumuman\_Line\_model \\
 \hline
 Deskripsi	& Method ini berfungsi untuk memroses email pengumuman\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item load config pengumuman
 				\item Memeriksa pengirim setiap email. Apabila pengirim terdaftar di config pengirimTerverifikasi, maka email tersebut akan masuk ke tahap berikutnya.
 				\item Tahap berikutnya adalah memasukkan informasi email ke dalam baris record di tabel Pengumuuman dan mengirimkan pesan melalui Line. Pesan Line dikirimkan dengan bantuan method pushMessageToAllFollowers yang terdapat pada Pengumuman\_Line\_model.
-				\end{itemize} \\
+				\item Mengembalikan true apabila sebelumnya email diidentifikasi sebagai  email pengumuman dan mengembalikan false apabila sebelumnya email diidentifikasi tidak termasuk email pengumuman.
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -122,11 +123,11 @@ Kelas yang berhubungan &  - \\
 \hline
 Deskripsi	& Method ini digunakan untuk konstruksi\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Konstruksi dari parent.
 				\item Load config auth dan modules.
 				\item Assign value untuk setiap atribut.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -150,10 +151,10 @@ Kelas yang berhubungan & kelas-kelas di package LINE/LINEBot \\
 \hline
 Deskripsi	& Method ini untuk memproses event yang masuk ke dalam method webhook yang terdapat di PengumumanLine\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Validasi signature dengan menggunakan method validateSignature yang membutuhkan parameter input HTTP request body dan X Line Signature.
 				\item Jika signature valid, maka jenis event yang masuk akan dicek dan ditangani. Event yang wajib ditangani adalah FollowEvent dan UnfollowEvent. Apabila FollowEvent terjadi (ada user yang mengikuti bot atau membuka blokir bot), maka id user line tersebut akan dimasukkan ke tabel PengumumanLineFollowers. Apabila UnfollowEvent terjadi (ada user yang memblokir bot), maka id user line tersebut akan dihapus dari tabel PengumumanLineFollowers. Penyimpanan id user diperlukan untuk mengirim pesan ke pengikut bot.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -177,11 +178,11 @@ Kelas yang berhubungan & kelas-kelas di package LINE/LINEBot \\
 \hline
 Deskripsi	& \\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Membuat query untuk mendapatkan semua id user line pengikut bot dan memasukkan hasilnya ke suatu array.
 				\item Membuat text message builder dengan parameter input pesan yang ingin dikirimkan ke pengikut bot.
 				\item Melakukan multicast dengan parameter input array id user line yang akan dikirimkan pesan dan text message builder.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -193,15 +194,15 @@ View dibagi menjadi dua file php, yaitu main dan read. File main berfungsi untuk
 \subsection{Controller}
 Controller yang digunakan ada tiga, yaitu Cron, Pengumuman, dan PengumumanLine.
 \subsubsection{Cron}
-Controller Cron berfungsi untuk menjalankan perintah-perintah yang harus dijalankan pada jadwal tertentu. Method yang dimiliki hanya satu, yaitu : daily(). Tabel \ref{table:cron-daily} menjelaskan secara rinci method daily().
+Controller Cron berfungsi untuk menjalankan perintah-perintah yang harus dijalankan pada jadwal tertentu. Method yang dimiliki hanya satu, yaitu : fifteenminutely(). Tabel \ref{table:cron-daily} menjelaskan secara rinci method fifteenminutely().
 
 \begin{center}
 	\begin{table}[H]
-	\caption{Rincian method daily}
+	\caption{Rincian method fifteenminutely}
 	\label{table:cron-daily}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	daily 	\\
+Nama Method 	& 	fifteenminutely 	\\
 \hline
 Parameter Input & - \\
 \hline
@@ -211,13 +212,13 @@ Tabel yang berhubungan & - \\
 \hline
 Kelas yang berhubungan & Pengumuman\_model \\
 \hline
-Deskripsi	& Method yang perintah di dalamnya akan dijalankan setiap hari. Saat ini hanya terdapat perintah untuk memeriksa email. Apabila ada pengembangan lebih lanjut dan ada kebutuhan untuk menjalankan perintah setiap hari, maka isi method ini dapat ditambah.\\
+Deskripsi	& Method yang perintah di dalamnya akan dijalankan setiap lima belas menit sekali. Untuk keperluan skripsi ini, method ini diisi dengan perintah untuk memeriksa email. Namun, apabila ada pengembangan lebih lanjut dan ada kebutuhan untuk menjalankan perintah setiap lima belas menit, maka isi method ini dapat ditambah.\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Menjalankan method checkEmail() yang terdapat pada Pengumuman\_model.
 				\item Memeriksa output dari Pengumuman\_model yang berupa array. Apabila tidak null, maka setiap elemen pada array tersebut akan dijadikan input dari method proceedEmail() yang terdapat pada Pengumuman\_model.
 				\item Menjalankan method proceedEmail() yang terdapat pada Pengumuman\_model.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -244,13 +245,13 @@ Kelas yang berhubungan &  - \\
 \hline
 Deskripsi	& Method ini digunakan untuk konstruksi\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Konstruksi dari parent.
 				\item Mengecek module yang diizinkan.
 				\item Load library BlueTape
 				\item Load model Pengumuman\_model
 				\item load database
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -274,11 +275,11 @@ Kelas yang berhubungan & - \\
 \hline
 Deskripsi	& Mengatur halaman utama pengumuman\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Mengambil info user
 				\item Memasang link untuk setiap pengumuman yang ditampilkan pada daftar pengumuman.
 				\item Menampilkan halaman pertama.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -302,10 +303,10 @@ Kelas yang berhubungan & - \\
 \hline
 Deskripsi	& Mengatur halaman yang menampilkan detail pengumuman\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Membuat query untuk mendapatkan seluruh informasi yang dimiliki oleh id pengumuman yang diinput dan memasukkannya ke suatu array.
 				\item Load view untuk read dan oper array tersebut ke view.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -329,10 +330,10 @@ Kelas yang berhubungan & - \\
 \hline
 Deskripsi	& Menampilkan halaman pengumuman pada nomor halaman yang diinput.\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Mengatur batas maksimal jumlah pengumuman yang ditampilkan pada satu halaman.
 				\item Memanggil method pagination dengan input nomor halaman, batas tersebut, dan id pengumuman yang akan ditampilkan di baris pertama.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -356,11 +357,11 @@ Kelas yang berhubungan & - \\
 \hline
 Deskripsi	& Menampilkan halaman pengumuman pada nomor halaman yang diinput.\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Membuat query untuk mengetahui jumlah pengumuman yang ada di tabel Pengumuman				
 				\item Membuat query untuk mendapatkan informasi dari pengumuman yang akan tampil di halaman tersebut dan memasukkannya ke suatu array.
 				\item Load view untuk main dan oper jumlah pengumuman yang ada di tabel Pengumuman, array tersebut, nomor halaman yang sedang ditampilkan, dan batas maksimal jumlah pengumuman yang ditampilkan pada satu halaman ke view.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -387,12 +388,12 @@ Kelas yang berhubungan & Pengumuman\_Line\_model \\
 \hline
 Deskripsi	& Method ini berfungsi untuk menerima request berisi event dari Line API melalui POST\\
 \hline
-Algoritma	& \begin{itemize}
+Algoritma	& \begin{enumerate}
 				\item Memeriksa apakah request yang masuk melalui POST. Jika tidak, maka akan mengembalikan http response code 405.
 				\item Mengambil request yang masuk dan menyimpannya ke suatu variabel.
 				\item Memeriksa apakah ada HTTP\_X\_LINE\_SIGNATURE pada POST yang masuk. Jika tidak ada, maka akan mengembalikan http response code 400.
 				\item Jika ada, maka jalankan method proceedWebhook dengan parameter input variabel yang berisi request body dan X Line Signature.
-				\end{itemize} \\
+				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
@@ -462,9 +463,11 @@ Keterangan atribut :
 \end{itemize}
 
 \section{Perancangan Antarmuka}
+	Bagian ini membahas perancangan antarmuka untuk fitur Kolektor Pengumuman Informatika pada BlueTape dan bot BlueTape.
+\subsection{Perancangan Antarmuka pada BlueTape}
 Antarmuka yang digunakan fitur Kolektor Pengumuman Informatika ada dua, yaitu main dan read. Penjelasan untuk desain kedua antarmuka tersebut terdapat di subbagian.
 
-\subsection{main}
+\subsubsection{main}
 
 \begin{figure}[H]
 	\centering  
@@ -475,7 +478,7 @@ Antarmuka yang digunakan fitur Kolektor Pengumuman Informatika ada dua, yaitu ma
 
 Antarmuka main menampilkan daftar pengumuman. Jumlah pengumuman yang ditampilkan di satu halaman dibatasi pada angka tertentu. Di halaman main terdapat navigasi next dan prev untuk menampilkan daftar selanjutnya dan sesudahnya. Gambar~ \ref{fig:mockup-main} menampilkan mockup antarmuka main.
 
-\subsection{read}
+\subsubsection{read}
 
 \begin{figure}[H]
 	\centering  
@@ -485,3 +488,14 @@ Antarmuka main menampilkan daftar pengumuman. Jumlah pengumuman yang ditampilkan
 \end{figure}
 
 Antarmuka main menampilkan informasi detil dari pengumuman. Apabila pengumuman memiliki lampiran, maka tulisan "*) Pengumuman ini memiliki lampiran, silahkan memeriksa langsung email student Anda untuk mengunduhnya." akan muncul. Jika tidak ada, maka tulisan tersebut tidak akan muncul. Gambar~ \ref{fig:mockup-main} menampilkan mockup antarmuka read.
+
+\subsection{Perancangan Antarmuka pada Bot BlueTape}
+
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{Mockup-bot.jpg}  
+	\caption[Mockup antarmuka read]{Mockup antarmuka bot BlueTape} 
+	\label{fig:mockup-bot} 
+\end{figure}
+
+Gambar~ \ref{fig:mockup-main} menampilkan mockup antarmuka bot BlueTape. Chat pertama merupakan pesan yang akan ditampilkan saat user baru mengikuti bot atau membuka blokir bot. Chat kedua merupakan contoh pesan yang akan ditampilkan jika ada pengumuman baru yang masuk ke BlueTape. Chat terakhir merupakan pesan balasan jika user mengirimkan pesan ke bot dalam bentuk apapun (teks, sticker, gambar, video, dan suara).
