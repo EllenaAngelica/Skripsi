@@ -110,20 +110,114 @@ $route['pengumuman/page-(:num)'] = '/pengumuman/page/$1';
 \subsection{Lingkungan Pengujian}
 Berikut spesifikasi yang dipakai untuk pengujian pada skripsi ini :
 \begin{itemize}
-\item Heroku
-\item Line
+\item Heroku dengan spesifikasi :
+
+\begin{itemize}
+\item Region : United States
+\item Stack : heroku-18
+\item Framework : PHP
+\item Maximum Slug Size : 500 MiB
+\item Heroku Git URL : https://git.heroku.com/shadowtape.git
+\item Buildpack : heroku/php
+\item Domain : https://shadowtape.herokuapp.com/
+\item Dyno Type : Free Dynos
+\item Add-ons Heroku Postgres dan Heroku Scheduler
 \end{itemize}
 
-\subsection{Tata Cara Pengujian}
-Pengujian dilakukan dengan melibatkan partisipasi dari kelas ADPL sebagai penguji. Berikut langkah - langkah pengujian fitur Kolektor Pengumuman Informatika :
+\item Bot LINE dengan plan Developer
+\end{itemize}
+
+\subsection{Pengujian Fungsional}
+Pengujian fungsional dilakukan dengan metode black box testing. Berikut adalah hasil pengujiannya :
+\begin{itemize}
+  \item Pengujian Filter Email Pengumuman
+
+    Pengujian ini bertujuan untuk menguji apakah filter email pengumuman berfungsi dengan baik. Email yang dikirim di pengujian ini memiliki subjek. Hasil pengujian dapat dilihat di Tabel \ref{table:pengujian-fungsional-filter-email}.
+
+    \begin{center}
+      \begin{table}[H]
+        \caption{Pengujian Filter Email Pengumuman}
+        \label{table:pengujian-fungsional-filter-email}
+        \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+        \hline
+        \centering Aksi	& 	\centering Reaksi yang diharapkan &  \multicolumn{1}{c|}{Reaksi Perangkat Lunak} \\
+        \hline
+        Mengirimkan email dengan email yang terdaftar lalu menjalankan Cron. & Email masuk ke database dan pengumuman ditampilkan di menu pengumuman. & Reaksi sesuai dengan yang diharapkan. Email masuk ke database dan pengumuman dapat dilihat di menu pengumuman. \\
+        \hline
+        Mengirimkan email dengan email yang tidak terdaftar lalu menjalankan Cron. & Email tidak masuk ke database. & Reaksi sesuai dengan yang diharapkan. Email tidak masuk ke database. \\
+        \hline
+        \end{tabular}
+    \end{table}
+    \end{center}
+
+  \item Pengujian Mengirim Email dengan Isi Email yang Variatif
+
+    Pengujian ini bertujuan untuk menguji apakah isi email yang ditampilkan sesuai dengan yang diharapkan. Pengujian ini dilakukan dengan mengirimkan beberapa email dengan isi yang berbeda melalui email yang terdaftar di BlueTape. Hasil pengujian dapat dilihat di Tabel ~\ref{table:pengujian-fungsional-isi-variatif}.
+
+      \begin{longtable}{|p{5cm}|p{5cm}|p{5cm}|}
+        \caption{Pengujian Mengirim Email dengan Isi Email yang Variatif}
+        \label{table:pengujian-fungsional-isi-variatif}\\
+        \hline
+        \centering Aksi	& 	\centering Reaksi yang diharapkan &  \multicolumn{1}{c|}{Reaksi Perangkat Lunak} \\
+        \hline
+        Mengirimkan email tanpa subjek lalu menjalankan Cron. & Email tidak masuk ke database. & Reaksi sesuai dengan yang diharapkan. Email tidak masuk ke database. \\
+        \hline
+        Mengirimkan email tanpa isi lalu menjalankan Cron. & Email masuk ke database dan pengumuman ditampilkan di menu pengumuman. & Reaksi sesuai dengan yang diharapkan. Email masuk ke database dan pengumuman dapat dilihat di menu pengumuman. \\
+        \hline
+        Mengirimkan email dengan subjek dan isi lalu menjalankan Cron. & Email masuk ke database dan pengumuman ditampilkan di menu pengumuman. & Reaksi sesuai dengan yang diharapkan. Email masuk ke database dan pengumuman dapat dilihat di menu pengumuman. \\
+        \hline
+        Mengirimkan email balasan lalu menjalankan Cron. & Email masuk ke database dan pengumuman ditampilkan di menu pengumuman. & Reaksi sesuai dengan yang diharapkan. Email masuk ke database dan pengumuman dapat dilihat di menu pengumuman. \\
+        \hline
+        Mengirimkan email terusan lalu menjalankan Cron. & Email masuk ke database dan pengumuman ditampilkan di menu pengumuman. & Reaksi sesuai dengan yang diharapkan. Email masuk ke database dan pengumuman dapat dilihat di menu pengumuman. \\
+        \hline
+        Mengirimkan email dengan lampiran lalu menjalankan Cron. & Email masuk ke database dan pengumuman ditampilkan di menu pengumuman. Di bawah isi pengumuman, ada keterangan "*) Pengumuman ini memiliki lampiran, silahkan memeriksa langsung email student Anda untuk mengunduhnya.". & Reaksi sesuai dengan yang diharapkan. Email masuk ke database dan pengumuman dapat dilihat di menu pengumuman. Di bawah isi pengumuman, keterangan "*) Pengumuman ini memiliki lampiran, silahkan memeriksa langsung email student Anda untuk mengunduhnya." berhasil ditampilkan. \\
+        \hline
+        Mengirimkan email yang terdapat sisipan lampiran berupa gambar di isi email lalu menjalankan Cron. & Email masuk ke database dan pengumuman ditampilkan di menu pengumuman. Di bawah isi pengumuman, ada keterangan "*) Pengumuman ini memiliki lampiran, silahkan memeriksa langsung email student Anda untuk mengunduhnya.". Isi pesan harus masih lengkap walaupun gambar tidak akan berhasil ditampilkan (karena file gambar tidak bisa disimpan di server). & Reaksi sesuai dengan yang diharapkan. Email masuk ke database dan pengumuman dapat dilihat di menu pengumuman. Di bawah isi pengumuman, keterangan "*) Pengumuman ini memiliki lampiran, silahkan memeriksa langsung email student Anda untuk mengunduhnya." berhasil ditampilkan. Isi pesan lengkap. Sesuai ekspektasi, gambar tidak bisa ditampilkan. Namun, ada keterangan alt yang berisi nama file.\\
+        \hline
+        Mengirimkan email yang isinya memakai berbagai jenis pemformatan yang bisa dilakukan di gmail, emoji yang disediakan gmail, dan sisipan url. Setelah itu menjalankan Cron. & Email masuk ke database dan pengumuman ditampilkan di menu pengumuman. Isi email lengkap. Pemformatan tetap sama. Emoji tidak diharapkan bisa ditampilkan. Sisipan url dapat ditampilkan dan url dapat dikunjungi. & Reaksi sesuai dengan yang diharapkan. Email masuk ke database dan pengumuman dapat dilihat di menu pengumuman. Isi email lengkap. Pemformatan tetap sama. Emoji dapat ditampilkan. Beberapa emoji berubah bentuk namun tetap memiliki bentuk yang sama. Beberapa emoji persis sama dengan yang ada di isi email yang asli. Sisipan url dapat ditampilkan dan url dapat dikunjungi. \\
+        \hline
+    \end{longtable}
+
+    \item Pengujian Notifikasi LINE
+
+    Pengujian ini bertujuan untuk menguji apakah notifikasi LINE dapat terkirim ke bot LINE. Tabel \ref{table:pengujian-fungsional-notifikasi-line}.
+
+    \begin{center}
+      \begin{table}[H]
+        \caption{Pengujian Notifikasi LINE}
+        \label{table:pengujian-fungsional-notifikasi-line}
+        \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+        \hline
+        \centering Aksi	& 	\centering Reaksi yang diharapkan &  \multicolumn{1}{c|}{Reaksi Perangkat Lunak} \\
+        \hline
+        Follow akun bot. & User Id LINE tercatat di database. & Reaksi sesuai dengan yang diharapkan. User Id LINE berhasil tercatat di database.\\
+        \hline 
+        Mengirimkan email dengan email yang terdaftar lalu menjalankan Cron. Email harus memiliki subjek. & Setelah Cron sukses dijalankan, notifikasi LINE dari akun bot muncul. & Reaksi sesuai dengan yang diharapkan. Notifikasi LINE dari akun bot muncul. \\
+        \hline
+        Membuka pesan LINE yang masuk. Setelah itu membuka url yang tercantum di pesan. & URL dapat dibuka. Apabila belum login ke BlueTape, pengguna akan diarahkan ke menu login. Setelah login, pengguna diarahkan kembali ke URL tersebut. & Reaksi sesuai dengan yang diharapkan. URL dapat dibuka. Apabila belum login ke BlueTape, pengguna akan diarahkan ke menu login. Setelah login, pengguna diarahkan kembali ke URL tersebut.  \\
+        \hline
+        \end{tabular}
+    \end{table}
+    \end{center}
+\end{itemize}
+
+
+\subsection{Pengujian Eksperimental}
+Pengujian eksperimental dilakukan dengan melibatkan partisipasi dari kelas ADPL sebagai penguji. Berikut langkah - langkah pengujian eksperimental fitur Kolektor Pengumuman Informatika :
 \begin{enumerate}
-\item Mahasiswa kelas ADPL mengikuti bot BlueTape dengan menambahkan id LINE "@ibz3613t" sebagai teman atau menambahkan melalui kode QR.
+\item Mahasiswa kelas ADPL mengikuti bot BlueTape dengan menambahkan id LINE "@ibz3613t" sebagai teman atau menambahkan melalui kode QR (Gambar~\ref{fig:kode-qr-bot-shadowtape}).
+
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.25]{kode-qr-bot-shadowtape.png}  
+	\caption[Kode QR Bot Shadowtape]{Kode QR Bot Shadowtape} 
+	\label{fig:kode-qr-bot-shadowtape} 
+\end{figure}
+
 \item Dosen kelas ADPL mengirimkan email berisi pengumuman menggunakan alamat email yang terdaftar di BlueTape, yaitu alamat email dengan domain unpar.
 \item Mahasiswa kelas ADPL menerima notifikasi LINE tentang pengumuman tersebut jam 12 siang setelah email dikirim.
 \item Mahasiswa kelas ADPL membuka url yang dikirimkan melalui notifikasi LINE.
 \item Mahasiswa kelas ADPL perlu login terlebih dahulu menggunakan email student miliknya sebelum diarahkan kembali ke url pengumuman.
-\end{enumerate} 
-
-\subsection{Pengujian Fungsional}
-
-\subsection{Pengujian Eksperimental}
+\item Pengujian dilakukan selama 1 minggu.
+\item Setelah masa pengujian habis, dosen dan mahasiswa mengisi kuesioner.
+\end{enumerate}
