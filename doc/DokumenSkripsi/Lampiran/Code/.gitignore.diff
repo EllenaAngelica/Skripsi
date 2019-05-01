@@ -1,0 +1,9 @@
+diff --git a/.gitignore b/.gitignore
+index 14bc68c..38c8d7d 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1 +1,2 @@
+-/nbproject/private/
+\ No newline at end of file
++/nbproject/private/
++/vendor

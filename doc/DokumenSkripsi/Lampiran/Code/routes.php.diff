@@ -1,0 +1,10 @@
+diff --git a/www/application/config/routes.php b/www/application/config/routes.php
+index a19acda..8c388ea 100644
+--- a/www/application/config/routes.php
++++ b/www/application/config/routes.php
+@@ -52,3 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+ $route['default_controller'] = 'auth';
+ $route['404_override'] = '';
+ $route['translate_uri_dashes'] = FALSE;
++
++$route['pengumuman/page-(:num)'] = '/pengumuman/page/$1';

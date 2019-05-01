@@ -1,4 +1,3 @@
-%versi 3 (18-12-2016)
 \chapter{Kode Program}
 \label{lamp:A}
 
@@ -13,75 +12,46 @@
 %
 % Perhatian: Abaikan warning tentang textasteriskcentered!!
 %
-\lstinputlisting[language=PHP, caption=auth.php]{./Lampiran/auth.php}
+\lstinputlisting[language=PHP, caption=.gitignore]{./Lampiran/Code/.gitignore.diff}
 
-\begin{lstlisting}[caption=autoload.php]
-diff --git a/www/application/config/autoload.php b/www/application/config/autoload.php
-index 66cb5fa..5d8982b 100644
---- a/www/application/config/autoload.php
-+++ b/www/application/config/autoload.php
-@@ -58,7 +58,7 @@ $autoload['packages'] = array();
- |
- |	$autoload['libraries'] = array('user_agent' => 'ua');
- */
--$autoload['libraries'] = array('session');
-+$autoload['libraries'] = array('database', 'session');
- 
- /*
- | -------------------------------------------------------------------
+\begin{lstlisting}[caption=Procfile]
+web: vendor/bin/heroku-php-apache2 www/
 \end{lstlisting}
 
-\begin{lstlisting}[caption=config.php]
-diff --git a/www/application/config/config.php b/www/application/config/config.php
-index 8679d53..cd6385c 100644
---- a/www/application/config/config.php
-+++ b/www/application/config/config.php
-@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
- | a PHP script and you can easily do that on your own.
- |
- */
--$config['base_url'] = 'https://bluetape.azurewebsites.net';
-+$config['base_url'] = getenv('CI_BASE_URL');
- 
- /*
- |--------------------------------------------------------------------------
-@@ -213,7 +213,7 @@ $config['directory_trigger'] = 'd';
- | your log files will fill up very fast.
- |
- */
--$config['log_threshold'] = 0;
-+$config['log_threshold'] = array(1, 3);
- 
- /*
- |--------------------------------------------------------------------------
-@@ -374,6 +374,7 @@ $config['sess_save_path'] = NULL;
- $config['sess_match_ip'] = FALSE;
- $config['sess_time_to_update'] = 300;
- $config['sess_regenerate_destroy'] = FALSE;
-+$config['sess_save_path'] = sys_get_temp_dir();
- 
- /*
- |--------------------------------------------------------------------------
-@@ -438,7 +439,11 @@ $config['global_xss_filtering'] = FALSE;
- | 'csrf_regenerate' = Regenerate token on every submission
- | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
- */
--$config['csrf_protection'] = TRUE;
-+if (stripos($_SERVER["REQUEST_URI"],'/PengumumanLine/webhook') === FALSE) {
-+    $config['csrf_protection'] = TRUE;
-+}else{ 
-+    $config['csrf_protection'] 	= FALSE; 
-+}
- $config['csrf_token_name'] = 'csrf_token';
- $config['csrf_cookie_name'] = 'csrf_token';
- $config['csrf_expire'] = 7200;
-@@ -511,3 +516,5 @@ $config['rewrite_short_tags'] = FALSE;
- | Array:		array('10.0.1.200', '192.168.5.0/24')
- */
- $config['proxy_ips'] = '';
-+
-+$config['sess_save_path'] = sys_get_temp_dir();
-\end{lstlisting}
+\lstinputlisting[language=PHP, caption=composer.json]{./Lampiran/Code/composer.json.diff}
 
+\lstinputlisting[language=PHP, caption=/www/application/config/auth.php]{./Lampiran/Code/auth.php}
 
+\lstinputlisting[language=PHP, caption=/www/application/config/autoload.php]{./Lampiran/Code/autoload.php.diff}
 
+\lstinputlisting[language=PHP, caption=/www/application/config/config.php]{./Lampiran/Code/config.php.diff}
+
+\lstinputlisting[language=PHP, caption=/www/application/config/database.php]{./Lampiran/Code/database.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/config/modules.php]{./Lampiran/Code/modules.php.diff}
+
+\lstinputlisting[language=PHP, caption=/www/application/config/pengumuman.php]{./Lampiran/Code/pengumuman.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/config/routes.php]{./Lampiran/Code/routes.php.diff}
+
+\lstinputlisting[language=PHP, caption=/www/application/controllers/Auth.php]{./Lampiran/Code/Auth.php.diff}
+
+\lstinputlisting[language=PHP, caption=/www/application/controllers/Cron.php]{./Lampiran/Code/Cron.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/controllers/Pengumuman.php]{./Lampiran/Code/Pengumuman.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/controllers/PengumumanLine.php]{./Lampiran/Code/PengumumanLine.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/core/MY\_Log.php]{./Lampiran/Code/MY_Log.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/migrations/20181011103200\_Pengumuman\_Initial.php]{./Lampiran/Code/20181011103200_Pengumuman_Initial.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/migrations/20190210224400\_PengumumanLineFollowers\_initial.php]{./Lampiran/Code/20190210224400_PengumumanLineFollowers_initial.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/models/Pengumuman\_model.php]{./Lampiran/Code/Pengumuman_model.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/models/Pengumuman\_Line\_model.php]{./Lampiran/Code/Pengumuman_Line_model.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/views/Pengumuman/main.php]{./Lampiran/Code/main.php}
+
+\lstinputlisting[language=PHP, caption=/www/application/views/Pengumuman/read.php]{./Lampiran/Code/read.php}

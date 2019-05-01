@@ -1,0 +1,18 @@
+diff --git a/www/application/controllers/Auth.php b/www/application/controllers/Auth.php
+index da2c7b8..8c99c7d 100644
+--- a/www/application/controllers/Auth.php
++++ b/www/application/controllers/Auth.php
+@@ -19,7 +19,12 @@ class Auth extends CI_Controller {
+             if ($code !== NULL) {
+                 $this->Auth_model->authenticateOauthCode($code);
+                 $userInfo = $this->Auth_model->getUserInfo();
+-                header('Location: /' . $userInfo['modules'][0]);
++                if($this->session->has_userdata('redirect_url')){
++                    redirect($this->session->userdata('redirect_url'));
++                }
++                else{
++                    header('Location: /' . $userInfo['modules'][0]);
++                }
+             } else {
+                 throw new Exception("Mohon login terlebih dahulu.");
+             }
