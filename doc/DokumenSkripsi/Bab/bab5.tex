@@ -203,21 +203,76 @@ Pengujian fungsional dilakukan dengan metode black box testing. Berikut adalah h
 
 
 \subsection{Pengujian Eksperimental}
-Pengujian eksperimental dilakukan dengan melibatkan partisipasi dari kelas ADPL sebagai penguji. Berikut langkah - langkah pengujian eksperimental fitur Kolektor Pengumuman Informatika :
+Pengujian eksperimental untuk aplikasi ini dilakukan pada mata kuliah AIF182100 (Analisis dan Desain Perangkat Lunak) kelas B dimana dosen kelas tersebut membuat pengumuman kepada mahasiswa untuk melakukan add friend dan menunggu pengumuman dari dosen (Lampiran \ref{sec:aif182100-21-27Apr}). Berikut tata cara pengujiannya:
 \begin{enumerate}
-\item Mahasiswa kelas ADPL mengikuti bot BlueTape dengan menambahkan id LINE "@ibz3613t" sebagai teman atau menambahkan melalui kode QR (Gambar~\ref{fig:kode-qr-bot-shadowtape}).
+\item Mahasiswa menambahkan bot Shadowtape dengan mencari id LINE "@ibz3613t" atau memindai kode QR (Gambar~\ref{fig:kode-qr-bot-shadowtape}).
 
 \begin{figure}[H]
 	\centering  
-	\includegraphics[scale=0.25]{kode-qr-bot-shadowtape.png}  
+	\includegraphics[scale=0.75]{kode-qr-bot-shadowtape.png}  
 	\caption[Kode QR Bot Shadowtape]{Kode QR Bot Shadowtape} 
 	\label{fig:kode-qr-bot-shadowtape} 
 \end{figure}
 
-\item Dosen kelas ADPL mengirimkan email berisi pengumuman menggunakan alamat email yang terdaftar di BlueTape, yaitu alamat email dengan domain unpar.
-\item Mahasiswa kelas ADPL menerima notifikasi LINE tentang pengumuman tersebut jam 12 siang setelah email dikirim.
-\item Mahasiswa kelas ADPL membuka url yang dikirimkan melalui notifikasi LINE.
-\item Mahasiswa kelas ADPL perlu login terlebih dahulu menggunakan email student miliknya sebelum diarahkan kembali ke url pengumuman.
-\item Pengujian dilakukan selama 1 minggu.
-\item Setelah masa pengujian habis, dosen dan mahasiswa mengisi kuesioner.
+\item Dosen mengirimkan email berisi pengumuman ke shadowbluetape@gmail.com menggunakan alamat email yang terdaftar di BlueTape, yaitu alamat email dengan domain unpar.
+\item Apabila dosen mengirimkan email, maka notifikasi LINE dari akun Shadowtape akan diterima mahasiswa pada jam 12.00 siang setelah email tersebut dikirim.
+\item Apabila mahasiswa menerima notifikasi tersebut, mahasiswa akan menerima pesan yang terdapat subjek email dan url di dalamnya. Url tersebut mengarah ke halaman detail pengumuman pada domain \url{http://shadowtape.herokuapp.com/}.
+\item Apabila mahasiswa mengklik url tersebut dan belum \textit{login}, mahasiswa akan diarahkan ke halaman \textit{login} sebelum diarahkan kembali ke url tersebut.
+\item Setelah masa pengujian berakhir, dosen dan mahasiswa mengisi kuesioner pada url : \url{https://forms.gle/e7awCboE94kLEVLZ9}.
 \end{enumerate}
+
+\subsubsection{Pelaksanaan Pengujian}
+Pengujian dilakukan pada tanggal 21-25 April. Pada tanggal 24 April 2019 jam 07.10 Bapak Pascal Alfadian mengirimkan email. Isi email dapat dilihat pada Gambar~\ref{fig:email-24Apr}.
+
+\begin{figure}[H]
+	\centering  
+	\includegraphics[width=\textwidth]{email-24-april.png}  
+	\caption[Email pada tanggal 24 April 2019 oleh Bapak Pascal]]{Email pada tanggal 24 April 2019 oleh Bapak Pascal} 
+	\label{fig:email-24Apr} 
+\end{figure}                         
+
+\subsubsection{Hasil Pengujian}
+Setelah masa pengujian berakhir, responden yang mengisi kuesioner adalah 72 responden yang terdiri dari 70 mahasiswa dan 2 dosen. Dari 70 mahasiswa tersebut, 42 mahasiswa mengaku mendapatkan notifikasi LINE dan 28 mahasiswa mengaku tidak mendapatkan notifikasi LINE. Namun, karena memakai plan developer, maksimal pengikut akun bot tersebut adalah 50 orang. Sehingga perkiraan mahasiswa yang tidak mendapatkan notifikasi LINE setelah mengikuti bot LINE adalah 8 mahasiswa.
+
+Dari 42 mahasiswa yang mengaku mendapatkan notifikasi LINE, 30 mahasiswa mengaku dapat membuka url yang tercantum di notifikasi pengumuman dan 12 mahasiswa mengaku tidak dapat membuka url yang tercantum di notifikasi pengumuman. Dari kolom saran beberapa mahasiswa melaporkan bahwa mereka tidak dapat login ke shadowtape. Berikut jawaban mereka di kolom saran :
+\begin{itemize}
+  \item Jawaban untuk kolom saran dari 2017730022@student.unpar.ac.id : "terdapat beberapa error dalam login, dimana email saya (@student.unpar) tidak memiliki akses"
+  \item Jawaban untuk kolom saran dari 2017730047@student.unpar.ac.id : "memperbaiki url login yang dikirimkan di shadowtape"
+  \item Jawaban untuk kolom saran dari 2017730011@student.unpar.ac.id : "saran saya, usahakan tidak menggunakan aplikasi luar lain seperti LINE. dikarenakan tidak semua orang menggunakan line"
+  \item Jawaban untuk kolom saran dari 2017730037@student.unpar.ac.id : "Link yang dibuka langsung dari line tidak memiliki hak akses"
+  \item Jawaban untuk kolom saran dari 2017730044@student.unpar.ac.id : "Log in masih tidak dapat dilakukan, terdapat pernyataan bahwa "alamat email" tidak memiliki hak akses ke pengumuman. Contohnya email yang saya gunakan "2017730044@student.unpar.ac.id tidak memiliki hak akses ke pengumuman"
+\end{itemize}
+
+Setelah memeriksa respon mereka di kuesioner untuk pertanyaan "Apakah Anda dapat membuka url yang dicantumkan di notifikasi pengumuman?", mahasiswa dengan alamat email 2017730022@student.unpar.ac.id dan 2017730011@student.unpar.ac.id menjawab "Tidak" untuk pertanyaan tersebut. Sementara mahasiswa dengan alamat email 2017730047@student.unpar.ac.id, 2017730037@student.unpar.ac.id, dan 2017730044@student.unpar.ac.id menjawab "Ya". Kemungkinan beberapa mahasiswa menjawab "Tidak" karena tidak dapat login ke shadowtape dengan alasan hak akses. Penyebab tidak bisa login tersebut diperkirakan karena shadowtape belum mengenali pola alamat email student yang baru sebagai alamat email yang berhak login di shadowtape. 
+
+Masalah tersebut sudah ditangani di repository induk, namun penulis belum menyalin kode untuk menangani masalah tersebut ke repository penulis pada saat pengujian dimulai (24 April 2019). Pada tanggal 25 April 2019 penulis mendapatkan laporan adanya masalah tersebut melalui jalur pribadi. Segera setelah menerima laporan tersebut, penulis melakukan "git pull" ke repository induk. Setelahnya, penulis mengirimkan email ke shadowbluetape@gmail.com yang berisi pengumuman bahwa masalah tersebut telah diperbaiki. Namun, berdasarkan laporan dari kuesioner, beberapa mahasiswa masih menemukan masalah ini.
+
+Dari 30 mahasiswa yang dapat membuka url yang dicantumkan di notifikasi pengumuman, 21 mahasiswa mengaku diarahkan kembali ke url tersebut setelah login dan 9 mahasiswa mengaku diarahkan ke halaman lain setelah login. Penulis memperkirakan alasan 9 mahasiswa tersebut diarahkan ke halaman lain karena masalah hak akses juga.
+
+Dari 2 dosen yang menjawab kuesioner ini, 1 dosen menjawab dapat melihat pengumuman yang ia kirimkan di shadowtape dan 1 dosen menjawab tidak dapat melihat pengumuman yang ia kirimkan di shadowtape. Dosen yang menjawab tidak dapat melihat pengumuman yang ia kirimkan adalah dosen yang tidak pernah mengirimkan email ke shadowbluetape@gmail.com. Dosen yang menjawab dapat melihat pengumuman yang ia kirimkan di shadowtape menjawab bahwa judul dan isi pengumuman sesuai dengan subjek dan isi email yang ia kirimkan.
+
+Untuk hasil uji usabilitas menggunakan System Usability Scale, penulis merangkum hasilnya di Gambar~\ref{fig:summary-Diagram-Skor-SUS}. Rata-rata skor System Usability Scale menurut hasil kuesioner adalah 60,34. Angka tersebut menunjukkan bahwa usabilitas fitur Kolektor Pengumuman Informatika cukup bagus, namun perlu ditingkatkan.
+
+\begin{figure}[H]
+	\centering  
+	\includegraphics[scale=0.5]{./Survey-Summary/Diagram-Skor-SUS.png}
+	\caption[Diagram Skor System Usability Scale]{Diagram Skor System Usability Scale} 
+	\label{fig:summary-Diagram-Skor-SUS} 
+\end{figure}
+
+Selain masalah hak akses saat login, penulis mendapatkan masukan-masukan lain dari kolom saran :
+\begin{itemize}
+  \item Masukan dari keenan.leman@unpar.ac.id : "Tidak bisa /"add friend" karena akun telah mencapai batas banyak teman."
+  
+  Tanggapan dari penulis : Hal ini wajar terjadi karena plan untuk LINE@ yang dipakai di skripsi ini adalah plan developer. Plan ini membatasi pengikut akun bot sampai 50 teman. Masalah ini bisa diatasi dengan pembaruan kebijakan baru oleh LINE. Kebijakan baru tersebut menyatakan bahwa LINE@ akan ditiadakan dan dimigrasikan ke layanan baru LINE : LINE Official Account. Kedua layanan tersebut serupa, namun pengenaan biayanya berbeda. LINE@ memakai jumlah teman untuk pengenaan biayanya sedangkan LINE Official Account memakai jumlah pesan yang dikirimkan untuk pengenaan biayanya.
+
+  Sekilas LINE Official Account dapat menangani masalah ini,namun LINE Official Account dirilis tidak lama sebelum pengujian ini dilakukan (10 April 2019). Penulis tidak memiliki waktu yang cukup untuk mempelajari lebih lanjut layanan baru ini. Walaupun migrasi dari LINE@ ke LINE Official Account akan tetap terjadi, migrasi ini baru akan dilakukan pada bulan Juni 2019.
+
+  \item Masukan dari segi tampilan oleh 7316027@student.unpar.ac.id : "Lebih diperbagus tampilannya sehingga menarik user untuk menggunakannya" dan 7316025@student.unpar.ac.id : "Lebih user friendly"
+  
+  Tanggapan dari penulis : Karena skripsi ini lebih mengedepankan fungsionalitas, penulis tidak terlalu memperhatikan tampilan fitur. Namun, masukan ini dapat ditambahkan sebagai saran apabila ada yang ingin melanjutkan penelitian ini.
+  
+  \item Masukan dari 2017730008@student.unpar.ac.id : "Fitur ini bagus, memudahkan mahasiswa dalam menerima notifikasi email. Namun, waktunya sebaiknya tidak hanya pada jam 12 siang karena waktu tersebut adalah saat orang-orang makan siang yang mungkin saja sedang tidak membuka gadget/aplikasi Line pada khususnya."
+  
+  Tanggapan dari penulis : Setelah berdiskusi dengan pembimbing yang telah meminjamkan kartu kreditnya untuk menambahkan add on Heroku Scheduler, penulis dan pembimbing memutuskan untuk mengganti jadwal Cron dari tiap hari jam 12 menjadi tiap jam. Keputusan tersebut diambil setelah melihat pemakaian dyno yang tidak terlalu besar.
+\end{itemize}
