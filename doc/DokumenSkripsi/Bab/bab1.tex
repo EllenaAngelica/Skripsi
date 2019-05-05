@@ -4,71 +4,72 @@
    
 \section{Latar Belakang}
 \label{sec:latarBelakang}
-Pengumuman di jurusan Teknik Informatika UNPAR pada umumnya dilakukan lewat email. Pengumuman lewat email lebih praktis daripada pengumuman di papan pengumuman karena email dijamin sampai ke tujuan setelah dikirim. Selain itu, isi email fleksibel karena tidak harus berisi tulisan saja. Isi email dapat disertai lampiran, dapat menggunakan pemformatan, dan lain-lain. Namun, layanan email memiliki kotak masuk yang kurang terorganisir. Berbagai macam email yang masuk tercampur di kotak masuk sehingga dapat menyulitkan pemilik email untuk mencari email yang penting. Dampaknya, pengumuman-pengumuman penting dapat tidak terbaca secara tidak sengaja.
+Pengumuman di jurusan Teknik Informatika UNPAR pada umumnya dilakukan lewat \textit{email}. Pengumuman lewat \textit{email} lebih praktis daripada pengumuman di papan pengumuman karena \textit{email} dijamin sampai ke pihak yang dituju setelah dikirim. Namun, layanan \textit{email} memiliki kotak masuk yang kurang terorganisir. Berbagai macam \textit{email} yang masuk tercampur di kotak masuk sehingga dapat menyulitkan pemilik \textit{email} untuk mencari \textit{email} yang penting. Hal ini juga dapat mengakibatkan pengumuman-pengumuman penting tidak dibaca secara tidak sengaja.
 
-Pada skripsi ini, akan dibuat solusi masalah tersebut dengan membangun suatu fitur. Fitur ini akan menangkap email-email pengumuman yang masuk ke sebuah email khusus untuk menangkap pengumuman. Pertama, email yang masuk ke email khusus akan diperiksa pengirimnya. Apabila pengirim adalah email yang terdaftar sebagai email yang berhak melakukan pengumuman, maka email tersebut adalah email pengumuman. Setelah itu, email tersebut akan dibuatkan \textit{permanent link} dan disisipkan pada basis data. Lalu, mahasiswa akan menerima permanent link tersebut melalui notifikasi dari akun Line@. Line@ adalah layanan dari \textit{Line Corporation} yang memudahkan pemilik bisnis atau organisasi menyampaikan pesan kepada pengikutnya melalui aplikasi pengirim pesan LINE.
-
-Fitur ini akan dibangun sebagai fitur tambahan pada BlueTape, sebuah website milik jurusan Teknik Informatika UNPAR. Pembangunan fitur ini membutuhkan modifikasi BlueTape sehingga dapat dijalankan di Heroku. Heroku adalah \textit{cloud platform} yang memungkinkan \textit{developer} untuk membangun, menjalankan, dan mengoperasikan aplikasi pada \textit{cloud}. Selain itu, fitur ini membutuhkan beberapa fitur dari PHP IMAP dan layanan pengirim pesan LINE.
+Penelitian pada skripsi ini hendak membuat solusi untuk kekurangan \textit{email} tersebut dengan cara membuat fitur kolektor pengumuman di BlueTape. Fitur ini akan mengumpulkan \textit{email} yang berisi pengumuman dan menampilkannya di BlueTape. Agar penerima pengumuman tahu ada pengumuman baru di BlueTape, fitur ini juga akan memanfaatkan layanan LINE@. LINE@ adalah layanan dari \textit{Line Corporation} yang memungkinkan pemilik bisnis atau organisasi membuat akun khusus (disebut akun LINE@) yang dapat mengirim pesan ke banyak pengikut secara bersamaan. Penerima pengumuman akan diminta untuk mengikuti akun LINE@ BlueTape sehingga dapat menerima notifikasi LINE apabila ada pengumuman baru. Agar BlueTape versi skripsi ini dapat diakses melalui internet, fitur ini juga akan memanfaatkan layanan Heroku.
 
 \section{Rumusan Masalah}
 \label{sec:rumusanmasalah}
-Rumusan masalah dari skripsi ini adalah : 
+Rumusan masalah dari skripsi ini adalah: 
 \begin{itemize}
-\item Bagaimana cara memodifikasi BlueTape agar fitur kolektor pengumuman dapat diimplementasikan dengan bantuan Heroku dan PostgreSQL ?
-\item Bagaimana cara mengimplementasikan kolektor pengumuman pada BlueTape ?
+	\item Bagaimana cara memodifikasi BlueTape agar dapat berjalan di Heroku?
+	\item Bagaimana cara mengimplementasikan fitur kolektor pengumuman pada BlueTape?
 \end{itemize}
 
 \section{Tujuan}
 \label{sec:tujuan}
-Tujuan dari skripsi ini adalah :
+Tujuan dari skripsi ini adalah:
 \begin{itemize}
-\item Melakukan perawatan pada BlueTape agar fitur kolektor pengumuman dapat diimplementasikan dengan bantuan Heroku dan PostgreSQL
-\item Mengimplementasikan fitur kolektor pengumuman pada BlueTape
+	\item Memodifikasi BlueTape agar dapat berjalan di Heroku.
+	\item Mengimplementasikan fitur kolektor pengumuman pada BlueTape.
 \end{itemize}
 
 \section{Batasan Masalah}
 \label{sec:batasan}
-Pada skripsi ini masalah dibatasi dengan batasan-batasan sebagai berikut :
+Pada skripsi ini masalah dibatasi dengan batasan-batasan sebagai berikut:
 \begin{itemize}
-\item Fitur ini tidak mendukung pengunduhan lampiran dari BlueTape karena memerlukan biaya dan lebih kompleks
+	\item Fitur ini tidak akan menampilkan lampiran karena dapat membuat masalah lebih kompleks.
+	\item Pengumuman di BlueTape dapat dilihat oleh semua mahasiswa dan dosen yang memiliki hak akses ke BlueTape.
+	\item Semua akun yang mengikuti akun LINE@ BlueTape dapat menerima notifikasi apabila ada pengumuman baru.
 \end{itemize}
 
 \section{Metodologi}
 \label{sec:metodepenelitian}
-Metode penelitian pada skripsi ini sebagai berikut :
+Metode penelitian pada skripsi ini sebagai berikut:
 	\begin{enumerate}
-		\item Melakukan studi literatur tentang PHP IMAP, Line, Heroku dan PostgreSQL
-		\item Memodifikasi BlueTape sehingga dapat menangkap email yang masuk ke email khusus
-		\item Memodifikasi BlueTape sehingga dapat melakukan push notification ke akun Line@
-		\item Memodifikasi BlueTape sehingga dapat berjalan di Heroku menggunakan PostgreSQL
-		\item Melakukan pengujian
-		\item Menulis dokumen skripsi
+		\item Melakukan studi literatur tentang PHP IMAP, LINE@, dan Heroku.
+		\item Memodifikasi BlueTape sehingga dapat mengumpulkan \textit{email} yang berisi pengumuman.
+		\item Memodifikasi BlueTape sehingga dapat mengirim notifikasi ke akun Line@ BlueTape.
+		\item Memodifikasi BlueTape sehingga dapat berjalan di Heroku.
+		\item Melakukan pengujian.
+		\item Menulis dokumen skripsi.
 	\end{enumerate}
 
 \section{Sistematika Pembahasan}
 \label{sec:sispem}
+Berikut adalah sistematika pembahasan skripsi ini :
 \begin{enumerate}
-\item Bab 1 : Pendahuluan
+\item Bab 1: Pendahuluan
 
 Bab ini membahas gambaran umum dari skripsi.
 
-\item Bab 2 : Dasar Teori
+\item Bab 2: Dasar Teori
 
 Bab ini membahas dasar teori yang mendukung pembuatan skripsi ini.
 
-\item Bab 3 : Analisis
+\item Bab 3: Analisis
 
 Bab ini membahas analisis yang dilakukan terhadap masalah yang diusung dalam skripsi ini.
 
-\item Bab 4 : Perancangan
+\item Bab 4: Perancangan
 
 Bab ini membahas perancangan sistem yang dibangun pada skripsi ini.
 
-\item Bab 5 : Implementasi dan Pengujian
+\item Bab 5: Implementasi dan Pengujian
 
 Bab ini membahas hasil implementasi yang dilakukan beserta pengujian sistem.
 
-\item Bab 6 : Kesimpulan dan saran
+\item Bab 6: Kesimpulan dan saran
 
 Bab ini berisi kesimpulan yang didapat dari penelitian dan saran oleh penulis kepada pembaca yang hendak melanjutkan penelitian ini. 
 
