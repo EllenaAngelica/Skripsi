@@ -11,9 +11,7 @@
 \chapter{Landasan Teori}
 \label{chap:teori}
 \setcounter{secnumdepth}{3}
-%Pada bab ini dijelaskan dasar-dasar teori mengenai \textit{BlueTape}, \textit{Heroku}, \textit{PostgreSQL}, \textit{GMail}, dan \textit{Line@}.
-
-
+Bab ini berisi landasan teori yang dipakai pada skripsi ini.
 
 %2.1 BlueTape
 \section{BlueTape}
@@ -25,194 +23,195 @@ BlueTape adalah aplikasi yang berfungsi untuk membantu urusan-urusan \textit{pap
 %2.2 Heroku
 \section{Heroku ~\cite{heroku}}
 \label{sec:Heroku}
-Heroku adalah \textit{cloud platform} yang memungkinkan \textit{developer} untuk membangun, menjalankan, dan mengoperasikan aplikasi pada \textit{cloud}. Heroku mendukung beberapa bahasa pemrograman, meliputi : Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP.
+Heroku adalah \textit{cloud platform} yang memungkinkan penggunanya untuk membangun, menjalankan, dan mengoperasikan aplikasi pada \textit{cloud}. Heroku mendukung beberapa bahasa pemrograman, meliputi: Ruby, Node.js, Java, Python, Clojure, Scala, Go, dan PHP.
 
 \subsection{Arsitektur Heroku}
-Heroku memungkinkan seorang \textit{developer} untuk melakukan \textit{deploy} (menyebarkan), \textit{run} (menjalankan), dan \textit{manage} (mengelola) pada aplikasi yang ditulis di dalam bahasa yang didukung oleh Heroku. Heroku mendefinisikan aplikasi sebagai gabungan dari \textit{source code} yang ditulis di dalam salah satu bahasa yang didukung Heroku, deskripsi \textit{dependency} yang dipakai, dan Procfile.
+Heroku memungkinkan penggunanya untuk menyebarkan, menjalankan, dan mengelola aplikasi yang ditulis di dalam bahasa yang didukung oleh Heroku. Heroku mendefinisikan aplikasi sebagai gabungan dari \textit{source code} (kode program) yang ditulis di dalam salah satu bahasa yang didukung Heroku, deskripsi \textit{dependency} yang dipakai, dan \textit{file} Procfile. 
 
 \subsubsection{\textit{Dependency}}
-\textit{Developer} perlu mendeskripsikan \textit{dependency} tambahan yang diperlukan agar aplikasi dapat dibangun dan dijalankan. Aturan penulisan deskripsi \textit{dependency} berbeda-beda untuk tiap bahasa. Contoh : pada aplikasi dengan bahasa Node.js, deskripsi \textit{dependency} ditulis di dokumen \texttt{package.json}.
+Agar aplikasi dapat dibangun dan dijalankan, aplikasi mungkin membutuhkan kode program dari pihak ketiga. Kode program tersebut disebut \textit{dependency}. Aturan peletakkan deskripsi \textit{dependency} berbeda-beda untuk tiap bahasa. Contoh: Aplikasi dengan bahasa Node.js menuliskan deskripsi \textit{dependency} pada \textit{file} \texttt{package.json}.
 
 \subsubsection{Procfile}
-\textit{Developer} perlu memberitahu Heroku bagian aplikasi yang dapat dijalankan. Jika \textit{developer} menggunakan framework yang sudah ada, Heroku dapat mencari tahu. Contoh : pada aplikasi dengan bahasa Node.js, Heroku dapat mengetahui bagian aplikasi yang dijalankan pada bagian \texttt{main} di dalam \texttt{package.json}. Untuk aplikasi lain, \textit{developer} mungkin perlu menyatakan apa yang harus dieksekusi secara eksplisit. Caranya dengan menyertakan sebuah dokumen teks bernama Procfile. 
+Heroku dapat mengetahui bagian aplikasi mana yang dapat dijalankan untuk sebagian besar bahasa pemrograman. Contoh: Heroku langsung mengetahui bagian "\texttt{main}" pada \textit{file} \texttt{package.json} adalah bagian aplikasi yang dapat dijalankan pada aplikasi dengan bahasa Node.js. Namun, Heroku terkadang membutuhkan petunjuk secara eksplisit untuk mengetahui bagian yang dapat dijalankan. Petunjuk tersebut ditulis di sebuah \textit{file} teks bernama Procfile. 
 
-Dokumen Procfile tidak memiliki ekstensi dokumen, seperti \texttt{.txt}, \texttt{.docx}, \texttt{.jpg} dan lain-lain. Apabila Procfile diberi ekstensi dokumen (contoh : Procfile.txt), maka Procfile tersebut tidak sah. Selain itu, Procfile harus diletakkan di direktori \texttt{root}. Jika diletakkan di tempat lain, Procfile tidak akan berfungsi sebagaimana mestinya.
-
-Isi dari Procfile adalah satu atau lebih baris yang menyatakan \textit{process type}. Format penulisan tiap baris Procfile adalah : 
+Procfile adalah \textit{file} tanpa ekstensi \textit{file} (Contoh ekstensi \textit{file}: "\texttt{.txt}") yang diletakkan di direktori \texttt{root}. Isi dari Procfile adalah teks yang tiap barisnya memiliki format sebagai berikut:
 \begin{lstlisting}
-
-	<process type>: <command>
-
+<process type>: <command>
 \end{lstlisting}
-Keterangan :
+Keterangan:
 \begin{itemize}
-\item \texttt{<process type>} : nama perintah yang mengandung huruf dan angka. Contoh : \texttt{web}, \texttt{worker}, \texttt{urgentworker}, \texttt{clock}, dan lain-lain. Untuk aplikasi sederhana, \textit{developer} cukup menuliskan \textit{process type} \texttt{web} saja.
-\item \texttt{<command>} : perintah yang harus dijalankan oleh setiap dyno dari \textit{process type} tersebut pada saat startup.
+\item \texttt{<process type>}: nama \textit{process type}, contoh: \texttt{urgentworker}. Aplikasi yang sederhana hanya membutuhkan \textit{process type} \texttt{web} saja.
+\item \texttt{<command>}: perintah yang harus dijalankan oleh setiap \textit{dyno} dari \textit{process type} tersebut pada saat startup.
 \end{itemize}
- 
-Contoh isi Procfile :
-\begin{lstlisting}
-
-	web: java -jar lib/foobar.jar \textdollar PORT
-
-\end{lstlisting}
-
-Pada contoh, \texttt{web} merupakan \texttt{<process type>}, sedangkan \texttt{web: java -jar lib/foobar.jar \textdollar PORT} adalah perintah yang harus dijalankan agar \textit{process type} tersebut berjalan. Perintah tersebut berfungsi untuk menyalakan web server.
-
-Procfile tidak wajib dibuat untuk sebagian besar bahasa pemrograman yang didukung Heroku. Heroku akan secara otomatis mendeteksi bahasa yang digunakan, dan membuat \textit{process type} \texttt{web} untuk menjalankan server aplikasi. Apabila aplikasi menggunakan \texttt{heroku.yml} sebagai \textit{build manifest}, Procfile juga tidak diwajibkan. Perintah yang disebutkan di bagian \texttt{run} pada \texttt{heroku.yml} harus mengikuti format yang sama dengan format Procfile (kecuali \textit{process type} \textit{release}).
-
 
 \subsubsection{\textit{Process Type}}
-Ada tiga kelompok \textit{process type} : 
-\begin{itemize}
-\item \textit{process type} \texttt{web}
-\item \textit{process type} \texttt{worker} : \textit{process type} apapun selain \texttt{web}
-\item \textit{process type} \texttt{singleton} : \textit{process type} yang bersifat sementara dan dapat berjalan terpisah
-\end{itemize}
-
-Di antara beragam \textit{process type}, ada dua \textit{process type} spesial : \textit{process type} \texttt{web} dan \texttt{release}. \textit{Process type} \texttt{web} adalah satu-satunya \textit{process type} yang dapat menerima arus HTTP eksternal dari router Heroku. Jika sebuah aplikasi melibatkan \textit{web server}, \textit{developer} harus menyatakannya sebagai proses \texttt{web}. \textit{Process type} \texttt{release} adalah \textit{process type} yang digunakan untuk menyebutkan perintah yang dijalankan selama fase release.
+\textit{Process type} adalah prototipe yang menjadi tempat dimana dyno dibentuk. \textit{Process type} yang tersedia dapat berbeda untuk tiap bahasa pemrograman. Namun, ada dua \textit{process type} spesial pada Heroku, yaitu \textit{process type} \texttt{web} dan \textit{process type} \texttt{release}. \textit{Process type} \texttt{web} adalah satu-satunya \textit{process type} yang dapat menerima arus HTTP eksternal dari \textit{router} Heroku. \textit{Process type} \texttt{release} adalah \textit{process type} yang digunakan untuk menyebutkan perintah yang dijalankan selama fase \textit{release}.
 
 \begin{figure}[H]
 	\centering  
-	\includegraphics[scale=0.5]{process-type-dyno-relationship.jpg}  
-	\caption[Diagram hubungan antara \textit{process type} dan dyno]{Diagram hubungan antara \textit{process type} dan dyno} 
+	\includegraphics[scale=0.3]{process-type-dyno-relationship.jpg}  
+	\caption[Diagram hubungan antara \textit{process type} dan \textit{dyno}]{Diagram hubungan antara \textit{process type} dan \textit{dyno}} 
 	\label{fig:process-type-dyno-relationship} 
 \end{figure}
 
-\textit{Process type} dan dyno saling berhubungan. \textit{Process type} adalah prototipe yang menjadi tempat dimana dyno dibentuk. Hubungan \textit{process type} dan dyno dapat dilihat di diagram pada Gambar~\ref{fig:process-type-dyno-relationship}. Sumbu x menyatakan \textit{process type} yang dipakai, sementara sumbu y menyatakan jumlah dyno yang berjalan pada \textit{process type} tersebut. Semakin banyak dyno pada suatu \textit{process type} maka konkurensi untuk pekerjaan yang ditangani \textit{process type} tersebut akan meningkat. Semakin banyak \textit{process type} maka semakin beragam beban kerja.
+\textit{Process type} dan \textit{dyno} saling berhubungan. Hubungan tersebut dapat dilihat pada Gambar~\ref{fig:process-type-dyno-relationship}. Sumbu x menyatakan \textit{process type} yang dipakai, sementara sumbu y menyatakan jumlah \textit{dyno} yang berjalan pada \textit{process type} tersebut. Semakin banyak \textit{dyno} pada suatu \textit{process type} maka konkurensi untuk pekerjaan yang ditangani \textit{process type} tersebut akan meningkat. Semakin banyak \textit{process type} maka semakin beragam beban kerja.
 
-Untuk mengatur berapa banyak dyno yang bekerja di satu \textit{process type}, perintah yang dapat diketikkan pada command shell adalah :
+Jumlah \textit{dyno} yang berjalan pada \textit{process type} dapat diatur dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku ps:scale <process=dyno list>
-	
+$ heroku ps:scale <process=dyno list>
 \end{lstlisting}
-Keterangan :
+Keterangan:
 \begin{itemize}
-\item \texttt{<process=dyno list>} : daftar pasangan \textit{process type} dengan jumlah dyno yang ditugaskan untuk proses tersebut.
+\item \texttt{<process=dyno list>}: daftar pasangan \textit{process type} dengan jumlah \textit{dyno} yang ditugaskan untuk proses tersebut.
 \end{itemize}
 
-Contoh : 
+Contoh: 
 \begin{lstlisting}
-
-	$ heroku ps:scale web=2 worker=4 clock=1
-	
+$ heroku ps:scale web=2 worker=4 clock=1
 \end{lstlisting}
 
-Selain dapat mengatur jumlah dyno yang ditugaskan pada suatu pekerjaan, \textit{developer} dapat menjadwalkan proses yang berjalan pada suatu waktu atau jangka waktu tertentu. Caranya dengan menggunakan add-on Heroku Scheduler atau menggunakan \textit{process type} khusus untuk mengatur jadwal pekerjaan.
+\subsubsection{\textit{Dyno}}
+\textit{Dyno} adalah wadah aplikasi berbasis Unix yang  menjalankan kode program di Heroku. Pada umumnya, Heroku akan menjalankan satu \textit{web dyno} secara otomatis saat aplikasi disebar ke Heroku untuk pertama kali.
 
-\subsubsection{Dyno}
-Dyno adalah wadah aplikasi berbasis Unix yang terisolasi, tervirtualisasi, dan menyediakan lingkungan yang dibutuhkan untuk menjalankan suatu aplikasi. Umumnya, jika aplikasi di-\textit{deploy} ke Heroku untuk pertama kali, Heroku akan menjalankan satu web dyno secara otomatis.
-
-Setiap dyno termasuk dalam salah satu dari konfigurasi berikut :
+\textit{Dyno} dikelompokkan ke dalam tiga kelompok, yaitu:
 \begin{itemize}
-\item Web dyno
+\item \textit{Web dyno}
 
-Web dyno adalah dyno dari \textit{process type} \texttt{web} yang disebutkan di dalam Procfile. Web dyno adalah satu-satunya dyno yang dapat menerima arus HTTP dari router Heroku.
+\textit{Web dyno} adalah \textit{dyno} yang berjalan pada \textit{process type} \texttt{web}. \textit{Web dyno} adalah satu-satunya \textit{dyno} yang dapat menerima arus HTTP dari \textit{router} Heroku.
 
-\item Worker dyno
+\item \textit{Worker dyno}
 
-Worker dyno adalah dyno dari \textit{process type} apapun selain \texttt{web} yang disebutkan di dalam Procfile. Worker dyno biasanya digunakan untuk pekerjaan di latar belakang, sistem antrian, dan pekerjaan yang memiliki jangka waktu.
+\textit{Worker dyno} merujuk kepada \textit{dyno} yang berjalan pada \textit{process type} yang disebutkan di dalam Procfile selain \textit{process type} \texttt{web}. \textit{Worker dyno} biasanya digunakan untuk pekerjaan pada latar belakang, sistem antrian, dan pekerjaan berjangka waktu tertentu.
 
-\item One-off dyno
+\item \textit{One-off dyno}
 
-One-off dyno adalah dyno yang bersifat sementara yang dapat berjalan terpisah atau dengan masukan/keluaran dari terminal lokal. Dyno ini dapat digunakan untuk tugas yang bersifat administratif, contoh : migrasi basis data. Dyno ini juga dapat digunakan untuk melakukan pekerjaan di latar belakang yang bersifat sesekali, contoh : Heroku Scheduler.
+\textit{One-off dyno} adalah \textit{dyno} yang bersifat sementara. \textit{One-off dyno} tidak dituliskan pada Procfile untuk menjalankannya, melainkan menggunakan \textit{command shell}. Contoh penggunaan \textit{one-off dyno} adalah pada saat migrasi basis data.
 
 \end{itemize} 
 
-\begin{figure}[H]
-	\centering  
-	\includegraphics[scale=0.5]{dyno-type-features.png}  
-	\caption[Tabel perbedaan fitur pada tipe dyno yang berbeda]{Tabel perbedaan fitur pada tipe dyno yang berbeda} 
-	\label{fig:dyno-type-features} 
-\end{figure}
+Heroku menyediakan berbagai macam tipe \textit{dyno}, yaitu: tipe \textit{free}, tipe \textit{hobby}, tipe \textit{standard}, dan tipe \textit{performance}. Tipe \textit{dyno} mempengaruhi karakteristik \textit{dyno} dan kinerja aplikasi. Pada aplikasi dengan tipe \textit{dyno free} dan tipe \textit{dyno hobby}, semua \textit{process type} pada aplikasi tersebut hanya dapat memakai tipe \textit{dyno} tersebut. Namun, tipe \textit{standard} dan tipe \textit{dyno performance} dapat digunakan di aplikasi yang sama. Pada \textit{dyno} tipe \textit{free} dan tipe \textit{hobby}, jumlah \textit{dyno} yang dapat dipakai untuk tiap \textit{process type} adalah satu. Pada tipe \textit{dyno performance}, jumlah \textit{dyno} yang dapat dipakai untuk tiap \textit{process type} adalah sepuluh. Pada tipe \textit{dyno free}, jumlah \textit{dyno} yang dapat dijalankan secara bersamaan pada satu aplikasi adalah dua. Pada tipe \textit{dyno} lainnya, jumlah \textit{dyno} yang dapat dijalankan secara bersamaan pada satu aplikasi adalah seratus.
 
-Heroku menyediakan beberapa tipe dyno yang berbeda. Tiap tipe dyno memiliki sifat yang unik dan kinerja yang berbeda. Untuk semua pengguna Heroku, tersedia pilihan dyno tipe Free, Hobby, Standard, dan Performance. Perbedaan fitur untuk tiap tipe terdapat pada Gambar~\ref{fig:dyno-type-features}. Ada satu tipe dyno lagi, yaitu tipe Private. Dyno tipe Private hanya tersedia di Heroku Enterpise yang diperuntukkan untuk organisasi.
+Tipe \textit{dyno free} memiliki beberapa batasan, yaitu dapat masuk ke kondisi \textit{sleep} dan penggunaan per bulannya dibatasi dengan \textit{free dyno hours}. Kondisi \textit{sleep} adalah kondisi saat \textit{web dyno} tidak aktif. Kondisi \textit{sleep} terjadi apabila tidak ada arus HTTP masuk setelah 30 menit aktif. Apabila ada arus HTTP masuk pada saat aplikasi tertidur, maka aplikasi akan aktif kembali. Namun, ada keterlambatan saat memproses arus HTTP tersebut. \textit{Free dyno hours} adalah jumlah jam saat \textit{web dyno} tidak dalam kondisi \textit{sleep}, saat \textit{worker dyno} berjalan, dan saat \textit{one-off dyno} berjalan. Akun yang belum diverifikasi dapat menggunakan 550 \textit{free dyno hours} tiap bulannya, sedangkan akun yang telah diverifikasi dapat menggunakan 1000 \textit{free dyno hours} tiap bulannya. Setiap aplikasi dengan tipe \textit{dyno free} yang dimiliki pengguna memakai kuota yang sama. Apabila penggunaan \textit{dyno} telah melebihi 80\% kuota, maka pengguna akan dikirimi \textit{email} peringatan. Apabila penggunaan telah melebihi 100\% kuota, maka pengguna akan dikirimi \textit{email} notifikasi kedua dan aplikasinya akan masuk ke kondisi \textit{sleep} selama sisa hari pada bulan tersebut. Jumlah \textit{free dyno hours} yang tersisa dapat dilihat dengan mengetikkan "\texttt{heroku ps -a }" diikuti dengan nama aplikasi di \textit{command shell} atau dengan melihat bagian \textit{free dyno usage} pada halaman billing (\url{https://dashboard.heroku.com/account/billing}).
 
-Fitur-fitur utama dyno adalah :
-\begin{itemize}
-\item \textit{Scalability}
+Perbandingan antar tipe \textit{dyno} dapat dilihat pada Tabel~\ref{table:compare-dyno-type-1} san Tabel~\ref{table:compare-dyno-type-2}. 
 
-Dyno dapat di-\textit{scale} secara horizontal dan vertikal. Untuk melakukan \textit{scale} secara horizontal (\textit{scale out}), tambahkan lebih banyak dyno. Contoh : menambah web dyno agar dapat menangani arus yang lebih besar. Untuk melakukan \textit{scale} secara vertikal (\textit{scale up}), gunakan dyno yang lebih besar. Dyno yang lebih besar berarti jumlah pemakaian memori RAM yang lebih besar. Jumlah RAM maksimal yang tersedia untuk aplikasi tergantung dari tipe dyno yang digunakan. \textit{Scale} secara horizontal dan vertikal ini adalah fitur yang tersedia untuk dyno tipe Standard dan Performance saja.
+\begin{center}
+	\begin{table}[H]
+	\caption{Tabel perbandingan antar tipe \textit{dyno}}
+	\label{table:compare-dyno-type-1}
+	\begin{tabular}{|c|c|c|c|}
+	\hline
+	Tipe \textit{dyno} & \textit{Kondisi sleep} & \textit{Memory} (RAM) & Harga \textit{dyno} per bulan\\
+	\hline
+	\textit{free} & Ada & 512 MB & \textdollar0\\
+	\hline
+	\textit{hobby} & Tidak & 512 MB & \textdollar7\\
+	\hline
+	\textit{standard-1x} & Tidak & 512 MB & \textdollar25\\
+	\hline
+	\textit{standard-2x} & Tidak & 1024 MB & \textdollar50\\
+	\hline
+	\textit{performance-m} & Tidak & 2.5 GB & \textdollar250\\
+	\hline
+	\textit{performance-l} & Tidak & 14 GB & \textdollar500\\
+	\hline
+	\end{tabular}
+	\end{table}
+\end{center}
 
-\item \textit{Redundancy}
+\begin{center}
+\begin{table}[H]
+\caption{Tabel perbandingan fitur antar tipe \textit{dyno}}
+\label{table:compare-dyno-type-2}
+\begin{tabular}{|c|p{11cm}|}
+\hline
+Tipe \textit{dyno} & Fitur\\
+\hline
+\textit{free} & \begin{itemize}
+	\item Mendukung penyebaran aplikasi menggunakan Git dan Docker.
+	\item Mengganti \textit{domain}.
+	\item Dapat menggunakan \textit{pipeline}\footnotemark
+	\item Pembaruan sistem operasi secara berkala.
+	\item Pembaruan versi bahasa pemrograman secara berkala.
+\end{itemize} \\
+\hline
+\textit{hobby} & \begin{itemize}
+	\item Semua fitur diatas.
+	\item Dapat menggunakan SSL dan sertifikat TLS.
+	\item Dapat menggunakan \textit{Application metrics}
+\end{itemize}\\
+\hline
+\textit{standard-1x} & \begin{itemize}
+	\item Semua fitur diatas.
+	\item Dapat menambah jumlah \textit{dyno}.
+	\item Dapat mengubah ukuran \textit{dyno}.
+	\item Dapat menggunakan fitur \textit{preboot}.
+	\item Dapat menggunakan fitur \textit{language runtime metrics}.
+\end{itemize}\\
+\hline
+\textit{standard-2x} & \begin{itemize}
+	\item Semua fitur diatas.
+\end{itemize}\\
+\hline
+\textit{performance-m} & \begin{itemize}
+	\item Semua fitur diatas.
+	\item Dapat menggunakan fitur \textit{autoscaling} untuk \textit{web dynos}
+	\item Sumber daya komputasi terdedikasi.
+\end{itemize}\\
+\hline
+\textit{performance-l} & \begin{itemize}
+	\item Semua fitur diatas.
+\end{itemize}\\
+\hline
+\end{tabular}
+\end{table}
+\end{center}
+\footnotetext{\textit{Pipeline} adalah sekelompok aplikasi Heroku yang menggunakan kode program yang sama.}
 
-Aplikasi dengan banyak dyno yang berjalan akan memiliki resiko kegagalan yang lebih rendah daripada yang sedikit. Jika ada dyno yang hilang, aplikasi dapat terus memproses permintaan sementara dyno yang hilang diganti. Dyno yang hilang biasanya langsung dimulai ulang, tapi terkadang membutuhkan waktu yang lama.
+\subsubsection{\textit{Config vars}}
+Pada Heroku, \textit{environment variable} disimpan di dalam \textit{config vars}. \textit{Environment variable} adalah konfigurasi yang dapat berubah-ubah pada lingkungan yang berbeda. Konfigurasi tersebut meliputi informasi \textit{database}, informasi kredensial, atau informasi lain yang bersifat spesifik pada aplikasi. Penggunaan \textit{environment variable} dapat menghindari tersimpannya informasi penting di pengontrol versi.
 
-\item \textit{Isolation and security}
-
-Semua dyno terisolasi dari dyno lain untuk alasan keamanan. Walaupun dyno tipe Free, Hobby, dan Standard terisolasi, dyno mungkin berbagi komputasi dasar yang sama. Heroku memiliki teknik tersendiri untuk memastikan penggunaannya adil. Di sisi lain, dyno tipe Performance dan Private tidak berbagi komputasi dasar yang sama dengan dyno lain. Hal ini membuat dyno tipe Performance dan Private memiliki kinerja yang lebih stabil dibanding dengan dyno tipe Free, Hobby, dan Standard. Selain memiliki sumber daya komputasi yang dikhususkan untuknya, dyno tipe Private juga memiliki jaringan virtual yang terisolasi.
-
-\item \textit{Ephemeral filesystem}
-
-Tiap dyno memiliki \textit{ephemeral filesystem}, dengan salinan kode dari hasil deploy terbaru. Saat masa hidup dyno, proses yang dijalankannya dapat menggunakan \textit{filesystem} ini sebagai tempat menulis sementara. Namun, dokumen yang ditulis tidak dapat dilihat oleh proses dari dyno lain dan dokumen yang ditulis akan dihapus saat dyno berhenti bekerja atau dimulai ulang.
-
-\end{itemize}
-
-\subsubsection{Dyno manager}
-Dyno manager adalah bagian dari Heroku yang bertanggungjawab untuk menjaga dyno tetap berjalan. Dyno manager melakukan pekerjaan seperti memastikan dyno didaur ulang setidaknya satu kali sehari atau setiap dyno manager mendeteksi kesalahan di dalam aplikasi yang berjalan. Daur ulang dyno ini berlangsung secara transparan dan otomatis secara teratur dan tercatat.
-
-Aplikasi yang menggunakan dyno tipe Free akan masuk mode \texttt{sleep} (tidur) jika tidak ada arus HTTP selama jangka waktu 30 menit. Ketika aplikasi yang tidur menerima arus HTTP, maka aplikasi tersebut akan terbangun. Hal ini menyebabkan aplikasi lebih lambat beberapa detik dari aplikasi yang menggunakan dyno tipe lain. Dyno tipe lain tidak memiliki mode sleep, dan akan selalu terjaga.
-
-\subsubsection{Config vars}
-Konfigurasi aplikasi dapat berubah-ubah tergantung lingkungannya. Misalnya, konfigurasi aplikasi saat pengembangan dapat berbeda saat aplikasi siap dirilis ke pengguna. Konfigurasi aplikasi dapat berupa informasi \textit{database}, informasi kredensial, atau informasi lain yang bersifat spesifik pada aplikasi. Konfigurasi ini harus diletakkan pada \textit{environment variable}, bukan di \textit{source code}. Dengan menggunakan \textit{environment variable}, konfigurasi dapat diubah secara terpisah. Selain itu, konfigurasi yang bersifat kredensial dapat terhindar dari tersimpan pada \textit{version control} (pengontrol versi, contoh : Git).
-
-Heroku memungkinkan \textit{developer} untuk menjalankan aplikasi dengan konfigurasi yang dapat diubah dengan mudah. Konfigurasi tersebut diletakkan di luar dari \textit{source code} aplikasi. Konfigurasi dapat diubah secara independen tanpa harus mengubah \textit{source code}. Konfigurasi tersebut disimpan di dalam config vars.
-
-Untuk mengatur config vars ada tiga cara : 
+\textit{Config vars} dapat diatur dengan tiga cara : 
 \begin{itemize}
 \item Menggunakan Heroku CLI
 
-Config var diatur menggunakan \textit{command shell}. Berikut perintah-perintah untuk mengatur config var menggunakan Heroku CLI:
+Heroku CLI menggunakan \textit{command shell} untuk menerima perintah yang harus dijalankan. Berikut daftar perintah yang berkaitan dengan \textit{config vars} beserta fungsinya:
 \begin{itemize}
-\item Menampilkan seluruh config var beserta nilainya : 
-
+\item Menampilkan seluruh \textit{config vars} beserta nilainya : 
 \begin{lstlisting}
-
-	$ heroku config
-
+$ heroku config
 \end{lstlisting}
 
-\item Menampilkan nilai dari config var tertentu 
+\item Menampilkan nilai dari \textit{config vars} tertentu 
 \begin{lstlisting}
-
-	$ heroku config : get <config var>
-
+$ heroku config : get <config vars>
 \end{lstlisting}
 Keterangan :
 \begin{itemize}
-\item \texttt{config var} : nama config var
+\item \texttt{<config vars>}: nama \textit{config vars}
 \end{itemize}
 
-\item Menambah config var
-
+\item Menambah \textit{config vars}
 \begin{lstlisting}
-
-	$ heroku config : set <config var> = <config value>
-
+$ heroku config : set <config vars> = <config values>
 \end{lstlisting}
 Keterangan :
 \begin{itemize}
-\item \texttt{config var} : nama config var
-\item \texttt{config value} : nilai dari config var tersebut
+\item \texttt{<config vars>}: nama \textit{config vars}
+\item \texttt{<config values>}: nilai dari \textit{config vars} tersebut
 \end{itemize}
 
-\item Menghapus config var
-
+\item Menghapus \textit{config vars}
 \begin{lstlisting}
-
-	$ heroku config : unset <config var>
-
+$ heroku config : unset <config vars>
 \end{lstlisting}
 Keterangan :
 \begin{itemize}
-\item \texttt{config var} : nama config var
+\item \texttt{<config vars>} : nama \textit{config vars}
+\end{itemize}
 \end{itemize}
 
-\end{itemize}
-
-\item Menggunakan Heroku Dashboard
-
+\item Menggunakan Heroku \textit{Dashboard}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{bluetape-config-vars-example.png}  
@@ -220,62 +219,86 @@ Keterangan :
 	\label{fig:bluetape-config-vars-example} 
 \end{figure}
 
-Config var dapat dilihat, ditambah, dan dihapus melalui menu \texttt{Settings} bagian config vars (Gambar~\ref{fig:bluetape-config-vars-example}).
+Heroku \textit{dashboard} berada di \url{https://dashboard.heroku.com/}. Setelah memilih menu "\texttt{Settings}" di aplikasi yang dipilih, pilih menu "\texttt{Config vars}" untuk melihat, menambah, dan menghapus \textit{config vars}. Tampilan menu "\texttt{Config vars}" dapat dilihat pada Gambar~\ref{fig:bluetape-config-vars-example}.
 
 \item Menggunakan Heroku Platform API
 
-Config var dapat diatur dengan Heroku Platform API menggunakan HTTPS REST client sederhana dan data struktur data JSON. \textit{Developer} perlu Heroku \textit{access token} yang valid yang mewakili pengguna dengan izin yang tepat untuk aplikasi.
-
-\end{itemize}
-
-Config vars akan diperlakukan sebagai \textit{environment variable} oleh program. Contoh : \textit{environment variable} dapat diakses dengan getEnv() pada program dengan bahasa PHP.
- 
-Dalam mengatur config var, ada beberapa hal yang harus diperhatikan :
-\begin{itemize}
-\item Setiap config var ditambah atau dihapus, aplikasi akan dimulai ulang dan release baru akan dibuat.
-\item Jika aplikasi menggunakan add-on, biasanya add-on tersebut akan menambahkan satu atau lebih config var ke aplikasi. Nilai dari config var tersebut mungkin diperbarui oleh penyedia add-on kapan saja.
-\item Config var data (kombinasi dari semua kunci dan nilainya) tidak dapat melebihi 32kb per aplikasi
-\item Nama config var tidak boleh diawali dengan garis bawah dua kali (\texttt{\_\_}).
-\item Nama config var tidak bisa diawali dengan \texttt{HEROKU\_}, kecuali ditambahkan oleh platform Heroku sendiri.
-\end{itemize}
-
-\subsubsection{Add-ons}
-Aplikasi biasanya memanfaatkan add-ons untuk menyediakan layanan penyokong seperti basis data, sistem antrean, layanan email, dan lainnya. Add-ons disediakan oleh Heroku atau pihak ketiga. \textit{Developer} dapat mencari add-ons di Elements Marketplace (\url{https://elements.heroku.com/addons}). 
-
-Menambah add-ons selain add-ons Heroku Postgres dan Heroku Connect membutuhkan verifikasi akun. \textit{Developer} dapat menambah add-ons melalui tombol Install di Elements Marketplace atau dengan mengetikkan perintah berikut pada \textit{command shell} :
+\textit{Config vars} dapat diatur dengan mengirimkan PATCH \textit{request} ke Heroku Platform API dengan format berikut: 
 \begin{lstlisting}
-
-	$ heroku addons:create <nama addons>:<tipe addons>
-
+PATCH /apps/{app_id_or_name}/config-vars
 \end{lstlisting}
-Keterangan :
-\begin{itemize}
-\item \texttt{<nama addons>} : nama addons
-\item \texttt{<tipe addons>} : tipe addons
-\end{itemize}
-
-Contoh :
+Contoh \textit{request} menggunakan curl:
 \begin{lstlisting}
-
-	$ heroku addons:create heroku-redis:hobby-dev
-
+$ curl -n -X PATCH https://api.heroku.com/apps/$APP_ID_OR_NAME/config-vars \
+	-d '{
+	"FOO": "bar",
+	"BAZ": "qux"
+}' \
+	-H "Content-Type: application/json" \
+	-H "Accept: application/vnd.heroku+json; version=3"
+\end{lstlisting}
+Contoh \textit{response} dari Heroku Platform API:
+\begin{lstlisting}
+HTTP/1.1 200 OK
+ETag: "0123456789abcdef0123456789abcdef"
+Last-Modified: Sun, 01 Jan 2012 12:00:00 GMT
+RateLimit-Remaining: 4500
+{
+  "FOO": "bar",
+  "BAZ": "qux"
+}
 \end{lstlisting}
 
-\subsubsection{Slug}
-Ketika platform Heroku menerima \textit{source code} aplikasi, heroku akan memulai proses \textit{build} berdasarkan \textit{source code}. Mekanisme \textit{build} biasanya tergantung pada bahasa pemrograman yang dipakai, tapi mengikuti pola yang sama. Mekanisme \textit{build} biasanya mengambil \textit{dependency} yang ditentukan, dan menciptakan aset yang diperlukan. \textit{Source code} untuk aplikasi, \textit{dependency}, dan hasil dari fase \textit{build} digabungkan ke dalam slug. 
-
-Slug adalah gabungan dari \textit{source code}, \textit{dependency} yang diambil, \textit{language runtime}, dan hasil kompilasi atau keluaran yang dihasilkan oleh \textit{build system} yang siap untuk dieksekusi. Slug ini adalah aspek dasar dari eksekusi aplikasi. Slug berisi aplikasi yang sudah dikompilasi, digabungkan, dan siap untuk dijalankan.
-
-Slug dikompilasi oleh slug compiler menggunakan buildpack. Buildpack akan mengambil aplikasi, \textit{dependency}, dan \textit{language runtime} dan kemudian menghasilkan slug. Buildpack bersifat \textit{open source}, sehingga memungkinkan \textit{developer} memperluas Heroku ke bahasa pemrograman lain dan \textit{framework}.
-
-Apabila ada dokumen yang tidak diperlukan untuk menjalankan aplikasi, \textit{developer} dapat menambahkannya ke \texttt{.slugignore}. Dokumen ini harus dibuat di direktori \texttt{root}. Contoh dokumen yang mungkin ingin dimasukkan ke \texttt{.slugignore} :
-\begin{itemize}
-\item Dokumen pengolah gambar (contoh : dokumen .psd)
-\item Dokumen desain (contoh : dokumen .pdf)
-\item Data untuk pengujian
+Apabila pengguna ingin melihat \textit{config vars}, maka pengguna dapat mengirimkan GET \textit{request} dengan format berikut: 
+\begin{lstlisting}
+GET /apps/{app_id_or_name}/config-vars
+\end{lstlisting}
+Contoh \textit{request} menggunakan curl:
+\begin{lstlisting}
+$ curl -n https://api.heroku.com/apps/$APP_ID_OR_NAME/config-vars \
+-H "Accept: application/vnd.heroku+json; version=3"
+\end{lstlisting}
+Contoh \textit{response} dari Heroku Platform API:
+\begin{lstlisting}
+HTTP/1.1 200 OK
+ETag: "0123456789abcdef0123456789abcdef"
+Last-Modified: Sun, 01 Jan 2012 12:00:00 GMT
+RateLimit-Remaining: 4500
+{
+  "FOO": "bar",
+  "BAZ": "qux"
+}
+\end{lstlisting}
 \end{itemize}
 
-Contoh isi \texttt{.slugignore} :
+Dalam mengatur \textit{config vars}, ada beberapa hal yang harus diperhatikan:
+\begin{itemize}
+\item Setiap \textit{config vars} ditambah atau dihapus, aplikasi akan dimulai ulang dan \textit{release} baru akan dibuat.
+\item Jika aplikasi menggunakan \textit{add-ons}, biasanya \textit{add-ons} tersebut akan menambahkan satu atau lebih \textit{config vars} ke aplikasi. Nilai dari \textit{config vars} tersebut mungkin diperbarui oleh penyedia \textit{add-ons} kapan saja.
+\item Data \textit{config vars} (kombinasi dari semua kunci dan nilainya) tidak dapat melebihi 32 kb per aplikasi
+\item Nama \textit{config vars} tidak boleh diawali dengan tanda hubung bawah dua kali (\texttt{\_\_}).
+\item Nama \textit{config vars} tidak bisa diawali dengan \texttt{HEROKU\_}, kecuali ditambahkan oleh platform Heroku sendiri.
+\end{itemize}
+
+\subsubsection{\textit{Add-ons}}
+Pengguna Heroku dapat memanfaatkan \textit{add-ons} untuk memakai layanan penyokong, misalnya basis data, sistem antrean, layanan \textit{email}, dan lain-lain. Pengguna Heroku dapat mencari \textit{add-ons} di situs web \textit{Elements Marketplace} (\url{https://elements.heroku.com/addons}). Beberapa \textit{add-ons} di dalam situs web tersebut disediakan oleh Heroku dan beberapa lainnya disediakan oleh pihak ketiga. Pengguna Heroku dapat memasang \textit{add-ons} pada aplikasi dengan menekan tombol "\texttt{Install}" di situs web \textit{Elements Marketplace} atau dengan mengetikkan perintah berikut pada \textit{command shell} :
+\begin{lstlisting}
+$ heroku addons:create <nama add-ons>:<tipe add-ons>
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<nama add-ons>} : nama \textit{add-ons}
+\item \texttt{<tipe add-ons>} : tipe \textit{add-ons}
+\end{itemize}
+Contoh:
+\begin{lstlisting}
+$ heroku addons:create heroku-redis:hobby-dev
+\end{lstlisting}
+
+Menambah \textit{add-ons} selain \textit{add-ons} Heroku Postgres dan Heroku Connect membutuhkan verifikasi akun.
+
+\subsubsection{\textit{Slug}}
+\textit{Slug} adalah gabungan dari \textit{source code}, \textit{dependency}, \textit{language runtime}, dan hasil \textit{build} yang siap untuk dijalankan. \textit{Slug} dibuat oleh \textit{buildpack} setiap pengguna melakukan \textit{deploy}. Ukuran maksimal \textit{slug} adalah 500 MB. Waktu pembuatan \textit{slug} dibatasi sampai 15 menit. Agar waktu pembuatan \textit{slug} lebih singkat, pengguna dapat mengecualikan \textit{file} yang tidak diperlukan untuk menjalankan aplikasi dengan menuliskannya di dalam \textit{file} \texttt{.slugignore}. \textit{File} \texttt{.slugignore} adalah \textit{file} yang menyebutkan \textit{file} yang harus diabaikan pada saat pembuatan \textit{slug}. \textit{File} ini diletakkan di direktori \texttt{root}. Cara penulisan \texttt{.slugignore} kurang lebih sama dengan \textit{.gitignore}. Contoh isi \texttt{.slugignore}:
 \begin{lstlisting}
 # Heres a comment
 *.psd
@@ -284,13 +307,7 @@ Contoh isi \texttt{.slugignore} :
 /spec
 \end{lstlisting}
 
-Ukuran slug dapat terlihat di akhir kompilasi (apabila kompilasi berhasil). Maksimum ukuran slug adalah 500 MB. Ukuran slug bervariasi berdasarkan bahasa atau \textit{framework} yang digunakan, banyak \textit{dependency} yang ditambahkan, dan faktor lain dari aplikasi. Slug yang ukurannya lebih kecil dapat ditransfer ke dyno manager dengan lebih cepat.
-
-\subsubsection{Buildpack}
-Buildpack bertanggung jawab untuk mengubah \textit{source code} menjadi slug, sehingga dyno dapat mengeksekusinya. Buildpack terdiri dari sekumpulan \textit{script} yang ditulis dalam bahasa pemrograman yang sama dengan \textit{source code}. Script tersebut akan mengambil \textit{dependency}, mengeluarkan aset atau kode yang sudah dikompilasi, dan sebagainya. Keluaran ini akan digabungkan ke dalam slug oleh slug compiler.
-
-Heroku memiliki sekumpulan \textit{officially supported buildpack} yang tersedia secara default untuk semua aplikasi Heroku selama kompilasi slug. Daftar \textit{officially supported buildpack} terdapat pada Gambar~\ref{fig:heroku-buildpack-table}. Kolom \texttt{Buildpack} menyatakan nama buildpack dan kolom \texttt{shorthand} menyatakan nama panggil buildpack saat di CLI.
-
+\subsubsection{\textit{Buildpack}}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[scale=0.5]{heroku-buildpack-table.png}  
@@ -298,228 +315,316 @@ Heroku memiliki sekumpulan \textit{officially supported buildpack} yang tersedia
 	\label{fig:heroku-buildpack-table} 
 \end{figure}
 
-Heroku akan mencari buildpack yang sesuai dan menggunakannya untuk mengompilasi aplikasi. Jika build sukses, buildpack yang sudah terdeteksi sesuai akan secara permanen diatur untuk push selanjutnya. Buildpack yang telah dimodifikasi dapat dipakai untuk mendukung bahasa atau framework yang tidak dapat di cakup oleh buildpack resmi.
+\textit{Buildpack} adalah kumpulan kode program yang bertugas untuk mengubah \textit{source code} menjadi \textit{slug}, sehingga \textit{dyno} dapat mengeksekusinya. Heroku biasanya akan secara otomatis menugaskan \textit{buildpack} yang akan dipakai setelah \textit{build} pertama berhasil. Daftar \textit{buildpack} yang tersedia di Heroku dapat dilihat pada Gambar~\ref{fig:heroku-buildpack-table}. Kolom \texttt{Buildpack} menyatakan nama \textit{buildpack} dan kolom \texttt{shorthand} menyatakan nama panggil \textit{buildpack} di Heroku CLI.
 
-Biasanya buildpack yang dipakai oleh aplikasi hanya satu, tapi ada beberapa kasus buildpack yang dipakai tidak cukup hanya satu. Beberapa kasus tersebut adalah :
+Jumlah \textit{buildpack} yang dipakai oleh satu aplikasi biasanya hanya satu, tapi ada beberapa kasus \textit{buildpack} yang dipakai lebih dari satu. Contoh kasus \textit{buildpack} tambahan dibutuhkan:
 \begin{itemize}
-\item Menjalankan buildpack untuk tiap bahasa pemrograman yang aplikasi gunakan. Contohnya, menjalankan JavaScript buildpack untuk aset dan buildpack Ruby untuk aplikasi.
-\item Menjalankan proses daemon seperti \texttt{pgbouncer} dengan aplikasi.
-\item Menarik \textit{dependency} sistem dengan apt.
+\item Satu aplikasi memiliki lebih dari satu bahasa pemrograman.
+\item Aplikasi menjalankan \textit{daemon}.
+\item Aplikasi membutuhkan \textit{dependency} yang diambil dengan \textit{APT (Advanced Package Tool)}.
 \end{itemize}
 
-Berikut adalah perintah-perintah dasar buildpack yang dapat diketikkan pada \textit{command shell} :
+\textit{Buildpack} dapat diatur dengan mengetikkan perintah di \textit{command shell} menggunakan Heroku CLI. Berikut daftar perintah yang berkaitan dengan \textit{buildpack} beserta fungsinya:
 \begin{itemize}
-\item Mengatur buildpack yang dipakai saat aplikasi pertama kali dibuat
+\item Mengatur \textit{buildpack} yang dipakai saat aplikasi pertama kali dibuat:
 \begin{lstlisting}
-
-	$ heroku create myapp --buildpack <nama buildpack>
-	
+$ heroku create myapp --buildpack <nama buildpack>
 \end{lstlisting}
-Keterangan :
+Keterangan:
 \begin{itemize}
-\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\item \texttt{<nama buildpack>}: nama panggil \textit{buildpack}, contoh: \texttt{heroku/php}.
+\end{itemize}
+\item Mengubah dengan mengatur nilai \textit{buildpack}:
+\begin{lstlisting}
+$ heroku buildpacks:set <nama buildpack>
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<nama buildpack>}: nama panggil \textit{buildpack}, contoh: \texttt{heroku/php}.
+\end{itemize}
+\item Menghilangkan \textit{buildpack} dari aplikasi:
+\begin{lstlisting}
+$ heroku buildpacks:remove <nama buildpack>
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<nama buildpack>}: nama panggil \textit{buildpack}, contoh: \texttt{heroku/php}.
+\end{itemize}
+\item Mencari buildpack:
+\begin{lstlisting}
+$ heroku buildpacks:search <kata kunci>
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<kata kunci>}: kata kunci pencarian, misalnya nama bahasa pemrograman. Contoh kata kunci: \texttt{elixir}.
+\end{itemize}
+\item Menampilkan informasi \textit{buildpack}:
+\begin{lstlisting}
+$ heroku buildpacks:info <nama buildpack>	
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<nama buildpack>}: nama panggil \textit{buildpack}, contoh: \texttt{heroku/php}.
+\end{itemize}
+\item Mengembalikan aplikasi ke \textit{buildpack} awalnya:
+\begin{lstlisting}
+$ heroku buildpacks:clear	
+\end{lstlisting}
+\item Mengatur urutan eksekusi \textit{buildpack}:
+\begin{lstlisting}
+$ heroku buildpacks:set --index <index> <nama buildpack>
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<index>}: urutan eksekusi \textit{buildpack}
+\item \texttt{<nama buildpack>}: nama panggil \textit{buildpack}, contoh : \texttt{heroku/php}.
+\end{itemize}
+\item Melihat daftar \textit{buildpack} yang dipakai pada satu aplikasi:
+\begin{lstlisting}
+$ heroku buildpacks
+\end{lstlisting}
 \end{itemize}
 
-Buildpack juga dapat secara eksplisit diatur di dalam app.json sehingga aplikasi yang dibuat menggunakan tombol Heroku dapat menggunakan buildpack yang telah dimodifikasi.
-
-\item Mengubah dengan mengatur nilai buildpack
-
+\subsubsection{\textit{Stack}}
+\textit{Stack} merujuk pada sistem operasi yang dikelola dan dipelihara oleh Heroku. \textit{Stack} biasanya memakai sistem operasi Linux, misalnya Ubuntu. Saat skripsi ini dibuat, Heroku menyediakan tiga pilihan \textit{stack}: \texttt{Cedar-14}, \texttt{Heroku-16}, dan \texttt{Heroku-18}. Perbandingan ketiga \textit{stack} tersebut dapat dilihat di Tabel~\ref{table:compare-stack}.
+\begin{center}
+	\begin{table}[H]
+	\caption{Tabel perbandingan antar \textit{stack}}
+	\label{table:compare-stack}
+	\begin{tabular}{|c|c|c|}
+	\hline
+	Nama \textit{stack} & Sistem Operasi yang dipakai & Periode dukungan\\
+	\hline
+	\texttt{Cedar-14} & Ubuntu 14.04 & Sampai bulan April 2019\\
+	\hline
+	\texttt{Heroku-16} & Ubuntu 16.04 & Sampai bulan April 2021\\
+	\hline
+	\texttt{Heroku-18} & Ubuntu 18.04 & Sampai bulan April 2023\\
+	\hline
+	\end{tabular}
+	\end{table}
+\end{center}
+Pengguna Heroku dapat melihat \textit{stack} yang dipakai pada suatu aplikasi dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku buildpacks:set <nama buildpack>
-	
+$ heroku stack
 \end{lstlisting}
-Keterangan :
+Pada saat aplikasi baru dibentuk, Heroku akan secara otomatis memakai \textit{stack} yang memiliki periode dukungan paling panjang. Namun, pengguna dapat mengganti \textit{stack} yang dipakai dengan mengetikkan perintah berikut pada \textit{command shell}:
+\begin{lstlisting}
+$ heroku stack:set <stack>
+\end{lstlisting}
+Keterangan:
 \begin{itemize}
-\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\item \texttt{<stack>}: nama \textit{stack}, contoh: \texttt{cedar-14}.
 \end{itemize}
 
-\item Menghilangkan buildpack dari aplikasi
+\subsubsection{\textit{Region}}
+Aplikasi yang ada di Heroku dapat disebarkan ke lokasi geografis yang berbeda. Pada heroku, lokasi penyebaran aplikasi disebut \textit{region}. \textit{Region} yang tersedia untuk pengguna Heroku yang merupakan perorangan adalah lokasi dengan \textit{runtime Common Runtime}, sedangkan \textit{region} yang tersedia untuk pengguna Heroku yang merupakan badan bisnis (Heroku Enterprise) adalah lokasi dengan \textit{runtime Private Space}. Pada saat skripsi ini dibuat, pengguna Heroku yang merupakan perorangan hanya dapat memilih antara \textit{Europe} (Eropa) dan \textit{United States} (Amerika Serikat). Apabila pengguna tidak memilih \textit{region} saat membuat aplikasi, maka Heroku akan secara otomatis mengatur \textit{region} menjadi \textit{United States}. Beberapa layanan yang disediakan untuk membangun aplikasi di Heroku hanya dapat digunakan di \textit{region} tertentu, sehingga pengguna lebih baik merencanakannya terlebih dahulu sebelum memilih \textit{region}.
 
-\begin{lstlisting}
-
-	$ heroku buildpacks:remove <nama buildpack>
-	
-\end{lstlisting}
-Keterangan :
+Berikut perintah-perintah penting yang berkaitan dengan \textit{region} yang dapat diketikkan pada \textit{command shell} :
 \begin{itemize}
-\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
-\end{itemize}
-
-\item Mencari buildpack
-
+\item Memeriksa \textit{region} yang tersedia di Heroku:
 \begin{lstlisting}
-
-	$ heroku buildpacks:search <kata kunci>
-	
+$ heroku regions
 \end{lstlisting}
-Keterangan :
+\item Mengatur \textit{region} aplikasi:
+\begin{lstlisting}
+$ heroku create --region <id region>
+\end{lstlisting}
+Keterangan:
 \begin{itemize}
-\item \texttt{<kata kunci>} : kata kunci pencarian, misalnya : bahasa pemrograman yang dipakai. Contoh : \texttt{elixir}.
+\item \texttt{<id region>}: \textit{id region} yang ingin dipakai, contoh: \texttt{eu}. \textit{Id region} bisa dilihat dengan memeriksa daftar region yang tersedia.
+\end{itemize}
+\item Memeriksa \textit{region} yang dipakai oleh aplikasi:
+\begin{lstlisting}
+$ heroku info
+\end{lstlisting}
 \end{itemize}
 
-\item Menampilkan informasi buildpack
-
+\subsubsection{\textit{Releases}}
+Setiap pengguna melakukan \textit{deploy}, merubah \textit{config vars}, dan merubah daftar \textit{add-ons} yang dipakai, Heroku akan mencatat aktivitas tersebut di \textit{releases}. \textit{Releases} adalah buku besar yang mencatat setiap ada perubahan baru pada aplikasi. \textit{Releases} berbentuk tabel yang memiliki empat kolom, yaitu \textit{"Rel", "Change", "By",} dan \textit{"When"}. Kolom"\textit{rel}" berisi versi aplikasi, kolom "\textit{Change}" berisi keterangan singkat perubahan yang terjadi, kolom "\textit{By}" berisi alamat \textit{email} pengguna yang melakukan perubahan, dan kolom "When" berisi waktu perubahan tersebut terjadi. Pengguna dapat melihat \textit{releases} dengan mengetikkan perintah berikut di \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku buildpacks:info <nama buildpack>
-	
+$ heroku releases
 \end{lstlisting}
-Keterangan :
+
+Berikut contoh isi \textit{releases}:
+\begin{lstlisting}
+Rel   Change                          By                    When
+----  ----------------------          ----------            ----------
+v52   Config add AWS_S3_KEY           jim@example.com       5 minutes ago
+v51   Deploy de63889                  stephan@example.com   7 minutes ago
+v50   Deploy 7c35f77                  stephan@example.com   3 hours ago
+v49   Rollback to v46                 joe@example.com       2010-09-12 15:32:17 -0700
+\end{lstlisting}
+
+Releases berguna ketika pengguna ingin mengembalikan aplikasi ke versi tertentu. Cara mengembalikan aplikasi ke versi tertentu adalah dengan mengetikkan perintah berikut pada \textit{command shell}:
+\begin{lstlisting}
+$ heroku releases:rollback <version>
+\end{lstlisting}
+Keterangan:
 \begin{itemize}
-\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\item \texttt{<version>}: Versi aplikasi
 \end{itemize}
 
-\item Mengembalikan aplikasi ke buildpack awalnya
-
+\subsubsection{\textit{Log}}
+\textit{Log} adalah catatan setiap proses yang terjadi di aplikasi. Heroku menggunakan Logplex untuk menyampaikan \textit{log} ini. Logplex akan secara otomatis menambahkan entri \textit{log} baru dari semua \textit{dyno} yang berjalan di aplikasi, dan juga komponen lain seperti \textit{router}. Pengguna dapat melihat \textit{log} dengan cara mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku buildpacks:clear
-	
+$ heroku logs
 \end{lstlisting}
 
-\item Mengatur urutan eksekusi buildpack
-
+Isi \textit{log} memiliki format sebagai berikut:
 \begin{lstlisting}
-
-	$ heroku buildpacks:set --index <index> <nama buildpack>
-
+<timestamp> <source>[<dyno>]: <message>
 \end{lstlisting}
-Keterangan :
+Keterangan:
 \begin{itemize}
-\item \texttt{<index>} : urutan eksekusi buildpack
-\item \texttt{<nama buildpack>} : nama panggil buildpack yang ingin dipakai, contoh : \texttt{heroku/php}.
+\item \texttt{<timestamp>}: Waktu \textit{log} dicatat dengan tingkat ketelitian hingga mikrodetik.
+\item \texttt{<source>}: Jika \textit{log} berasal dari \textit{dyno}, maka isinya adalah "\texttt{app}". Jika \textit{log} berasal dari komponen sistem Heroku (HTTP \textit{router, dyno manager}) maka isinya adalah "\texttt{heroku}".
+\item \texttt{dyno}: Nama \textit{dyno} atau komponen yang dicatat di \textit{log}.
+\item \texttt{message}: Keterangan \textit{log}.
 \end{itemize}
 
-\item Melihat daftar buildpack
-
+Berikut contoh isi \textit{log}:
 \begin{lstlisting}
-
-	$ heroku buildpacks
-
+2010-09-16T15:13:46.677020+00:00 app[web.1]: Processing PostController#list (for 208.39.138.12 at 2010-09-16 15:13:46) [GET]
+2010-09-16T15:13:46.677023+00:00 app[web.1]: Rendering template within layouts/application
+2010-09-16T15:13:46.677902+00:00 app[web.1]: Rendering post/list
+2010-09-16T15:13:46.678990+00:00 app[web.1]: Rendered includes/_header (0.1ms)
+2010-09-16T15:13:46.698234+00:00 app[web.1]: Completed in 74ms (View: 31, DB: 40) | 200 OK [http://myapp.heroku.com/]
+2010-09-16T15:13:46.723498+00:00 heroku[router]: at=info method=GET path="/posts" host=myapp.herokuapp.com" fwd="204.204.204.204" dyno=web.1 connect=1ms service=18ms status=200 bytes=975
+2010-09-16T15:13:47.893472+00:00 app[worker.1]: 2 jobs processed at 16.6761 j/s, 0 failed ...
 \end{lstlisting}
 
-\end{itemize}
-
-\subsubsection{Stack}
-Stack adalah sistem operasi yang dikelola dan dipelihara oleh Heroku. Stack biasanya berlandaskan distribusi dari Linux yang ada, seperti Ubuntu. \textit{Developer} dapat menentukan stack yang dipakai, dan buildpack akan mengubah \textit{source code} menjadi paket yang dapat dieksekusi dengan stack tersebut. Saat skripsi ini dibuat, Heroku menyediakan tiga stack : Cedar-14, Heroku-16, dan Heroku-18. Cedar-14 berbasis Ubuntu 14.04 dan didukung sampai bulan April tahun 2019. Heroku-16 berbasis Ubuntu 16.04 dan didukung sampai bulan April tahun 2021. Heroku-18 berbasis Ubuntu 18.04 dan didukung sampai bulan April tahun 2023. Semua buildpack dari Heroku dapat bekerja dengan ketiga stack tersebut, namun buildpack yang merupakan hasil modifikasi belum tentu dapat bekerja dengan semua stack.
-
-Untuk melihat stack yang dipakai oleh aplikasi, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell}:
-\begin{lstlisting}
-
-	$ heroku stack
-
-\end{lstlisting}
-
-Untuk mengganti stack yang dipakai, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell}:
-\begin{lstlisting}
-
-	$ heroku stack:set <stack>
-
-\end{lstlisting}
-Keterangan :
+Heroku mengelompokkan \textit{log} ke dalam empat kelompok:
 \begin{itemize}
-\item \texttt{<stack>} dapat diisi dengan \texttt{cedar-14}, \texttt{heroku-16}, atau \texttt{heroku-18}.
+\item \textit{App logs}
+
+\textit{Log} yang berasal dari aplikasi, termasuk \textit{log} yang dihasilkan oleh kode program dan \textit{dependency}. Pengguna dapat melihat \textit{app logs} dengan cara mengetikkan perintah berikut pada \textit{command shell}:
+\begin{lstlisting}
+$ heroku logs --source app
+\end{lstlisting}
+
+\item \textit{System Logs}
+
+\textit{Log} yang berisi pesan tentang tindakan yang diambil oleh infrastruktur Heroku mewakili aplikasi, misalnya: saat terjadi \textit{error}. Pengguna dapat melihat \textit{system logs} dengan cara mengetikkan perintah berikut pada \textit{command shell}:
+\begin{lstlisting}
+$ heroku logs --source heroku
+\end{lstlisting}
+
+\item \textit{API logs} 
+
+\textit{Log} yang berisi pesan tentang tindakan administratif yang diambil oleh pembuat aplikasi, misalnya: saat melakukan \textit{deploy}. Pengguna dapat melihat \textit{API logs} dengan cara mengetikkan perintah berikut pada \textit{command shell}:
+\begin{lstlisting}
+$ heroku logs --source app --dyno api
+\end{lstlisting}
+
+\item \textit{Add-on logs}
+
+\textit{Log} yang berisi pesan dari layanan \textit{add-ons}.
 \end{itemize}
 
-\subsubsection{Region}
-Aplikasi di dalam Heroku dapat disebarkan ke lokasi geografis yang berbeda. Lokasi yang tersedia untuk suatu aplikasi tergantung pada Runtime yang dipakai oleh aplikasi (Common Runtime atau Private Space). Untuk aplikasi yang memakai Common Runtime, \textit{developer} perlu menyebutkan region aplikasi saat membuat aplikasi. Untuk aplikasi yang memakai Private Space, region diatur saat membuat Private Space. Apabila \textit{developer} tidak menyebutkan region yang dipakai, maka region akan diisi secara otomatis sebagai \texttt{us} (apabila memakai Common Runtime) atau \texttt{virginia} (apabila memakai Private Spaces).
+Pengguna Heroku dapat menuliskan \textit{log} dengan cara megirimkan pesan ke \textit{standard out (stdout)} atau \textit{standard error (stderr)}. Cata mengirimkannya berbeda-beda tergantung bahasa pemrograman yang dipakai. Pada bahasa PHP, \textit{log} dapat dikirim dengan menggunakan fungsi "\texttt{error\_log}" atau menulis ke "\texttt{php://stderr}".
 
-Region berpengaruh terhadap add-ons. Apabila add-ons tidak tersedia di region yang sama dengan aplikasi, maka add-ons akan gagal terpasang. Region juga dapat mempengaruhi cara kerja SSL.
-
-Berikut perintah-perintah dasar region yang dapat diketikkan pada \textit{command shell} :
-\begin{itemize}
-\item Memeriksa region yang tersedia di Heroku
-
+Contoh penggunaan fungsi "\texttt{error\_log}":
 \begin{lstlisting}
-
-	$ heroku regions
-
+error_log("hello, this is a test!");
 \end{lstlisting}
 
-\item Mengatur region aplikasi
-
+Contoh menulis ke "\texttt{php://stderr}":
 \begin{lstlisting}
-
-	$ heroku create --region <id region>
-
-\end{lstlisting}
-Keterangan :
-\begin{itemize}
-\item \texttt{<id region>} : id region yang ingin dipakai, contoh : \texttt{eu}.Id region bisa dilihat dengan memeriksa daftar region yang tersedia.
-\end{itemize}
-
-\item Memeriksa region yang dipakai oleh aplikasi
-
-\begin{lstlisting}
-
-	$ heroku info
-
+file_put_contents("php://stderr", "hello, this is a test!\n");
 \end{lstlisting}
 
-\end{itemize}
+Apabila aplikasi menggunakan \textit{framework} Codeigniter, maka pembuat aplikasi perlu menambahkan \textit{file} \texttt{application/core/MY\_Log.php} dan mengatur "\texttt{sub-class prefix}" menjadi "\texttt{MY\_}". Isi \textit{file} tersebut adalah sebagai berikut:
 
-\subsubsection{Releases}
-Setiap ada deploy baru, perubahan di config vars, dan perubahan di daftar add-ons, Heroku akan membuat release baru dan memulai ulang aplikasi. Releases adalah buku besar yang mencatat setiap release tersebut. \textit{Developer} dapat melihat catatan releases ini dengan menggunakan perintah :
 \begin{lstlisting}
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-	$ heroku releases
+// this class is adapted from system/libraries/Log.php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP 5.1.6 or newer
+ *
+ * @package     CodeIgniter
+ * @author      EllisLab Dev Team
+ * @copyright       Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright       Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license     http://codeigniter.com/user_guide/license.html
+ * @link        http://codeigniter.com
+ * @since       Version 1.0
+ * @filesource
+ */
 
+// ------------------------------------------------------------------------
+
+/**
+ * Logging Class
+ *
+ * @package     CodeIgniter
+ * @subpackage  Libraries
+ * @category    Logging
+ * @author      EllisLab Dev Team
+ * @link        http://codeigniter.com/user_guide/general/errors.html
+ */
+class MY_Log {
+
+    protected $_threshold   = 1;
+    protected $_date_fmt    = 'Y-m-d H:i:s';
+    protected $_levels  = array('ERROR' => '1', 'DEBUG' => '2',  'INFO' => '3', 'ALL' => '4');
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $config =& get_config();
+
+        if (is_numeric($config['log_threshold']))
+        {
+            $this->_threshold = $config['log_threshold'];
+        }
+
+        if ($config['log_date_format'] != '')
+        {
+            $this->_date_fmt = $config['log_date_format'];
+        }
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+     * Write Log to php://stderr
+     *
+     * Generally this function will be called using the global log_message() function
+     *
+     * @param   string  the error level
+     * @param   string  the error message
+     * @param   bool    whether the error is a native PHP error
+     * @return  bool
+     */
+    public function write_log($level = 'error', $msg, $php_error = FALSE)
+    {
+        $level = strtoupper($level);
+
+        if ( ! isset($this->_levels[$level]) OR ($this->_levels[$level] > $this->_threshold))
+        {
+            return FALSE;
+        }
+
+        file_put_contents('php://stderr', $level.' '.(($level == 'INFO') ? ' -' : '-').' '.date($this->_date_fmt). ' --> '.$msg."\n");
+
+        return TRUE;
+    }
+
+}
+// END Log Class
+
+/* End of file MY_Log.php */
+/* Location: ./application/core/MY_Log.php */
 \end{lstlisting}
 
-Isi dari releases adalah satu atau lebih baris dari release yang tiap barisnya memiliki format : 
-\begin{lstlisting}
-
-	<versi deploy> Deploy <commit hash> <username \textit{developer}> <waktu deploy> 
-
-\end{lstlisting}
-
-Contoh isi releases :
-\begin{lstlisting}
-
-	== demoapp Releases
-	v103 Deploy 582fc95  jon@heroku.com   2013/01/31 12:15:35
-	v102 Deploy 990d916  jon@heroku.com   2013/01/31 12:01:12
-	
-\end{lstlisting}
-
-Releases ini berguna saat \textit{developer} ingin mengembalikan aplikasi ke deploy lama. Cara mengembalikan aplikasi ke deploy lama dengan mengetikkan perintah berikut pada \textit{command shell}:
-\begin{lstlisting}
-
-	$ heroku releases:rollback <version>
-
-\end{lstlisting}
-Keterangan :
-\begin{itemize}
-\item \texttt{<version>} : versi deploy
-\end{itemize}
-
-Contoh :
-\begin{lstlisting}
-
-	$ heroku releases:rollback v102
-
-\end{lstlisting}
-
-\subsubsection{Log}
-Log adalah catatan setiap proses yang terjadi di aplikasi. Heroku menggunakan Logplex untuk menyampaikan log ini. Logplex akan secara otomatis menambahkan entri log baru dari semua dyno yang berjalan di aplikasi, dan juga komponen lain seperti router. \textit{Developer} dapat memeriksa log dengan cara mengetikkan perintah berikut pada \textit{command shell}:
-\begin{lstlisting}
-
-	$ heroku logs
-
-\end{lstlisting}
-
-Contoh isi log adalah :
-\begin{lstlisting}
-
-	2013-02-11T15:19:10+00:00 heroku[router]: at=info method=GET path=/articles/custom-domains host=mydemoapp.heroku.com fwd=74.58.173.188 dyno=web.1 queue=0 wait=0ms connect=0ms service=1452ms status=200 bytes=5783
-	2013-02-11T15:19:10+00:00 app[web.2]: Started GET "/" for 1.169.38.175 at 2013-02-11 15:19:10 +0000
-	2013-02-11T15:19:10+00:00 app[web.1]: Started GET "/" for 2.161.132.15 at 2013-02-11 15:20:10 +0000
-
-\end{lstlisting}
-
-\subsection{Deploy Perangkat Lunak}
-Heroku menggunakan Git sebagai sarana  utama untuk melakukan deploy aplikasi. Deploy adalah proses penyebaran aplikasi dari satu lingkungan ke lingkungan lain, misalnya dari lingkungan mesin \textit{developer} aplikasi ke lingkungan heroku. Namun, Heroku juga menyediakan cara lain untuk melakukan deploy :
+\subsection{\textit{Deploy} Perangkat Lunak}
+Heroku menggunakan Git sebagai sarana  utama untuk melakukan \textit{deploy} ke Heroku. Deploy adalah proses penyebaran aplikasi dari satu lingkungan ke lingkungan lain, misalnya dari lingkungan lokal aplikasi ke lingkungan Heroku. Namun, Heroku juga menyediakan cara lain untuk melakukan \textit{deploy}:
 \begin{itemize}
 \item Docker
 \item GitHub
@@ -527,126 +632,103 @@ Heroku menggunakan Git sebagai sarana  utama untuk melakukan deploy aplikasi. De
 \item WAR deployment
 \end{itemize}
 
-\subsubsection{Deploy Menggunakan Git}
-Untuk melakukan deploy menggunakan Git, \textit{developer} harus sudah memasang Git. \textit{Developer} dapat mengikuti petunjuk unduhan pada \url{https://git-scm.com}. Sebelum \textit{developer} dapat melakukan deploy dengan Git, \textit{developer} perlu menginisialisasi git. Berikut perintah-perintah yang harus dijalankan pada \textit{command shell} :
+\subsubsection{\textit{Deploy} Menggunakan Git}
+\textit{Deploy} dengan Git dapat dilakukan apabila Git telah terpasang. Git dapat dipasang dengan mengikuti petunjuk unduhan pada \url{https://git-scm.com}. Sebelum \textit{deploy} dengan Git dapat dilakukan, Git perlu diinisialisasi terlebih dahulu dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
-
-	$ git init
-	$ git add .
-	$ git commit -m "<message>"
-
+$ git init
 \end{lstlisting}
-Keterangan :
+
+Setelah melakukan inisialisasi Git, aplikasi Heroku dapat dibuat. Setiap aplikasi Heroku dibuat, maka \texttt{git remote} secara otomatis juga dibuat. Nama \textit{remote} dapat diperiksa dengan mengetikkan perintah berikut pada \textit{command shell} :
+\begin{lstlisting}
+$ git remote
+\end{lstlisting}
+
+Nama \textit{remote} dapat diubah dengan mengetikkan perintah berikut pada \textit{command shell} :
+\begin{lstlisting}
+$ git remote rename <nama lama> <nama baru>
+\end{lstlisting}
+Keterangan:
 \begin{itemize}
-\item \texttt{<message>} : pesan yang mewakili commit.
+\item \texttt{<nama lama>}: nama \textit{remote} yang ingin diganti.
+\item \texttt{<nama baru>}: nama baru untuk \textit{remote} tersebut.
 \end{itemize}
 
-Setelahnya, \textit{developer} dapat membuat aplikasi Heroku. Setiap aplikasi Heroku dibuat, maka \texttt{git remote} secara otomatis juga dibuat. \textit{Developer} dapat memeriksanya dengan mengetikkan perintah berikut pada \textit{command shell} :
+Deploy dapat dimulai dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
-
-	$ git remote // Untuk daftar nama remote saja
-	$ git remote -v // Untuk informasi yang lebih detail
-
-\end{lstlisting}
-
-Untuk mengubah nama remote, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell} :
-\begin{lstlisting}
-
-	$ git remote rename <nama lama> <nama baru>
-
+$ git add <nama file>
+$ git commit -m "<message>"
+$ git push <nama remote> <nama branch>
 \end{lstlisting}
 Keterangan :
 \begin{itemize}
-\item \texttt{<nama lama>} : nama remote yang ingin diganti.
-\item \texttt{<nama baru>} : nama baru untuk remote tersebut.
-\end{itemize}
-
-Untuk melakukan deploy, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell} :
-\begin{lstlisting}
-
-	$ git push <nama remote> <nama branch>
-
-\end{lstlisting}
-Keterangan :
-\begin{itemize}
+\item \texttt{<nama file>}: nama \textit{file} yang telah diubah. Menulis tanda titik untuk nama \textit{file} mewakili semua \textit{file} yang telah berubah.
+\item \texttt{<message>}: pesan yang menerangkan hal yang ingin disebar.
 \item \texttt{<nama remote>} : nama remote dari tujuan deploy. Bila \textit{developer} tidak mengubah nama remote, nama remotenya adalah \texttt{heroku}. 
 \item \texttt{<nama branch>} : nama cabang dari tujuan deploy. Heroku secara otomatis membuat satu cabang bernama \texttt{master}.
 \end{itemize}
 
-\subsubsection{Deploy Menggunakan Docker}
-Untuk melakukan deploy menggunakan Docker, \textit{developer} harus sudah memasang Docker dan telah masuk ke akun Heroku (\texttt{heroku login}). Setelah itu, \textit{developer} harus mengikuti langkah-langkah ini :
+\subsubsection{\textit{Deploy} Menggunakan Docker}
+\textit{Deploy} dengan Docker dapat dilakukan apabila Docker telah terpasang dan pengguna Heroku telah masuk ke akun Heroku. Langkah-langkah untuk melakukan \textit{deploy} menggunakan Docker adalah sebagai berikut:
 \begin{itemize}
-\item Masuk ke Container Registry
+\item Masuk ke \textit{Container Registry} dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku container:login
-
+$ heroku container:login
 \end{lstlisting}
 
-\item Clone source code contoh dari Alpine
+\item \textit{Clone source code} contoh dari Alpine dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ git clone https://github.com/heroku/alpinehelloworld.git
-
+$ git clone https://github.com/heroku/alpinehelloworld.git
 \end{lstlisting}
 
-\item Membuat aplikasi Heroku baru
+\item Membuat aplikasi Heroku baru dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku create
-
+$ heroku create
 \end{lstlisting}
 
-\item Membangun image dan melakukan deploy ke Container Registry
+\item Membangun \textit{image} dan melakukan \textit{deploy} ke \textit{Container Registry} dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku container:push web
-
+$ heroku container:push web
 \end{lstlisting}
 
-\item Melepaskan image ke aplikasi
+\item Melepaskan \textit{image} ke aplikasi dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku container:release web
-
+$ heroku container:release web
 \end{lstlisting}
-\item Membuka aplikasi
+
+\item Membuka aplikasi dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-
-	$ heroku open
-
+$ heroku open
 \end{lstlisting}
 \end{itemize}
 
-\subsubsection{Deploy Menggunakan GitHub}
+\subsubsection{\textit{Deploy} Menggunakan GitHub}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[scale=0.5]{deploy-github-dashboard.jpg}  
-	\caption[Deploy menggunakan Github Dashboard]{Deploy menggunakan Github Dashboard} 
+	\caption[\textit{Deploy} menggunakan Github \textit{Dashboard}]{\textit{Deploy} menggunakan Github \textit{Dashboard}} 
 	\label{fig:deploy-github-dashboard} 
 \end{figure}
-Deploy dengan cara ini membuat Heroku dapat dengan otomatis melakukan deploy ke GitHub apabila build berhasil. \textit{Developer} perlu mengaktifkan GitHub integration terlebih dahulu sebelum dapat melakukan deploy. Setelah itu, \textit{developer} harus melakukan autentikasi dengan akun GitHub. Autentikasi ini hanya perlu dilakukan satu kali per satu akun Heroku. Setelah itu, \textit{developer} dapat memilih repository yang ingin disambungkan dengan aplikasi Heroku (Gambar~\ref{fig:deploy-github-dashboard}).
+\textit{Deploy} dengan cara ini membuat Heroku melakukan \textit{deploy} secara otomatis ke GitHub apabila \textit{build} berhasil. \textit{Deploy} ini dapat dilakukan apabila GitHub \textit{integration} telah aktif dan akun Github telah terautentikasi pada Heroku. Autentikasi ini hanya perlu dilakukan satu kali per satu akun Heroku. Setelah kedua hal tersebut telah siap, sambungkan \textit{repository} Github dengan aplikasi Heroku. (Gambar~\ref{fig:deploy-github-dashboard}).
 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[scale=0.5]{deploy-github-manual.jpg}  
-	\caption[Deploy menggunakan Github secara manual]{Deploy menggunakan Github secara manual} 
+	\caption[\textit{Deploy} menggunakan Github secara manual]{\textit{Deploy} menggunakan Github secara manual} 
 	\label{fig:deploy-github-manual} 
 \end{figure}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[scale=0.5]{deploy-github-automatic.jpg}  
-	\caption[Deploy menggunakan Github secara otomatis]{Deploy menggunakan Github secara otomatis} 
+	\caption[\textit{Deploy} menggunakan Github secara otomatis]{\textit{Deploy} menggunakan Github secara otomatis} 
 	\label{fig:deploy-github-automatic} 
 \end{figure}
-Ada dua cara untuk melakukan deploy, yaitu secara manual dan secara otomatis. Untuk cara manual, \textit{developer} melakukan deploy dari GitHub (Gambar~\ref{fig:deploy-github-manual}). Untuk cara otomatis, \textit{developer} harus mengaktifkan "Automatic deploys from GitHub" (Gambar~\ref{fig:deploy-github-automatic}).
+Ada dua cara untuk melakukan deploy, yaitu secara manual dan secara otomatis. Untuk cara manual, \textit{deploy} dilakukan dari GitHub (Gambar~\ref{fig:deploy-github-manual}). Untuk cara otomatis, \textit{deploy} dilakukan dengan mengaktifkan "\textit{Automatic deploys from GitHub}" (Gambar~\ref{fig:deploy-github-automatic}).
 
-\subsubsection{Deploy Langsung di situs Heroku}
-Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy aplikasi tanpa meninggalkan situs Heroku dan hampir tidak memerlukan konfigurasi. Penggunaan tombol ini ideal untuk pelanggan, dan pemelihara proyek yang bersifat open-source. Sebelum dapat melakukan deploy dengan cara ini, aplikasi harus memiliki dokumen \texttt{app.json} yang sah di direktori root, dan source code aplikasi harus berada di repository GitHub.
+\subsubsection{Deploy Langsung di situs web Heroku}
+Pada situs web Heroku, tombol "\textit{Deploy to Heroku}" memungkinkan pengguna untuk melakukan deploy aplikasi tanpa meninggalkan situs web Heroku. Cara ini hampir tidak memerlukan konfigurasi. Sebelum dapat melakukan \textit{deploy} dengan cara ini, aplikasi harus memiliki \textit{file} \texttt{app.json} yang sah pada direktori \texttt{root}, dan \textit{source code} aplikasi harus berada di \textit{repository} GitHub.
 
-\texttt{app.json} adalah dokumen berisi deskripsi aplikasi web. Isinya dapat berupa environment variable, add-ons, dan informasi lain yang diperlukan untuk menjalankan aplikasi pada Heroku. Heroku tidak mewajibkan \textit{developer} menuliskan informasi tertentu, tapi Heroku merekomendasikan untuk setidaknya menuliskan nama aplikasi(\texttt{name}), deskripsi aplikasi (\texttt{description}), dan logo aplikasi (\texttt{logo}). Berikut contoh isi dari \texttt{app.json} :
+\texttt{app.json} adalah \textit{file} berisi deskripsi aplikasi \textit{web}. Isinya dapat berupa \textit{environment variable, add-ons}, dan informasi lain yang diperlukan untuk menjalankan aplikasi pada Heroku. Heroku tidak mewajibkan penulisan informasi tertentu, tapi Heroku merekomendasikan untuk setidaknya menuliskan nama aplikasi(\texttt{name}), deskripsi aplikasi (\texttt{description}), dan logo aplikasi (\texttt{logo}). Berikut contoh isi dari \texttt{app.json} :
 \begin{lstlisting}
-
 {
   "name": "Node.js Sample",
   "description": "A barebones Node.js app using Express 4",
@@ -654,13 +736,28 @@ Tombol "Deploy to Heroku" memungkinkan pengguna untuk melakukan deploy aplikasi 
   "logo": "https://node-js-sample.herokuapp.com/node.png",
   "keywords": ["node", "express", "static"]
 }
-
 \end{lstlisting}
 
-\subsubsection{WAR Deployment}
-WAR (Web Application ARchive) adalah jenis dokumen arsip yang digunakan untuk membungkus aplikasi web. Dokumen ini dapat berisi halaman web statis, dokumen XML, dan lain-lain. \cite{etzkorn2017introduction}
- 
-Heroku mendukung deploy dokumen WAR melalui Git deployment dan melalui Heroku Maven plugin. Setelan standar server untuk keduanya adalah Tomcat 8.
+\subsubsection{\textit{WAR Deployment}}
+\textit{WAR (Web Application Archive)} adalah jenis \textit{file} arsip yang digunakan untuk membungkus aplikasi \textit{web}. Dokumen ini dapat berisi halaman \textit{web} statis, \textit{file} XML, dan lain-lain. \cite{etzkorn2017introduction}
+
+\textit{WAR deployment} dapat dilakukan menggunakan \textit{plugin} Heroku Java CLI Plugin. Pemasangan dan pembaruan \textit{plugin} ini dapat dilakukan dengan mengetikkan perintah berikut pada \textit{command shell}:
+\begin{lstlisting}
+heroku plugins:install java
+\end{lstlisting}
+
+\textit{Deploy} dapat dilakukan dengan mengetikkan perintah berikut pada \textit{command shell}:
+\begin{lstlisting}
+heroku war:deploy <path_to_war_file> --app <app_name>
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<path\_to\_war\_file>}: letak \textit{file} WAR.
+\item \texttt{<app\_name>}: nama aplikasi.
+\end{itemize}
+
+\subsection{\textit{Ephemereal Filesystem}}
+Heroku memiliki \textit{ephemereal filesystem}, yang berarti perubahan apapun pada \textit{file} di lingkungan Heroku tidak akan disimpan secara permanen. Kondisi \textit{file} di Heroku akan selalu dikembalikan ke \textit{deploy baru}. Perubahan \textit{file} hanya akan bertahan paling lama satu hari. Kondisi ini membuat aplikasi di Heroku membutuhkan layanan dari pihak ketiga untuk menyimpan hasil unggahan pengguna aplikasi.
 
 \subsection{Basis Data dan Manajemen Data}
 Heroku menyediakan tiga layanan data untuk semua pelanggan :
@@ -669,30 +766,28 @@ Heroku menyediakan tiga layanan data untuk semua pelanggan :
 \item Heroku Redis
 \item Apache Kafka
 \end{itemize}
-Heroku juga menyediakan pilihan lain untuk pelanggan Heroku Enterprise, yaitu Heroku Connect. Selain itu, Heroku juga memungkinkan penggunaan layanan data dari pihak ketiga. Layanan data dari pihak ketiga ini tersedia sebagai add-ons.
+Heroku juga menyediakan pilihan lain untuk pengguna Heroku Enterprise, yaitu Heroku Connect. Selain itu, Heroku juga memungkinkan penggunaan layanan data dari pihak ketiga. Layanan data dari pihak ketiga ini tersedia sebagai add-ons.
 
 \subsubsection{Heroku Postgres}
-Heroku Postgres adalah basis data SQL yang disediakan secara langsung oleh Heroku. Heroku Postgres dapat diakses oleh bahasa apapun dengan PostgreSQL driver. Heroku secara otomatis menambahkan add-ons Heroku Postgres setiap aplikasi dibuat, sehingga \textit{developer} tidak perlu menambahkannya secara manual. Namun, \textit{developer} dapat menambahkannya secara manual, dengan mengetikkan perintah berikut pada \textit{command shell} :
+Heroku Postgres adalah basis data SQL yang disediakan secara langsung oleh Heroku. Heroku Postgres dapat diakses oleh bahasa apapun dengan PostgreSQL \textit{driver}. Heroku secara otomatis membuat satu basis data menggunakan \textit{add-ons} Heroku Postgres setiap aplikasi dibuat. Perintah berikut dapat diketikkan pada \textit{command shell} apabila ingin menambah basis data baru:
 \begin{lstlisting}
-	
-	$ heroku addons:create heroku-postgresql:<PLAN_NAME>
-	
+$ heroku addons:create heroku-postgresql:<PLAN_NAME>
 \end{lstlisting}
 Keterangan :
 \begin{itemize}
-\item \texttt{<PLAN\_NAME>} : nama plan Heroku Postgres yang ingin dipakai. Heroku secara otomatis menggunakan Heroku Postgres tipe \texttt{hobby-dev}.
+\item \texttt{<PLAN\_NAME>} : nama \textit{plan} Heroku Postgres yang ingin dipakai. Heroku secara otomatis menggunakan Heroku Postgres tipe \texttt{hobby-dev}.
 \end{itemize}
 
-Heroku Postgres memiliki lima plan :
+Heroku menawarkan lima \textit{plan} untuk Heroku Postgres, yaitu:
 \begin{itemize}
-\item Hobby Tier : untuk aplikasi dengan toleransi gagal bekerja sampai 4 jam per bulan.
-\item Standard Tier : untuk aplikasi dengan toleransi gagal bekerja sampai 1 jam per bulan.
-\item Premium Tier : untuk aplikasi dengan toleransi gagal bekerja sampai 15 menit per bulan.
-\item Private Tier : untuk pengguna Heroku Enterprise, memiliki toleransi gagal bekerja sampai 15 menit per bulan.
-\item Shield Tier : untuk pengguna Heroku Enterprise yang menginginkan basis data yang compliance-capable, memiliki toleransi gagal bekerja sampai 15 menit per bulan.
+\item Hobby Tier: \textit{plan} dengan toleransi gagal bekerja sampai 4 jam per bulan.
+\item Standard Tier: \textit{plan} dengan toleransi gagal bekerja sampai 1 jam per bulan.
+\item Premium Tier: \textit{plan} dengan toleransi gagal bekerja sampai 15 menit per bulan.
+\item Private Tier: \textit{plan} yang dapat dipilih oleh pengguna Heroku \textit{Enterprise}, memiliki toleransi gagal bekerja sampai 15 menit per bulan.
+\item Shield Tier : \textit{plan} yang dapat dipilih oleh pengguna Heroku \textit{Enterprise}, memiliki toleransi gagal bekerja sampai 15 menit per bulan. Kelebihannya daripada \textit{Private Tier} adalah basis data ini memiliki keamanan yang lebih ketat.
 \end{itemize}
 
-Gambar~\ref{fig:heroku-postgres-plan-table} menunjukkan tabel perbedaan antara plan. Hanya plan Hobby yang gratis. Plan lain memiliki harga yang bervariasi berdasarkan ukuran RAM, batas penyimpanan, dan batas koneksi yang bisa dibuat.
+Gambar~\ref{fig:heroku-postgres-plan-table} menunjukkan tabel perbandingan antar \textit{plan}. Di antara lima \textit{plan} Heroku Postgres, hanya \textit{plan Hobby} yang gratis. \textit{Plan} lain memiliki harga yang bervariasi berdasarkan ukuran RAM, batas penyimpanan, dan batas koneksi yang bisa dibuat.
 \begin{figure}[H]
 	\centering  
 	\includegraphics[scale=0.5]{heroku-postgres-plan-table.png}  
@@ -700,349 +795,317 @@ Gambar~\ref{fig:heroku-postgres-plan-table} menunjukkan tabel perbedaan antara p
 	\label{fig:heroku-postgres-plan-table} 
 \end{figure}
 
-Semua plan memiliki fitur yang sama :
+Semua \textit{plan} memiliki fitur yang sama:
 \begin{itemize}
-\item Dapat mengelola layanan basis data secara menyeluruh dengan fitur \textit{automatic health checks}
-\item Write-ahead log (WAL) menjauh dari tempat penyimpanan setiap 60 detik, memastikan resiko kehilangan data dan kesalahan lainnya seminimal mungkin
-\item Backup basis data harian menggunakan PG Backups (opsional, tapi gratis)
-\item Dataclips untuk berbagi data dan query yang mudah dan aman
-\item Akses psql/libpq dengan SSL-protected
-\item Menjalankan Postgres 9.4, 9.5, 9.6, atau 10 tanpa modifikasi
-\item Ekstensi Postgres
-\item Fitur web UI (\url{https://data.heroku.com/})
+\item Dikelola secara otomatis oleh Heroku.
+\item Data dijamin tidak akan hilang.
+\item Dapat melakukan \textit{backup} basis data secara harian menggunakan Heroku PGBackups.
+\item Dapat menggunakan layanan Dataclips (\url{https://data.heroku.com/dataclips}) untuk berbagi data dan \textit{query}.
+\item Akses basis data diproteksi dengan SSL.
+\item Menjalankan Postgres versi 9.4, 9.5, 9.6, atau 10 tanpa modifikasi
+\item Tersedia ekstensi Postgres
+\item Memiliki tampilan \textit{web} yang dapat diakses pada situs web \url{https://data.heroku.com/}
 \end{itemize}
 
 \textit{Developer} juga dapat menambahkan versi yang ingin dipakai dengan cara menambahkan \texttt{--version} di belakang perintah tersebut, contoh :
 \begin{lstlisting}
-	
-	$ heroku addons:create heroku-postgresql:<PLAN_NAME--version=9.5
-	
+$ heroku addons:create heroku-postgresql:<PLAN_NAME--version=9.5
 \end{lstlisting}
 Secara otomatis, Heroku menggunakan versi paling baru dari Heroku Postgres. Saat skripsi ini ditulis, versi terbaru adalah versi 10.
 
-Setelah dipasang, Heroku akan secara otomatis menambahkan config var \texttt{DATABASE\_URL} ke aplikasi. Apabila Heroku Postgres yang dipakai ada lebih dari satu, nama config var akan menjadi \texttt{HEROKU\_POSTGRESQL\_<COLOR>\_URL} dengan <COLOR> adalah nama warna yang dihasilkan secara acak. Contoh : \texttt{HEROKU\_POSTGRESQL\_<BLUE>\_URL}.
+Setelah dipasang, Heroku akan secara otomatis menambahkan \textit{config vars} \texttt{DATABASE\_URL} ke aplikasi. Apabila Heroku Postgres yang dipakai ada lebih dari satu, nama \textit{config vars} akan menjadi \texttt{HEROKU\_POSTGRESQL\_<COLOR>\_URL} dengan <COLOR> adalah nama warna yang dihasilkan secara acak oleh Heroku. Contoh: \texttt{HEROKU\_POSTGRESQL\_<BLUE>\_URL}.
 
-Apabila \textit{developer} menggunakan lebih dari satu basis data, \textit{developer} dapat mengatur basis data utama. Basis data utama dapat diatur dengan mengetikkan perintah berikut pada \textit{command shell} :
+Apabila basis data yang digunakan lebih dari satu, basis data utama dapat diatur dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-	
-	$ heroku pg:promote <database_url>
-	
+$ heroku pg:promote <database_url>	
 \end{lstlisting}
-Keterangan :
+Keterangan:
 \begin{itemize}
-\item \texttt{<database\_url>} : url dari basis data.
+\item \texttt{<database\_url>}: URL dari basis data.
 \end{itemize}
 
-Apabila \textit{developer} ingin berbagi Heroku Postgres kepada banyak aplikasi, \textit{developer} dapat mengetikkan perintah berikut pada \textit{command shell} : 
+Apabila pengguna Heroku ingin berbagi Heroku Postgres kepada banyak aplikasi, pengguna Heroku dapat mengetikkan perintah berikut pada \textit{command shell} : 
 \begin{lstlisting}
-
-	$ heroku addons:attach <originating_app>::DATABASE --app <receiver-app>
-	
+$ heroku addons:attach <originating_app>::DATABASE --app <receiver-app>	
 \end{lstlisting}
-Keterangan :
+Keterangan:
 \begin{itemize}
-\item \texttt{<originating\_app>} : nama aplikasi yang memiliki basis data yang ingin dibagi ke aplikasi lain. 
-\item \texttt{<receiver-app>} : nama aplikasi yang akan menerima basis data dari aplikasi lain.
+\item \texttt{<originating\_app>}: nama aplikasi yang memiliki basis data yang ingin dibagi ke aplikasi lain. 
+\item \texttt{<receiver-app>}: nama aplikasi yang akan menerima basis data dari aplikasi lain.
 \end{itemize}
 
-\textit{Developer} dapat berhenti berbagi basis data dengan mengetikkan perintah berikut pada \textit{command shell} :
+Pengguna Heroku dapat berhenti berbagi basis data dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
-
-	$ heroku addons:detach <database_url> --app <application_name>
-
+$ heroku addons:detach <database_url> --app <application_name>
 \end{lstlisting}
-Keterangan :
+Keterangan:
 \begin{itemize}
-\item \texttt{<database\_url>} : url dari basis data
-\item \texttt{<application\_name>} : nama aplikasinya.
+\item \texttt{<database\_url>}: URL dari basis data
+\item \texttt{<application\_name>}: nama aplikasinya.
 \end{itemize}
 
 Berikut adalah perintah-perintah dasar dari Heroku Postgres yang dapat diketikkan pada \textit{command shell}:
 \begin{itemize}
-\item Melihat semua basis data milik aplikasi dan karakteristiknya
-
+\item Melihat semua basis data milik aplikasi dan karakteristiknya:
 \begin{lstlisting}
-
-	$ heroku pg:info
-
+$ heroku pg:info
 \end{lstlisting}
 
-\item Mengawasi status basis data secara terus menerus
-
+\item Mengawasi status basis data secara terus menerus:
 \begin{lstlisting}
-
-	$ watch heroku pg:info
-
+$ watch heroku pg:info
 \end{lstlisting}
 
-\item Mengadakan sesi \texttt{psql} dengan basis data
-
+\item Mengadakan sesi \texttt{psql} dengan basis data:
 \begin{lstlisting}
-
-	$ heroku pg:psql
-
+$ heroku pg:psql
 \end{lstlisting}
 atau
 \begin{lstlisting}
-
-	$ heroku pg:psql <database_name>
-
+$ heroku pg:psql <database_name>
 \end{lstlisting}
-Keterangan :
+Keterangan:
 \begin{itemize}
-\item \texttt{<database\_name>} diisi dengan nama basis data atau cukup warna basis data (misal : \texttt{gray}).
+\item \texttt{<database\_name>} diisi dengan nama basis data atau cukup warna basis data, misalnya \texttt{gray}).
 \end{itemize}
 
-\item Menarik data dari basis data Heroku Postgres ke basis data di mesin lokal
+\item Menarik data dari basis data Heroku Postgres ke basis data di mesin lokal:
 
 \begin{lstlisting}
-
-	$ heroku pg:pull
-
+$ heroku pg:pull
 \end{lstlisting}
 
-\item Memasukkan data dari basis data di mesin lokal ke basis data di Heroku Postgres
+\item Memasukkan data dari basis data di mesin lokal ke basis data di Heroku Postgres:
 
 \begin{lstlisting}
-
-	$ heroku pg:push <nama_db_lokal> <nama_db_heroku> --app <nama_aplikasi>
-
+$ heroku pg:push <nama_db_lokal> <nama_db_heroku> --app <nama_aplikasi>
 \end{lstlisting}
-
-\item Melihat daftar query yang berjalan
-
-\begin{lstlisting}
-
-	$ heroku pg:ps
-	// Contoh hasil :
-	procpid |         source            |   running_for   | waiting |         query
-	---------+---------------------------+-----------------+---------+-----------------------
-	   31776 | psql                      | 00:19:08.017088 | f       | <IDLE> in transaction
-	   31912 | psql                      | 00:18:56.12178  | t       | select * from hello;
-	   32670 | Heroku Postgres Data Clip | 00:00:25.625609 | f       | BEGIN READ ONLY; select 'hi'
-	(3 rows)
-	
-\end{lstlisting}
-
-\item Menghentikan query yang berjalan
-
-\begin{lstlisting}
-
-	$ heroku pg:kill <procpid>
-
-\end{lstlisting}
-
-\item Menghentikan query yang berjalan secara paksa
-
-\begin{lstlisting}
-
-	$ heroku pg:kill --force <procpid>
-
-\end{lstlisting}
-
-\item Menghentikan semua query yang berjalan
-
-\begin{lstlisting}
-
-	$ heroku pg:killall
-
-\end{lstlisting}
-
-\item Menghapus semua data di dalam basis data
-
-\begin{lstlisting}
-
-	$ heroku pg:reset <nama database>
-
-\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<nama\_db\_lokal>}: nama basis data di lingkungan lokal.
+\item \texttt{<nama\_db\_heroku>}: nama basis data di lingkungan Heroku.
 \end{itemize}
 
-Basis data Heroku Postgres dapat diakses secara langsung oleh komputer. Informasi yang dibutuhkan untuk mengakses data dari komputer dapat dilihat dengan mengetikkan perintah :
-\begin{lstlisting}
+\item Melihat daftar \textit{query} yang berjalan:
 
-	$ heroku pg:credentials DATABASE
-	
+\begin{lstlisting}
+$ heroku pg:ps
+\end{lstlisting}
+
+\item Menghentikan \textit{query} yang berjalan:
+
+\begin{lstlisting}
+$ heroku pg:kill <procpid>
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<procpid>}: id \textit{query}, didapat dari melihat daftar \textit{query} yang berjalan.
+\end{itemize}
+
+\item Menghentikan query yang berjalan secara paksa:
+
+\begin{lstlisting}
+$ heroku pg:kill --force <procpid>
+\end{lstlisting}
+Keterangan:
+\begin{itemize}
+\item \texttt{<procpid>}: id \textit{query}, didapat dari melihat daftar \textit{query} yang berjalan.
+\end{itemize}
+
+\item Menghentikan semua query yang berjalan:
+
+\begin{lstlisting}
+$ heroku pg:killall
+\end{lstlisting}
+
+\item Menghapus semua data di dalam basis data:
+
+\begin{lstlisting}
+$ heroku pg:reset <database\_name>
+\end{lstlisting}
+\end{itemize}
+Keterangan:
+\begin{itemize}
+\item \texttt{<database\_name>} diisi dengan nama basis data atau cukup warna basis data, misalnya \texttt{gray}).
+\end{itemize}
+
+Basis data Heroku Postgres dapat diakses secara langsung menggunakan aplikasi pihak ketiga, misalnya PGAdmin. Informasi yang dibutuhkan untuk dapat terkoneksi basis data menggunakan aplikasi tersebut didapatkan dengan mengetikkan perintah :
+\begin{lstlisting}
+$ heroku pg:credentials DATABASE	
 \end{lstlisting}
 atau
 \begin{lstlisting}
-
-	$ heroku config | grep HEROKU_POSTGRESQL
-	
+$ heroku config | grep HEROKU_POSTGRESQL	
 \end{lstlisting}
-Pada saat akan melakukan koneksi langsung di komputer, \textit{developer} harus memastikan pengaturan \texttt{sslmode=require} pada pengaturan SSL.
+Pada saat akan melakukan koneksi ke basis data, pengaturan SSL harus diatur ke \texttt{sslmode=require}.
 
 \subsubsection{Heroku Redis}
-Heroku Redis adalah basis data berbasis \textit{key-value store} yang bersifat \textit{in-memory}. Heroku dijalankan oleh Heroku dan dikelola sebagai add-on Heroku Redis dapat diakses oleh bahasa apapun dengan Redis driver. Cara memasang add-on Heroku Redis pada \textit{command shell}:
+Heroku Redis adalah basis data berbasis \textit{key-value store} yang bersifat \textit{in-memory}. Heroku Redis dapat diakses oleh bahasa apapun dengan \textit{Redis driver}. Cara memasang \textit{add-ons} Heroku Redis pada \textit{command shell}:
 \begin{lstlisting}
-	
-	$ heroku addons:create heroku-redis: <PLAN_NAME>
-	
+$ heroku addons:create heroku-redis: <PLAN_NAME>	
 \end{lstlisting}
 Keterangan :
 \begin{itemize}
-\item \texttt{<PLAN\_NAME>} : tipe Heroku Redis yang ingin dipakai. Heroku Redis memiliki dua tipe : Hobby Dev dan Premium. Hobby Dev gratis, sedangkan Premium berbayar. Perbedaannya terletak pada jumlah memori dan batas koneksi yang dapat dibuat.
+\item \texttt{<PLAN\_NAME>}: nama \textit{plan} Heroku Redis yang ingin dipakai. Heroku Redis memiliki dua pilihan \textit{plan: Hobby Dev} dan \textit{Premium}. \textit{Hobby Dev} gratis, sedangkan \textit{Premium} berbayar. Perbedaan kedua \textit{plan} terletak pada jumlah memori dan batas koneksi yang dapat dibuat.
 \end{itemize}
 
-Heroku Redis memiliki kelebihan sebagai berikut :
+Heroku Redis memiliki kelebihan sebagai berikut:
 \begin{itemize}
-\item Memiliki analisa performa yang dapat membantu menemukan masalah basis data dengan mudah
-\item Heroku dapat diskala sesuai kebutuhan memori dan koneksi.
+\item Memiliki analisa performa yang dapat membantu menemukan masalah basis data dengan mudah.
+\item Heroku Redis dapat diatur jumlah dan ukurannya sesuai kebutuhan memori dan koneksi.
 \end{itemize}
 
 \subsubsection{Apache Kafka}
-Apache Kafka adalah salah satu add-on di Heroku yang disediakan oleh Kafka yang berintegrasi penuh dengan Heroku. Apache Kafka dideskripsikan Kafka dideskripsikan oleh Heroku sebagai add-on yang memungkinkan \textit{developer} mendistribusikan aplikasi yang dapat menangani jutaan event dan miliaran transaksi. Kafka didesain untuk memindahkan \textit{ephemeral data} yang sangat besar dengan reliabilitas yang tinggi dan toleran akan kerusakan.
+Apache Kafka adalah salah satu \textit{add-ons} di Heroku yang disediakan oleh Kafka yang berintegrasi penuh dengan Heroku. Apache Kafka dideskripsikan Heroku sebagai \textit{add-ons} yang memungkinkan \textit{developer} mendistribusikan aplikasi yang dapat menangani jutaan \textit{event} dan miliaran transaksi. Kafka didesain untuk memindahkan data yang sangat besar dengan reliabilitas yang tinggi dan toleran akan kerusakan.
 
-\textit{Developer} harus memasang Python 2.7, node 8.x, .NET Framework, dan Visual C++ Build Tools terlebih dahulu sebelum memasang Apache Kafka. Setelah itu, \textit{developer} mengetikkan perintah :
+Pemasangan Python 2.7, node 8.x, .NET Framework, dan Visual C++ Build Tools diperlukan sebelum memasang Apache Kafka. Pemasangan Apache Kafka dapat dilakukan dengan mengetikkan perintah berikut pada \textit{command shell}:
 \begin{lstlisting}
-	
-	$ heroku plugins:install heroku-kafka
-	
+$ heroku plugins:install heroku-kafka	
 \end{lstlisting}
 
 \subsection{Verifikasi Akun}
-Heroku membutuhkan identitas terpercaya dan kontak dari pengguna. Heroku menganggap mempunyai informasi kartu kredit adalah cara yang paling dapat diandalkan untuk mendapatkan informasi kontak yang terverifikasi. Verifikasi akun juga membantu Heroku untuk menghindari penyalahgunaan.
+Untuk mengakses beberapa layanan di Heroku, pengguna Heroku harus melakukan verifikasi akun terlebih dahulu. Verifikasi akun dilakukan dengan memasukkan informasi kartu kredit atau kartu debit pengguna. Kartu kredit yang diterima oleh Heroku adalah kartu Visa, MasterCard, American Express, Discover, dan JCB. Kartu debit yang diterima adalah kartu Visa, MasterCard, dan JCB. Kartu lain tidak diterima. Beberapa bank mungkin mensyaratkan penahanan satu dollar oleh pelaku verifikasi sebelum kartu dapat dikonfirmasi.
 
-Verifikasi akun dibutuhkan untuk :
+Berikut beberapa layanan di Heroku yang membutuhkan verifikasi akun:
 \begin{itemize}
-\item Menggunakan lebih dari satu dyno di dalam aplikasi.
-\item Menambah add-on, termasuk yang gratis. Pengecualian untuk Heroku Postgres dan Heroku Connect.
-\item Mengubah domain aplikasi.
+\item Menggunakan lebih dari satu \textit{dyno} di dalam aplikasi.
+\item Menambah \textit{add-ons} selain Heroku Postgres dan Heroku Connect.
+\item Mengubah \textit{domain} aplikasi.
 \item Menerima transfer dari aplikasi yang memiliki sumber daya berbayar.
-\item Menambah batas standar penggunaan one-off dyno.
-\item Memiliki lebih dari 5 aplikasi dalam satu waktu.  Akun yang terverifikasi dapat memiliki sampai 100 aplikasi.
+\item Menambah batas standar penggunaan \textit{one-off dyno}.
+\item Memiliki lebih dari 5 aplikasi dalam satu waktu. Akun yang terverifikasi dapat memiliki sampai 100 aplikasi.
 \end{itemize}
 
-Cara melakukan verifikasi akun Heroku :
+Cara melakukan verifikasi akun Heroku:
 \begin{itemize}
-\item Pergi ke Account Settings (\url{https://dashboard.heroku.com/account})
-\item Menekan tab Billing
-\item Menekan tombol Add Credit Card
+\item Masuk ke halaman \textit{Account Settings} (\url{https://dashboard.heroku.com/account})
+\item Pilih menu \textit{Billing}
+\item Tekan tombol \textit{Add Credit Card}
 \end{itemize}
 
-Kartu kredit yang diterima oleh Heroku adalah kartu Visa, MasterCard, American Express, Discover dan JCB. Kartu debit juga diterima untuk kartu Visa, MasterCard atau JCB. Kartu lain tidak diterima. Beberapa bank mungkin mensyaratkan penahanan satu dollar oleh pelaku verifikasi sebelum kartu dapat dikonfirmasi.
-
-\section{Cron ~\cite{vixie1cron}}
+\section{\textit{Cron} ~\cite{vixie1cron}}
 \label{cron}
-Cron adalah program yang menjalankan command (perintah) yang tertera di file crontab pada jadwal tertentu di latar belakang secara otomatis. File crontab dapat ditemukan di direktori /var/spool/cron/crontabs. Crontab di  direktori ini sebaiknya tidak diakses secara langsung, melainkan menggunakan command crontab. File crontab juga dapat ditemukan di direktori /etc atau subdirektori /etc. File crontab di direktori tersebut adalah file system crontab.
+\textit{Cron} adalah program yang menjalankan \textit{command} (perintah) yang tertera di file \textit{crontab} pada jadwal tertentu di latar belakang secara otomatis. File \textit{crontab} dapat ditemukan di direktori \texttt{/var/spool/cron/crontabs}. \textit{Crontab} di direktori ini sebaiknya tidak diakses secara langsung, melainkan menggunakan \textit{command crontab}. \textit{File crontab} juga dapat ditemukan di direktori \texttt{/etc} atau subdirektori \texttt{/etc}. \textit{File crontab} di direktori tersebut adalah \textit{file system crontab}.
 
-Setiap command di crontab diawali dengan lima penanda waktu dan diikuti dengan nama user (jika berada di file system crontab). Lima penanda waktu tersebut secara berurutan adalah :
+Setiap \textit{command} di \textit{crontab} diawali dengan lima penanda waktu dan diikuti dengan nama \textit{user} (jika berada di \textit{file system crontab}). Lima penanda waktu tersebut secara berurutan adalah:
 \begin{itemize}
-\item minute : menandakan tiap menit berapa command dijalankan. Value yang valid adalah angka 0-59 atau tanda asterisk (*).
-\item hour : menandakan tiap jam berapa command dijalankan. Value yang valid adalah angka 0-23 atau tanda asterisk (*).
-\item day of the month : menandakan tiap tanggal berapa command dijalankan. Value yang valid adalah angka 1-31 atau tanda asterisk (*).
-\item month : menandakan tiap bulan berapa command dijalankan. Value yang valid adalah angka 1-12 atau tanda asterisk (*).
-\item day of the week : menandakan tiap hari apa command dijalankan. Value yang valid adalah angka 0-7 atau tanda asterisk (*) atau "Sun". Hari minggu dapat ditulis dengan angka 0 atau 7 atau "Sun".
+\item \textit{minute}: menandakan tiap menit berapa \textit{command} dijalankan. \textit{Value} yang sah adalah angka 0-59 atau tanda \textit{asterisk} (*).
+\item \textit{hour}: menandakan tiap jam berapa \textit{command} dijalankan. \textit{Value} yang sah adalah angka 0-23 atau tanda \textit{asterisk} (*).
+\item \textit{day of the month}: menandakan tiap tanggal berapa \textit{command} dijalankan. \textit{Value} yang sah adalah angka 1-31 atau tanda \textit{asterisk} (*).
+\item \textit{month}: menandakan tiap bulan berapa \textit{command} dijalankan. \textit{Value} yang sah adalah angka 1-12 atau tanda \textit{asterisk} (*).
+\item \textit{day of the week}: menandakan tiap hari apa \textit{command} dijalankan. \textit{Value} yang sah adalah angka 0-7 atau tanda \textit{asterisk} (*) atau "\textit{Sun}". Hari minggu dapat ditulis dengan angka 0 atau 7 atau "\textit{Sun}".
 \end{itemize}
 
-Contoh penulisan command di crontab :
+Contoh penulisan \textit{command} di \textit{crontab}:
 \begin{lstlisting}
 0 12 * * * /home/myscripts/lunch.sh
 \end{lstlisting}
-Pada contoh di atas, cron akan menjalanksan script lunch.sh pada direktori /home/myscripts setiap hari pada jam 12:00. Tanda asterisk menandakan eksekusi dilakukan dari range value terendah sampai value tertinggi.
+Pada contoh di atas, \textit{cron} akan menjalanksan \textit{script} \texttt{lunch.sh} pada direktori \texttt{/home/myscripts} setiap hari pada pukul 12.00. Tanda \textit{asterisk} menandakan eksekusi dilakukan dari \textit{range value} terendah sampai \textit{value} tertinggi.
 
-Penanda waktu boleh memiliki value lebih dari satu. Penanda waktu yang memiliki value lebih dari satu ditulis dalam bentuk range, list, atau step. Range ditulis dalam format dua value yang dipisahkan dengan tanda hubung (-). Range bersifat inklusif. Contoh : 8-11 untuk hour berarti command akan dieksekusi pada jam 8, 9, 10, dan 11. List ditulis dalam format dua atau lebih value yang dipisahkan dengan koma. Contoh : 1,5,7. Range dan list dapat disatukan. Contoh : 1,2,8-12. Step ditulis dalam format : range / <number>. Contoh : '0-23/2' untuk hour. Tanda tersebut berarti eksekusi dijalankan setiap dua jam sekali. Tanda asterisk juga dapat digunakan untuk menggantikan range. Contoh : */4 untuk hour. Tanda tersebut berarti eksekusi dijalankan setiap empat jam sekali.
+Penanda waktu boleh memiliki \textit{value} lebih dari satu. Penanda waktu yang memiliki \textit{value} lebih dari satu ditulis dalam bentuk \textit{range, list}, atau\textit{ step}. \textit{Range} ditulis dalam format dua \textit{value} yang dipisahkan dengan tanda hubung (-). Range bersifat inklusif. Contoh: 8-11 untuk \textit{hour} berarti \textit{command} akan dieksekusi pada pukul 8, 9, 10, dan 11. \textit{List} ditulis dalam format dua atau lebih \textit{value} yang dipisahkan dengan koma. Contoh: 1,5,7. \textit{Range} dan \textit{list} dapat disatukan. Contoh: 1,2,8-12. \textit{Step} ditulis dalam format: \textit{range} / <\textit{number}>. Contoh : '0-23/2' untuk \textit{hour}. Tanda tersebut berarti eksekusi dijalankan setiap dua jam sekali. Tanda \textit{asterisk} juga dapat digunakan untuk menggantikan \textit{range}. Contoh: */4 untuk \textit{hour}. Tanda tersebut berarti eksekusi dijalankan setiap empat jam sekali.
 
-Nama juga dapat digunakan untuk penanda waktu month atau day of week. Cukup dengan menggunakan tiga huruf pertama dari kata bahasa Inggrisnya tanpa menghiraukan huruf besar atau huruf kecil. Namun, nama tidak bisa dipakai untuk range atau list.  
+Nama juga dapat digunakan untuk penanda waktu \textit{month} atau \textit{day of week}. Cukup dengan menggunakan tiga huruf pertama dari kata bahasa Inggrisnya tanpa menghiraukan huruf besar atau huruf kecil. Namun, nama tidak bisa dipakai untuk \textit{range} atau \textit{list}.  
 
-Selain itu, kelima penanda waktu dapat diganti dengan salah satu "nickname" berikut :
+Selain itu, kelima penanda waktu dapat diganti dengan salah satu "\textit{nickname}" berikut :
 \begin{itemize}
-\item @reboot : Eksekusi sekali saat startup.
-\item @yearly : Eksekusi setiap tahun (setiap tanggal 1 Januari), "0 0 1 1 *"
-\item @anually : Sama seperti @yearly.
-\item @monthly : Eksekusi setiap bulan, "0 0 1 * *".
-\item @weekly : Eksekusi setiap minggu, "0 0 * * 0".
-\item @daily : Eksekusi setiap hari (jam 00:00), "0 0 * * *"
-\item @midnight : Sama seperti @daily.
-\item @hourly : Eksekusi setiap jam, "0 * * * *"
+\item \texttt{@reboot}: Eksekusi sekali saat \textit{startup}.
+\item \texttt{@yearly}: Eksekusi setiap tahun (setiap tanggal 1 Januari), "0 0 1 1 *"
+\item \texttt{@anually}: Sama seperti \texttt{@yearly}.
+\item\texttt{ @monthly}: Eksekusi setiap bulan, "0 0 1 * *".
+\item \texttt{@weekly}: Eksekusi setiap minggu, "0 0 * * 0".
+\item \texttt{@daily}: Eksekusi setiap hari (pukul 00.00), "0 0 * * *"
+\item \texttt{@midnight}: Sama seperti \texttt{@daily}.
+\item \texttt{@hourly}: Eksekusi setiap jam, "0 * * * *"
 \end{itemize}
 
-Baris kosong, spasi di awal baris, dan tab akan diabaikan oleh cron. Baris yang karakter bukan spasi pertamanya  adalah \# akan dianggap sebagai comment (komentar) dan akan diabaikan. Comment tidak boleh diletakkan di baris yang sama dengan command karena comment tersebut akan dianggap sebagai bagian dari command.
+Baris kosong, spasi di awal baris, dan \textit{tab} akan diabaikan oleh \textit{cron}. Baris yang karakter bukan spasi pertamanya  adalah \# akan dianggap sebagai \textit{comment} (komentar) dan akan diabaikan. \textit{Comment} tidak boleh diletakkan di baris yang sama dengan \textit{command} karena \textit{comment} tersebut akan dianggap sebagai bagian dari \textit{command}.
 
 \section{Gmail API ~\cite{gmail-api}}
 \label{sec:gmail-api}
-Gmail adalah layanan email yang disediakan oleh Google LLC. Gmail API dapat digunakan untuk mengakses email Gmail.
+Gmail adalah layanan \textit{email} yang disediakan oleh perusahaan Google LLC. Gmail API dapat digunakan untuk mengakses \textit{email} Gmail.
 
 \subsection{Resource}
 Gmail API menyediakan beberapa jenis \textit{resource} :
 \begin{itemize}
-\item Message
+\item \textit{Message}
 
-Message merepresentasikan pesan dalam email. Message hanya bisa dibuat atau dihapus. Tidak ada properti dari message yang bisa diubah selain label yang diberikan ke message.
+\textit{Message} merepresentasikan pesan dalam email. \textit{Message} hanya bisa dibuat atau dihapus. Tidak ada properti dari \textit{message} yang bisa diubah selain label yang diberikan ke message.
 
-\item Label
+\item \textit{Label}
 
-Label berfungsi sebagai sarana utama untuk mengelompokkan dan mengatur message dan thread. Label mempunyai hubungan banyak ke banyak dengan message. Artinya, satu message dapat memiliki beberapa label dan satu label dapat diberikan ke beberapa message.
+\textit{Label} berfungsi sebagai sarana utama untuk mengelompokkan dan mengatur \textit{message} dan \textit{thread}. \textit{Label} mempunyai hubungan banyak ke banyak dengan \textit{message}. Artinya, satu \textit{message} dapat memiliki beberapa \textit{label} dan satu \textit{label} dapat diberikan ke beberapa \textit{message}.
 
-Label ada dua jenis : label sistem dan label pengguna. Contoh label sistem adalah label \texttt{INBOX}, \texttt{TRASH}, dan \texttt{SPAM}. Label sistem dibuat secara internal dan tidak dapat dibuat, dihapus, dan dimodifikasi. Namun, beberapa label sistem dapat diberikan ke message atau dilepaskan dari message. Label pengguna dapat ditambah, dihapus, dan dimodifikasi oleh pengguna atau aplikasi.
+\textit{Label} dikelompokkan ke dalam dua kelompok: \textit{label} sistem dan \textit{label} pengguna. Contoh \textit{label} sistem adalah \textit{label} \texttt{INBOX}, \texttt{TRASH}, dan \texttt{SPAM}. \textit{Label} sistem dibuat secara internal dan tidak dapat dibuat, dihapus, dan dimodifikasi. Namun, beberapa \textit{label} sistem dapat diberikan ke \textit{message} atau dilepaskan dari \textit{message}. \textit{Label} pengguna dapat ditambah, dihapus, dan dimodifikasi oleh pengguna atau aplikasi.
 
-\item Draft
+\item \textit{Draft}
 
-Draft merepresentasikan message yang belum dikirim. Message tidak bisa dimodifikasi setelah dibuat, tapi message yang terdapat di dalam draf dapat dimodifikasi. Mengirimkan draft secara otomatis akan menghapus draft tersebut dan membuatnya menjadi message dengan label sistem SENT.
+\textit{Draft} merepresentasikan \textit{message} yang belum dikirim. \textit{Message} tidak bisa dimodifikasi setelah dibuat, tapi \textit{messag}e yang terdapat di dalam \textit{draft} dapat dimodifikasi. Mengirimkan \textit{draft} secara otomatis akan menghapus \textit{draft} tersebut dan membuatnya menjadi \textit{message} dengan \textit{label} sistem \texttt{SENT}.
 
-\item History
+\item \textit{History}
 
-History adalah riwayat modifikasi message yang diurutkan secara kronologis. History hanya menyimpan perubahan dalam jangka waktu 30 hari.
+\textit{History} adalah riwayat modifikasi \textit{message} yang diurutkan secara kronologis. \textit{History} hanya menyimpan perubahan dalam jangka waktu 30 hari.
 
-\item Thread
+\item \textit{Thread}
 
-Thread adalah kumpulan message yang merepresentasikan percakapan. Thread dapat memiliki label. Thread tidak dapat dibuat, tapi dapat dihapus. Message dapat dimasukkan ke Thread.
+\textit{Thread} adalah kumpulan \textit{message} yang merepresentasikan percakapan. \textit{Thread} dapat memiliki \textit{label}. \textit{Thread} tidak dapat dibuat, tapi dapat dihapus. \textit{Message} dapat dimasukkan ke \textit{Thread}.
 
-\item Setting
+\item \textit{Setting}
 
-Setting mengontrol perilaku fitur pada Gmail kepda User. Setting tersedia untuk akses POP dan IMAP, forward email, filter, vacation auto-response, send-as aliases, signatures, dan delegates.
+\textit{Setting} mengontrol perilaku fitur pada Gmail kepada penggunanya. \textit{Setting} tersedia untuk akses POP dan IMAP, \textit{forward email, filter, vacation auto-response, send-as aliases, signatures,} dan \textit{delegates}.
 
 \end{itemize}  
 
 \subsection{Scope}
-Gmail API menggunakan OAuth 2.0 untuk menangani autentikasi dan authorization. \textit{Developer} harus menyebutkan scope yang dipakai di aplikasi. Scope adalah string yang mengidentifikasi resource yang ingin di akses. Scope ini digunakan bersama dengan token untuk mengamankan akses ke resource pengguna. Token tersebut memiliki masa kadaluarsa. Contoh scope :
+Gmail API menggunakan OAuth 2.0 untuk menangani autentikasi dan \textit{authorization}. Untuk menggunakan Gmail API, aplikasi harus menyebutkan \textit{scope} yang dipakai di aplikasi. \textit{Scope} adalah \textit{string} yang mengidentifikasi \textit{resource} yang ingin di akses. \textit{Scope} ini digunakan bersama dengan token untuk mengamankan akses ke \textit{resource} pengguna. \textit{Token} tersebut memiliki masa kadaluarsa. Contoh \textit{scope}:
 \begin{itemize}
-\item \url{https://www.googleapis.com/auth/gmail.readonly} : scope untuk membaca message dari Gmail
-\item \url{https://www.googleapis.com/auth/gmail.modify} : scope untuk mengubah label pada thread atau message
-\item \url{https://www.googleapis.com/auth/gmail.compose} : scope untuk mengirim message mewakili pengguna
+\item \url{https://www.googleapis.com/auth/gmail.readonly}: \textit{scope} untuk membaca \textit{message} dari Gmail.
+\item \url{https://www.googleapis.com/auth/gmail.modify}: \textit{scope} untuk mengubah \textit{label} pada \textit{thread} atau \textit{message}.
+\item \url{https://www.googleapis.com/auth/gmail.compose}: \textit{scope} untuk mengirim \textit{message} mewakili pengguna.
 \end{itemize}
 
 \subsection{Penggunaan pada umumnya}
-\subsubsection{Mengirim message}
+\subsubsection{Mengirim \textit{message}}
 \begin{enumerate}
-\item Membuat konten email
-\item Membuat string yang dikodekan berdasarkan base64url dari konten
-\item Membuat resource message dan memasukkan string tersebut ke properti \texttt{raw}
-\item Memanggil \texttt{message.send} untuk mengirim message
+\item Membuat konten \textit{email}
+\item Membuat \textit{string} yang dikodekan berdasarkan \textit{base64url} dari konten
+\item Membuat \textit{resource message} dan memasukkan \textit{string} tersebut ke properti \texttt{raw}
+\item Memanggil \texttt{message.send} untuk mengirim \textit{message}
 \end{enumerate}
 
-\subsubsection{Mengambil email yang diterima}
-Mengambil email yang diterima membutuhkan ID email. Mengambil email yang diterima dapat dilakukan dengan metode \texttt{get} dari resource User.messages. Saat mengambil message, format dari respon dapat diatur. Format \texttt{FULL} mengembalikan seluruh informasi dari message. Format \texttt{MINIMAL} hanya mengembalikan metadata seperti label. Format \texttt{RAW} mengembalikan properti \texttt{raw} saja. Secara otomatis, format dari respon memakai format \texttt{FULL}.
+\subsubsection{Mengambil \textit{email} yang diterima}
+Pada Gmail API, mengambil \textit{email} yang diterima dapat dilakukan dengan melakukan \texttt{GET} \textit{request} ke "https://www.googleapis.com/gmail/v1/users/\texttt{userId}/messages/\texttt{id}" dengan \texttt{userId} adalah alamat \textit{email} pengguna dan \texttt{id} adalah ID \textit{email}. Saat mengambil message, format dari respon dapat diatur. Format \texttt{FULL} mengembalikan seluruh informasi dari message. Format \texttt{MINIMAL} hanya mengembalikan metadata seperti label. Format \texttt{RAW} mengembalikan properti \texttt{raw} saja. Secara otomatis, format dari respon memakai format \texttt{FULL}.
 
-\subsubsection{Perubahan di history}
-Perubahan message direpresentasikan oleh \texttt{History objects}. Properti \texttt{start\_history\_id} memperbolehkan \textit{developer} mengatur dari titik mana perubahan ingin dikembalikan. Beberapa perubahan dapat mempengaruhi lebih dari satu message, sehingga history yang merepresentasikan perubahan tersebut akan berisi beberapa message.
+\subsubsection{Perubahan di \textit{history}}
+Perubahan \textit{message} direpresentasikan oleh \texttt{History objects}. Properti \texttt{start\_history\_id} memperbolehkan aplikasi mengatur dari titik mana perubahan ingin dikembalikan. Beberapa perubahan dapat mempengaruhi lebih dari satu \textit{message}, sehingga \textit{history} yang merepresentasikan perubahan tersebut akan berisi beberapa \textit{message}.
 
-\subsubsection{Manajemen Label}
-Label yang diberikan ke sebuah thread juga diberikan ke semua message di dalam thread. Jika sebuah label dihapus, label tersebut akan dihapus dari semua thread dan message yang memiliki label tersebut. Properti \texttt{messageListVisibility} digunakan untuk menentukan apakah message dengan label tersebut ada di message list. Properti \texttt{labelListVisibility} digunakan untuk menentukan apakah ada label tersebut di daftar label. Untuk mengubah label, gunakan \texttt{messages.modify} dan\texttt{threads.modify}.
+\subsubsection{Manajemen \textit{Label}}
+\textit{Label} yang diberikan ke sebuah \textit{thread} juga diberikan ke semua \textit{message} di dalam \textit{thread}. Jika sebuah \textit{label} dihapus, \textit{label} tersebut akan dihapus dari semua \textit{thread} dan \textit{message} yang memiliki \textit{label} tersebut. Properti \texttt{messageListVisibility} digunakan untuk menentukan apakah \textit{message} dengan \textit{label} tersebut ada di \textit{message list}. Properti \texttt{labelListVisibility} digunakan untuk menentukan apakah ada \textit{label} tersebut di daftar \textit{label}. Untuk mengubah \textit{label}, gunakan \texttt{messages.modify} dan\texttt{threads.modify}.
 
-\subsection{Implementasi Otorisasi dari Sisi Server}
-Setiap request ke Gmail API harus menggunakan OAuth 2.0. Developer perlu menggunakan alur dari sisi server ketika aplikasinya membutuhkan akses Google API mewakili user. Pendekatan ini membutuhkan access token dan refresh token untuk server. Untuk mulai menggunakan Gmail API, developer harus mendapatkan client id dan client secret terlebih dahulu. Client id dan client secret dapat dimiliki apabila developer telah membuat project di Google API Console dan menyalakan Gmail API.
+\subsection{Implementasi Otorisasi dari Sisi \textit{Server}}
+Setiap \textit{request} ke Gmail API harus menggunakan OAuth 2.0. \textit{Developer} perlu menggunakan alur dari sisi \textit{server} ketika aplikasinya membutuhkan akses Google API mewakili \textit{user}. Pendekatan ini membutuhkan \textit{access token} dan \textit{refresh token} untuk \textit{server}. Untuk mulai menggunakan Gmail API, \textit{developer} harus mendapatkan \textit{client id} dan \textit{client secret} terlebih dahulu. \textit{Client id} dan \textit{client secret} dapat dimiliki apabila \textit{developer} telah membuat \textit{project} di Google API \textit{Console} dan menyalakan Gmail API.
 
-Ketika user membuka aplikasi untuk pertama kalinya, sebuah dialog akan muncuk dan menanyakan izin dari user agar aplikasi boleh mengakses akun Gmail miliknya. Dialog tersebut akan menyatakan scope yang dipakai aplikasi. Setelah user mengizinkan, dialog tersebut tidak akan muncul lagi. Kecuali, scope aplikasi diubah.
+Ketika \textit{user} membuka aplikasi untuk pertama kalinya, sebuah \textit{dialog} akan muncul dan menanyakan izin dari \textit{user} agar aplikasi boleh mengakses akun Gmail miliknya. \textit{Dialog} tersebut akan menyatakan \textit{scope} yang dipakai aplikasi. Setelah \textit{user} mengizinkan, \textit{dialog} tersebut tidak akan muncul lagi, kecuali \textit{scope} aplikasi diubah.
 
-Setelah user sign-in untuk pertama kalinya, authorization result object akan dikembalikan ke server. Object tersebut berisi authorization code. Authorization code adalah code sekali pakai yang dapat ditukar dengan access token. Access token ini akan diberikan ke Gmail API agar aplikasi diberi izin untuk mengakses ke data user pada waktu yang terbatas. Selain access token, server juga mendapatkan refresh token. Refresh token ini dapat digunakan untuk menerima access token baru setelah token yang lama kadaluarsa. Refresh token ini harus disimpan di suatu tempat di database agar bisa dipakai. Jika refresh token ini tidak disimpan, maka aplikasi harus mengirim request dengan query approval\_prompt yang diset ke force. Ini dapat mengakibatkan user mendapat dialog untuk meminta izin lagi.
+Setelah \textit{user sign-in} untuk pertama kalinya, \textit{authorization result object} akan dikembalikan ke \textit{server}. \textit{Object} tersebut berisi \textit{authorization code}. \textit{Authorization code} adalah \textit{code} sekali pakai yang dapat ditukar dengan \textit{access token. Access token} ini akan diberikan ke Gmail API agar aplikasi diberi izin untuk mengakses ke data user pada waktu yang terbatas. Selain \textit{access token}, \textit{server} juga mendapatkan \textit{refresh token. Refresh token} ini dapat digunakan untuk menerima \textit{access token} baru setelah \textit{token} yang lama kadaluarsa. \textit{Refresh token} ini harus disimpan di suatu tempat agar bisa dipakai. Jika \textit{refresh token} ini tidak disimpan, maka aplikasi harus mengirim \textit{request} dengan \textit{query approval\_prompt} yang diset ke \textit{force}. Ini dapat mengakibatkan \textit{user} mendapat dialog untuk meminta izin lagi.
 
 %https://developers.google.com/identity/protocols/OAuth2
-Refresh token dapat kadaluarsa. Refresh token kadaluarsa jika :
+\textit{Refresh token} dapat kadaluarsa. \textit{Refresh token} kadaluarsa jika :
 \begin{itemize}
 \item User mencabut izinnya.
-\item Refresh token sudah tidak digunakan selama enam bulan.
-\item User mengganti password dan refresh token berisi Gmail scopes.
-\item Akun user telah melebihi batas maksimal dari refresh token yang diizinkan. Batas maksimalnya adalah 50 refresh token per akun per klien. Jika batas ini dilampaui, membuat refresh token baru akan menggugurkan refresh token yang lama tanpa peringatan. Batas ini tidak berlaku untuk service account.
+\item \textit{Refresh token} sudah tidak digunakan selama enam bulan.
+\item User mengganti \textit{password} dan \textit{refresh token} berisi Gmail \textit{scopes}.
+\item Akun \textit{user} telah melebihi batas maksimal dari \textit{refresh token} yang diizinkan. Batas maksimalnya adalah 50 \textit{refresh token} per akun per klien. Jika batas ini dilampaui, membuat \textit{refresh token} baru akan menggugurkan \textit{refresh token} yang lama tanpa peringatan. Batas ini tidak berlaku untuk \textit{service account}.
 \end{itemize}
+
 \section{PHP IMAP ~\cite{php-imap}}
 \label{sec:PHPIMAP}
-IMAP (Internet Message Access Protocol) adalah metode untuk mengakses pesan elektronik yang disimpan di sebuah mail server.
+\textit{IMAP (Internet Message Access Protocol)} adalah metode untuk mengakses pesan elektronik yang disimpan di sebuah \textit{mail server}.
 
-Ekstensi ini dapat digunakan apabila c-client library sudah terpasang. Library ini dapat ditemukan di \url{https://www.washington.edu/imap/}. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori system, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori system, lalu memasukkan dokumen IMAP ke dalamnya. Contoh : \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tamabahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua dokumen dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, dokumen bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
+Ekstensi ini dapat digunakan apabila \textit{c-client library} sudah terpasang. Library ini dapat ditemukan di \url{https://www.washington.edu/imap/}. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori \textit{system}, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori \textit{system}, lalu memasukkan \textit{file} IMAP ke dalamnya. Contoh : \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tamabahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua \textit{file} dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, \textit{file} bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
 
-Setelah itu, kompilasi PHP dengan --with-imap[=DIR]. DIR disini adalah tempat c-client. Contoh : \texttt{with-imap=/usr/local/imap-2000b}. Pengguna sistem operasi Windows mungkin harus mengaktifkan \texttt{php\_imap.dll}.
+Setelah itu, kompilasi PHP dengan \texttt{--with-imap[=DIR]} dengan \texttt{DIR} adalah tempat c-client. Contoh: \texttt{with-imap=/usr/local/imap-2000b}. Pengguna sistem operasi Windows mungkin harus mengaktifkan \texttt{php\_imap.dll}.
 
-IMAP tidak didukung pada sistem operasi Windows yang versinya lebih lama dari Windows 2000. Hal ini karena IMAP menggunakan fungsi enkripsi agar koneksi lewat SSL ke mail server aktif.
+IMAP tidak didukung pada sistem operasi Windows yang versinya lebih lama dari Windows 2000. Hal ini karena IMAP menggunakan fungsi enkripsi agar koneksi lewat SSL ke \textit{mail server} aktif.
 
 Di dalam sistem operasi Ubuntu, pemasangan PHP IMAP bisa dilakukan dengan mudah.
 \begin{lstlisting}
@@ -1057,269 +1120,269 @@ Di dalam sistem operasi Ubuntu, pemasangan PHP IMAP bisa dilakukan dengan mudah.
 		
 \end{lstlisting}
 
-Berikut adalah \textit{function} dasar dari imap :
+Berikut adalah \textit{function} dasar dari imap:
 \begin{itemize}
 \item imap\_alerts
 \begin{itemize}
-\item Deskripsi : Fungsi ini mengembalikan semua \textit{alert message} yang telah terjadi. Ketika fungsi ini dipanggil, semua \textit{alert message} yang ada di \textit{stack} dihapus.
-\item \textit{Parameter} : Tidak ada.
-\item \textit{Return values} : Mengembalikan array yang berisi semua \textit{alert message} yang dihasilkan atau FALSE jika tidak ada satupun \textit{alert message}.
+\item Deskripsi: Fungsi ini mengembalikan semua \textit{alert message} yang telah terjadi. Ketika fungsi ini dipanggil, semua \textit{alert message} yang ada di \textit{stack} dihapus.
+\item \textit{Parameter}: Tidak ada.
+\item \textit{Return values}: Mengembalikan \textit{array} yang berisi semua \textit{alert message} yang dihasilkan atau FALSE jika tidak ada satupun \textit{alert message}.
 \end{itemize}
  
 \item imap\_close
 \begin{itemize}
-\item Deskripsi : Fungsi ini berfungsi untuk menutup \textit{IMAP stream}.
-\item \textit{Parameter} :
+\item Deskripsi: Fungsi ini berfungsi untuk menutup \textit{IMAP stream}.
+\item \textit{Parameter}:
 \begin{itemize}
-\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
-\item flag : Jika diatur ke CL\_EXPUNGE, fungsi akan secara diam-diam menghapus semua pesan yang ditandai untuk dihapus sebelum menutup \textit{IMAP stream}.
+\item imap\_stream: \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item flag: Jika diatur ke CL\_EXPUNGE, fungsi akan secara diam-diam menghapus semua pesan yang ditandai untuk dihapus sebelum menutup \textit{IMAP stream}.
 \end{itemize}
-\item \textit{Return values} : Mengembalikan TRUE jika sukses atau FALSE jika gagal.
+\item \textit{Return values}: Mengembalikan TRUE jika sukses atau FALSE jika gagal.
 \end{itemize}
  
 \item imap\_errors
 \begin{itemize}
-\item Deskripsi : Fungsi ini mengembalikan semua \textit{error} yang telah terjadi. Ketika fungsi ini dipanggil, semua \textit{error} yang ada di \textit{stack} dihapus.
-\item \textit{Parameter} : Tidak ada.
-\item \textit{Return values} : Mengembalikan array yang berisi semua \textit{error} yang dihasilkan atau FALSE jika tidak ada satupun \textit{error}.
+\item Deskripsi: Fungsi ini mengembalikan semua \textit{error} yang telah terjadi. Ketika fungsi ini dipanggil, semua \textit{error} yang ada di \textit{stack} dihapus.
+\item \textit{Parameter}: Tidak ada.
+\item \textit{Return values}: Mengembalikan \textit{array} yang berisi semua \textit{error} yang dihasilkan atau FALSE jika tidak ada satupun \textit{error}.
 \end{itemize}
  
 \item imap\_fetch\_overview
 \begin{itemize}
-\item Deskripsi : Fungsi ini mengambil \textit{mail header} berdasarkan urutan yang diberikan dan mengembalikan ikhtisar kontennya.
+\item Deskripsi: Fungsi ini mengambil \textit{mail header} berdasarkan urutan yang diberikan dan mengembalikan ikhtisar kontennya.
 \item \textit{Parameter} :
 \begin{itemize}
-\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
-\item sequence : Deskripsi cara pengurutan message. Cara penyebutan urutan bisa menggunakan sintaks X,Y atau mengambil semua dalam interval dengan sintaks X:Y.
-\item options : sequence akan berisi \textit{message index} atau UID, jika parameter ini diatur ke FT\_UID.
+\item imap\_stream: \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item sequence: Deskripsi cara pengurutan message. Cara penyebutan urutan bisa menggunakan sintaks X,Y atau mengambil semua dalam interval dengan sintaks X:Y.
+\item options: \textit{sequence} akan berisi \textit{message index} atau UID, jika parameter ini diatur ke FT\_UID.
 \end{itemize}
-\item \textit{Return values} : Mengembalikan \textit{array of objects}. Tiap \textit{object} mendeskripsikan satu \textit{message header}. \textit{Object} berisi macam-macam \textit{property}. Object hanya akan menyebutkan sebuah \textit{property} jika \textit{property} tersebut memang ada. \textit{Property} yang mungkin adalah :
+\item \textit{Return values}: Mengembalikan \textit{array of objects}. Tiap \textit{object} mendeskripsikan satu \textit{message header}. \textit{Object} berisi macam-macam \textit{property}. Object hanya akan menyebutkan sebuah \textit{property} jika \textit{property} tersebut memang ada. \textit{Property} yang mungkin adalah :
  \begin{itemize}
- \item subject : Subyek pesan
- \item from : pengirim
- \item to : penerima
- \item date : tanggal pengiriman
- \item message\_id : Message-ID
- \item references : Message id yang behubungan
- \item in\_reply\_to : Message id untuk membalas
- \item size : ukuran dalam bytes
- \item uid : UID yang dimiliki di dalam \textit{mailbox}
- \item msgno : urutan message di dalam \textit{mailbox}
- \item recent : menandakan bahwa message ini adalah message yang baru-baru ini diterima
- \item flagged : menandakan bahwa message ini adalah message yang ditandai
- \item answered : menandakan bahwa message ini adalah message yang ditandai sebagai telah dijawab
- \item deleted : menandakan bahwa message ini adalah message yang ditandai untuk dihapus
- \item seen : menandakan bahwa message ini adalah message yang sudah dibaca
- \item draft : menandakan bahwa message ini adalah message yang ditandai sebagai draft
- \item udate : UNIX timestamp dari tanggal kedatangan pesan
+ \item subject: Subyek pesan
+ \item from: Pengirim
+ \item to: Penerima
+ \item date: Tanggal pengiriman
+ \item message\_id: \textit{Message id}
+ \item references: \textit{Message id} yang behubungan
+ \item in\_reply\_to: \textit{Message id} untuk membalas
+ \item size: ukuran dalam \textit{bytes}
+ \item uid: UID yang dimiliki di dalam \textit{mailbox}
+ \item msgno: urutan message di dalam \textit{mailbox}
+ \item recent: menandakan bahwa \textit{message} ini adalah \textit{message} yang baru-baru ini diterima
+ \item flagged: menandakan bahwa \textit{message} ini adalah \textit{message} yang ditandai
+ \item answered: menandakan bahwa \textit{message} ini adalah \textit{message} yang ditandai sebagai telah dijawab
+ \item deleted: menandakan bahwa \textit{message} ini adalah \textit{message} yang ditandai untuk dihapus
+ \item seen: menandakan bahwa \textit{message} ini adalah \textit{message} yang sudah dibaca
+ \item draft: menandakan bahwa \textit{message} ini adalah \textit{message} yang ditandai sebagai \textit{draft}
+ \item udate: UNIX \textit{timestamp} dari tanggal kedatangan pesan
  \end{itemize} 
 \end{itemize}
  
 \item imap\_fetchbody
 \begin{itemize}
-\item Deskripsi : Mengambil bagian tertentu dari \textit{body} dari message yang disebutkan. Bagian dari \textit{body} tidak di-\textit{decode} oleh fungsi ini.
-\item \textit{Parameter} :
+\item Deskripsi: Mengambil bagian tertentu dari \textit{body} dari \textit{message} yang disebutkan. Bagian dari \textit{body} tidak di-\textit{decode} oleh fungsi ini.
+\item \textit{Parameter}:
 \begin{itemize}
-\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
-\item msg\_number : nomor \textit{message}
-\item section : Nomor bagian. Ini adalah serangkaian bilangan bulat yang dibatasi oleh periode yang diindeks ke daftar bagian \textit{body} sesuai spesifikasi IMAP4.
-\item options : bitmask dengan satu atau lebih dari :
+\item imap\_stream: \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item msg\_number: nomor \textit{message}
+\item section: Nomor bagian. Ini adalah serangkaian bilangan bulat yang dibatasi oleh periode yang diindeks ke daftar bagian \textit{body} sesuai spesifikasi IMAP4.
+\item options: \textit{bitmask} dengan satu atau lebih dari :
 \begin{itemize}
-\item FT\_UID : msg\_number adalah UID
-\item FT\_PEEK : Jangan memberikan seen flag jika belum diberikan.
-\item FT\_INTERNAL : Return string di dalam internal format, tidak akan dikanonikkan ke CRLF.
+\item FT\_UID: msg\_number adalah UID
+\item FT\_PEEK: Jangan memberikan \textit{seen flag} jika belum diberikan.
+\item FT\_INTERNAL: Mengembalikan \textit{string} di dalam format internal, tidak akan dikanonikkan ke CRLF.
 \end{itemize}
 \end{itemize}
-\item \textit{Return values} : Mengembalikan bagian tertentu dari body dari message yang disebutkan sebagai text string.
+\item \textit{Return values}: Mengembalikan bagian tertentu dari \textit{body message} yang disebutkan sebagai \textit{text string}.
 \end{itemize}
  
 \item imap\_fetchheader
 \begin{itemize}
-\item Deskripsi : Fungsi ini mengambil header yang lengkap dan tidak terfilter (RFC2822 format) dari message.
+\item Deskripsi: Fungsi ini mengambil \textit{header} yang lengkap dan tidak terfilter (RFC2822 format) dari \textit{message}.
 \item \textit{Parameter} :
 \begin{itemize}
-\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
-\item msg\_number : nomor message
-\item options : options yang mungkin adalah :
+\item imap\_stream: \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item msg\_number: nomor \textit{message}
+\item options: pilihan yang mungkin adalah :
 \begin{itemize}
-\item FT\_UID : msgno argument adalah UID
-\item FT\_INTERNAL : Return string di dalam internal format, tidak akan dikanonikkan ke CRLF.
-\item FT\_PREFETCHTEXT : RFC822.TEXT harus diambil sebelumnya pada saat yang sama. Ini menghindari RTT tambahan pada koneksi IMAP jika teks pesan lengkap diinginkan (mis. Dalam operasi "simpan ke file lokal")
+\item FT\_UID: msgno argument adalah UID
+\item FT\_INTERNAL: Mengembalikan \textit{string} di dalam format internal, tidak akan dikanonikkan ke CRLF.
+\item FT\_PREFETCHTEXT: RFC822.TEXT harus diambil sebelumnya pada saat yang sama. Ini menghindari RTT tambahan pada koneksi IMAP jika teks pesan lengkap diinginkan.
 \end{itemize}
 \end{itemize}
-\item \textit{Return values} : Mengembalikan header dari message yang disebutkan sebagai text string.
+\item \textit{Return values}: Mengembalikan header dari message yang disebutkan sebagai text string.
 \end{itemize}
 
 \item imap\_fetchstructure
 \begin{itemize}
-\item Deskripsi : Mengambil semua informasi terstruktur untuk message yang diberikan.
+\item Deskripsi: Mengambil semua informasi terstruktur untuk message yang diberikan.
 \item \textit{Parameter} :
 \begin{itemize}
-\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
-\item msg\_number : nomor message
-\item options : parameter opsional ini hanya memiliki satu opsi, FT\_UID, yang memberitahu fungsi untuk memperlakukan msg\_number argument sebagai UID.
+\item imap\_stream: \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item msg\_number: nomor \textit{message}
+\item options: parameter opsional ini hanya memiliki satu opsi, FT\_UID, yang memberitahu fungsi untuk memperlakukan msg\_number argument sebagai UID.
 \end{itemize}
-\item \textit{Return values} : Mengembalikan sebuah object termasuk envelope, internal date, size, flags dan body structure serta object serupa untuk tiap mime attachment. Struktur dari object adalah sebagai berikut :
+\item \textit{Return values}: Mengembalikan sebuah \textit{object} termasuk \textit{envelope, internal date, size, flags} dan \textit{body structure} serta \textit{object} serupa untuk tiap \textit{mime attachment}. Struktur dari \textit{object} adalah sebagai berikut :
  \begin{itemize}
- \item type : Primary body type
- \item encoding : Body transfer encoding
- \item ifsubtype : TRUE jika ada subtype string
- \item subtype : MIME subtype
- \item ifdescription : TRUE jika ada description string
- \item description : Content description string
- \item ifid : TRUE jika ada identification string
- \item id : Identification string
- \item lines : Jumlah lines
- \item bytes : Jumlah bytes
- \item ifdisposition : TRUE jika ada disposition string
- \item disposition : Disposition string
- \item ifdparameters : TRUE jika dparameters array tersedia
- \item dparameters : Array of objects dimana tiap object memiliki "attribute" dan "value" property berdasarkan parameter pada Content-disposition MIME header.
- \item ifparameters : TRUE jika parameters array tersedia
- \item parameters : Array of objects dimana tiap object memiliki "attribute" and a "value" property.
- \item parts : Array of objects identik dalam structure dengan top-level object, masing-masing berdasarkan pada MIME body part.
+ \item type: \textit{Primary body type}
+ \item encoding: \textit{Body transfer encoding}
+ \item ifsubtype: TRUE jika ada \textit{subtype string}
+ \item subtype: \textit{MIME subtype}
+ \item ifdescription: TRUE jika ada \textit{description string}
+ \item description: \textit{Content description string}
+ \item ifid: TRUE jika ada \textit{identification string}
+ \item id: \textit{Identification string}
+ \item lines: Jumlah \textit{lines}
+ \item bytes: Jumlah \textit{bytes}
+ \item ifdisposition: TRUE jika ada \textit{disposition string}
+ \item disposition: \textit{Disposition string}
+ \item ifdparameters: TRUE jika \textit{dparameters array} tersedia
+ \item dparameters: \textit{Array of objects} dimana tiap \textit{object} memiliki \textit{"attribute"} dan \textit{"value" property} berdasarkan parameter pada \textit{Content-disposition MIME header}.
+ \item ifparameters: TRUE jika \textit{parameters array} tersedia
+ \item parameters: \textit{Array of objects} dimana tiap \textit{object} memiliki \textit{"attribute"} dan \textit{"value" property}.
+ \item parts: \textit{Array of objects} identik dalam \textit{structure} dengan \textit{top-level object}, masing-masing berdasarkan pada \textit{MIME body part}.
  \end{itemize}
 \end{itemize}
 
 \item imap\_headerinfo
 \begin{itemize}
-\item Deskripsi : Fungsi ini berfungsi untuk mendapatkan informasi dari message number yang diberikan dengan membaca headernya.
+\item Deskripsi: Fungsi ini berfungsi untuk mendapatkan informasi dari \textit{message number} yang diberikan dengan membaca \textit{header}.
 \item \textit{Parameter} :
 \begin{itemize}
-\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
-\item msg\_number : nomor message
-\item fromlength : jumlah karakter untuk fetchfrom property. Harus lebih besar atau sama dengan nol.
-\item subjectlength : jumlah karakter untuk fetchsubject property. Harus lebih besar atau sama dengan nol.
+\item imap\_stream: \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item msg\_number: nomor \textit{message}
+\item fromlength: jumlah karakter untuk \textit{fetchfrom property}. Harus lebih besar atau sama dengan nol.
+\item subjectlength: jumlah karakter untuk \textit{fetchsubject property}. Harus lebih besar atau sama dengan nol.
 \item defaulthost
 \end{itemize}
-\item \textit{Return values} : Mengembalikan FALSE jika terjadi error. Jika sukses, mengembalikan informasi di dalam object dengan property berikut :
+\item \textit{Return values}: Mengembalikan FALSE jika terjadi \textit{error}. Jika sukses, mengembalikan informasi di dalam \textit{object} dengan \textit{property} berikut :
  \begin{itemize}
- \item toaddress : full "to" : line, sampai dengan 1024 karakter.
- \item to : array of objects dari To: line, dengan property berikut : personal, adl, mailbox, and host
- \item fromaddress : full "from" : line, sampai dengan 1024 characters
- \item from : array of objects dari From: line, dengan property berikut : personal, adl, mailbox, and host
- \item ccaddress : full "cc" : line, sampai dengan 1024 karakter.
- \item cc : array of objects dari Cc: line, dengan property berikut : personal, adl, mailbox, and host
- \item bccaddress : full "bcc" : line, sampai dengan 1024 karakter.
- \item bcc : array of objects dari Bcc: line, dengan property berikut : personal, adl, mailbox, and host
- \item reply\_toaddress : full "Reply-To" : line, sampai dengan 1024 karakter.
- \item reply\_to : array of objects dari Reply-To: line, dengan property berikut : personal, adl, mailbox, and hostt
- \item senderaddress : full "sender" : line, sampai dengan 1024 karakter.
- \item sender : array of objects dari Sender: line, dengan property berikut : personal, adl, mailbox, and host
- \item return\_pathaddress  : full "Return-Path" : line, sampai dengan 1024 karakter.
- \item return\_path : array of objects dari Return-Path: line, dengan property berikut : personal, adl, mailbox, and host
+ \item toaddress: \textit{full "to" : line}, sampai dengan 1024 karakter.
+ \item to: \textit{array of objects} dari \textit{To: line}, dengan \textit{property} berikut: \textit{personal, adl, mailbox}, dan \textit{host}
+ \item fromaddress: \textit{full "from" : line}, sampai dengan 1024 karakter.
+ \item from: \textit{array of objects} dari \textit{From: line}, dengan property berikut: \textit{personal, adl, mailbox,} dan \textit{host}.
+ \item ccaddress: \textit{full "cc": line}, sampai dengan 1024 karakter.
+ \item cc: \textit{array of objects} dari \textit{Cc: line}, dengan \textit{property} berikut: \textit{personal, adl, mailbox, dan host}.
+ \item bccaddress: \textit{full "bcc" : line}, sampai dengan 1024 karakter.
+ \item bcc: \textit{array of objects} dari \textit{Bcc: line}, dengan \textit{property} berikut: \textit{personal, adl, mailbox, dan host}.
+ \item reply\_toaddress: \textit{full "Reply-To" : line}, sampai dengan 1024 karakter.
+ \item reply\_to: \textit{array of objects} dari \textit{Reply-To: line}, dengan \textit{property} berikut: \textit{personal, adl, mailbox, dan host}.
+ \item senderaddress: \textit{full "sender" : line}, sampai dengan 1024 karakter.
+ \item sender: \textit{array of objects} dari \textit{Sender: line}, dengan \textit{property} berikut: \textit{personal, adl, mailbox, dan host}.
+ \item return\_pathaddress: \textit{full "Return-Path"}: line, sampai dengan 1024 karakter.
+ \item return\_path: \textit{array of objects} dari \textit{Return-Path: line}, dengan \textit{property} berikut: \textit{personal, adl, mailbox, dan host}.
  \item remail
- \item date : tanggal message yang ditemukan di header
- \item Date : sama dengan date
- \item subject : subyek pesan
- \item Subject : sama dengan subject
+ \item date: tanggal \textit{message} yang ditemukan di \textit{header}
+ \item Date: sama dengan \textit{date}
+ \item subject: subyek pesan
+ \item Subject: sama dengan \textit{subject}
  \item in\_reply\_to
  \item message\_id
  \item newsgroups
  \item followup\_to
  \item references
- \item Recent : R jika diterima baru-baru ini dan telah dilihat, N jika diterima baru-baru ini dan belum pernah dilihat, dan ' ' jika tidak diterima baru-baru ini.
- \item Unseen : U jika belum pernah dilihat dan tidak diterima baru-baru ini, ' ' jika telah dilihat atau belum pernah dilihat dan diterima baru-baru ini.
- \item Flagged : F jika telah ditandai, ' ' jika tidak ditandai.
- \item Answered : A jika telah dijawab, ' ' jika belum dijawab.
- \item Deleted : D jika telah dihapus, ' ' jika belum dihapus.
- \item Draft : X jika message adalah sebuah draft, ' ' jika bukan draft.
- \item Msgno : nomor message
+ \item Recent: R jika diterima baru-baru ini dan telah dilihat, N jika diterima baru-baru ini dan belum pernah dilihat, dan ' ' jika tidak diterima baru-baru ini.
+ \item Unseen: U jika belum pernah dilihat dan tidak diterima baru-baru ini, ' ' jika telah dilihat atau belum pernah dilihat dan diterima baru-baru ini.
+ \item Flagged: F jika telah ditandai, ' ' jika tidak ditandai.
+ \item Answered: A jika telah dijawab, ' ' jika belum dijawab.
+ \item Deleted: D jika telah dihapus, ' ' jika belum dihapus.
+ \item Draft: X jika \textit{message} adalah sebuah \textit{draft}, ' ' jika bukan \textit{draft}.
+ \item Msgno: nomor \textit{message}
  \item MailDate
- \item Size : ukuran message
- \item udate : tanggal message diterima dalam format Unix time
- \item fetchfrom : from line diformat untuk memenuhi fromlength characters
- \item fetchsubject : subject line diformat untuk memenuhi subjectlength characters
+ \item Size: ukuran \textit{message}
+ \item udate: tanggal \textit{message} diterima dalam format waktu Unix.
+ \item fetchfrom: \textit{from line} diformat untuk memenuhi \textit{fromlength characters}.
+ \item fetchsubject: \textit{subject line} diformat untuk memenuhi \textit{subjectlength characters}.
  \end{itemize}
 \end{itemize}
  
 
 \item imap\_last\_error
 \begin{itemize}
-\item Deskripsi : Fungsi ini berfungsi untuk Mengembalikan full text dari IMAP error message terakhir yang terjadi pada page sekarang. Error stack tidak diganggu-gugat.
-\item \textit{Parameter} : Tidak ada
-\item \textit{Return values} : Mengembalikan full text dari IMAP error message terakhir yang terjadi pada page sekarang. Mengembalikan FALSE jika tidak ada error message.
+\item Deskripsi: Fungsi ini berfungsi untuk mengembalikan \textit{full text} dari IMAP \textit{error message} terakhir yang terjadi pada \textit{page} sekarang. \textit{Error stack} tidak diganggu-gugat.
+\item \textit{Parameter}: Tidak ada
+\item \textit{Return values}: Mengembalikan \textit{full text} dari IMAP \textit{error message} terakhir yang terjadi pada \textit{page} sekarang. Mengembalikan FALSE jika tidak ada \textit{error message}.
 \end{itemize}
  
 \item imap\_open
 \begin{itemize}
-\item Deskripsi : Fungsi ini berfungsi untuk membuka IMAP stream ke sebuah mailbox. Fungsi ini dapat juga digunakan untuk membuka stream ke POP3 dan NNTP server, tapi beberapa fungsi dan fitur hanya tersedia pada IMAP server.
+\item Deskripsi: Fungsi ini berfungsi untuk membuka \textit{IMAP stream} ke sebuah \textit{mailbox}. Fungsi ini dapat juga digunakan untuk membuka \textit{stream} ke POP3 dan NNTP \textit{server}, tapi beberapa fungsi dan fitur hanya tersedia pada \textit{IMAP server}.
 \item \textit{Parameter} :
  \begin{itemize}
- \item mailbox : nama mailbox yang terdiri dari server dan mailbox path pada server ini.
+ \item mailbox: nama \textit{mailbox} yang terdiri dari \textit{server} dan \textit{mailbox path} pada server ini.
  \item username
  \item password
- \item options : option adalah bit mask dengan satu atau lebih dari berikut : 
+ \item options: \textit{bit mask} dengan satu atau lebih dari berikut: 
    \begin{itemize}
-   \item OP\_READONLY : Membuka mailbox, read-only
-   \item OP\_ANONYMOUS : Tidak menggunakan atau memperbarui .newsrc untuk news (hanya NNTP)
-   \item OP\_HALFOPEN : Untuk nama IMAP dan NNTP, membuka koneksi tapi tidak membuka mailbox
-   \item CL\_EXPUNGE : Menghapus pesan yang ditandai untuk dihapus sebelum menutup mailbox
-   \item OP\_DEBUG : Debug protocol negotiations
-   \item OP\_SHORTCACHE : Short (elt-only) caching
-   \item OP\_SILENT : Jangan mengoper events (penggunaan internal)
-   \item OP\_PROTOTYPE : Mengembalikan driver prototype
-   \item OP\_SECURE : Jangan melakukan autentikasi yang tidak aman
+   \item OP\_READONLY: Membuka \textit{mailbox, read-only}
+   \item OP\_ANONYMOUS: Tidak menggunakan atau memperbarui \texttt{.newsrc} untuk \textit{news} (hanya NNTP)
+   \item OP\_HALFOPEN: Untuk nama IMAP dan NNTP, membuka koneksi tapi tidak membuka mailbox
+   \item CL\_EXPUNGE: Menghapus pesan yang ditandai untuk dihapus sebelum menutup mailbox
+   \item OP\_DEBUG: \textit{Debug protocol negotiations}
+   \item OP\_SHORTCACHE: \textit{Short (elt-only) caching}
+   \item OP\_SILENT: Jangan mengoper \textit{events} (penggunaan internal)
+   \item OP\_PROTOTYPE: Mengembalikan \textit{driver prototype}
+   \item OP\_SECURE: Jangan melakukan autentikasi yang tidak aman
    \end{itemize}
- \item n\_retries : Jumlah maksimum percobaan untuk terkoneksi
- \item params : parameter koneksi, string/key berikut mungkin dapat digunakan untuk mengatur satu atau lebih parameter koneksi : DISABLE\_AUTHENTICATOR (Menonaktifkan property autentikasi).
+ \item n\_retries: Jumlah maksimum percobaan untuk terkoneksi
+ \item params: parameter koneksi, \textit{string/key} berikut mungkin dapat digunakan untuk mengatur satu atau lebih parameter koneksi: DISABLE\_AUTHENTICATOR (Menonaktifkan \textit{property} autentikasi).
 
 \end{itemize}
-\item \textit{Return values} : Mengembalikan IMAP stream jika berhasil dan FALSE jika terjadi error.
+\item \textit{Return values}: Mengembalikan \textit{IMAP stream} jika berhasil dan FALSE jika terjadi \textit{error}.
 \end{itemize}
  
 \item imap\_qprint
 \begin{itemize}
-\item Deskripsi : Menkonversi quoted-printable string ke dalam 8 bit string berdasarkan RFC2045, section 6.7.
-\item \textit{Parameter} : quoted-printable string
-\item \textit{Return values} : 8 bit string
+\item Deskripsi: Menkonversi \textit{quoted-printable string} ke dalam \textit{8 bit string} berdasarkan RFC2045, \textit{section} 6.7.
+\item \textit{Parameter}: \textit{quoted-printable string}
+\item \textit{Return values}: \textit{8 bit string}
 \end{itemize}
  
 \item imap\_search
 \begin{itemize}
-\item Deskripsi : Fungsi ini berfungsi untuk melakukan pencarian pada mailbox yang sedang terbuka pada IMAP stream yang diberikan.
-\item \textit{Parameter} :
+\item Deskripsi: Fungsi ini berfungsi untuk melakukan pencarian pada \textit{mailbox} yang sedang terbuka pada \textit{IMAP stream} yang diberikan.
+\item \textit{Parameter}:
 \begin{itemize}
-\item imap\_stream : \textit{IMAP stream} yang dikembalikan oleh imap\_open.
-\item criteria : string yang dibatasi dengan spasi, di dalamnya berisi satu atau lebih kata kunci berikut : 
+\item imap\_stream: \textit{IMAP stream} yang dikembalikan oleh imap\_open.
+\item criteria: \textit{string} yang dibatasi dengan spasi, di dalamnya berisi satu atau lebih kata kunci berikut: 
   \begin{itemize}
-  \item ALL : mengembalikan semua message yang sesuai dengan kriteria lainnya.
-  \item ANSWERED : mengembalikan message yang bertanda ANSWERED
-  \item BCC "string" : mengembalikan message dengan "string" di dalam Bcc: field
-  \item BEFORE "date" : mengembalikan message dengan Date: sebelum "date"
-  \item BODY "string" : mengembalikan message dengan "string" di dalam body message
-  \item CC "string" : mengembalikan message dengan "string" di dalam Cc: field
-  \item DELETED : mengembalikan message yang dihapus
-  \item FLAGGED : mengembalikan message yang bertanda FLAGGED (terkadang merujuk ke message bertanda Important atau Urgent)
-  \item FROM "string" : mengembalikan message dengan "string" di dalam From: field
-  \item KEYWORD "string" : mengembalikan message dengan "string" sebagai keyword
-  \item NEW : mengembalikan message baru
-  \item OLD : mengembalikan message lama
-  \item ON "date" : mengembalikan message dengan Date: cocok dengan "date"
-  \item RECENT : mengembalikan message yang baru-baru ini diterima atau yang bertanda RECENT
-  \item SEEN : mengembalikan message yang telah dilihat atau yang bertanda SEEN
-  \item SINCE "date" : mengembalikan message dengan Date: sejak "date"
-  \item SUBJECT "string" : mengembalikan message dengan "string" di dalam Subject
-  \item TEXT "string" : mengembalikan message dengan text "string"
-  \item TO "string" : mengembalikan message dengan "string" di dalam To:
-  \item UNANSWERED : mengembalikan message yang belum dijawab
-  \item UNDELETED : mengembalikan message yang belum dihapus
-  \item UNFLAGGED : mengembalikan message yang belum ada tandanya
-  \item UNKEYWORD "string" : mengembalikan message yang tidak memiliki keyword "string"
-  \item UNSEEN : mengembalikan message yang belum pernah dilihat
+  \item ALL: mengembalikan semua \textit{message} yang sesuai dengan kriteria lainnya.
+  \item ANSWERED: mengembalikan \textit{message} yang bertanda ANSWERED
+  \item BCC "string": mengembalikan \textit{message} dengan "\textit{string}" di dalam \textit{Bcc: field}
+  \item BEFORE "date": mengembalikan \textit{message} dengan \textit{Date}: sebelum \textit{"date"}
+  \item BODY "string": mengembalikan \textit{message} dengan "string" di dalam \textit{body message}
+  \item CC "string": mengembalikan \textit{message} dengan "\textit{string}" di dalam \textit{Cc: field}
+  \item DELETED: mengembalikan \textit{message} yang dihapus
+  \item FLAGGED: mengembalikan \textit{message} yang bertanda FLAGGED (terkadang merujuk ke \textit{message} bertanda \textit{Important} atau \textit{Urgent})
+  \item FROM "string": mengembalikan \textit{message} dengan "\textit{string}" di dalam \textit{From: field}
+  \item KEYWORD "string": mengembalikan \textit{message} dengan "\textit{string}" sebagai \textit{keyword}
+  \item NEW: mengembalikan \textit{message} baru
+  \item OLD: mengembalikan \textit{message} lama
+  \item ON "date": mengembalikan \textit{message} dengan \textit{Date:} cocok dengan "\textit{date}"
+  \item RECENT: mengembalikan \textit{message} yang baru-baru ini diterima atau yang bertanda RECENT
+  \item SEEN: mengembalikan \textit{message} yang telah dilihat atau yang bertanda SEEN
+  \item SINCE "date": mengembalikan \textit{message} dengan \textit{Date:} sejak \textit{"date"}
+  \item SUBJECT "string": mengembalikan \textit{message} dengan \textit{"string"} di dalam \textit{Subject}
+  \item TEXT "string": mengembalikan \textit{message} dengan text \textit{"string"}
+  \item TO "string": mengembalikan \textit{message} dengan \textit{"string"} di dalam \textit{To:}
+  \item UNANSWERED: mengembalikan \textit{message} yang belum dijawab
+  \item UNDELETED: mengembalikan \textit{message} yang belum dihapus
+  \item UNFLAGGED: mengembalikan \textit{message} yang belum ada tandanya
+  \item UNKEYWORD "string": mengembalikan \textit{message} yang tidak memiliki \textit{keyword "string"}
+  \item UNSEEN: mengembalikan \textit{message} yang belum pernah dilihat
   \end{itemize}
-\item options : Valid values untuk options adalah SE\_UID, yang menyebabkan array yang dikembalikan berisi UID daripada message sequence number.
-\item charset : MIME character set untuk digunakan saat mencari strings.
+\item options: \textit{Values} sah untuk \textit{options} adalah SE\_UID, yang menyebabkan \textit{array} yang dikembalikan berisi UID, bukan \textit{message sequence number}.
+\item charset: \textit{MIME character set} untuk digunakan saat mencari \textit{strings}.
 \end{itemize}
-\item \textit{Return values} : Mengembalikan array dari message number atau UID.
+\item \textit{Return values}: Mengembalikan \textit{array} dari \textit{message number} atau UID.
 \end{itemize}
  
 \end{itemize}
 
 %2.4 Line
-\section{Line \cite{LINE-developer}}
+\section{LINE \cite{LINE-developer}}
 \label{sec:Line}
-Line adalah aplikasi pengirim pesan yang tersedia dalam platform android, ios, dan desktop. Line memiliki beberapa produk yang dapat digunakan \textit{developer} aplikasi. Produk-produk tersebut adalah :
+LINE adalah aplikasi pengirim pesan yang tersedia dalam \textit{platform android, ios}, dan \textit{desktop}. LINE memiliki beberapa produk yang dapat digunakan \textit{developer} aplikasi. Produk-produk tersebut adalah:
 \begin{enumerate}
 \item LINE Login
 \item LINE Bot Designer
@@ -1337,7 +1400,7 @@ Line adalah aplikasi pengirim pesan yang tersedia dalam platform android, ios, d
 	\label{fig:line-login} 
 \end{figure}
 
-LINE Login adalah produk dari LINE yang memungkinkan \textit{developer} membuat aplikasinya menyediakan pilihan login melalui akun LINE. Pengguna aplikasi yang dibuat \textit{developer} tidak perlu mendaftar menggunakan email dan password. Login menjadi lebih mudah dan cepat. LINE menyediakan LINE SDK untuk mengintegrasikan LINE Login dengan native apps.
+LINE Login adalah produk dari LINE yang memungkinkan \textit{developer} membuat aplikasinya menyediakan pilihan \textit{login} melalui akun LINE. Pengguna aplikasi yang dibuat \textit{developer} tidak perlu mendaftar menggunakan \textit{email} dan \textit{password}. \textit{Login} menjadi lebih mudah dan cepat. LINE menyediakan LINE SDK untuk mengintegrasikan LINE Login dengan \textit{native apps}.
 
 \subsection{LINE Bot Designer}
 
@@ -1348,7 +1411,7 @@ LINE Login adalah produk dari LINE yang memungkinkan \textit{developer} membuat 
 	\label{fig:bot-designer} 
 \end{figure}
 
-LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memungkinkan \textit{developer} membuat prototipe LINE bot lebih cepat dan lebih mudah tanpa mengetahui pemrograman. Dengan produk ini, \textit{developer} dapat mendesain chatbots sesuai skenario yang diinginkan.
+LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memungkinkan \textit{developer} membuat prototipe LINE bot lebih cepat dan lebih mudah tanpa mengetahui pemrograman. Dengan produk ini, \textit{developer} dapat mendesain \textit{chatbots} sesuai skenario yang diinginkan.
 
 \subsection{Clova}
 
@@ -1359,7 +1422,7 @@ LINE Bot Designer (Gambar~\ref{fig:bot-designer}) adalah produk LINE yang memung
 	\label{fig:clova_site} 
 \end{figure}
 
-Clova adalah sebuah AI Assistant (aplikasi dengan kecerdasan buatan yang berfungsi sebagai asisten) yang dipasang di dalam Clova Wave dan Clova Friends. Clova masih dalam tahap \textit{developer}an dan (pada saat skripsi ini dibuat) tersedia dalam versi beta. Tidak ada dokumentasi resmi untuk produk ini, namun disediakan situs web untuk menggali informasi tentang Clova : https://clova-developers.line.me (Gambar~\ref{fig:clova_site}). Pada saat skripsi ini ditulis, situs web ini hanya tersedia dalam bahasa Jepang sehingga membutuhkan penerjemah apabila tidak menguasai bahasa Jepang.
+Clova adalah sebuah\textit{ AI Assistant} (aplikasi dengan kecerdasan buatan yang berfungsi sebagai asisten) yang dipasang di dalam \textit{Clova Wave} dan \textit{Clova Friends}. Pada saat skripsi ini dibuat, Clova masih dalam tahap pengembangan dan tersedia dalam versi beta. Tidak ada dokumentasi resmi untuk produk ini, tapi ada situs web resminya: \url{https://clova-developers.line.me} (Gambar~\ref{fig:clova_site}). Pada saat skripsi ini ditulis, situs web ini hanya tersedia dalam bahasa Jepang sehingga membutuhkan penerjemah untuk memahami isinya.
 
 \subsection{LINE Pay}
 \begin{figure}[H]
@@ -1369,7 +1432,7 @@ Clova adalah sebuah AI Assistant (aplikasi dengan kecerdasan buatan yang berfung
 	\label{fig:line_pay_site} 
 \end{figure}
 
-LINE Pay adalah produk LINE yang memungkinkan \textit{developer} mengintegrasikan aplikasi yang dibuat \textit{developer} dengan fitur pembayaran melalui LINE Pay. Pada saat skripsi ini dibuat, tidak ada dokumentasi resmi untuk mengintegrasikan LINE Pay dengan aplikasi yang \textit{developer} buat. Namun, \textit{developer} dapat menggali informasi tentang fitur LINE Pay di situs https://pay.line.me (Gambar~\ref{fig:line_pay_site}). Situs ini menyediakan informasi LINE Pay di negara Jepang, Republik Tiongkok / Taiwan, dan Thailand. Situs ini tersedia dalam bahasa Jepang, Korea, Inggris, China dengan aksara sederhana, China dengan aksara tradisional, dan Thailand.
+LINE Pay adalah produk LINE yang memungkinkan \textit{developer} mengintegrasikan aplikasi yang dibuat \textit{developer} dengan fitur pembayaran melalui LINE Pay. Tidak ada dokumentasi resmi untuk produk ini, tapi ada situs web resminya: \url{https://pay.line.me} (Gambar~\ref{fig:line_pay_site}). Situs web ini menyediakan informasi LINE Pay di negara Jepang, Republik Tiongkok / Taiwan, dan Thailand. Situs ini tersedia dalam bahasa Jepang, Korea, Inggris, China dengan aksara sederhana, China dengan aksara tradisional, dan Thailand.
 
 \subsection{Messaging API } 
 \begin{figure}[H]
@@ -1379,9 +1442,9 @@ LINE Pay adalah produk LINE yang memungkinkan \textit{developer} mengintegrasika
 	\label{fig:messaging-api-push-reply-message} 
 \end{figure}
 
-Messaging API adalah produk LINE yang memungkinkan \textit{developer} untuk membangun bot sebagai sarana komunikasi dua arah antara layanan yang dibangun \textit{developer} dengan pengguna LINE. Dengan Messaging API, \textit{developer} dapat mengirimkan push message dan reply message (Gambar~\ref{fig:messaging-api-push-reply-message}) ke akun LINE@. Push message adalah pesan yang bot kirimkan ke pengguna LINE. Reply message adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
+Messaging API adalah produk LINE yang memungkinkan \textit{developer} untuk membangun \textit{bot} sebagai sarana komunikasi dua arah antara layanan yang dibangun \textit{developer} dengan pengguna LINE. Dengan Messaging API, \textit{developer} dapat mengirimkan \textit{push message} dan \textit{reply message} (Gambar~\ref{fig:messaging-api-push-reply-message}) ke akun LINE@. \textit{Push message} adalah pesan yang \textit{bot} kirimkan ke pengguna LINE. \textit{Reply message} adalah pesan yang bot kirimkan untuk membalas pesan dari pengguna LINE.
 
-Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memungkinkan data dioper antara server dari aplikasi bot dengan LINE Platform. Ketika pengguna Line mengirimkan pesan ke bot, sebuah webhook akan terpicu dan LINE Platform akan mengirimkan permintaan ke URL webhook bot. Server akan mengirim permintaan ke LINE Platform untuk merespon pengguna. Permintaan akan dikirimkan dalam format JSON. Arsitektur dari Messaging API dapat dilihat pada Gambar~\ref{fig:messaging_api_architecture}.
+LINE Menyediakan Messaging API untuk membangun messaging bot. Messaging API memungkinkan data dioper antara server dari aplikasi bot dengan LINE Platform. Ketika pengguna LINE mengirimkan pesan ke bot, sebuah \textit{webhook} akan terpicu dan LINE Platform akan mengirimkan permintaan ke URL \textit{webhook bot}. \textit{Server} akan mengirim permintaan ke LINE Platform untuk merespon pengguna. Permintaan akan dikirimkan dalam format JSON. Arsitektur dari Messaging API dapat dilihat pada Gambar~\ref{fig:messaging_api_architecture}.
 
 \begin{figure}[H]
 	\centering  
@@ -1392,57 +1455,57 @@ Line Menyediakan Messaging API untuk membangun messaging bot. Messaging API memu
 
 \textit{Developer} dapat melakukan hal-hal berikut dengan Messaging API :
 \begin{itemize}
-\item Mengirimkan reply message
-\item Mengirimkan push message
+\item Mengirimkan \textit{reply message}
+\item Mengirimkan \textit{push message}
 \item Mengirimkan berbagai jenis pesan
-\item Mendapatkan profil pengguna yang berinteraksi dengan bot
-\item Bergabung dengan percakapan grup /group chats
+\item Mendapatkan profil pengguna yang berinteraksi dengan \textit{bot}
+\item Bergabung dengan percakapan grup (\textit{group chats})
 \end{itemize}
 
-Untuk menggunakan Messaging API, \textit{developer} memerlukan akun LINE@. Messaging API juga dapat digunakan menggunakan akun resmi/\textit{official accounts}. Akun resmi mendapatkan fitur tambahan untuk pengguna enterprise.
+Untuk menggunakan Messaging API, \textit{developer} memerlukan akun LINE@. Messaging API juga dapat digunakan menggunakan akun resmi/\textit{official accounts}. Akun resmi mendapatkan fitur tambahan untuk pengguna \textit{enterprise}.
 
-\subsubsection{Membuat Channel}
-Untuk memulai membangun bot dengan Messaging API, \textit{developer} perlu membuat channel terlebih dahulu. Channel adalah penyambung antara LINE platform dan aplikasi yang dibuat \textit{developer}. Berikut langkah-langkah untuk membuat channel :
+\subsubsection{Membuat \textit{Channel}}
+Untuk memulai membangun bot dengan Messaging API, \textit{developer} perlu membuat \textit{channel} terlebih dahulu. \textit{Channel} adalah penyambung antara LINE platform dan aplikasi yang dibuat \textit{developer}. Berikut langkah-langkah untuk membuat \textit{channel}:
 \begin{enumerate}
-\item Langkah ke-1 : Masuk ke LINE Developers console
+\item Langkah ke-1 : Masuk ke LINE Developers \textit{console}
 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{line-developers-console-login.png}  
-	\caption[Tampilan LINE developer console saat login]{Tampilan LINE developer console saat login} 
+	\caption[Tampilan LINE Developers \textit{console} saat login]{Tampilan LINE Developers \textit{console} saat login} 
 	\label{fig:line-developers-console-login} 
 \end{figure}
 
-\textit{Developer} perlu masuk ke LINE Developers console (https://developers.line.me/en/) dengan alamat email dan password dari akun LINE \textit{developer} (Gambar~\ref{fig:line-developers-console-login}). Jika \textit{developer} belum memiliki akun LINE, \textit{developer} perlu mengunduh aplikasi LINE untuk mendaftar akun LINE.
+\textit{Developer} perlu masuk ke LINE Developers \textit{console} (\url{https://developers.line.me/en/}) dengan alamat \textit{email} dan \textit{password} dari akun LINE \textit{developer} (Gambar~\ref{fig:line-developers-console-login}). Jika \textit{developer} belum memiliki akun LINE, \textit{developer} perlu mengunduh aplikasi LINE untuk mendaftar akun LINE.
 
-\item Langkah ke-2 : Mendaftar sebagai developer (\textit{developer})
+\item Langkah ke-2 : Mendaftar sebagai \textit{developer}
 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{line-developers-console-register-developer.png}  
-	\caption[Tampilan LINE developer console saat register developer]{Tampilan LINE developer console saat register developer} 
+	\caption[Tampilan LINE Developers \textit{console} saat \textit{register developer}]{Tampilan LINE Developers \textit{console} saat \textit{register developer}} 
 	\label{fig:line-developers-console-register-developer} 
 \end{figure}
 
-Apabila \textit{developer} baru pertama kali masuk ke LINE Developers console, \textit{developer} perlu membuat akun developer (Gambar~\ref{fig:line-developers-console-register-developer}). \textit{Developer} hanya perlu mencantumkan nama dan alamat email untuk mendaftar.
+Apabila \textit{developer} baru pertama kali masuk ke LINE Developers \textit{console}, \textit{developer} perlu membuat akun \textit{developer} (Gambar~\ref{fig:line-developers-console-register-developer}). \textit{Developer} hanya perlu mencantumkan nama dan alamat \textit{email} untuk mendaftar.
 
-\item Langkah ke-3 : Membuat provider baru
+\item Langkah ke-3 : Membuat \textit{provider} baru
 
-Provider adalah individu atau perusahaan yang menyediakan aplikasi yang akan dibuat. \textit{Developer} perlu mencantumkan nama provider untuk membuat provider baru. \textit{Developer} dapat menuliskan nama \textit{developer} sendiri atau nama perusahaan \textit{developer}.
+\textit{Provider} adalah individu atau perusahaan yang menyediakan aplikasi yang akan dibuat. \textit{Developer} perlu mencantumkan nama \textit{provider} untuk membuat \textit{provider} baru. \textit{Developer} dapat menuliskan nama \textit{developer} sendiri atau nama perusahaan \textit{developer}.
 
-\item Langkah ke-4 : Membuat channel
+\item Langkah ke-4 : Membuat \textit{channel}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{line-developers-console-create-channel.png}  
-	\caption[Tampilan LINE developer console saat membuat channel]{Tampilan LINE developer console saat membuat channel} 
+	\caption[Tampilan LINE Developers \textit{console} saat membuat \textit{channel}]{Tampilan LINE Developers \textit{console} saat membuat \textit{channel}} 
 	\label{fig:line-developers-console-create-channel} 
 \end{figure}
 
-\textit{Developer} perlu memasukkan informasi yang dibutuhkan untuk membuat channel :
+\textit{Developer} perlu memasukkan informasi yang dibutuhkan untuk membuat \textit{channel}:
 \begin{itemize}
 \item Ikon aplikasi
 
-Dokumen gambar untuk ikon aplikasi harus dibawah 3MB dengan ekstensi JPEG/PNG/GIF/BMP.
+Dokumen gambar untuk ikon aplikasi harus dibawah 3 MB dengan ekstensi JPEG/PNG/GIF/BMP.
 
 \item Nama aplikasi
 
@@ -1452,17 +1515,17 @@ Nama aplikasi tidak boleh lebih dari 20 karakter. Kata "LINE" tidak dapat diguna
 
 Deskripsi aplikasi tidak boleh lebih dari 500 karakter.
 
-\item Plan
+\item \textit{Plan}
 
-Terdapat dua pilihan, Developer Trial dan Free. Plan Developer Trial memungkinkan \textit{developer} untuk membuat bot yang dapat mengirimkan push message dan memiliki 50 teman. Apabila \textit{developer} memilih plan ini, maka \textit{developer} tidak dapat melakukan upgrade atau membeli ID premium. Plan Free memungkinkan \textit{developer} untuk membuat bot dengan jumlah teman tak terbatas, namun \textit{developer} tidak dapat mengirimkan push message. \textit{Developer} dapat melakukan upgrade kapan saja dengan plan ini.
+Pada saat mendaftar \textit{channel}, pilihan \textit{plan} yang tersedia hanya dua: \textit{Developer Trial} dan \textit{Free}. \textit{Plan Developer Trial} memungkinkan \textit{developer} untuk membuat bot yang dapat mengirimkan \textit{push message} dan memiliki 50 teman. Apabila \textit{developer} memilih plan ini, maka \textit{developer} tidak dapat melakukan \textit{upgrade} atau membeli ID \textit{premium}. \textit{Plan Free} memungkinkan \textit{developer} untuk membuat bot dengan jumlah teman tak terbatas, tapi \textit{developer} tidak dapat mengirimkan \textit{push message}. \textit{Developer} dapat melakukan \textit{upgrade} kapan saja dengan \textit{plan} ini.
 
 \item Kategori dan Subkategori
 
 \textit{Developer} dapat memilih kategori dan subkategori yang cocok dengan aplikasi yang sedang dikembangkan.
 
-\item Alamat email
+\item Alamat \textit{email}
 
-Alamat email yang dicantumkan adalah alamat email yang akan menerima notifikasi dan pengumuman penting dari LINE. Maksimal karakter pada alamat email adalah 100 karakter.
+Alamat \textit{email} yang dicantumkan adalah alamat \textit{email} yang akan menerima notifikasi dan pengumuman penting dari LINE. Maksimal karakter pada alamat \textit{email} adalah 100 karakter.
 
 \end{itemize}
 
@@ -1470,124 +1533,124 @@ Alamat email yang dicantumkan adalah alamat email yang akan menerima notifikasi 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{line-developers-console-confirm-channel.png}  
-	\caption[Tampilan LINE developer console saat konfirmasi pembuatan channel]{Tampilan LINE developer console saat konfirmasi pembuatan channel} 
+	\caption[Tampilan LINE Developers \textit{console} saat konfirmasi pembuatan \textit{channel}]{Tampilan LINE Developers \textit{console} saat konfirmasi pembuatan \textit{channel}} 
 	\label{fig:line-developers-console-confirm-channel} 
 \end{figure}
 
-Konfirmasi channel yang baru saja dibuat.
+Konfirmasi \textit{channel} yang baru saja dibuat. Tampilan setelah \textit{channel} dikonfirmasi dapat dilihat di Gambar~\ref{fig:line-developers-console-confirm-channel}.
 
 \end{enumerate}
 
 
-\subsubsection{Membuat bot}
-Setelah membangun channel, \textit{developer} perlu menyiapkan server untuk menjadi host dari bot. \textit{Developer} dapat menggunakan layanan cloud platform, seperti Heroku. Setelah itu, \textit{developer} dapat mulai mengatur bot pada console.
+\subsubsection{Membuat \textit{bot}}
+Setelah membangun \textit{channel}, \textit{developer} perlu menyiapkan \textit{server} untuk menjadi \textit{host} dari bot. \textit{Developer} dapat menggunakan layanan \textit{cloud platform}, seperti Heroku. Setelah itu, \textit{developer} dapat mulai mengatur \textit{bot} pada \textit{console}.
 
-Aplikasi bot membutuhkan channel access token untuk membuat API call dan webhook URL untuk menerima webhook payload dari LINE Platform. Channel access token adalah long-lived token (token yang tidak memiliki kadaluarsa) yang harus diatur di dalam authorization header ketika membuat API call. \textit{Developer} dapat menerbitkan lagi channel access token kapanpun melalui console. Untuk menerbitkan channel access token, klik Issue pada "Channel settings" di halaman console. Sedangkan webhook URL adalah titik akhir dari server aplikasi bot dimana webhook payload dikirimkan.
+Aplikasi \textit{bot} membutuhkan \textit{channel access token} untuk membuat \textit{API call} dan \textit{webhook} URL untuk menerima \textit{webhook payload} dari LINE Platform. \textit{Channel access token} adalah \textit{long-lived token} (token yang tidak memiliki kadaluarsa) yang harus diatur di dalam \textit{authorization header} ketika membuat \textit{API call}. \textit{Developer} dapat menerbitkan lagi \textit{channel access token} kapanpun melalui \textit{console}. Untuk menerbitkan \textit{channel access token}, klik Issue pada "\textit{Channel settings}" di halaman \textit{console}. Sedangkan\textit{ webhook} URL adalah titik akhir dari \textit{server} aplikasi \textit{bot} dimana \textit{webhook payload} dikirimkan.
 
-Untuk mengatur webhook URL, \textit{developer} dapat memasukkannya ke halaman Channel settings pada console. Webhooks harus diaktifkan terlebih dahulu dengan menekan tombol enable webhooks. Untuk memeriksa apakah webhook URL dapat menerima event webhook, tekan tombol Verify dan pastikan hasilnya "Success". Webhook URL harus menggunakan HTTPS dan memiliki sertifikat SSL yang diterbitkan oleh certificate authority (CA) yang terotorisasi.
+Untuk mengatur \textit{webhook} URL, \textit{developer} dapat memasukkannya ke halaman \textit{Channel settings} pada \textit{console}. \textit{Webhooks} harus diaktifkan terlebih dahulu dengan menekan tombol \textit{enable webhooks}. Untuk memeriksa apakah \textit{webhook} URL dapat menerima \textit{event webhook}, tekan tombol \textit{Verify} dan pastikan hasilnya \textit{"Success"}. \textit{Webhook} URL harus menggunakan HTTPS dan memiliki sertifikat SSL yang diterbitkan oleh \textit{certificate authority} (CA) yang terotorisasi.
 
-Setelah token dan webhook URL berhasil diset, tambahkan bot sebagai teman melalui akun LINE. \textit{Developer} dapat melakukannya dengan scan kode QR pada Channel Settings.
+Setelah \textit{token} dan \textit{webhook URL} berhasil diset, tambahkan \textit{bot} sebagai teman melalui akun LINE. \textit{Developer} dapat melakukannya dengan \textit{scan} kode QR pada \textit{Channel Settings}.
 
 \subsubsection{Menkonfigurasi Keamanan}
-\textit{Developer} dapat mengkonfigurasi keamanan tapi tidak wajib dilakukan. Untuk meningkatkan keamanan, \textit{developer} dapat mengatur server yang dapat memanggil API pada LINE Platform pada Security settings. \textit{Developer} dapat mendaftarkan alamat IP secara individual atau jika \textit{developer} memiliki server yang banyak \textit{developer} dapat menggunakan notasi classless inter-domain routing (CIDR) untuk mendaftarkan alamat jaringan.
+\textit{Developer} dapat mengkonfigurasi keamanan tapi tidak wajib dilakukan. Untuk meningkatkan keamanan, \textit{developer} dapat mengatur \textit{serve}r yang dapat memanggil API pada LINE Platform pada \textit{Security settings}. \textit{Developer} dapat mendaftarkan alamat IP secara individual atau jika \textit{developer} memiliki \textit{server} yang banyak \textit{developer} dapat menggunakan notasi \textit{Classless Inter-Domain Routing} (CIDR) untuk mendaftarkan alamat jaringan.
 
 \subsubsection{Alur kerja Messaging API}
-Ketika user berinteraksi dengan bot seperti mengirimkan pesan atau menambah bot sebagai teman, LINE Platform mengirimkan HTTP POST request yang berisi webhook event object ke bot server yang disebutkan di kolom "Webhook URL" pada console. Request header berisi signature. 
+Ketika \textit{user} berinteraksi dengan \textit{bot} seperti mengirimkan pesan atau menambah \textit{bot} sebagai teman, LINE Platform mengirimkan HTTP POST \textit{request} yang berisi \textit{webhook event object} ke \textit{bot server} yang disebutkan di kolom \textit{"Webhook URL"} pada \textit{console. Request header} berisi \textit{signature.} 
 
-Untuk mengecek apakah server dapat menerima webhook event, blok bot pada LINE dan cek server logs untuk menkorfimasi bahwa server dapat menerima unfollow event dari LINE Platform.
+Untuk mengecek apakah \textit{server} dapat menerima \textit{webhook event}, blokir \textit{bot} pada LINE dan cek \textit{server logs} untuk menkorfimasi bahwa \textit{server} dapat menerima \textit{unfollow event} dari LINE Platform.
 
-Untuk memastikan request yang dikirim berasal dari LINE Platform, bot server harus memvalidasi X-Line-Signature pada request header. Caranya dengan :
-1. Menggunakan channel secret sebagai secret key, mengenerate Base64-encoded digest dari request body menggunakan algoritma HMAC-SHA256
-2. Menkonfirmasi signature X-Line-Signature dalam request header cocok dengan digest.
+Untuk memastikan \textit{request} yang dikirim berasal dari LINE Platform, \textit{bot server} harus memvalidasi \textit{X-Line-Signature} pada \textit{request header}. Caranya dengan :
+1. Menggunakan \textit{channel secret} sebagai \textit{secret key}, menghasilkan \textit{Base64-encoded digest} dari \textit{request body} menggunakan algoritma HMAC-SHA256
+2. Menkonfirmasi \textit{signature X-Line-Signature} dalam \textit{request header} cocok dengan \textit{digest}.
  
 
-\subsubsection{Webhook Event Object}
+\subsubsection{\textit{Webhook Event Object}}
 \begin{enumerate}
-\item Khusus untuk one-on-one chat
+\item Berikut \textit{webhook event object} khusus untuk \textit{one-on-one chat}:
 
 \begin{itemize}
-\item Message Event
+\item \textit{Message Event}
 
-Menunjukkan bahwa ada user yang mengirim pesan. Event ini dapat dibalas.
+Menunjukkan bahwa ada \textit{user} yang mengirim pesan. \textit{Event} ini dapat dibalas.
 
-\item Follow Event
+\item \textit{Follow Event}
 
-Menunjukkan bahwa akun bot ditambahkan sebagai teman (atau unblocked). Event ini dapat dibalas.
+Menunjukkan bahwa akun \textit{bot} ditambahkan sebagai teman (atau dibuka blokirnya). \textit{Event} ini dapat dibalas.
 
-\item Unfollow Event
+\item \textit{Unfollow Event}
 
-Menunjukkan bahwa akun bot diblok
+Menunjukkan bahwa akun bot diblokir
 
-\item Postback event
+\item \textit{Postback event}
 
-Menunjukkan user melakukan aksi postback. Event ini dapat dibalas.
+Menunjukkan \textit{user} melakukan aksi \textit{postback}. \textit{Event} ini dapat dibalas.
 
-\item Beacon event
+\item \textit{Beacon event}
 
-Menunjukkan bahwa user telah masuk atau keluar dari jangkauan LINE Beacon. Event ini dapat dibalas.
+Menunjukkan bahwa \textit{user} telah masuk atau keluar dari jangkauan \textit{LINE Beacon}. \textit{Event} ini dapat dibalas.
 
-\item Account link event 
+\item \textit{Account link event }
 
-Menunjukkan bahwa user telah melink akun LINE dengan akun layanan \textit{developer}. 
+Menunjukkan bahwa \textit{user} telah menghubungkan akun LINE dengan akun layanan \textit{developer}. 
 
 \end{itemize}
 
-\item Group chats
+\item Berikut \textit{webhook event object} khusus untuk \textit{group chats}:
 
 \begin{itemize}
-\item Message event
+\item \textit{Message event}
 
-Menunjukkan bahwa ada user yang mengirim pesan. Event ini dapat dibalas.
+Menunjukkan bahwa ada \textit{user} yang mengirim pesan. \textit{Event} ini dapat dibalas.
 
-\item Join event
+\item \textit{Join event}
 
-Menunjukkan bot telah bergabung ke sebuah group chat
+Menunjukkan \textit{bot} telah bergabung ke sebuah \textit{group chat}
 
-\item Leave event
+\item \textit{Leave event}
 
-Menunjukkan bot telah keluar dari sebuah group chat
+Menunjukkan \textit{bot} telah keluar dari sebuah \textit{group chat}
 
-\item Postback event
+\item \textit{Postback event}
 
-Menunjukkan user melakukan aksi postback. Event ini dapat dibalas.
+Menunjukkan \textit{user} melakukan aksi \textit{postback}. \textit{Event} ini dapat dibalas.
 
 \end{itemize}
 
 \end{enumerate}
 
-\subsubsection{Operasi pada bot}
-\textit{Developer} dapat melakukan operasi berikut lewat bot :
+\subsubsection{Operasi pada \textit{bot}}
+\textit{Developer} dapat melakukan operasi berikut lewat \textit{bot} :
 \begin{enumerate}
-\item Mengirim reply message
+\item Mengirim \textit{reply message}
 
-Reply message adalah pesan yang dikirim sebagai respons dari user-generated event. User-generated event adalah event yang muncul karena user berinteraksi dengan bot, misalnya mengirim pesan. \textit{Developer} hanya dapat membalas webhook events yang memiliki reply token.
-Untuk membalas pesan, kirim HTTP POST request ke /bot/message/reply. Sertakan channel access token di dalam authorization header dan reply token di request body. \textit{Developer} dapat mengirimkan sampai 5 message object per request.
+\textit{Reply message} adalah pesan yang dikirim sebagai respons dari \textit{user-generated event}. \textit{User-generated event} adalah \textit{event} yang muncul karena user berinteraksi dengan \textit{bot}, misalnya mengirim pesan. \textit{Developer} hanya dapat membalas \textit{webhook events} yang memiliki \textit{reply token}.
+Untuk membalas pesan, kirim HTTP POST \textit{request} ke \texttt{/bot/message/reply}. Sertakan \textit{channel access token} di dalam \textit{authorization header} dan \textit{reply token} di \textit{request body}. \textit{Developer} dapat mengirimkan sampai 5 \textit{message object} per \textit{request}.
 
-\item Mengirim push message
+\item Mengirim \textit{push message}
 
-Untuk mengirim push message, \textit{developer} harus memerhatikan plan yang dipakai. Apabila \textit{developer} memakai plan Free maka \textit{developer} tidak dapat melakukan operasi ini. Push message adalah pesan yang dapat bot kirimkan ke user kapanpun. Push message tidak membutuhkan reply token seperti saat mengirim reply message. Ketika mengirim push message, sebutkan user ID di dalam property to. ID penerima dapat ditemukan dari webhook event object. Apabila penerima hanya satu, kirimkan request ke /bot/message/push. Sedangkan apabila penerima ada beberapa, kirimkan ke /bot/message/multicast. \textit{Developer} dapat mengirimkan sampai 5 message object per request.
+Untuk mengirim \textit{push message}, \textit{developer} harus memerhatikan \textit{plan} yang dipakai. Apabila \textit{developer} memakai \textit{plan Free} maka \textit{developer} tidak dapat melakukan operasi ini. \textit{Push message} adalah pesan yang dapat \textit{bot} kirimkan ke \textit{user} kapan saja. \textit{Push message} tidak membutuhkan \textit{reply token} seperti saat mengirim \textit{reply message}. Ketika mengirim \textit{push message}, sebutkan \textit{user ID} di dalam \textit{property to}. ID penerima dapat ditemukan dari \textit{webhook event object}. Apabila penerima hanya satu, kirimkan \textit{request} ke \texttt{/bot/message/push}. Sedangkan apabila penerima ada beberapa, kirimkan ke \texttt{/bot/message/multicast}. \textit{Developer} dapat mengirimkan sampai 5 \textit{message object} per \textit{request}.
 
-\item Mendapatkan konten yang dikirim oleh user
+\item Mendapatkan konten yang dikirim oleh \textit{user}
 
-Untuk mengambil gambar, video, atau audio yang dikirim user, kirimkan HTTP GET request ke /bot/message/{messageId}/content. Konten yang dikirim oleh user otomatis dihapus dalam jangka waktu tertentu.
+Untuk mengambil gambar, video, atau audio yang dikirim \textit{user}, kirimkan HTTP GET \textit{request} ke \texttt{/bot/message/{messageId}/content}. Konten yang dikirim oleh \textit{user} otomatis dihapus dalam jangka waktu tertentu.
 
-\item Mendapatkan informasi user profile
+\item Mendapatkan informasi \textit{user profile}
 
-Untuk mendapatkan informasi user profile dari user yang menambahkan bot atau mengirim pesan ke bot, kirimkan HTTP GET request ke /bot/profile/{userId}. Request ini akan mengembalikan display name, user ID, profile image URL, dan status message (jika tersedia) dari user.
+Untuk mendapatkan informasi \textit{user profile} dari \textit{user} yang menambahkan bot atau mengirim pesan ke bot, kirimkan HTTP GET \textit{request} ke \texttt{/bot/profile/{userId}}. \textit{Request} ini akan mengembalikan \textit{display name, user ID, profile image URL,} dan \textit{status message} (jika tersedia) dari \textit{user}.
 \end{enumerate}
 
 \subsection{LINE@ Manager}
-LINE@ Manager adalah alat untuk mengatur akun LINE@ (LINE bot). \textit{Developer} dapat meningkatkan user experience dengan mengatur halaman akun, membuat Timeline post, dan menggunakan fitur lain yang disediakan LINE@ Manager. Berikut adalah hal-hal yang bisa dilakukan :
+LINE@ Manager adalah alat untuk mengatur akun LINE@ (LINE bot). \textit{Developer} dapat meningkatkan \textit{user experience} dengan mengatur halaman akun, membuat \textit{Timeline post}, dan menggunakan fitur lain yang disediakan LINE@ Manager. Berikut adalah hal-hal yang bisa dilakukan:
 \begin{enumerate}
 \item Mengubah tampilan halaman akun
 
 \textit{Developer} dapat mengubah gambar cover, logo, tombol, dan informasi yang disediakan
 
-\item Mengatur greeting message
+\item Mengatur \textit{greeting message}
 
-Jika \textit{developer} mengaktifkan Greeting message pada Channel settings, maka \textit{developer} dapat mengatur greeting message yang akan dikirim ke user saat pertama kali menambahkan bot sebagai teman. \textit{Developer} dapat melakukannya juga dengan program melalui follow webhook event.
+Jika \textit{developer} mengaktifkan \textit{greeting message} pada \textit{Channel settings}, maka \textit{developer} dapat mengatur \textit{greeting message} yang akan dikirim ke \textit{user} saat pertama kali menambahkan bot sebagai teman. \textit{Developer} dapat melakukannya juga dengan program melalui \textit{follow webhook event}.
 
-\item Mengatur auto reply message
+\item Mengatur \textit{auto reply message}
 
-Jika \textit{developer} mengaktifkan "Auto reply message" pada Channel settings, maka \textit{developer} dapat mengatur pesan balasan otomatis setiap user mengirimkan pesan ke bot.
+Jika \textit{developer} mengaktifkan "\textit{Auto reply message}" pada \textit{Channel settings}, maka \textit{developer} dapat mengatur pesan balasan otomatis setiap \textit{user} mengirimkan pesan ke bot.
 \end{enumerate}
