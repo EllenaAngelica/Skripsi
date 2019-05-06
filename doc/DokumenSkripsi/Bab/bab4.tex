@@ -1,7 +1,7 @@
 \chapter{Perancangan}
 \label{chap:perancangan}
 
-Bab ini membahas perancangan fitur kolektor pengumuman. Pembahasan dibagi menjadi tiga bagian, yaitu : perancangan kelas, perancangan basis data, dan perancangan antarmuka.
+Bab ini membahas perancangan fitur kolektor pengumuman. Pembahasan dibagi menjadi tiga bagian, yaitu: perancangan kelas, perancangan basis data, dan perancangan antarmuka.
  
 \section{Perancangan Kelas}
 \begin{figure}[H]
@@ -10,12 +10,12 @@ Bab ini membahas perancangan fitur kolektor pengumuman. Pembahasan dibagi menjad
 	\caption[Class diagram fitur kolektor pengumuman]{Class diagram fitur kolektor pengumuman} 
 	\label{fig:class-diagram} 
 \end{figure}
-Gambar~\ref{fig:class-diagram} merupakan gambar diagram kelas yang dipakai untuk pembangunan fitur kolektor pengumuman. Penjelasan untuk diagram kelas tersebut akan diberikan di subbagian. Penjelasan dibagi menjadi tiga bagian : controller, model, dan view.
+Gambar~\ref{fig:class-diagram} merupakan gambar diagram kelas yang dipakai untuk pembangunan fitur kolektor pengumuman. Penjelasan untuk diagram kelas tersebut akan diberikan di subbagian. Penjelasan dibagi menjadi tiga bagian: \textit{controller, model, dan view}.
 
 \subsection{Model}
 Model yang digunakan ada dua, yaitu Pengumuman\_model dan Pengumuman\_Line\_model.
 \subsubsection{Pengumuman\_model}
-Pengumuman\_model berisi algoritma yang dibutuhkan oleh fitur kolektor pengumuman. Pengumuman\_model memiliki tiga method : \_\_construct, checkEmail, dan proceedEmail. Tabel \ref{table:pengumuman-model-construct}, \ref{table:pengumuman-model-checkemail}, dan \ref{table:pengumuman-model-proceedemail} menjelaskan secara rinci method-method tersebut.
+Pengumuman\_model berisi algoritma yang dibutuhkan oleh fitur kolektor pengumuman. Pengumuman\_model memiliki tiga \textit{method}: \_\_construct, checkEmail, dan proceedEmail. Tabel \ref{table:pengumuman-model-construct}, \ref{table:pengumuman-model-checkemail}, dan \ref{table:pengumuman-model-proceedemail} menjelaskan secara rinci \textit{method-method} tersebut.
 
 \begin{center}
 	\begin{table}[H]
@@ -23,21 +23,21 @@ Pengumuman\_model berisi algoritma yang dibutuhkan oleh fitur kolektor pengumuma
 	\label{table:pengumuman-model-construct}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 	\_\_construct \\
+Nama \textit{Method} 	& 	 	\_\_construct \\
 \hline
-Parameter Input & - \\
+Parameter \textit{Input} & - \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & -\\
 \hline
 Kelas yang berhubungan &  - \\
 \hline
-Deskripsi	& Method ini digunakan untuk konstruksi\\
+Deskripsi	& \textit{Method} ini digunakan untuk konstruksi\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Konstruksi dari parent.
-				\item Load config auth dan modules.
+				\item Konstruksi dari \textit{parent}.
+				\item \textit{Load config auth} dan \textit{modules}.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -50,11 +50,11 @@ Algoritma	& \begin{enumerate}
 	\label{table:pengumuman-model-checkemail}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 	checkEmail\\
+Nama \textit{Method} 	& 	 	checkEmail\\
 \hline
-Parameter Input & - \\
+Parameter \textit{Input} & - \\
 \hline
-Parameter Output & Array dua dimensi. Dimensi pertama mewakili satu email, sedangkan dimensi kedua mewakili informasi dari email tersebut.\\
+Parameter \textit{Output} & \textit{Array} dua dimensi. Dimensi pertama mewakili satu \textit{email}, sedangkan dimensi kedua mewakili informasi dari \textit{email} tersebut.\\
 \hline
 Tabel yang berhubungan & - \\
 \hline
@@ -63,10 +63,10 @@ Kelas yang berhubungan & - \\
 Deskripsi	& \\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Membuka koneksi imap ke email pengumuman.
-				\item Mencari email yang belum dibaca.
-				\item Apabila ada email yang belum dibaca, maka email tersebut dan informasinya dimasukkan ke dalam array.
-				\item Menutup koneksi imap dan mengembalikan array.
+				\item Membuka koneksi IMAP ke \textit{email} pengumuman.
+				\item Mencari \textit{email} yang belum dibaca.
+				\item Apabila ada \textit{email} yang belum dibaca, maka \textit{email} tersebut dan informasinya dimasukkan ke dalam array.
+				\item Menutup koneksi IMAP dan mengembalikan array.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -79,23 +79,23 @@ Algoritma	& \begin{enumerate}
 	\label{table:pengumuman-model-proceedemail}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 proceedEmail	\\
+Nama \textit{Method} 	& 	 proceedEmail	\\
 \hline
-Parameter Input & Array asosiatif berisi informasi dari sebuah email. \\
+Parameter \textit{Input} & \textit{Array} asosiatif berisi informasi dari sebuah \textit{email}. \\
 \hline
-Parameter Output & Mengembalikan true apabila email termasuk email pengumuman dan mengembalikan false apabila email tidak termasuk email pengumuman.  \\
+Parameter \textit{Output} & Mengembalikan \textit{true} apabila \textit{email} termasuk \textit{email} pengumuman dan mengembalikan \textit{false} apabila \textit{email} tidak termasuk \textit{email} pengumuman.  \\
 \hline
 Tabel yang berhubungan & Pengumuman \\
 \hline
 Kelas yang berhubungan &  Pengumuman\_Line\_model \\
 \hline
-Deskripsi	& Method ini berfungsi untuk memroses email pengumuman\\
+Deskripsi	& \textit{Method} ini berfungsi untuk memroses \textit{email} pengumuman\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item load config pengumuman
-				\item Memeriksa pengirim setiap email. Apabila pengirim terdaftar di config pengirimTerverifikasi, maka email tersebut akan masuk ke tahap berikutnya.
-				\item Tahap berikutnya adalah memasukkan informasi email ke dalam baris record di tabel Pengumuuman dan mengirimkan pesan melalui Line. Pesan Line dikirimkan dengan bantuan method pushMessageToAllFollowers yang terdapat pada Pengumuman\_Line\_model.
-				\item Mengembalikan true apabila sebelumnya email diidentifikasi sebagai  email pengumuman dan mengembalikan false apabila sebelumnya email diidentifikasi tidak termasuk email pengumuman.
+				\item \textit{Load config} pengumuman
+				\item Memeriksa pengirim setiap \textit{email}. Apabila pengirim terdaftar di \textit{config} pengirimTerverifikasi, maka \textit{email} tersebut akan masuk ke tahap berikutnya.
+				\item Tahap berikutnya adalah memasukkan informasi \textit{email} ke dalam baris \textit{record} di tabel Pengumuuman dan mengirimkan pesan melalui LINE. Pesan LINE dikirimkan dengan bantuan method pushMessageToAllFollowers yang terdapat pada Pengumuman\_Line\_model.
+				\item Mengembalikan \textit{true} apabila sebelumnya \textit{email} diidentifikasi sebagai  \textit{email} pengumuman dan mengembalikan \textit{false} apabila sebelumnya \textit{email} diidentifikasi tidak termasuk \textit{email} pengumuman.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -103,7 +103,7 @@ Algoritma	& \begin{enumerate}
 \end{center}
 
 \subsubsection{Pengumuman\_Line\_model}
-Pengumuman\_Line\_model berisi algoritma yang dibutuhkan untuk berkomunikasi dengan Line API. Algoritma tersebut sengaja tidak disatukan ke dalam kelas Pengumuman\_model karena menggunakan banyak package tambahan dan memiliki atribut-atribut yang tidak dibutuhkan semua method yang berada di Pengumuman\_model. Atribut-atribut tersebut adalah : \textdollar channelAccessToken, \textdollar channelSecret, \textdollar httpClient, dan \textdollar bot. Pengumuman\_Line\_model memiliki tiga method : \_\_construct, proceedWebhook, dan pushMessageToAllFollowers. Tabel \ref{table:pengumuman-line-model-construct}, \ref{table:pengumuman-line-model-proceedwebhook}, dan \ref{table:pengumuman-line-model-pushmessagetoallfollowers} menjelaskan secara rinci method-method tersebut.
+Pengumuman\_Line\_model berisi algoritma yang dibutuhkan untuk berkomunikasi dengan Line API. Algoritma tersebut sengaja tidak disatukan ke dalam kelas Pengumuman\_model karena menggunakan banyak \textit{package} tambahan dan memiliki atribut-atribut yang tidak dibutuhkan semua \textit{method} yang berada di Pengumuman\_model. Atribut-atribut tersebut adalah: \textdollar channelAccessToken, \textdollar channelSecret, \textdollar httpClient, dan \textdollar \textit{bot}. Pengumuman\_Line\_model memiliki tiga \textit{method}: \_\_construct, proceedWebhook, dan pushMessageToAllFollowers. Tabel \ref{table:pengumuman-line-model-construct}, \ref{table:pengumuman-line-model-proceedwebhook}, dan \ref{table:pengumuman-line-model-pushmessagetoallfollowers} menjelaskan secara rinci \textit{method-method} tersebut.
 
 \begin{center}
 	\begin{table}[H]
@@ -111,22 +111,22 @@ Pengumuman\_Line\_model berisi algoritma yang dibutuhkan untuk berkomunikasi den
 	\label{table:pengumuman-line-model-construct}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 	\_\_construct \\
+Nama \textit{Method} 	& 	 	\_\_construct \\
 \hline
-Parameter Input & - \\
+Parameter \textit{Input} & - \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & -\\
 \hline
 Kelas yang berhubungan &  - \\
 \hline
-Deskripsi	& Method ini digunakan untuk konstruksi\\
+Deskripsi	& \textit{Method} ini digunakan untuk konstruksi\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Konstruksi dari parent.
-				\item Load config auth dan modules.
-				\item Assign value untuk setiap atribut.
+				\item Konstruksi dari \textit{parent}.
+				\item \textit{Load config auth} dan \textit{modules}.
+				\item \textit{Assign value} untuk setiap atribut.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -139,21 +139,21 @@ Algoritma	& \begin{enumerate}
 	\label{table:pengumuman-line-model-proceedwebhook}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 proceedWebhook	\\
+Nama \textit{Method} 	& 	 proceedWebhook	\\
 \hline
-Parameter Input & HTTP request body dan X Line Signature \\
+Parameter \textit{Input} & HTTP \textit{request body} dan \textit{X Line Signature} \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & PengumumanLineFollowers\\
 \hline
-Kelas yang berhubungan & kelas-kelas di package LINE/LINEBot \\
+Kelas yang berhubungan & kelas-kelas di \textit{package} LINE/LINEBot \\
 \hline
-Deskripsi	& Method ini untuk memproses event yang masuk ke dalam method webhook yang terdapat di PengumumanLine\\
+Deskripsi	& \textit{Method} ini untuk memproses \textit{event} yang masuk ke dalam method webhook yang terdapat di PengumumanLine\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Validasi signature dengan menggunakan method validateSignature yang membutuhkan parameter input HTTP request body dan X Line Signature.
-				\item Jika signature valid, maka jenis event yang masuk akan dicek dan ditangani. Event yang wajib ditangani adalah FollowEvent dan UnfollowEvent. Apabila FollowEvent terjadi (ada user yang mengikuti bot atau membuka blokir bot), maka id user line tersebut akan dimasukkan ke tabel PengumumanLineFollowers. Apabila UnfollowEvent terjadi (ada user yang memblokir bot), maka id user line tersebut akan dihapus dari tabel PengumumanLineFollowers. Penyimpanan id user diperlukan untuk mengirim pesan ke pengikut bot.
+				\item Validasi signature dengan menggunakan method validateSignature yang membutuhkan parameter \textit{input} HTTP \textit{request body} dan \textit{X Line Signature}.
+				\item Jika signature \textit{valid}, maka jenis \textit{event} yang masuk akan dicek dan ditangani. \textit{Event} yang wajib ditangani adalah FollowEvent dan UnfollowEvent. Apabila FollowEvent terjadi (ada \textit{user} yang mengikuti \textit{bot} atau membuka blokir \textit{bot}), maka id \textit{user} LINE tersebut akan dimasukkan ke tabel PengumumanLineFollowers. Apabila UnfollowEvent terjadi (ada user yang memblokir \textit{bot}), maka id \textit{user} LINE tersebut akan dihapus dari tabel PengumumanLineFollowers. Penyimpanan id \textit{user} diperlukan untuk mengirim pesan ke pengikut \textit{bot}.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -166,35 +166,35 @@ Algoritma	& \begin{enumerate}
 	\label{table:pengumuman-line-model-pushmessagetoallfollowers}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 pushMessageToAllFollowers	\\
+Nama \textit{Method} 	& 	 pushMessageToAllFollowers	\\
 \hline
-Parameter Input & Pesan yang ingin dikirimkan ke pengikut bot \\
+Parameter \textit{Input} & Pesan yang ingin dikirimkan ke pengikut \textit{bot} \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & PengumumanLineFollowers \\
 \hline
-Kelas yang berhubungan & kelas-kelas di package LINE/LINEBot \\
+Kelas yang berhubungan & kelas-kelas di \textit{package} LINE/LINEBot \\
 \hline
 Deskripsi	& \\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Membuat query untuk mendapatkan semua id user line pengikut bot dan memasukkan hasilnya ke suatu array.
-				\item Membuat text message builder dengan parameter input pesan yang ingin dikirimkan ke pengikut bot.
-				\item Melakukan multicast dengan parameter input array id user line yang akan dikirimkan pesan dan text message builder.
+				\item Membuat \textit{query} untuk mendapatkan semua id \textit{user} LINE pengikut \textit{bot} dan memasukkan hasilnya ke suatu array.
+				\item Membuat \textit{text message builder} dengan parameter \textit{input} pesan yang ingin dikirimkan ke pengikut \textit{bot}.
+				\item Melakukan \textit{multicast} dengan parameter \textit{input} array id \textit{user} LINE yang akan dikirimkan pesan dan \textit{text message builder}.
 				\end{enumerate} \\
 \hline
 \end{tabular}
 \end{table}
 \end{center}
 
-\subsection{View}
-View dibagi menjadi dua file php, yaitu main dan read. File main berfungsi untuk mengatur tampilan saat menampilkan daftar pengumuman. Sedangkan file read berfungsi untuk mengatur tampilan saat informasi dari satu email pengumuman ditampilkan.
+\subsection{\textit{View}}
+\textit{View} dibagi menjadi dua \textit{file} php, yaitu \textit{main} dan \textit{read}. \textit{File main} berfungsi untuk mengatur tampilan saat menampilkan daftar pengumuman. Sedangkan \textit{file read} berfungsi untuk mengatur tampilan saat informasi dari satu \textit{email} pengumuman ditampilkan.
 
-\subsection{Controller}
+\subsection{\textit{Controller}}
 Controller yang digunakan ada tiga, yaitu Cron, Pengumuman, dan PengumumanLine.
 \subsubsection{Cron}
-Controller Cron berfungsi untuk menjalankan perintah-perintah yang harus dijalankan pada jadwal tertentu. Method yang dimiliki hanya satu, yaitu : fifteenminutely(). Tabel \ref{table:cron-daily} menjelaskan secara rinci method fifteenminutely().
+Controller Cron berfungsi untuk menjalankan perintah-perintah yang harus dijalankan pada jadwal tertentu. \textit{Method} yang dimiliki hanya satu, yaitu: fifteenminutely(). Tabel \ref{table:cron-daily} menjelaskan secara rinci method fifteenminutely().
 
 \begin{center}
 	\begin{table}[H]
@@ -202,21 +202,21 @@ Controller Cron berfungsi untuk menjalankan perintah-perintah yang harus dijalan
 	\label{table:cron-daily}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	fifteenminutely 	\\
+Nama \textit{Method} 	& 	fifteenminutely 	\\
 \hline
-Parameter Input & - \\
+Parameter \textit{Input} & - \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & - \\
 \hline
 Kelas yang berhubungan & Pengumuman\_model \\
 \hline
-Deskripsi	& Method yang perintah di dalamnya akan dijalankan setiap lima belas menit sekali. Untuk keperluan skripsi ini, method ini diisi dengan perintah untuk memeriksa email. Namun, apabila ada pengembangan lebih lanjut dan ada kebutuhan untuk menjalankan perintah setiap lima belas menit, maka isi method ini dapat ditambah.\\
+Deskripsi	& \textit{Method} yang perintah di dalamnya akan dijalankan setiap lima belas menit sekali. Untuk keperluan skripsi ini, method ini diisi dengan perintah untuk memeriksa \textit{email}. Namun, apabila ada pengembangan lebih lanjut dan ada kebutuhan untuk menjalankan perintah setiap lima belas menit, maka isi \textit{method} ini dapat ditambah.\\
 \hline
 Algoritma	& \begin{enumerate}
 				\item Menjalankan method checkEmail() yang terdapat pada Pengumuman\_model.
-				\item Memeriksa output dari Pengumuman\_model yang berupa array. Apabila tidak null, maka setiap elemen pada array tersebut akan dijadikan input dari method proceedEmail() yang terdapat pada Pengumuman\_model.
+				\item Memeriksa \textit{output} dari Pengumuman\_model yang berupa array. Apabila tidak null, maka setiap elemen pada \textit{array} tersebut akan dijadikan \textit{input} dari method proceedEmail() yang terdapat pada Pengumuman\_model.
 				\item Menjalankan method proceedEmail() yang terdapat pada Pengumuman\_model.
 				\end{enumerate} \\
 \hline
@@ -225,7 +225,7 @@ Algoritma	& \begin{enumerate}
 \end{center}
 
 \subsubsection{Pengumuman}
-Controller Pengumuman berfungsi untuk mengatur hubungan antara Pengumuman\_model dan view yang ada di package Pengumuman. Pengumuman\_model memiliki lima method, yaitu \_\_construct, index, read, page, dan pagination. Tabel \ref{table:pengumuman-construct}, \ref{table:pengumuman-index}, \ref{table:pengumuman-read}, \ref{table:pengumuman-page}, dan \ref{table:pengumuman-pagination} menjelaskan secara rinci method-method tersebut.
+Controller Pengumuman berfungsi untuk mengatur hubungan antara Pengumuman\_model dan \textit{view} yang ada di \textit{package} Pengumuman. Pengumuman\_model memiliki lima \textit{method}, yaitu \_\_construct, index, read, page, dan pagination. Tabel \ref{table:pengumuman-construct}, \ref{table:pengumuman-index}, \ref{table:pengumuman-read}, \ref{table:pengumuman-page}, dan \ref{table:pengumuman-pagination} menjelaskan secara rinci \textit{method-method} tersebut.
 
 \begin{center}
 	\begin{table}[H]
@@ -233,24 +233,24 @@ Controller Pengumuman berfungsi untuk mengatur hubungan antara Pengumuman\_model
 	\label{table:pengumuman-construct}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 	\_\_construct \\
+Nama \textit{Method} 	& 	 	\_\_construct \\
 \hline
-Parameter Input & - \\
+Parameter \textit{Input} & - \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & -\\
 \hline
 Kelas yang berhubungan &  - \\
 \hline
-Deskripsi	& Method ini digunakan untuk konstruksi\\
+Deskripsi	& \textit{Method} ini digunakan untuk konstruksi\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Konstruksi dari parent.
-				\item Mengecek module yang diizinkan.
-				\item Load library BlueTape
-				\item Load model Pengumuman\_model
-				\item load database
+				\item Konstruksi dari \textit{parent}.
+				\item Mengecek \textit{module} yang diizinkan.
+				\item \textit{Load library} BlueTape
+				\item \textit{Load model} Pengumuman\_model
+				\item \textit{Load database}
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -263,11 +263,11 @@ Algoritma	& \begin{enumerate}
 	\label{table:pengumuman-index}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 index	\\
+Nama \textit{Method} 	& 	 index	\\
 \hline
-Parameter Input & - \\
+Parameter \textit{Input} & - \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & Pengumuman \\
 \hline
@@ -276,8 +276,8 @@ Kelas yang berhubungan & - \\
 Deskripsi	& Mengatur halaman utama pengumuman\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Mengambil info user
-				\item Memasang link untuk setiap pengumuman yang ditampilkan pada daftar pengumuman.
+				\item Mengambil info \textit{user}
+				\item Memasang \textit{link} untuk setiap pengumuman yang ditampilkan pada daftar pengumuman.
 				\item Menampilkan halaman pertama.
 				\end{enumerate} \\
 \hline
@@ -291,11 +291,11 @@ Algoritma	& \begin{enumerate}
 	\label{table:pengumuman-read}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 read	\\
+Nama \textit{Method} 	& 	 read	\\
 \hline
-Parameter Input & Id pengumuman \\
+Parameter \textit{Input} & Id pengumuman \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & Pengumuman \\
 \hline
@@ -304,8 +304,8 @@ Kelas yang berhubungan & - \\
 Deskripsi	& Mengatur halaman yang menampilkan detail pengumuman\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Membuat query untuk mendapatkan seluruh informasi yang dimiliki oleh id pengumuman yang diinput dan memasukkannya ke suatu array.
-				\item Load view untuk read dan oper array tersebut ke view.
+				\item Membuat \textit{query} untuk mendapatkan seluruh informasi yang dimiliki oleh id pengumuman yang diinput dan memasukkannya ke suatu array.
+				\item Load \textit{view} untuk \textit{read} dan oper \textit{array} tersebut ke \textit{view}.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -318,11 +318,11 @@ Algoritma	& \begin{enumerate}
 	\label{table:pengumuman-page}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 page	\\
+Nama \textit{Method} 	& 	 page	\\
 \hline
-Parameter Input & nomor halaman yang ingin ditampilkan \\
+Parameter \textit{Input} & nomor halaman yang ingin ditampilkan \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & -\\
 \hline
@@ -332,7 +332,7 @@ Deskripsi	& Menampilkan halaman pengumuman pada nomor halaman yang diinput.\\
 \hline
 Algoritma	& \begin{enumerate}
 				\item Mengatur batas maksimal jumlah pengumuman yang ditampilkan pada satu halaman.
-				\item Memanggil method pagination dengan input nomor halaman, batas tersebut, dan id pengumuman yang akan ditampilkan di baris pertama.
+				\item Memanggil method pagination dengan \textit{input} nomor halaman, batas tersebut, dan id pengumuman yang akan ditampilkan di baris pertama.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -345,11 +345,11 @@ Algoritma	& \begin{enumerate}
 	\label{table:pengumuman-pagination}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 pagination	\\
+Nama \textit{Method} 	& 	 pagination	\\
 \hline
-Parameter Input &  Nomor halaman yang ingin ditampilkan, batas maksimal jumlah pengumuman yang ditampilkan pada satu halaman, dan id pengumuman yang akan ditampilkan di baris pertama.\\
+Parameter \textit{Input} &  Nomor halaman yang ingin ditampilkan, batas maksimal jumlah pengumuman yang ditampilkan pada satu halaman, dan id pengumuman yang akan ditampilkan di baris pertama.\\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & Pengumuman \\
 \hline
@@ -358,9 +358,9 @@ Kelas yang berhubungan & - \\
 Deskripsi	& Menampilkan halaman pengumuman pada nomor halaman yang diinput.\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Membuat query untuk mengetahui jumlah pengumuman yang ada di tabel Pengumuman				
-				\item Membuat query untuk mendapatkan informasi dari pengumuman yang akan tampil di halaman tersebut dan memasukkannya ke suatu array.
-				\item Load view untuk main dan oper jumlah pengumuman yang ada di tabel Pengumuman, array tersebut, nomor halaman yang sedang ditampilkan, dan batas maksimal jumlah pengumuman yang ditampilkan pada satu halaman ke view.
+				\item Membuat \textit{query} untuk mengetahui jumlah pengumuman yang ada di tabel Pengumuman				
+				\item Membuat \textit{query} untuk mendapatkan informasi dari pengumuman yang akan tampil di halaman tersebut dan memasukkannya ke suatu \textit{array}.
+				\item Load \textit{view} untuk main dan oper jumlah pengumuman yang ada di tabel Pengumuman, \textit{array} tersebut, nomor halaman yang sedang ditampilkan, dan batas maksimal jumlah pengumuman yang ditampilkan pada satu halaman ke \textit{view}.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -368,7 +368,7 @@ Algoritma	& \begin{enumerate}
 \end{center}
 
 \subsubsection{PengumumanLine}
-Controller PengumumanLine berfungsi untuk menerima webhook dari LineAPI. PengumumanLine memiliki satu method yaitu webhook. Method ini sengaja dipisah dari controller Pengumuman karena proteksi csrf perlu dibuka untuk menerima webhook. Tabel \ref{table:pengumumanline-webhook} menjelaskan method tersebut secara rinci.
+Controller PengumumanLine berfungsi untuk menerima \textit{webhook} dari LineAPI. PengumumanLine memiliki satu \textit{method} yaitu \textit{webhook}. \textit{Method} ini sengaja dipisah dari \textit{controller} Pengumuman karena proteksi csrf perlu dibuka untuk menerima webhook. Tabel \ref{table:pengumumanline-webhook} menjelaskan method tersebut secara rinci.
 
 \begin{center}
 	\begin{table}[H]
@@ -376,23 +376,23 @@ Controller PengumumanLine berfungsi untuk menerima webhook dari LineAPI. Pengumu
 	\label{table:pengumumanline-webhook}
 \begin{tabular}{|c|p{11cm}|}
 \hline
-Nama Method 	& 	 webhook	\\
+Nama \textit{Method} 	& 	 webhook	\\
 \hline
-Parameter Input & Request berisi event dari Line API melalui POST \\
+Parameter \textit{Input} & Request berisi \textit{event} dari Line API melalui POST \\
 \hline
-Parameter Output & - \\
+Parameter \textit{Output} & - \\
 \hline
 Tabel yang berhubungan & -\\
 \hline
 Kelas yang berhubungan & Pengumuman\_Line\_model \\
 \hline
-Deskripsi	& Method ini berfungsi untuk menerima request berisi event dari Line API melalui POST\\
+Deskripsi	& \textit{Method} ini berfungsi untuk menerima request berisi \textit{event} dari Line API melalui POST\\
 \hline
 Algoritma	& \begin{enumerate}
-				\item Memeriksa apakah request yang masuk melalui POST. Jika tidak, maka akan mengembalikan http response code 405.
-				\item Mengambil request yang masuk dan menyimpannya ke suatu variabel.
-				\item Memeriksa apakah ada HTTP\_X\_LINE\_SIGNATURE pada POST yang masuk. Jika tidak ada, maka akan mengembalikan http response code 400.
-				\item Jika ada, maka jalankan method proceedWebhook dengan parameter input variabel yang berisi request body dan X Line Signature.
+				\item Memeriksa apakah \textit{request} yang masuk melalui POST. Jika tidak, maka akan mengembalikan \textit{http response code} 405.
+				\item Mengambil \textit{request} yang masuk dan menyimpannya ke suatu variabel.
+				\item Memeriksa apakah ada HTTP\_X\_LINE\_SIGNATURE pada POST yang masuk. Jika tidak ada, maka akan mengembalikan \textit{http response code} 400.
+				\item Jika ada, maka jalankan method proceedWebhook dengan parameter \textit{input} variabel yang berisi \textit{request body} dan \textit{X Line Signature}.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -400,7 +400,7 @@ Algoritma	& \begin{enumerate}
 \end{center}
 
 \section{Perancangan Basis Data}
-Tabel-tabel yang sudah ada di BlueTape tidak diubah, namun ada dua tabel yang ditambahkan. Kedua tabel tersebut adalah tabel Pengumuman dan tabel Line\_followers. Tabel pengumuman berguna untuk menyimpan informasi dari email pengumuman. Sedangkan tabel Line\_followers berguna untuk menyimpan user id dari follower akun bot BlueTape.
+Tabel-tabel yang sudah ada di BlueTape tidak diubah, namun ada dua tabel yang ditambahkan. Kedua tabel tersebut adalah tabel Pengumuman dan tabel Line\_followers. Tabel pengumuman berguna untuk menyimpan informasi dari \textit{email} pengumuman. Sedangkan tabel Line\_followers berguna untuk menyimpan \textit{user id} dari \textit{follower} akun \textit{bot} BlueTape.
 
 \subsubsection{Tabel Pengumuman}
 \begin{center}
@@ -430,15 +430,15 @@ Tabel-tabel yang sudah ada di BlueTape tidak diubah, namun ada dua tabel yang di
 \textit{*PK = Primary Key} \\
 \textit{*FK = Foreign Key} \\
 
-Keterangan atribut :
+Keterangan atribut:
 \begin{itemize}
-\item \textbf{id} : Id pengumuman. Auto increment.
-\item \textbf{namaPengirim} : Nama pengirim email pengumuman.
-\item \textbf{emailPengirim} : Alamat email pengirim email pengumuman.
-\item \textbf{waktuTerkirim} : Waktu terkirim email pengumuman.
-\item \textbf{subjek} : Subjek email pengumuman.
-\item \textbf{isi} : Isi email pengumuman. Boleh kosong.
-\item \textbf{ketersediaanLampiran} : Jika email pengumuman memiliki lampiran maka atribut ini memiliki value 'Y'. Jika tidak, maka valuenya 'N'.
+\item \textbf{id}: Id pengumuman. \textit{Auto increment}.
+\item \textbf{namaPengirim}: Nama pengirim \textit{email} pengumuman.
+\item \textbf{emailPengirim}: Alamat \textit{email} pengirim \textit{email} pengumuman.
+\item \textbf{waktuTerkirim}: Waktu terkirim \textit{email} pengumuman.
+\item \textbf{subjek}: Subjek \textit{email} pengumuman.
+\item \textbf{isi}: Isi \textit{email} pengumuman. Boleh kosong.
+\item \textbf{ketersediaanLampiran}: Jika \textit{email} pengumuman memiliki lampiran maka atribut ini memiliki \textit{value} 'Y'. Jika tidak, maka \textit{value}-nya 'N'.
 \end{itemize}
 
 \subsubsection{Tabel PengumumanLineFollowers}
@@ -457,45 +457,45 @@ Keterangan atribut :
 \textit{*PK = Primary Key} \\
 \textit{*FK = Foreign Key} \\
 
-Keterangan atribut :
+Keterangan atribut:
 \begin{itemize}
-\item \textbf{userId} : User id dari akun LINE yang follow akun bot BlueTape.
+\item \textbf{userId}: \textit{User id} dari akun LINE yang \textit{follow} atau menambah akun \textit{bot} BlueTape sebagai teman.
 \end{itemize}
 
 \section{Perancangan Antarmuka}
-	Bagian ini membahas perancangan antarmuka untuk fitur kolektor pengumuman pada BlueTape dan bot BlueTape.
+	Bagian ini membahas perancangan antarmuka untuk fitur kolektor pengumuman pada BlueTape dan \textit{bot} BlueTape.
 \subsection{Perancangan Antarmuka pada BlueTape}
-Antarmuka yang digunakan fitur kolektor pengumuman ada dua, yaitu main dan read. Penjelasan untuk desain kedua antarmuka tersebut terdapat di subbagian.
+Antarmuka yang digunakan fitur kolektor pengumuman ada dua, yaitu \textit{main} dan \textit{read}. Penjelasan untuk desain kedua antarmuka tersebut terdapat di subbagian.
 
 \subsubsection{main}
 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{Mockup-main.png}  
-	\caption[Mockup antarmuka main]{Mockup antarmuka main} 
+	\caption[\textit{Mockup} antarmuka \textit{main}]{\textit{Mockup} antarmuka \textit{main}} 
 	\label{fig:mockup-main} 
 \end{figure}
 
-Antarmuka main menampilkan daftar pengumuman. Jumlah pengumuman yang ditampilkan di satu halaman dibatasi pada angka tertentu. Di halaman main terdapat navigasi next dan prev untuk menampilkan daftar selanjutnya dan sesudahnya. Gambar~ \ref{fig:mockup-main} menampilkan mockup antarmuka main.
+Antarmuka \textit{main} menampilkan daftar pengumuman. Jumlah pengumuman yang ditampilkan di satu halaman dibatasi pada angka tertentu. Di halaman \textit{main} terdapat navigasi \textit{next} dan \textit{prev} untuk menampilkan daftar selanjutnya dan sesudahnya. Gambar~ \ref{fig:mockup-main} menampilkan \textit{mockup} antarmuka \textit{main}.
 
 \subsubsection{read}
 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{Mockup-read.png}  
-	\caption[Mockup antarmuka read]{Mockup antarmuka read} 
+	\caption[\textit{Mockup} antarmuka \textit{read}]{\textit{Mockup} antarmuka \textit{read}} 
 	\label{fig:mockup-read} 
 \end{figure}
 
-Antarmuka main menampilkan informasi detil dari pengumuman. Apabila pengumuman memiliki lampiran, maka tulisan "*) Pengumuman ini memiliki lampiran, silahkan memeriksa langsung email student Anda untuk mengunduhnya." akan muncul. Jika tidak ada, maka tulisan tersebut tidak akan muncul. Gambar~ \ref{fig:mockup-read} menampilkan mockup antarmuka read.
+Antarmuka main menampilkan informasi detil dari pengumuman. Apabila pengumuman memiliki lampiran, maka tulisan "*) Pengumuman ini memiliki lampiran, silahkan memeriksa langsung email student Anda untuk mengunduhnya." akan muncul. Jika tidak ada, maka tulisan tersebut tidak akan muncul. Gambar~ \ref{fig:mockup-read} menampilkan \textit{mockup} antarmuka \textit{read}.
 
-\subsection{Perancangan Antarmuka pada Bot BlueTape}
+\subsection{Perancangan Antarmuka pada \textit{Bot} BlueTape}
 
 \begin{figure}[H]
 	\centering  
 	\includegraphics[scale=0.5]{Mockup-bot.jpg}  
-	\caption[Mockup antarmuka bot BlueTape]{Mockup antarmuka bot BlueTape} 
+	\caption[\textit{Mockup} antarmuka \textit{bot} BlueTape]{\textit{Mockup} antarmuka \textit{bot} BlueTape} 
 	\label{fig:mockup-bot} 
 \end{figure}
 
-Gambar~ \ref{fig:mockup-bot} menampilkan mockup antarmuka bot BlueTape. Chat pertama merupakan pesan yang akan ditampilkan saat user baru mengikuti bot atau membuka blokir bot. Chat kedua merupakan contoh pesan yang akan ditampilkan jika ada pengumuman baru yang masuk ke BlueTape. Chat terakhir merupakan pesan balasan jika user mengirimkan pesan ke bot dalam bentuk apapun (teks, sticker, gambar, video, dan suara).
+Gambar~\ref{fig:mockup-bot} menampilkan \textit{mockup} antarmuka \textit{bot} BlueTape. \textit{Chat} pertama merupakan pesan yang akan ditampilkan saat \textit{user} baru mengikuti \textit{bot} atau membuka blokir \textit{bot}. \textit{Chat} kedua merupakan contoh pesan yang akan ditampilkan jika ada pengumuman baru yang masuk ke BlueTape. \textit{Chat} terakhir merupakan pesan balasan jika \textit{user} mengirimkan pesan ke \textit{bot} dalam bentuk apapun (teks, \textit{sticker}, gambar, video, dan suara).
