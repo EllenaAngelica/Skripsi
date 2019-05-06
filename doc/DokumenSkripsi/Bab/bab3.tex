@@ -20,34 +20,34 @@
 	\label{fig:bluetape-login} 
 \end{figure}
 
-	\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Pada saat skripsi ini dibuat, BlueTape dapat diakses melalui situs web \url{https://bluetape.azurewebsites.net/} (Gambar~\ref{fig:bluetape-login}). Perangkat lunak ini bersifat open source, sehingga kode program BlueTape bisa dipelajari, diubah, dan distribusi oleh siapapun untuk tujuan apapun. Kode program ini dapat diakses di \url{https://github.com/ftisunpar/BlueTape}. BlueTape memanfaatkan CodeIgniter (versi 3.1.4) dan ZURB Foundation.
+	\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Pada saat skripsi ini dibuat, BlueTape dapat diakses melalui situs web \url{https://bluetape.azurewebsites.net/} (Gambar~\ref{fig:bluetape-login}). Perangkat lunak ini bersifat \textit{open source}, sehingga kode program BlueTape bisa dipelajari, diubah, dan distribusi oleh siapapun untuk tujuan apapun. Kode program ini dapat diakses di \url{https://github.com/ftisunpar/BlueTape}. BlueTape memanfaatkan CodeIgniter (versi 3.1.4) dan ZURB Foundation.
 	
-	Pola pengembangan yang dipakai BlueTape adalah MVC (Model-View-Controller). MVC (Model-View-Controller) adalah sebuah metode untuk membuat perangkat lunak menjadi tiga bagian : Model, View, dan Controller. Model adalah kelas yang merepresentasikan struktur data. View adalah informasi yang disajikan ke pengguna. Controller adalah penghubung antara Model, View, dan sumber daya lain yang dibutuhkan untuk mengolah HTTP request dan menghasilkan situs web.
+	Pola pengembangan yang dipakai BlueTape adalah MVC (\textit{Model-View-Controller}). MVC (\textit{Model-View-Controller}) adalah sebuah metode untuk membuat perangkat lunak menjadi tiga bagian: \textit{Model, View, dan Controller}. \textit{Model} adalah kelas yang merepresentasikan struktur data. \textit{View} adalah informasi yang disajikan ke pengguna. \textit{Controller} adalah penghubung antara \textit{Model}, \textit{View}, dan sumber daya lain yang dibutuhkan untuk mengolah HTTP request dan menghasilkan situs web.
 
 \subsection{Aturan Konstribusi BlueTape}
 	Terdapat beberapa aturan apabila ingin berkonstribusi pada pengembangan BlueTape. Aturan-aturan tersebut tertera pada dokumen \texttt{CONTRIBUTING.md} (\url{https://github.com/ftisunpar/BlueTape/blob/master/CONTRIBUTING.md}).
 
 	\subsubsection{Pengelompokan Module}
-		Perangkat lunak BlueTape dikelompokkan dalam module. Setiap module memiliki nama yang mengikuti aturan CamelCase. Jika beberapa module tergabung pada satu topik yang sama, topik tersebut harus digunakan sebagai kata pertama dalam penamaan module. Contohnya : apabila nama topik adalah \texttt{Transkrip}, maka contoh nama modulenya adalah \texttt{TranskripRequest} dan \texttt{TranskripManage}.
+		Perangkat lunak BlueTape dikelompokkan dalam \textit{module}. Setiap \textit{module} memiliki nama yang mengikuti aturan CamelCase. Jika beberapa \textit{module} tergabung pada satu topik yang sama, topik tersebut harus digunakan sebagai kata pertama dalam penamaan \textit{module}. Contohnya : apabila nama topik adalah \texttt{Transkrip}, maka contoh nama modulenya adalah \texttt{TranskripRequest} dan \texttt{TranskripManage}.
 		
-		Penamaan dokumen pada controller, view, model, config file, nama tabel, dan migration script menggunakan nama module atau topik. Contoh penamaan :
+		Penamaan dokumen pada \textit{controller}, \textit{view}, \textit{model}, config file, nama tabel, dan migration script menggunakan nama \textit{module} atau topik. Contoh penamaan :
 		\begin{itemize}
-			\item Controller: \texttt{controllers/TranskripRequest.php}, \texttt{controllers/TranskripManage.php}
-			\item View: \texttt{views/TranskripRequest/*.php}, \texttt{views/TranskripManage/*.php}
-			\item Model (opsional): \texttt{models/Transkrip/*\_model.php}
+			\item \textit{Controller}: \texttt{controllers/TranskripRequest.php}, \texttt{controllers/TranskripManage.php}
+			\item \textit{View}: \texttt{views/TranskripRequest/*.php}, \texttt{views/TranskripManage/*.php}
+			\item \textit{Model} (opsional): \texttt{models/Transkrip/*\_model.php}
 			\item Config file (opsional): \texttt{config/Transkrip.php}
 			\item Nama tabel (opsional): \texttt{Transkrip}
 			\item Migration script (opsional): \texttt{migrations/20160222120000\_Transkrip\_initial.php}
 		\end{itemize} 
 	
-	\subsubsection{Model}
-		Model dibuat hanya jika fungsi-fungsi di dalamnya digunakan lebih dari sekali. Apabila hanya digunakan sekali, letakkan fungsi pada controller.
+	\subsubsection{\textit{Model}}
+		\textit{Model} dibuat hanya jika fungsi-fungsi di dalamnya digunakan lebih dari sekali. Apabila hanya digunakan sekali, letakkan fungsi pada \textit{controller}.
 	
 	\subsubsection{Library \texttt{bluetape}}
-		Library \texttt{bluetape} berisi fungsi-fungsi yang umum digunakan di BlueTape. Contoh : fungsi untuk konversi email ke NPM.
+		Library \texttt{bluetape} berisi fungsi-fungsi yang umum digunakan di BlueTape. Contoh : fungsi untuk konversi \textit{email} ke NPM.
 	
 	\subsubsection{Hak Akses}
-		Hak akses dan nama module diatur pada dokumen \texttt{config/modules.php}. Contoh :
+		Hak akses dan nama \textit{module} diatur pada dokumen \texttt{config/modules.php}. Contoh :
 \begin{lstlisting}
 $config['module-names'] = array(
     'TranskripRequest' => 'Permohonan Cetak Transkrip',
@@ -66,10 +66,10 @@ $config['roles'] = array(
 );
 \end{lstlisting}
 	
-		Apabila diperlukan, kontributor boleh menambahkan role baru pada array config "roles". Setiap elemen array memetakan role dengan alamat email yang tergabung dalam role tersebut, dengan notasi regular expression.
+		Apabila diperlukan, kontributor boleh menambahkan role baru pada array config "roles". Setiap elemen array memetakan role dengan alamat \textit{email} yang tergabung dalam role tersebut, dengan notasi regular expression.
 
 \subsection{Autentikasi}
-	Setiap module wajib memeriksa hak akses sebelum ditampilkan. Hal tersebut dilakukan dengan cara memanfaatkan template berikut pada controller:
+	Setiap \textit{module} wajib memeriksa hak akses sebelum ditampilkan. Hal tersebut dilakukan dengan cara memanfaatkan \textit{template} berikut pada \textit{controller}:
 \begin{lstlisting}
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -89,13 +89,13 @@ class NamaPage extends CI_Controller {
 }
 \end{lstlisting}
 
-\subsubsection{View}
-	Setiap view menggunakan template yang menampilkan nama module, menu navigasi, dan \textit{flash message} (jika diperlukan). Setiap view membutuhkan parameter \texttt{currentModule}, selain parameter-parameter lainnya. Jika ingin memanggil view dari controller, fungsi \texttt{get\_class()} dapat digunakan. Berikut adalah cara sederhana memanggil view :  
+\subsubsection{\textit{View}}
+	Setiap \textit{view} menggunakan \textit{template} yang menampilkan nama \textit{module}, menu navigasi, dan \textit{flash message} (jika diperlukan). Setiap \textit{view} membutuhkan parameter \texttt{currentModule}, selain parameter-parameter lainnya. Jika ingin memanggil \textit{view} dari \textit{controller}, fungsi \texttt{get\_class()} dapat digunakan. Berikut adalah cara sederhana memanggil \textit{view}:  
 \begin{lstlisting}
 $this->load->view('NamaPage/main', array('currentModule' => get_class()));
 \end{lstlisting}
 
-	View memanfaatkan framework Zurb Foundation, dan berisi template menu utama serta flash message. Oleh karena itu, kode berikut digunakan untuk memulai membuat view :
+	View memanfaatkan \textit{framework} Zurb Foundation, dan berisi \textit{template} menu utama serta \textit{framework}. Oleh karena itu, kode berikut digunakan untuk memulai membuat \textit{view} :
 \begin{lstlisting}
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -127,7 +127,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		\label{fig:bluetape-cetak-transkrip} 
 	\end{figure}
 	
-	Gambar~ \ref{fig:bluetape-cetak-transkrip} menampilkan halaman utama saat cetak transkrip. Halaman ini hanya bisa diakses oleh user yang termasuk roles 'root' dan 'mahasiswa.ftis'. Terdapat form yang meminta input alamat email pemohon, npm, nama, tipe transkrip, dan keperluan. Input alamat email pemohon, npm, dan nama sudah terisi otomatis dan tidak bisa diubah lagi sehingga user hanya perlu mengganti tipe transkrip dan mengisi keperluan. Tipe transkrip memiliki tiga pilihan, yaitu : DPS Bahasa Indonesia (Seluruh Semester), DPS Bahasa Inggris (Seluruh Semester), dan LHS (Semester Terakhir). Selain form tersebut, terdapat tabel histori permohonan yang akan menampilkan riwayat permohonan cetak transkrip jika sudah pernah memohon. Tabel histori permohonan memiliki tujuh kolom, yaitu : ID, Status, Tanggal Permohonan, Tipe Transkrip, Tanggal Jawab/Cetak, Keterangan, dan Aksi (tindakan yang bisa dilakukan dengan record). Gambar~ \ref{fig:bluetape-cetak-transkrip-request} menampilkan tampilan setelah form permohonan transkrip baru dikirimkan. Pada Gambar~ \ref{fig:bluetape-cetak-transkrip-request} aksi yang tersedia hanya melihat detail permohonan.
+	Gambar~ \ref{fig:bluetape-cetak-transkrip} menampilkan halaman utama saat cetak transkrip. Halaman ini hanya bisa diakses oleh user yang termasuk roles 'root' dan 'mahasiswa.ftis'. Terdapat form yang meminta input alamat \textit{email} pemohon, npm, nama, tipe transkrip, dan keperluan. Input alamat \textit{email} pemohon, npm, dan nama sudah terisi otomatis dan tidak bisa diubah lagi sehingga user hanya perlu mengganti tipe transkrip dan mengisi keperluan. Tipe transkrip memiliki tiga pilihan, yaitu : DPS Bahasa Indonesia (Seluruh Semester), DPS Bahasa Inggris (Seluruh Semester), dan LHS (Semester Terakhir). Selain form tersebut, terdapat tabel histori permohonan yang akan menampilkan riwayat permohonan cetak transkrip jika sudah pernah memohon. Tabel histori permohonan memiliki tujuh kolom, yaitu : ID, Status, Tanggal Permohonan, Tipe Transkrip, Tanggal Jawab/Cetak, Keterangan, dan Aksi (tindakan yang bisa dilakukan dengan record). Gambar~ \ref{fig:bluetape-cetak-transkrip-request} menampilkan tampilan setelah form permohonan transkrip baru dikirimkan. Pada Gambar~ \ref{fig:bluetape-cetak-transkrip-request} aksi yang tersedia hanya melihat detail permohonan.
 
 	\begin{figure}[H]
 		\centering  
@@ -154,7 +154,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		\label{fig:bluetape-perubahan-kuliah-request} 
 	\end{figure}
 	
-	Gambar~ \ref{fig:bluetape-perubahan-kuliah-request} menampilkan halaman Perubahan Kuliah. Halaman ini hanya bisa diakses oleh user yang termasuk roles 'root' dan 'staf.unpar'. Terdapat form yang meminta input alamat email pemohon, nama, kode mk, nama mata kuliah, kelas, jenis perubahan, hari dan jam sebelum dan sesudah diubah, serta ruang sebelum dan sesudah diubah. Input alamat email pemohon dan nama sudah terisi otomatis dan tidak bisa diubah lagi. Jenis perubahan memiliki tiga pilihan, yaitu : diganti, tambahan, dan ditadakan. Selain form tersebut, terdapat tabel histori permohonan yang akan menampilkan riwayat permohonan perubahan jadwal kuliah. Tabel histori permohonan memiliki delapan kolom, yaitu : ID, Status, Tanggal Permohonan, Kode MK, Perubahan, Tanggal Jawab, Keterangan, dan Aksi (tindakan yang bisa dilakukan dengan record).
+	Gambar~ \ref{fig:bluetape-perubahan-kuliah-request} menampilkan halaman Perubahan Kuliah. Halaman ini hanya bisa diakses oleh user yang termasuk roles 'root' dan 'staf.unpar'. Terdapat form yang meminta input alamat \textit{email} pemohon, nama, kode mk, nama mata kuliah, kelas, jenis perubahan, hari dan jam sebelum dan sesudah diubah, serta ruang sebelum dan sesudah diubah. Input alamat \textit{email} pemohon dan nama sudah terisi otomatis dan tidak bisa diubah lagi. Jenis perubahan memiliki tiga pilihan, yaitu : diganti, tambahan, dan ditadakan. Selain form tersebut, terdapat tabel histori permohonan yang akan menampilkan riwayat permohonan perubahan jadwal kuliah. Tabel histori permohonan memiliki delapan kolom, yaitu : ID, Status, Tanggal Permohonan, Kode MK, Perubahan, Tanggal Jawab, Keterangan, dan Aksi (tindakan yang bisa dilakukan dengan record).
 	
 	\subsubsection{Perubahan Kuliah \textit{Manage}}
 	\begin{figure}[H]
@@ -202,15 +202,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	Gambar~ \ref{fig:bluetape-lihat-jadwal-dosen} menampilkan halaman Lihat Jadwal Dosen. Halaman ini bisa diakses oleh user yang termasuk roles 'root', 'mahasiswa.informatika', dan 'dosen.informatika'. Halaman ini memiliki tab-tab yang masing-masing diberi label nama dosen. Di bawah tab terdapat tabel jadwal dari dosen yang tabnya aktif.
 
 \subsection{Hak Akses}
-	Hak akses dan nama module diatur pada dokumen \texttt{config/modules.php} yang terletak di dalam direktori \texttt{config}. Hak akses dikelompokkan di dalam kelompok yang disebut \textit{role}. Saat skripsi ini dibuat, hak akses dibagi ke dalam lima \textit{role} : root, mahasiswa.ftis, tu.ftis, staf.unpar, dosen.informatika, dan mahasiswa.informatika. \textit{Role} root berisi daftar alamat email dari pengembang bluetape. \textit{Role} tu.ftis berisi daftar alamat email dari tata usaha ftis. \textit{Role} mahasiswa.ftis berisi daftar alamat email dari mahasiswa ftis. \textit{Role} staf.unpar berisi daftar alamat email dari staf unpar. \textit{Role} dosen.informatika berisi daftar alamat email dari dosen informatika.
+	Hak akses dan nama \textit{module} diatur pada dokumen \texttt{config/modules.php} yang terletak di dalam direktori \texttt{config}. Hak akses dikelompokkan di dalam kelompok yang disebut \textit{role}. Saat skripsi ini dibuat, hak akses dibagi ke dalam lima \textit{role} : root, mahasiswa.ftis, tu.ftis, staf.unpar, dosen.informatika, dan mahasiswa.informatika. \textit{Role} root berisi daftar alamat \textit{email} dari pengembang bluetape. \textit{Role} tu.ftis berisi daftar alamat \textit{email} dari tata usaha ftis. \textit{Role} mahasiswa.ftis berisi daftar alamat \textit{email} dari mahasiswa ftis. \textit{Role} staf.unpar berisi daftar alamat \textit{email} dari staf unpar. \textit{Role} dosen.informatika berisi daftar alamat \textit{email} dari dosen informatika.
 
-	Setiap \textit{role} memiliki batasan dalam mengakses module di BlueTape. \textit{Role} root tidak memiliki batasan dan dapat mengakses setiap module yang ada. \textit{Role} tu.ftis hanya dapat mengakses module \texttt{TranskripManage}, dan module \texttt{PerubahanKuliahManage}. \textit{Role} mahasiswa.ftis hanya dapat mengakses module \texttt{TranskripRequest} dan module \texttt{LihatJadwalDosen}. \textit{Role} staf.unpar hanya dapat mengakses module \texttt{PerubahanKuliahRequest}. \texttt{Role} dosen.informatika hanya dapat mengakses module \texttt{EntriJadwalDosen}.
+	Setiap \textit{role} memiliki batasan dalam mengakses \textit{module} di BlueTape. \textit{Role} root tidak memiliki batasan dan dapat mengakses setiap \textit{module} yang ada. \textit{Role} tu.ftis hanya dapat mengakses \textit{module} \texttt{TranskripManage}, dan \textit{module} \texttt{PerubahanKuliahManage}. \textit{Role} mahasiswa.ftis hanya dapat mengakses \textit{module} \texttt{TranskripRequest} dan \textit{module} \texttt{LihatJadwalDosen}. \textit{Role} staf.unpar hanya dapat mengakses \textit{module} \texttt{PerubahanKuliahRequest}. \texttt{Role} dosen.informatika hanya dapat mengakses \textit{module} \texttt{EntriJadwalDosen}.
 
 \section{Analisis Fitur yang Dibangun}
 \label{sec:analisisYangDibangun}
 	Bagian ini membahas analisis fitur kolektor pengumuman.
 
-\subsection{Diagram Use Case}
+\subsection{Diagram \textit{Use Case}}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{use-case-diagram.jpg}  
@@ -218,25 +218,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	\label{fig:use-case-diagram} 
 \end{figure}
 
-Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram use case fitur kolektor pengumuman. Pada diagram use case fitur kolektor pengumuman terdapat tiga aktor : dosen informatika, mahasiswa informatika, dan root (admin). Berikut ini adalah penjelasan dari skenario pada diagram use case tersebut :
+Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram \textit{use case} fitur kolektor pengumuman. Pada diagram \textit{use case} fitur kolektor pengumuman terdapat tiga aktor: dosen informatika, mahasiswa informatika, dan root (admin). Berikut ini adalah penjelasan dari skenario pada diagram \textit{use case} tersebut:
 \begin{enumerate}
-\item Menerbitkan pengumuman via email
+\item Menerbitkan pengumuman via \textit{email}
 
 \begin{itemize}
 	\item Aktor : Dosen Informatika.
 	\item Skenario Normal
 
 	\begin{enumerate}
-		\item Dosen mengirimkan email ke alamat email yang dikhususkan untuk menampung pengumuman di jurusan Teknik Informatika.
-		\item BlueTape mengecek email tersebut pada periode tertentu.
-		\item Jika alamat email yang dosen pakai terdaftar di BlueTape, maka BlueTape akan menampilkannya dan mengirim notifikasi ke LINE.
+		\item Dosen mengirimkan \textit{email} ke alamat \textit{email} yang dikhususkan untuk menampung pengumuman di jurusan Teknik Informatika.
+		\item BlueTape mengecek \textit{email} tersebut pada periode tertentu.
+		\item Jika alamat \textit{email} yang dosen pakai terdaftar di BlueTape, maka BlueTape akan menampilkannya dan mengirim notifikasi ke LINE.
 	\end{enumerate}
 	
 	\item Skenario Exception
 	\begin{enumerate}
-		\item Dosen mengirimkan email ke alamat email yang dikhususkan untuk menampung pengumuman di jurusan Teknik Informatika.
-		\item BlueTape mengecek email tersebut pada periode tertentu.
-		\item Jika alamat email yang dosen pakai tidak terdaftar di BlueTape, maka BlueTape akan mengabaikan email tersebut.
+		\item Dosen mengirimkan \textit{email} ke alamat \textit{email} yang dikhususkan untuk menampung pengumuman di jurusan Teknik Informatika.
+		\item BlueTape mengecek \textit{email} tersebut pada periode tertentu.
+		\item Jika alamat \textit{email} yang dosen pakai tidak terdaftar di BlueTape, maka BlueTape akan mengabaikan \textit{email} tersebut.
 	\end{enumerate}
 \end{itemize}
 
@@ -261,7 +261,7 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram use case fitur kolekt
 	\begin{enumerate}
 		\item Mahasiswa menerima notifikasi dari bot BlueTape saat ada pengumuman baru di BlueTape.
 		\item Mahasiswa mengunjungi URL yang dicantumkan di pesan dari notifikasi tersebut. 
-		\item Mahasiswa perlu login menggunakan email student miliknya terlebih dahulu sebelum dapat mengunjungi URL tersebut.
+		\item Mahasiswa perlu login menggunakan \textit{email} student miliknya terlebih dahulu sebelum dapat mengunjungi URL tersebut.
 	\end{enumerate}
 \end{itemize}
 
@@ -278,9 +278,9 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram use case fitur kolekt
 \end{itemize}
 \end{enumerate}
 
-\subsection{Modifikasi BlueTape agar Dapat Berjalan di Heroku}
-	\subsubsection{Dependensi}
-		BlueTape membutuhkan dependensi tambahan agar perangkat lunak dapat dijalankan. Dependensi tambahan perangkat lunak BlueTape tertera pada dokumen \texttt{composer.json}. Berikut isinya :
+\subsection{Arsitektur Heroku yang digunakan untuk Bluetape}
+	\subsubsection{\textit{Dependency}}
+		BlueTape membutuhkan \textit{dependency} tambahan agar perangkat lunak dapat dijalankan. \textit{Dependency} tambahan perangkat lunak BlueTape tertera pada dokumen \texttt{composer.json}. Berikut isinya :
 		\begin{lstlisting}
 		{
 		    "require": {
@@ -292,58 +292,58 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram use case fitur kolekt
 		}
 		\end{lstlisting}
 		
-		Pada saat skripsi ini ditulis, BlueTape telah memakai dua package : package \texttt{google/apiclient} dan package \texttt{phpoffice/phpexcel}. Package \texttt{google/apiclient} adalah package yang diperlukan untuk autentikasi akun saat masuk ke BlueTape. Sedangkan package \texttt{phpoffice/phpexcel} adalah package yang digunakan untuk menghasilkan dokumen excel. Package yang ditambahkan untuk skripsi ini adalah package \texttt{ext-imap} dan \texttt{line-bot-sdk}. Package \texttt{ext-imap} digunakan untuk mengakses email. Package \texttt{line-bot-sdk} digunakan untuk menghubungkan perangkat lunak dengan layanan yang disediakan oleh LINE.
+		Pada saat skripsi ini ditulis, BlueTape telah memakai dua \textit{package}: \textit{package} \texttt{google/apiclient} dan \textit{package} \texttt{phpoffice/phpexcel}. \textit{Package} \texttt{google/apiclient} adalah \textit{package} yang diperlukan untuk autentikasi akun saat masuk ke BlueTape. Sedangkan \textit{package} \texttt{phpoffice/phpexcel} adalah \textit{package} yang digunakan untuk menghasilkan dokumen excel. \textit{Package} yang diperlukan untuk skripsi ini adalah \textit{package} \texttt{ext-imap} dan \texttt{line-bot-sdk}. \textit{Package} \texttt{ext-imap} digunakan untuk mengakses \textit{email}. \textit{Package} \texttt{line-bot-sdk} digunakan untuk menghubungkan perangkat lunak dengan layanan yang disediakan oleh LINE.
 		
-	\subsubsection{Tipe Proses}
-		BlueTape memiliki satu tipe proses, yaitu tipe proses \texttt{web} dan tipe proses \texttt{release}. Tipe proses \texttt{web} adalah tipe proses yang digunakan untuk menerima arus HTTP eksternal dari router Heroku. Peneliti tidak dapat menambahkan tipe proses lain karena itu berarti peneliti harus menambah dyno. Penambahan dyno perlu informasi kartu kredit untuk verifikasi akun.
+	\subsubsection{\textit{Process Type}}
+		BlueTape hanya membutuhkan satu \textit{process type} di Procfile, yaitu \textit{process type} \texttt{web} dan \textit{process type} \texttt{release}. \textit{Process type} \texttt{web} adalah \textit{process type} yang digunakan untuk menerima arus HTTP eksternal dari router Heroku.
 		
 	\subsubsection{Procfile}
-		Procfile adalah dokumen yang menjelaskan Heroku bagian-bagian perangkat lunak yang dapat dieksekusi. Procfile berisi daftar tipe proses beserta cara menjalankannya. BlueTape hanya memiliki satu tipe proses, yaitu tipe proses \texttt{web}. Isi Procfile adalah :
+		Procfile adalah dokumen yang menjelaskan Heroku bagian-bagian perangkat lunak yang dapat dieksekusi. Procfile berisi daftar \textit{process type} beserta cara menjalankannya. BlueTape hanya memiliki satu \textit{process type}, yaitu \textit{process type} \texttt{web}. Isi Procfile adalah :
 		\begin{lstlisting}
 		web: vendor/bin/heroku-php-apache2 www/
 		\end{lstlisting}
 		
-		Maksud dari satu baris Procfile tersebut adalah : untuk menjalankan tipe proses web, heroku harus menjalankan server apache di heroku dan kemudian server menjalankan perangkat lunak web yang ada di direktori \texttt{www}. Perintah \texttt{vendor/bin/heroku-php-apache2} adalah perintah untuk menjalankan server apache di heroku yang ada di package \texttt{heroku-php-apache2}. Package \texttt{heroku-php-apache2} ini otomatis disediakan saat membuat perangkat lunak php di heroku sehingga tidak perlu ditambahkan di composer.json. Perintah \texttt{www/} berguna untuk mengarahkan server apache heroku ke direktori \texttt{www}.
+		Maksud dari satu baris Procfile tersebut adalah : untuk menjalankan \textit{process type} web, heroku harus menjalankan server apache di heroku dan kemudian server menjalankan perangkat lunak web yang ada di direktori \texttt{www}. Perintah \texttt{vendor/bin/heroku-php-apache2} adalah perintah untuk menjalankan server apache di heroku yang ada di \textit{package} \texttt{heroku-php-apache2}. \textit{Package} \texttt{heroku-php-apache2} ini otomatis disediakan saat membuat perangkat lunak php di heroku sehingga tidak perlu ditambahkan di composer.json. Perintah \texttt{www/} berguna untuk mengarahkan server apache heroku ke direktori \texttt{www}.
 		
-	\subsubsection{Slug}
-		Peneliti tidak menambahkan dokumen \texttt{.slugignore} karena tidak diperlukan.
+	\subsubsection{\textit{Slug}}
+		Pada skripsi ini, \textit{file} \texttt{.slugignore} tidak perlu ditambahkan karena tidak diperlukan.
 		
-	\subsubsection{Buildpack}
-		Buildpack yang dipakai pada skripsi ini hanya \texttt{heroku/php}. Buildpack ini secara otomatis dipakai oleh Heroku karena BlueTape memakai bahasa PHP.
+	\subsubsection{\textit{Buildpack}}
+	\textit{Buildpack} yang dipakai pada skripsi ini cukup hanya \texttt{heroku/php}. \textit{Buildpack} ini secara otomatis akan dipakai oleh Heroku karena BlueTape memakai bahasa PHP.
 		
-	\subsubsection{Dyno}
-		Jenis dyno yang dipakai pada skripsi ini adalah free dyno. Jumlah dyno hanya satu. Dyno tersebut merupakan dyno untuk tipe proses \texttt{web}.
+	\subsubsection{\textit{Dyno}}
+		Jenis \textit{dyno} yang dipakai pada skripsi ini adalah \textit{free dyno}. Jumlah \textit{dyno} hanya satu. \textit{Dyno} tersebut merupakan dyno untuk \textit{process type} \texttt{web}.
 		
-	\subsubsection{Config Vars}
-			Berikut adalah config vars yang dipakai pada skripsi ini: 
+	\subsubsection{\textit{Config Vars}}
+			Berikut adalah \textit{config vars} yang dipakai pada skripsi ini: 
 		\begin{itemize}
-			\item CI\_DB\_DATABASE : nama database yang digunakan.
-			\item CI\_DB\_HOSTNAME : nama host dari database yang disebutkan di config var CI\_DB\_DATABASE.
-			\item CI\_DB\_USERNAME : username yang digunakan untuk terhubung ke database yang disebutkan di config var CI\_DB\_DATABASE.
+			\item CI\_DB\_DATABASE : nama \textit{database} yang digunakan.
+			\item CI\_DB\_HOSTNAME : nama host dari \textit{database} yang disebutkan di config var CI\_DB\_DATABASE.
+			\item CI\_DB\_USERNAME : username yang digunakan untuk terhubung ke \textit{database} yang disebutkan di config var CI\_DB\_DATABASE.
 			\item CI\_DB\_PASSWORD : password dari username yang disebutkan di config var CI\_DB\_USERNAME.
-			\item HEROKU\_POSTGRESQL\_BLUE\_URL : URL database. Dibuat secara otomatis saat membuat database.
+			\item HEROKU\_POSTGRESQL\_BLUE\_URL : URL \textit{database}. Dibuat secara otomatis saat membuat \textit{database}.
 			\item GOOGLE\_CLIENTID : Google Client ID, digunakan untuk melakukan autentikasi saat user login.
 			\item GOOGLE\_CLIENTSECRET : Google Client Secret, digunakan untuk melakukan autentikasi saat user login.
-			\item ANNOUNCEMENT\_EMAIL : alamat email yang dipakai untuk menampung pengumuman.
-			\item ANNOUNCEMENT\_PASSWORD : password untuk alamat email yang disebutkan di config var ANNOUNCEMENT\_EMAIL.
-			\item HOSTNAME\_INCOMING\_EMAIL : nama host dari alamat email yang disebutkan di config var ANNOUNCEMENT\_EMAIL.
+			\item ANNOUNCEMENT\_EMAIL : alamat \textit{email} yang dipakai untuk menampung pengumuman.
+			\item ANNOUNCEMENT\_PASSWORD : password untuk alamat \textit{email} yang disebutkan di config var ANNOUNCEMENT\_EMAIL.
+			\item HOSTNAME\_INCOMING\_EMAIL : nama host dari alamat \textit{email} yang disebutkan di config var ANNOUNCEMENT\_EMAIL.
 			\item CI\_BASE\_URL : base URL BlueTape.
 			\item LINE\_BOT\_CHANNEL\_SECRET : LINE Bot Channel Secret digunakan untuk terhubung ke channel bot untuk pengumuman.
 			\item LINE\_BOT\_CHANNEL\_TOKEN : LINE Bot Channel Token digunakan untuk terhubung ke channel bot untuk pengumuman.
-			\item SMTP\_HOST : SMTP host, konfigurasi untuk mengirim email.
-			\item SMTP\_PASS : SMTP pass, konfigurasi untuk mengirim email.
-			\item SMTP\_PORT : SMTP port, konfigurasi untuk mengirim email.
-			\item SMTP\_USER : SMTP user, konfigurasi untuk mengirim email.
+			\item SMTP\_HOST : SMTP host, konfigurasi untuk mengirim \textit{email}.
+			\item SMTP\_PASS : SMTP pass, konfigurasi untuk mengirim \textit{email}.
+			\item SMTP\_PORT : SMTP port, konfigurasi untuk mengirim \textit{email}.
+			\item SMTP\_USER : SMTP user, konfigurasi untuk mengirim \textit{email}.
 		\end{itemize}
 		
-	\subsubsection{Region}
-		Region yang dipakai adalah region default, yaitu United States.
+	\subsubsection{\textit{Region}}
+	\textit{Region} yang dipakai adalah \textit{region default}, yaitu \textit{United States}.
 		
-	\subsubsection{Stack}
-		Stack yang dipakai adalah stack yang paling baru, yaitu heroku-18. Stack ini dipilih karena Heroku masa kadaluarsa dukungan untuk stack ini yang paling lama (didukung sampai bulan April 2023). Alasan lain adalah komputer lokal yang digunakan untuk mengerjakan skripsi ini menggunakan lingkungan yang mirip dengan Heroku, yaitu menggunakan Ubuntu 18.04.
+	\subsubsection{\textit{Stack}}
+	\textit{Stack} yang dipakai adalah \textit{stack} yang paling baru, yaitu heroku-18. \textit{Stack} ini dipilih karena Heroku masa kadaluarsa dukungan untuk \textit{stack} ini yang paling lama (didukung sampai bulan April 2023). Alasan lain adalah komputer lokal yang digunakan untuk mengerjakan skripsi ini menggunakan lingkungan yang mirip dengan Heroku, yaitu menggunakan Ubuntu 18.04.
 
 	\subsubsection{Basis Data}
-		Basis data yang digunakan untuk skripsi ini adalah basis data Heroku Postgres dengan plan hobby-dev. Alasan utama basis data ini digunakan adalah karena penggunaan basis data lain seperti Heroku Redis dan Apache Kafka tidak memungkinkan. Basis data tersebut membutuhkan informasi akun kredit untuk verifikasi akun. Alasan lain adalah basis data ini adalah basis data yang langsung disediakan oleh Heroku.
+		Basis data yang digunakan untuk skripsi ini adalah basis data Heroku Postgres dengan plan \textit{hobby-dev}. Alasan basis data ini digunakan adalah karena basis data ini adalah basis data yang secara otomatis disediakan oleh Heroku dan fiturnya cukup untuk digunakan oleh BlueTape.
 	
 		Sebelumnya BlueTape menggunakan MySQL untuk basis datanya. Proses migrasi dari MySQL ke Heroku Postgres tidak rumit, karena menggunakan fitur Migration dari CodeIgniter. Namun, ada beberapa perubahan pada dokumen Migration. Perubahan-perubahan tersebut adalah :
 	\begin{itemize}
@@ -352,17 +352,17 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram use case fitur kolekt
 		\item Mengubah tipe data kolom yang sebelumnya menggunakan DATETIME menjadi timestamp
 	\end{itemize}  
 
-\subsection{Sinkronisasi Email}
+\subsection{Sinkronisasi \textit{Email}}
 \label{sec:analisisemail}
-	Awalnya sinkronisasi email dilakukan dengan memanfaatkan Gmail API. Namun, Gmail API membutuhkan token yang harus direfresh tiap periode tertentu. Sehingga peneliti perlu mencari alternatif lain. Peneliti memutuskan menggunakan PHP IMAP untuk melakukan sinkronisasi email.
+	Awalnya sinkronisasi \textit{email} dilakukan dengan memanfaatkan Gmail API. Namun, Gmail API membutuhkan token yang harus direfresh tiap periode tertentu. Sehingga peneliti perlu mencari alternatif lain. Peneliti memutuskan menggunakan PHP IMAP untuk melakukan sinkronisasi \textit{email}.
 	
-	Sebelum melakukan sinkronisasi email, email khusus untuk menampung email pengumuman harus dibuat terlebih dahulu. Email dibuat melalui provider email Gmail. Setelah email selesai dibuat, fitur IMAP perlu dinyalakan terlebih dahulu.
+	Sebelum melakukan sinkronisasi \textit{email}, \textit{email} khusus untuk menampung \textit{email} pengumuman harus dibuat terlebih dahulu. \textit{Email} dibuat melalui provider \textit{email} Gmail. Setelah \textit{email} selesai dibuat, fitur IMAP perlu dinyalakan terlebih dahulu.
 	
-	Proses sinkronisasi email dimulai dengan membuat koneksi IMAP ke email pengumuman tersebut. Dengan menggunakan koneksi IMAP yang telah didapat, email difilter dengan mencari email yang belum dibaca saja. Apabila hasil pencarian tidak kosong, maka setiap email pada hasil pencarian akan diperiksa pengirimnya. Pengirim email akan dinyatakan sebagai pemberi pengumuman yang valid apabila ia terdaftar di dalam daftar pengirim yang terverifikasi. Apabila sebuah email dinyatakan memiliki pengirim yang valid, maka informasi dari email tersebut akan diproses dan dimasukkan ke basis data.
+	Proses sinkronisasi \textit{email} dimulai dengan membuat koneksi IMAP ke \textit{email} pengumuman tersebut. Dengan menggunakan koneksi IMAP yang telah didapat, \textit{email} difilter dengan mencari \textit{email} yang belum dibaca saja. Apabila hasil pencarian tidak kosong, maka setiap \textit{email} pada hasil pencarian akan diperiksa pengirimnya. Pengirim \textit{email} akan dinyatakan sebagai pemberi pengumuman yang valid apabila ia terdaftar di dalam daftar pengirim yang terverifikasi. Apabila sebuah \textit{email} dinyatakan memiliki pengirim yang valid, maka informasi dari \textit{email} tersebut akan diproses dan dimasukkan ke basis data.
 	
-	Informasi yang perlu disimpan dari email pengumuman adalah alamat email pengirim, nama pengirim, tanggal email tersebut terkirim, subjek email, isi email, dan ketersediaan lampiran. Sebuah tabel baru diperlukan untuk menampung informasi ini. Tabel ini akan diakses saat halaman pengumuman akan ditampilkan. Setiap informasi dari email tersimpan, maka satu push message akan dikirim ke LINE.
+	Informasi yang perlu disimpan dari \textit{email} pengumuman adalah alamat \textit{email} pengirim, nama pengirim, tanggal \textit{email} tersebut terkirim, subjek \textit{email}, isi \textit{email}, dan ketersediaan lampiran. Sebuah tabel baru diperlukan untuk menampung informasi ini. Tabel ini akan diakses saat halaman pengumuman akan ditampilkan. Setiap informasi dari \textit{email} tersimpan, maka satu push message akan dikirim ke LINE.
 	
-	Sinkronisasi email perlu dilakukan secara berkala dan otomatis. Pada skripsi ini sinkronisasi email dilakukan per hari dengan menggunakan cron dan add-on Heroku Scheduler.
+	Sinkronisasi \textit{email} perlu dilakukan secara berkala dan otomatis. Pada skripsi ini sinkronisasi \textit{email} dilakukan per hari dengan menggunakan cron dan add-on Heroku Scheduler.
 	
 \subsection{Menghubungkan BlueTape dengan LINE}
 \label{sec:analisisline}
