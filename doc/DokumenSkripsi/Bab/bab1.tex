@@ -4,24 +4,28 @@
    
 \section{Latar Belakang}
 \label{sec:latarBelakang}
-Pengumuman di jurusan Teknik Informatika UNPAR pada umumnya dilakukan lewat \textit{email}. Pengumuman lewat \textit{email} lebih praktis daripada pengumuman di papan pengumuman karena \textit{email} dijamin sampai ke pihak yang dituju setelah dikirim. Namun, layanan \textit{email} memiliki kotak masuk yang kurang terorganisir. Berbagai macam \textit{email} yang masuk tercampur di kotak masuk sehingga dapat menyulitkan pemilik \textit{email} untuk mencari \textit{email} yang penting. Hal ini juga dapat mengakibatkan pengumuman-pengumuman penting tidak dibaca secara tidak sengaja.
+Pengumuman di jurusan Teknik Informatika UNPAR pada umumnya dilakukan lewat \textit{email}. Pengumuman lewat \textit{email} lebih praktis daripada pengumuman di papan pengumuman karena \textit{email} dijamin sampai ke pihak yang dituju setelah dikirim. Namun, layanan \textit{email} memiliki kotak masuk yang kurang terorganisir. Berbagai macam \textit{email} yang masuk tercampur di kotak masuk sehingga dapat menyulitkan pemilik \textit{email} untuk mencari \textit{email} yang penting. Hal ini juga dapat mengakibatkan pengumuman-pengumuman penting tidak terbaca secara tidak sengaja.
 
-Penelitian pada skripsi ini hendak membuat solusi untuk kekurangan \textit{email} tersebut dengan cara membuat fitur kolektor pengumuman di BlueTape. Fitur ini akan mengumpulkan \textit{email} yang berisi pengumuman dan menampilkannya di BlueTape. Agar penerima pengumuman tahu ada pengumuman baru di BlueTape, fitur ini juga akan memanfaatkan layanan LINE@. LINE@ adalah layanan dari \textit{Line Corporation} yang memungkinkan pemilik bisnis atau organisasi membuat akun khusus (disebut akun LINE@) yang dapat mengirim pesan ke banyak pengikut secara bersamaan. Penerima pengumuman akan diminta untuk mengikuti akun LINE@ BlueTape sehingga dapat menerima notifikasi LINE apabila ada pengumuman baru. Agar BlueTape versi skripsi ini dapat diakses melalui internet, fitur ini juga akan memanfaatkan layanan Heroku.
+Penelitian pada skripsi ini hendak membuat solusi untuk kekurangan \textit{email} tersebut dengan cara membuat fitur kolektor pengumuman di BlueTape. BlueTape adalah aplikasi yang sudah ada yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Fitur ini akan mengumpulkan \textit{email} yang berisi pengumuman dan menampilkannya di BlueTape. Agar penerima pengumuman tahu ada pengumuman baru di BlueTape, fitur ini juga akan memanfaatkan layanan LINE@. LINE@ adalah layanan dari \textit{Line Corporation} yang memungkinkan pemilik bisnis atau organisasi membuat akun khusus (disebut akun LINE@) yang dapat mengirim pesan ke banyak pengikut secara bersamaan. Penerima pengumuman akan diminta untuk mengikuti akun LINE@ BlueTape sehingga dapat menerima notifikasi LINE apabila ada pengumuman baru. Agar BlueTape versi skripsi ini dapat diakses melalui internet, fitur ini juga akan memanfaatkan layanan Heroku. Heroku adalah layanan \textit{cloud platform} pihak ketiga yang memungkinkan penggunanya untuk membangun, menjalankan, dan mengoperasikan aplikasi pada \textit{cloud}.
 
 \section{Rumusan Masalah}
 \label{sec:rumusanmasalah}
 Rumusan masalah dari skripsi ini adalah: 
 \begin{itemize}
+	\item Bagaimana konsep dan cara kerja LINE@ dan Heroku?
 	\item Bagaimana cara memodifikasi BlueTape agar dapat berjalan di Heroku?
 	\item Bagaimana cara mengimplementasikan fitur kolektor pengumuman pada BlueTape?
+	\item Bagaimana cara menguji fitur kolektor pengumuman pada BlueTape?
 \end{itemize}
 
 \section{Tujuan}
 \label{sec:tujuan}
 Tujuan dari skripsi ini adalah:
 \begin{itemize}
+	\item Mempelajari konsep dan cara kerja LINE@ dan Heroku.
 	\item Memodifikasi BlueTape agar dapat berjalan di Heroku.
 	\item Mengimplementasikan fitur kolektor pengumuman pada BlueTape.
+	\item Menguji fitur kolektor pengumuman pada BlueTape.
 \end{itemize}
 
 \section{Batasan Masalah}
@@ -39,6 +43,8 @@ Pada skripsi ini masalah dibatasi dengan batasan-batasan sebagai berikut:
 Metode penelitian pada skripsi ini sebagai berikut:
 	\begin{enumerate}
 		\item Melakukan studi literatur tentang PHP IMAP, LINE@, dan Heroku.
+		\item Menganalisis sistem BlueTape
+		\item Merancang sistem usulan
 		\item Memodifikasi BlueTape sehingga dapat mengumpulkan \textit{email} yang berisi pengumuman.
 		\item Memodifikasi BlueTape sehingga dapat mengirim notifikasi ke akun Line@ BlueTape.
 		\item Memodifikasi BlueTape sehingga dapat berjalan di Heroku.
@@ -50,28 +56,16 @@ Metode penelitian pada skripsi ini sebagai berikut:
 \label{sec:sispem}
 Berikut adalah sistematika pembahasan skripsi ini :
 \begin{enumerate}
-\item Bab 1: Pendahuluan
+\item Bab 1: Pendahuluan. Bab ini membahas gambaran umum dari skripsi ini. Bab ini berisi latar belakang, rumusan masalah, tujuan, batasan masalah, metode penelitian, dan sistematika penulisan.
 
-Bab ini membahas gambaran umum dari skripsi.
+\item Bab 2: Dasar Teori. Bab ini membahas dasar teori yang mendukung pembuatan skripsi ini, meliputi: Heroku, Cron, Gmail API, PHP IMAP, LINE, dan \textit{System Usability Scale}.
 
-\item Bab 2: Dasar Teori
+\item Bab 3: Analisis. Bab ini membahas analisis sistem kini dan sistem usulan.
 
-Bab ini membahas dasar teori yang mendukung pembuatan skripsi ini.
+\item Bab 4: Perancangan. Bab ini membahas perancangan fitur kolektor pengumuman, meliputi: perancangan kelas, perancangan basis data, dan perancangan antarmuka.
 
-\item Bab 3: Analisis
+\item Bab 5: Implementasi dan Pengujian. Bab ini membahas implementasi dan pengujian fitur kolektor pengumuman pada BlueTape.
 
-Bab ini membahas analisis yang dilakukan terhadap masalah yang diusung dalam skripsi ini.
-
-\item Bab 4: Perancangan
-
-Bab ini membahas perancangan sistem yang dibangun pada skripsi ini.
-
-\item Bab 5: Implementasi dan Pengujian
-
-Bab ini membahas hasil implementasi yang dilakukan beserta pengujian sistem.
-
-\item Bab 6: Kesimpulan dan saran
-
-Bab ini berisi kesimpulan yang didapat dari penelitian dan saran oleh peneliti kepada pembaca yang hendak melanjutkan penelitian ini. 
+\item Bab 6: Kesimpulan dan saran. Bab ini berisi kesimpulan yang didapat dari pembangunan fitur kolektor pengumuman pada BlueTape dan saran oleh peneliti kepada pembaca yang hendak melanjutkan penelitian ini. 
 
 \end{enumerate}

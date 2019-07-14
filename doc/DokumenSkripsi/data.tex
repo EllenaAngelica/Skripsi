@@ -77,8 +77,8 @@
 %=============================================================================
 %\mode{bimbingan} 		% untuk keperluan bimbingan
 %\mode{sidang} 			% untuk sidang 1
-\mode{sidangakhir} 	% untuk sidang 2 / sidang pada Skripsi 2(IF)
-%\mode{final} 			% untuk mencetak buku skripsi 
+%\mode{sidangakhir} 	% untuk sidang 2 / sidang pada Skripsi 2(IF)
+\mode{final} 			% untuk mencetak buku skripsi 
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -198,9 +198,9 @@
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda
 %=============================================================================
 \namanpm{Ellena Angelica}{2015730029}
-\tanggal{22}{05}{2019}
-\pembimbing{}{}    
-\penguji{<<penguji 1>>}{<<penguji 2>>} 
+\tanggal{22}{5}{2019}
+\pembimbing{\ELH}{}    
+\penguji{\NAT}{\VSM} 
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -230,13 +230,17 @@
 % - langsung mulai setelah '{' awal, jangan mulai menulis di baris bawahnya
 %=============================================================================
 \abstrakINA{
-    Penelitian pada skripsi ini adalah membuat fitur kolektor pengumuman di BlueTape sebagai solusi dari kekurangan kotak masuk \textit{email} yang kurang terorganisir. Fitur kolektor pengumuman akan melakukan sinkronisasi \textit{email} untuk mengumpulkan \textit{email} yang berisi pengumuman di ruang lingkup jurusan Informatika menggunakan PHP IMAP. Setelah memastikan pengumuman dilakukan oleh pihak yang berwenang, pengumuman akan ditampilkan di BlueTape. Dengan memanfaatkan layanan LINE@, mahasiswa jurusan Informatika akan diberitahu apabila ada pengumuman baru di BlueTape.
+    Pengumuman di jurusan Teknik Informatika UNPAR pada umumnya menggunakan \textit{email}. \textit{Email} memiliki kekurangan, yaitu kurang terorganisir. Skripsi ini mencoba untuk mengatasi kekurangan itu dengan mengumpulkan pengumuman dari \textit{email} di satu tempat. Tempat yang dipakai di skripsi ini adalah BlueTape. BlueTape adalah \textit{website} milik FTIS yang berfungsi untuk menangani urusan-urusan di FTIS UNPAR. Solusi dari kekurangan \textit{email} dibuat dengan cara membuat fitur kolektor pengumuman di BlueTape.
+    
+    Fitur kolektor pengumuman akan melakukan sinkronisasi \textit{email} untuk mengumpulkan \textit{email} yang berisi pengumuman di ruang lingkup jurusan Informatika menggunakan PHP IMAP. Setelah memastikan pengumuman dilakukan oleh pihak yang berwenang, pengumuman akan ditampilkan di BlueTape. Dengan memanfaatkan layanan LINE@, mahasiswa jurusan Informatika akan diberitahu apabila ada pengumuman baru di BlueTape.
 
     Pengujian pada skripsi ini dilakukan dua kali. Pengujian pertama dilakukan dengan mengirimkan berbagai macam \textit{email} ke alamat email milik BlueTape. Pengujian kedua dilakukan dengan melibatkan mahasiswa dan dosen secara langsung. Hasil pengujian menunjukkan fitur ini telah berfungsi sesuai harapan, yaitu dapat melakukan sinkronisasi email, dapat menampilkan email yang berisi pengumuman di BlueTape, dan dapat memunculkan notifikasi pada akun LINE@.
 }
 
 \abstrakENG{
-    The research in this undergraduate thesis is to make announcement collector feature on BlueTape as a solution to the lack of an organized email inbox. The announcement collector feature will synchronize email to collect email which contains an announcement in the scope of Informatics department using PHP IMAP. After making sure the announcement is made by the authorities, the announcement will be displayed on BlueTape. By utilizing the LINE@ service, Informatics students will be notified when there is a new announcement at BlueTape.
+    Announcement in UNPAR's Department of Informatics in general using email. Email has a disadvantage, which is less organized. This thesis tries to overcome this shortcoming by collecting announcements from email in one place. The place used in this thesis is BlueTape. BlueTape is FTIS's website which functions to handle matters in UNPAR's FTIS. The solution to the disavantage of email was made by making an announcement collector feature on BlueTape.
+    
+    The announcement collector feature will synchronize email to collect email which contains an announcement in the scope of Informatics department using PHP IMAP. After making sure the announcement is made by the authorities, the announcement will be displayed on BlueTape. By utilizing the LINE@ service, Informatics students will be notified when there is a new announcement at BlueTape.
     
     The test in this undergraduate thesis is done twice. The first test was done by sending various kinds of email to the email address of BlueTape. The second test was carried out by involving students and lecturers directly. The test results show that this feature has functioned as expected, that is, it can synchronize email, can display emails containing announcements at BlueTape, and can display notifications on LINE@ accounts.} 
 %=============================================================================
@@ -261,7 +265,7 @@
 % Persembahan : kepada siapa anda mempersembahkan skripsi ini ...
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\untuk{<<kepada siapa anda mempersembahkan skripsi ini\ldots?>>}
+\untuk{Untuk diri sendiri, keluarga, teman-teman seperjuangan, dan semua yang telah mendukung}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -272,7 +276,19 @@
 % kasih kepada yang telah membantu anda bla bla bla ....  
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\prakata{<<Tuliskan kata pengantar dari anda di sini \ldots>>} 
+\prakata{Puji Tuhan skripsi dengan judul "Kolektor Pengumuman Informatika" ini telah selesai dengan baik dan tepat waktu. Penulis berharap skripsi ini dapat berguna bagi pembaca dan peneliti yang ingin melanjutkan penelitian ini. Terima kasih kepada:
+\begin{enumerate}
+    \item Keluarga, khususnya orang tua, yang telah menyemangati saya secara langsung atau tidak langsung saat proses pembuatan skripsi ini. 
+    \item Bapak Pascal Alfadian yang telah membimbing saya di dalam proses pembuatan skripsi ini.
+    \item Ibu Natalia dan Ibu Veronica Sri Moertini yang telah menguji dan memberi saran untuk skripsi ini.
+    \item Seluruh mahasiswa kelas ADPL yang telah membantu saya saat proses pengujian eksperimental.
+    \item Teman-teman seperjuangan saya yang saling mendukung: Evelyn Wijaya, Tegar Muhammad Soekarno, Felicia Christiany, Ferdinandus Renaldi, dan Muhammad Adam Nur Mishwari.
+    \item Rekan-rekan kerja di perpustakaan UNPAR, khususnya Kak Rysca, Kak Chelsea, Mba Ratna, dan Kak Putri, yang telah menyemangati dan memberi saran kepada saya.
+    \item Rekan-rekan kerja di DNArtworks yang telah berbagi ilmu yang sangat bermanfaat saat mengerjakan skripsi ini.
+    \item Teman-teman jurusan Teknik Informatika angkatan 2015.
+    \item Nama-nama yang belum disebutkan namun membantu saya dalam proses pembuatan skripsi ini.
+\end{enumerate}
+} 
 %=============================================================================
 
 %_____________________________________________________________________________

@@ -13,13 +13,6 @@
 \setcounter{secnumdepth}{3}
 Bab ini berisi landasan teori yang dipakai pada skripsi ini.
 
-%2.1 BlueTape
-\section{BlueTape}
-\label{sec:BlueTape}
-BlueTape adalah aplikasi yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Aplikasi ini berbasis web dengan memanfaatkan \textit{framework} CodeIgniter dan ZURB Foundation. Selain itu, BlueTape menggunakan layanan OAuth dari Google untuk autentikasi pengguna. Saat skripsi ini ditulis, aplikasi BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen memberikan layanan untuk menyimpan dan menampilkan jadwal dosen. \footnotemark
-\footnotetext{https://github.com/ftisunpar/BlueTape}
-
-
 %2.2 Heroku
 \section{Heroku ~\cite{heroku}}
 \label{sec:Heroku}
@@ -31,18 +24,28 @@ Heroku memungkinkan penggunanya untuk menyebarkan, menjalankan, dan mengelola ap
 \subsubsection{\textit{Dependency}}
 Agar aplikasi dapat dibangun dan dijalankan, aplikasi mungkin membutuhkan kode program dari pihak ketiga. Kode program tersebut disebut \textit{dependency}. Aturan peletakkan deskripsi \textit{dependency} berbeda-beda untuk tiap bahasa. Contoh: Aplikasi dengan bahasa Node.js menuliskan deskripsi \textit{dependency} pada \textit{file} \texttt{package.json}.
 
-\subsubsection{Procfile}
-Heroku dapat mengetahui bagian aplikasi mana yang dapat dijalankan untuk sebagian besar bahasa pemrograman. Contoh: Heroku langsung mengetahui bagian "\texttt{main}" pada \textit{file} \texttt{package.json} adalah bagian aplikasi yang dapat dijalankan pada aplikasi dengan bahasa Node.js. Namun, Heroku terkadang membutuhkan petunjuk secara eksplisit untuk mengetahui bagian yang dapat dijalankan. Petunjuk tersebut ditulis di sebuah \textit{file} teks bernama Procfile. 
+\subsubsection{\textit{Dyno}}
+\textit{Dyno} adalah wadah aplikasi berbasis Unix yang  menjalankan kode program di Heroku. Pada umumnya, Heroku akan menjalankan satu \textit{web dyno} secara otomatis saat aplikasi disebar ke Heroku untuk pertama kali.
 
-Procfile adalah \textit{file} tanpa ekstensi \textit{file} (Contoh ekstensi \textit{file}: "\texttt{.txt}") yang diletakkan di direktori \texttt{root}. Isi dari Procfile adalah teks yang tiap barisnya memiliki format sebagai berikut:
-\begin{lstlisting}
-<process type>: <command>
-\end{lstlisting}
-Keterangan:
+\textit{Dyno} dikelompokkan ke dalam tiga kelompok, yaitu:
 \begin{itemize}
-\item \texttt{<process type>}: nama \textit{process type}, contoh: \texttt{urgentworker}. Aplikasi yang sederhana hanya membutuhkan \textit{process type} \texttt{web} saja.
-\item \texttt{<command>}: perintah yang harus dijalankan oleh setiap \textit{dyno} dari \textit{process type} tersebut pada saat startup.
-\end{itemize}
+\item \textit{Web dyno}
+
+\textit{Web dyno} adalah \textit{dyno} yang berjalan pada \textit{process type} \texttt{web}. \textit{Web dyno} adalah satu-satunya \textit{dyno} yang dapat menerima arus HTTP dari \textit{router} Heroku.
+
+\item \textit{Worker dyno}
+
+\textit{Worker dyno} merujuk kepada \textit{dyno} yang berjalan pada \textit{process type} yang disebutkan di dalam Procfile selain \textit{process type} \texttt{web}. \textit{Worker dyno} biasanya digunakan untuk pekerjaan pada latar belakang, sistem antrian, dan pekerjaan berjangka waktu tertentu.
+
+\item \textit{One-off dyno}
+
+\textit{One-off dyno} adalah \textit{dyno} yang bersifat sementara. \textit{One-off dyno} tidak dituliskan pada Procfile untuk menjalankannya, melainkan menggunakan \textit{command shell}. Contoh penggunaan \textit{one-off dyno} adalah pada saat migrasi basis data.
+
+\end{itemize} 
+
+Heroku menyediakan berbagai macam tipe \textit{dyno}, yaitu: tipe \textit{free}, tipe \textit{hobby}, tipe \textit{standard}, dan tipe \textit{performance}. Tipe \textit{dyno} mempengaruhi karakteristik \textit{dyno} dan kinerja aplikasi. Pada aplikasi dengan tipe \textit{dyno free} dan tipe \textit{dyno hobby}, semua \textit{process type} pada aplikasi tersebut hanya dapat memakai tipe \textit{dyno} tersebut. Namun, tipe \textit{standard} dan tipe \textit{dyno performance} dapat digunakan di aplikasi yang sama. Pada \textit{dyno} tipe \textit{free} dan tipe \textit{hobby}, jumlah \textit{dyno} yang dapat dipakai untuk tiap \textit{process type} adalah satu. Pada tipe \textit{dyno performance}, jumlah \textit{dyno} yang dapat dipakai untuk tiap \textit{process type} adalah sepuluh. Pada tipe \textit{dyno free}, jumlah \textit{dyno} yang dapat dijalankan secara bersamaan pada satu aplikasi adalah dua. Pada tipe \textit{dyno} lainnya, jumlah \textit{dyno} yang dapat dijalankan secara bersamaan pada satu aplikasi adalah seratus.
+
+Tipe \textit{dyno free} memiliki beberapa batasan, yaitu dapat masuk ke kondisi \textit{sleep} dan penggunaan per bulannya dibatasi dengan \textit{free dyno hours}. Kondisi \textit{sleep} adalah kondisi saat \textit{web dyno} tidak aktif. Kondisi \textit{sleep} terjadi apabila tidak ada arus HTTP masuk setelah 30 menit aktif. Apabila ada arus HTTP masuk pada saat aplikasi tertidur, maka aplikasi akan aktif kembali. Namun, ada keterlambatan saat memproses arus HTTP tersebut. \textit{Free dyno hours} adalah jumlah jam saat \textit{web dyno} tidak dalam kondisi \textit{sleep}, saat \textit{worker dyno} berjalan, dan saat \textit{one-off dyno} berjalan. Akun yang belum diverifikasi dapat menggunakan 550 \textit{free dyno hours} tiap bulannya, sedangkan akun yang telah diverifikasi dapat menggunakan 1000 \textit{free dyno hours} tiap bulannya. Setiap aplikasi dengan tipe \textit{dyno free} milik seorang pengguna akan memakai kuota \textit{free dyno hours} yang sama. Apabila penggunaan \textit{dyno} telah melebihi 80\% kuota, maka pengguna akan dikirimi \textit{email} peringatan. Apabila penggunaan telah melebihi 100\% kuota, maka pengguna akan dikirimi \textit{email} notifikasi kedua dan aplikasinya akan masuk ke kondisi \textit{sleep} selama sisa hari pada bulan tersebut. Jumlah \textit{free dyno hours} yang tersisa dapat dilihat dengan mengetikkan "\texttt{heroku ps -a }" diikuti dengan nama aplikasi di \textit{command shell} atau dengan melihat bagian \textit{free dyno usage} pada halaman billing (\url{https://dashboard.heroku.com/account/billing}).
 
 \subsubsection{\textit{Process Type}}
 \textit{Process type} adalah prototipe yang menjadi tempat dimana dyno dibentuk. \textit{Process type} yang tersedia dapat berbeda untuk tiap bahasa pemrograman. Namun, ada dua \textit{process type} spesial pada Heroku, yaitu \textit{process type} \texttt{web} dan \textit{process type} \texttt{release}. \textit{Process type} \texttt{web} adalah satu-satunya \textit{process type} yang dapat menerima arus HTTP eksternal dari \textit{router} Heroku. \textit{Process type} \texttt{release} adalah \textit{process type} yang digunakan untuk menyebutkan perintah yang dijalankan selama fase \textit{release}.
@@ -70,103 +73,18 @@ Contoh:
 $ heroku ps:scale web=2 worker=4 clock=1
 \end{lstlisting}
 
-\subsubsection{\textit{Dyno}}
-\textit{Dyno} adalah wadah aplikasi berbasis Unix yang  menjalankan kode program di Heroku. Pada umumnya, Heroku akan menjalankan satu \textit{web dyno} secara otomatis saat aplikasi disebar ke Heroku untuk pertama kali.
+\subsubsection{Procfile}
+Heroku dapat mengetahui bagian aplikasi mana yang dapat dijalankan untuk sebagian besar bahasa pemrograman. Contoh: Heroku langsung mengetahui bagian "\texttt{main}" pada \textit{file} \texttt{package.json} adalah bagian aplikasi yang dapat dijalankan pada aplikasi dengan bahasa Node.js. Namun, Heroku terkadang membutuhkan petunjuk secara eksplisit untuk mengetahui bagian yang dapat dijalankan. Petunjuk tersebut ditulis di sebuah \textit{file} teks bernama Procfile. 
 
-\textit{Dyno} dikelompokkan ke dalam tiga kelompok, yaitu:
+Procfile adalah \textit{file} tanpa ekstensi \textit{file} (Contoh ekstensi \textit{file}: "\texttt{.txt}") yang diletakkan di direktori \texttt{root}. Isi dari Procfile adalah teks yang tiap barisnya memiliki format sebagai berikut:
+\begin{lstlisting}
+<process type>: <command>
+\end{lstlisting}
+Keterangan:
 \begin{itemize}
-\item \textit{Web dyno}
-
-\textit{Web dyno} adalah \textit{dyno} yang berjalan pada \textit{process type} \texttt{web}. \textit{Web dyno} adalah satu-satunya \textit{dyno} yang dapat menerima arus HTTP dari \textit{router} Heroku.
-
-\item \textit{Worker dyno}
-
-\textit{Worker dyno} merujuk kepada \textit{dyno} yang berjalan pada \textit{process type} yang disebutkan di dalam Procfile selain \textit{process type} \texttt{web}. \textit{Worker dyno} biasanya digunakan untuk pekerjaan pada latar belakang, sistem antrian, dan pekerjaan berjangka waktu tertentu.
-
-\item \textit{One-off dyno}
-
-\textit{One-off dyno} adalah \textit{dyno} yang bersifat sementara. \textit{One-off dyno} tidak dituliskan pada Procfile untuk menjalankannya, melainkan menggunakan \textit{command shell}. Contoh penggunaan \textit{one-off dyno} adalah pada saat migrasi basis data.
-
-\end{itemize} 
-
-Heroku menyediakan berbagai macam tipe \textit{dyno}, yaitu: tipe \textit{free}, tipe \textit{hobby}, tipe \textit{standard}, dan tipe \textit{performance}. Tipe \textit{dyno} mempengaruhi karakteristik \textit{dyno} dan kinerja aplikasi. Pada aplikasi dengan tipe \textit{dyno free} dan tipe \textit{dyno hobby}, semua \textit{process type} pada aplikasi tersebut hanya dapat memakai tipe \textit{dyno} tersebut. Namun, tipe \textit{standard} dan tipe \textit{dyno performance} dapat digunakan di aplikasi yang sama. Pada \textit{dyno} tipe \textit{free} dan tipe \textit{hobby}, jumlah \textit{dyno} yang dapat dipakai untuk tiap \textit{process type} adalah satu. Pada tipe \textit{dyno performance}, jumlah \textit{dyno} yang dapat dipakai untuk tiap \textit{process type} adalah sepuluh. Pada tipe \textit{dyno free}, jumlah \textit{dyno} yang dapat dijalankan secara bersamaan pada satu aplikasi adalah dua. Pada tipe \textit{dyno} lainnya, jumlah \textit{dyno} yang dapat dijalankan secara bersamaan pada satu aplikasi adalah seratus.
-
-Tipe \textit{dyno free} memiliki beberapa batasan, yaitu dapat masuk ke kondisi \textit{sleep} dan penggunaan per bulannya dibatasi dengan \textit{free dyno hours}. Kondisi \textit{sleep} adalah kondisi saat \textit{web dyno} tidak aktif. Kondisi \textit{sleep} terjadi apabila tidak ada arus HTTP masuk setelah 30 menit aktif. Apabila ada arus HTTP masuk pada saat aplikasi tertidur, maka aplikasi akan aktif kembali. Namun, ada keterlambatan saat memproses arus HTTP tersebut. \textit{Free dyno hours} adalah jumlah jam saat \textit{web dyno} tidak dalam kondisi \textit{sleep}, saat \textit{worker dyno} berjalan, dan saat \textit{one-off dyno} berjalan. Akun yang belum diverifikasi dapat menggunakan 550 \textit{free dyno hours} tiap bulannya, sedangkan akun yang telah diverifikasi dapat menggunakan 1000 \textit{free dyno hours} tiap bulannya. Setiap aplikasi dengan tipe \textit{dyno free} yang dimiliki pengguna memakai kuota yang sama. Apabila penggunaan \textit{dyno} telah melebihi 80\% kuota, maka pengguna akan dikirimi \textit{email} peringatan. Apabila penggunaan telah melebihi 100\% kuota, maka pengguna akan dikirimi \textit{email} notifikasi kedua dan aplikasinya akan masuk ke kondisi \textit{sleep} selama sisa hari pada bulan tersebut. Jumlah \textit{free dyno hours} yang tersisa dapat dilihat dengan mengetikkan "\texttt{heroku ps -a }" diikuti dengan nama aplikasi di \textit{command shell} atau dengan melihat bagian \textit{free dyno usage} pada halaman billing (\url{https://dashboard.heroku.com/account/billing}).
-
-Perbandingan antar tipe \textit{dyno} dapat dilihat pada Tabel~\ref{table:compare-dyno-type-1} san Tabel~\ref{table:compare-dyno-type-2}. 
-
-\begin{center}
-	\begin{table}[H]
-	\caption{Tabel perbandingan antar tipe \textit{dyno}}
-	\label{table:compare-dyno-type-1}
-	\begin{tabular}{|c|c|c|c|}
-	\hline
-	Tipe \textit{dyno} & \textit{Kondisi sleep} & \textit{Memory} (RAM) & Harga \textit{dyno} per bulan\\
-	\hline
-	\textit{free} & Ada & 512 MB & \textdollar0\\
-	\hline
-	\textit{hobby} & Tidak & 512 MB & \textdollar7\\
-	\hline
-	\textit{standard-1x} & Tidak & 512 MB & \textdollar25\\
-	\hline
-	\textit{standard-2x} & Tidak & 1024 MB & \textdollar50\\
-	\hline
-	\textit{performance-m} & Tidak & 2.5 GB & \textdollar250\\
-	\hline
-	\textit{performance-l} & Tidak & 14 GB & \textdollar500\\
-	\hline
-	\end{tabular}
-	\end{table}
-\end{center}
-
-\begin{center}
-\begin{table}[H]
-\caption{Tabel perbandingan fitur antar tipe \textit{dyno}}
-\label{table:compare-dyno-type-2}
-\begin{tabular}{|c|p{11cm}|}
-\hline
-Tipe \textit{dyno} & Fitur\\
-\hline
-\textit{free} & \begin{itemize}
-	\item Mendukung penyebaran aplikasi menggunakan Git dan Docker.
-	\item Mengganti \textit{domain}.
-	\item Dapat menggunakan \textit{pipeline}\footnotemark
-	\item Pembaruan sistem operasi secara berkala.
-	\item Pembaruan versi bahasa pemrograman secara berkala.
-\end{itemize} \\
-\hline
-\textit{hobby} & \begin{itemize}
-	\item Semua fitur diatas.
-	\item Dapat menggunakan SSL dan sertifikat TLS.
-	\item Dapat menggunakan \textit{Application metrics}
-\end{itemize}\\
-\hline
-\textit{standard-1x} & \begin{itemize}
-	\item Semua fitur diatas.
-	\item Dapat menambah jumlah \textit{dyno}.
-	\item Dapat mengubah ukuran \textit{dyno}.
-	\item Dapat menggunakan fitur \textit{preboot}.
-	\item Dapat menggunakan fitur \textit{language runtime metrics}.
-\end{itemize}\\
-\hline
-\textit{standard-2x} & \begin{itemize}
-	\item Semua fitur diatas.
-\end{itemize}\\
-\hline
-\textit{performance-m} & \begin{itemize}
-	\item Semua fitur diatas.
-	\item Dapat menggunakan fitur \textit{autoscaling} untuk \textit{web dynos}
-	\item Sumber daya komputasi terdedikasi.
-\end{itemize}\\
-\hline
-\textit{performance-l} & \begin{itemize}
-	\item Semua fitur diatas.
-\end{itemize}\\
-\hline
-\end{tabular}
-\end{table}
-\end{center}
-\footnotetext{\textit{Pipeline} adalah sekelompok aplikasi Heroku yang menggunakan kode program yang sama.}
+\item \texttt{<process type>}: nama \textit{process type}, contoh: \texttt{urgentworker}. Aplikasi yang sederhana hanya membutuhkan \textit{process type} \texttt{web} saja.
+\item \texttt{<command>}: perintah yang harus dijalankan oleh setiap \textit{dyno} dari \textit{process type} tersebut pada saat startup.
+\end{itemize}
 
 \subsubsection{\textit{Config vars}}
 Pada Heroku, \textit{environment variable} disimpan di dalam \textit{config vars}. \textit{Environment variable} adalah konfigurasi yang dapat berubah-ubah pada lingkungan yang berbeda. Konfigurasi tersebut meliputi informasi \textit{database}, informasi kredensial, atau informasi lain yang bersifat spesifik pada aplikasi. Penggunaan \textit{environment variable} dapat menghindari tersimpannya informasi penting di pengontrol versi.
@@ -211,7 +129,7 @@ Keterangan :
 \end{itemize}
 \end{itemize}
 
-\item Menggunakan Heroku \textit{Dashboard}
+\item Menggunakan Heroku \textit{dashboard}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[width=\textwidth]{bluetape-config-vars-example.png}  
@@ -277,7 +195,7 @@ Dalam mengatur \textit{config vars}, ada beberapa hal yang harus diperhatikan:
 \item Jika aplikasi menggunakan \textit{add-ons}, biasanya \textit{add-ons} tersebut akan menambahkan satu atau lebih \textit{config vars} ke aplikasi. Nilai dari \textit{config vars} tersebut mungkin diperbarui oleh penyedia \textit{add-ons} kapan saja.
 \item Data \textit{config vars} (kombinasi dari semua kunci dan nilainya) tidak dapat melebihi 32 kb per aplikasi
 \item Nama \textit{config vars} tidak boleh diawali dengan tanda hubung bawah dua kali (\texttt{\_\_}).
-\item Nama \textit{config vars} tidak bisa diawali dengan \texttt{HEROKU\_}, kecuali ditambahkan oleh platform Heroku sendiri.
+\item Nama \textit{config vars} tidak bisa diawali dengan \texttt{HEROKU\_}, kecuali ditambahkan oleh \textit{platform} Heroku sendiri.
 \end{itemize}
 
 \subsubsection{\textit{Add-ons}}
@@ -296,16 +214,6 @@ $ heroku addons:create heroku-redis:hobby-dev
 \end{lstlisting}
 
 Menambah \textit{add-ons} selain \textit{add-ons} Heroku Postgres dan Heroku Connect membutuhkan verifikasi akun.
-
-\subsubsection{\textit{Slug}}
-\textit{Slug} adalah gabungan dari \textit{source code}, \textit{dependency}, \textit{language runtime}, dan hasil \textit{build} yang siap untuk dijalankan. \textit{Slug} dibuat oleh \textit{buildpack} setiap pengguna melakukan \textit{deploy}. Ukuran maksimal \textit{slug} adalah 500 MB. Waktu pembuatan \textit{slug} dibatasi sampai 15 menit. Agar waktu pembuatan \textit{slug} lebih singkat, pengguna dapat mengecualikan \textit{file} yang tidak diperlukan untuk menjalankan aplikasi dengan menuliskannya di dalam \textit{file} \texttt{.slugignore}. \textit{File} \texttt{.slugignore} adalah \textit{file} yang menyebutkan \textit{file} yang harus diabaikan pada saat pembuatan \textit{slug}. \textit{File} ini diletakkan di direktori \texttt{root}. Cara penulisan \texttt{.slugignore} kurang lebih sama dengan \textit{.gitignore}. Contoh isi \texttt{.slugignore}:
-\begin{lstlisting}
-# Heres a comment
-*.psd
-*.pdf
-/test
-/spec
-\end{lstlisting}
 
 \subsubsection{\textit{Buildpack}}
 \begin{figure}[H]
@@ -638,7 +546,7 @@ Heroku menggunakan Git sebagai sarana  utama untuk melakukan \textit{deploy} ke 
 $ git init
 \end{lstlisting}
 
-Setelah melakukan inisialisasi Git, aplikasi Heroku dapat dibuat. Setiap aplikasi Heroku dibuat, maka \texttt{git remote} secara otomatis juga dibuat. Nama \textit{remote} dapat diperiksa dengan mengetikkan perintah berikut pada \textit{command shell} :
+Setelah melakukan inisialisasi Git, aplikasi Heroku dapat dibuat. Ketika aplikasi Heroku dibuat, maka \texttt{git remote} secara otomatis juga dibuat. Nama \textit{remote} dapat diperiksa dengan mengetikkan perintah berikut pada \textit{command shell} :
 \begin{lstlisting}
 $ git remote
 \end{lstlisting}
@@ -722,7 +630,7 @@ $ heroku open
 	\caption[\textit{Deploy} menggunakan Github secara otomatis]{\textit{Deploy} menggunakan Github secara otomatis} 
 	\label{fig:deploy-github-automatic} 
 \end{figure}
-Ada dua cara untuk melakukan deploy, yaitu secara manual dan secara otomatis. Untuk cara manual, \textit{deploy} dilakukan dari GitHub (Gambar~\ref{fig:deploy-github-manual}). Untuk cara otomatis, \textit{deploy} dilakukan dengan mengaktifkan "\textit{Automatic deploys from GitHub}" (Gambar~\ref{fig:deploy-github-automatic}).
+Ada dua cara untuk melakukan \textit{deploy}, yaitu secara manual dan secara otomatis. Untuk cara manual, \textit{deploy} dilakukan dari GitHub (Gambar~\ref{fig:deploy-github-manual}). Untuk cara otomatis, \textit{deploy} dilakukan dengan mengaktifkan "\textit{Automatic deploys from GitHub}" (Gambar~\ref{fig:deploy-github-automatic}).
 
 \subsubsection{Deploy Langsung di situs web Heroku}
 Pada situs web Heroku, tombol "\textit{Deploy to Heroku}" memungkinkan pengguna untuk melakukan deploy aplikasi tanpa meninggalkan situs web Heroku. Cara ini hampir tidak memerlukan konfigurasi. Sebelum dapat melakukan \textit{deploy} dengan cara ini, aplikasi harus memiliki \textit{file} \texttt{app.json} yang sah pada direktori \texttt{root}, dan \textit{source code} aplikasi harus berada di \textit{repository} GitHub.
@@ -866,7 +774,7 @@ $ heroku pg:psql <database_name>
 \end{lstlisting}
 Keterangan:
 \begin{itemize}
-\item \texttt{<database\_name>} diisi dengan nama basis data atau cukup warna basis data, misalnya \texttt{gray}).
+\item \texttt{<database\_name>} diisi dengan nama basis data atau cukup warna basis data, misalnya \texttt{gray}.
 \end{itemize}
 
 \item Menarik data dari basis data Heroku Postgres ke basis data di mesin lokal:
@@ -1064,7 +972,10 @@ Gmail API menggunakan OAuth 2.0 untuk menangani autentikasi dan \textit{authoriz
 \end{itemize}
 
 \subsection{Penggunaan pada umumnya}
+Pada umumnya, GMail API digunakan untuk mengirim \textit{message}, mengambil \textit{email} yang diterima, melihat perubahan di \textit{history}, dan mengatur \textit{Label}.
+
 \subsubsection{Mengirim \textit{message}}
+Berikut tahapan yang harus dilakukan untuk mengirim \textit{message}:
 \begin{enumerate}
 \item Membuat konten \textit{email}
 \item Membuat \textit{string} yang dikodekan berdasarkan \textit{base64url} dari konten
@@ -1101,7 +1012,7 @@ Setelah \textit{user sign-in} untuk pertama kalinya, \textit{authorization resul
 \label{sec:PHPIMAP}
 \textit{IMAP (Internet Message Access Protocol)} adalah metode untuk mengakses pesan elektronik yang disimpan di sebuah \textit{mail server}.
 
-Ekstensi ini dapat digunakan apabila \textit{c-client library} sudah terpasang. Library ini dapat ditemukan di \url{https://www.washington.edu/imap/}. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori \textit{system}, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori \textit{system}, lalu memasukkan \textit{file} IMAP ke dalamnya. Contoh : \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tamabahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua \textit{file} dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, \textit{file} bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
+Ekstensi ini dapat digunakan apabila \textit{c-client library} sudah terpasang. Library ini dapat ditemukan di \url{https://www.washington.edu/imap/}. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori \textit{system}, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori \textit{system}, lalu memasukkan \textit{file} IMAP ke dalamnya. Contoh : \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tambahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua \textit{file} dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, \textit{file} bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
 
 Setelah itu, kompilasi PHP dengan \texttt{--with-imap[=DIR]} dengan \texttt{DIR} adalah tempat c-client. Contoh: \texttt{with-imap=/usr/local/imap-2000b}. Pengguna sistem operasi Windows mungkin harus mengaktifkan \texttt{php\_imap.dll}.
 
@@ -1437,7 +1348,7 @@ LINE Pay adalah produk LINE yang memungkinkan \textit{developer} mengintegrasika
 \subsection{Messaging API } 
 \begin{figure}[H]
 	\centering  
-	\includegraphics[width=\textwidth]{messaging-api-push-reply-message.png}  
+	\includegraphics[scale=0.4]{messaging-api-push-reply-message.png}  
 	\caption[Push message dan reply message pada Messaging API]{Messaging API memungkinkan \textit{developer} mengirim push message dan reply message} 
 	\label{fig:messaging-api-push-reply-message} 
 \end{figure}
@@ -1448,7 +1359,7 @@ LINE Menyediakan Messaging API untuk membangun messaging bot. Messaging API memu
 
 \begin{figure}[H]
 	\centering  
-	\includegraphics[width=\textwidth]{messaging-api-architecture.png}  
+	\includegraphics[scale=0.7]{messaging-api-architecture.png}  
 	\caption[Arsitektur Messaging API]{Arsitektur Messaging API} 
 	\label{fig:messaging_api_architecture} 
 \end{figure}
@@ -1554,19 +1465,24 @@ Setelah \textit{token} dan \textit{webhook URL} berhasil diset, tambahkan \texti
 \subsubsection{Menkonfigurasi Keamanan}
 \textit{Developer} dapat mengkonfigurasi keamanan tapi tidak wajib dilakukan. Untuk meningkatkan keamanan, \textit{developer} dapat mengatur \textit{serve}r yang dapat memanggil API pada LINE Platform pada \textit{Security settings}. \textit{Developer} dapat mendaftarkan alamat IP secara individual atau jika \textit{developer} memiliki \textit{server} yang banyak \textit{developer} dapat menggunakan notasi \textit{Classless Inter-Domain Routing} (CIDR) untuk mendaftarkan alamat jaringan.
 
+\subsubsection{Messaging API SDK}
+LINE menyediakan \textit{library, tool,} dan \textit{sample} untuk mempermudah pembangunan aplikasi bot dengan Messaging API. Ketiga benda tersebut tergabung dalam SDK (\textit{Software Development Kit}. LINE menyediakan SDK untuk bahasa Java, PHP, Go, Perl, Ruby, Python, dan Node.js.
+
 \subsubsection{Alur kerja Messaging API}
 Ketika \textit{user} berinteraksi dengan \textit{bot} seperti mengirimkan pesan atau menambah \textit{bot} sebagai teman, LINE Platform mengirimkan HTTP POST \textit{request} yang berisi \textit{webhook event object} ke \textit{bot server} yang disebutkan di kolom \textit{"Webhook URL"} pada \textit{console. Request header} berisi \textit{signature.} 
 
 Untuk mengecek apakah \textit{server} dapat menerima \textit{webhook event}, blokir \textit{bot} pada LINE dan cek \textit{server logs} untuk menkorfimasi bahwa \textit{server} dapat menerima \textit{unfollow event} dari LINE Platform.
 
 Untuk memastikan \textit{request} yang dikirim berasal dari LINE Platform, \textit{bot server} harus memvalidasi \textit{X-Line-Signature} pada \textit{request header}. Caranya dengan :
-1. Menggunakan \textit{channel secret} sebagai \textit{secret key}, menghasilkan \textit{Base64-encoded digest} dari \textit{request body} menggunakan algoritma HMAC-SHA256
-2. Menkonfirmasi \textit{signature X-Line-Signature} dalam \textit{request header} cocok dengan \textit{digest}.
- 
+\begin{enumerate}
+	\item Menggunakan \textit{channel secret} sebagai \textit{secret key}, menghasilkan \textit{Base64-encoded digest} dari \textit{request body} menggunakan algoritma HMAC-SHA256
+	\item Mengonfirmasi \textit{signature X-Line-Signature} dalam \textit{request header} cocok dengan \textit{digest}.
+\end{enumerate}
 
 \subsubsection{\textit{Webhook Event Object}}
+\textit{Webhook Event Object} adalah objek JSON yang berisi event yang dihasilkan oleh \textit{platform} LINE. \textit{Webhook Event Object} yang dihasilkan tergantung dari jenis \textit{chat}. Jenis \textit{chat} ada dua, yaitu: \textit{one-on-one chat} (\textit{chat} antara dua akun LINE) dan \textit{group chats} (\textit{chat} di dalam grup). Berikut \textit{webhook event object} yang muncul saat:
 \begin{enumerate}
-\item Berikut \textit{webhook event object} khusus untuk \textit{one-on-one chat}:
+\item \textit{one-on-one chat}:
 
 \begin{itemize}
 \item \textit{Message Event}
@@ -1595,7 +1511,7 @@ Menunjukkan bahwa \textit{user} telah menghubungkan akun LINE dengan akun layana
 
 \end{itemize}
 
-\item Berikut \textit{webhook event object} khusus untuk \textit{group chats}:
+\item \textit{group chats}:
 
 \begin{itemize}
 \item \textit{Message event}
@@ -1658,16 +1574,16 @@ Jika \textit{developer} mengaktifkan "\textit{Auto reply message}" pada \textit{
 \section{\textit{System Usability Scale} ~\cite{albert2013measuring}}
 \textit{System Usability Scale} adalah salah satu metode untuk menguji usabilitas dari sebuah sistem atau produk. Metode ini menggunakan kuesioner yang terdiri dari 10 pernyataan berikut:
 \begin{enumerate}
-	\item I think that I would like to use this system frequently.
-	\item I found the system unnecessarily complex.
-	\item I thought the system was easy to use.
-	\item I think that I would need the support of a technical person to be able to use this system.
-	\item I found the various functions in this system were well integrated.
-	\item I thought there was too much inconsistency in this system.
-	\item I would imagine that most people would learn to use this system very quickly.
-	\item I found the system very cumbersome to use.
-	\item I felt very confident using the system.
-	\item I needed to learn a lot of things before I could get going with this system.
+	\item \textit{I think that I would like to use this system frequently}.
+	\item \textit{I found the system unnecessarily complex.}
+	\item \textit{I thought the system was easy to use.}
+	\item \textit{I think that I would need the support of a technical person to be able to use this system.}
+	\item \textit{I found the various functions in this system were well integrated.}
+	\item \textit{I thought there was too much inconsistency in this system.}
+	\item \textit{I would imagine that most people would learn to use this system very quickly.}
+	\item \textit{I found the system very cumbersome to use.}
+	\item \textit{I felt very confident using the system.}
+	\item \textit{I needed to learn a lot of things before I could get going with this system.}
 \end{enumerate}
 Setiap pernyataan dinilai oleh responden dengan angka di antara 1 sampai 5. Angka 1 menunjukkan responden tidak setuju dengan pernyataan tersebut dan angka 5 menunjukkan bahwa responden sangat setuju dengan pernyataan tersebut.
 Setelah seluruh responden mengisi kuesioner tersebut, skor \textit{System Usability Scale} dari tiap responden dihitung. Cara menghitungnya adalah sebagai berikut:

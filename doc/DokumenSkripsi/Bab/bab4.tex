@@ -93,9 +93,10 @@ Deskripsi	& \textit{Method} ini berfungsi untuk memroses \textit{email} pengumum
 \hline
 Algoritma	& \begin{enumerate}
 				\item \textit{Load config} pengumuman
-				\item Memeriksa pengirim setiap \textit{email}. Apabila pengirim terdaftar di \textit{config} pengirimTerverifikasi, maka \textit{email} tersebut akan masuk ke tahap berikutnya.
-				\item Tahap berikutnya adalah memasukkan informasi \textit{email} ke dalam baris \textit{record} di tabel Pengumuuman dan mengirimkan pesan melalui LINE. Pesan LINE dikirimkan dengan bantuan method pushMessageToAllFollowers yang terdapat pada Pengumuman\_Line\_model.
-				\item Mengembalikan \textit{true} apabila sebelumnya \textit{email} diidentifikasi sebagai  \textit{email} pengumuman dan mengembalikan \textit{false} apabila sebelumnya \textit{email} diidentifikasi tidak termasuk \textit{email} pengumuman.
+				\item Memeriksa pengirim setiap \textit{email}. Apabila pengirim terdaftar di \textit{config} pengirimTerverifikasi, maka \textit{email} tersebut diidentifikasikan sebagai \textit{email} pengumuman.
+				\item Informasi dari \textit{email} pengumuman dimasukkan ke dalam baris \textit{record} di tabel Pengumuman.
+				\item Pesan LINE@ dikirimkan dengan bantuan method pushMessageToAllFollowers yang terdapat pada Pengumuman\_Line\_model. Pesan tersebut berisi subjek dan pengirim \textit{email} pengumuman.
+				\item Mengembalikan \textit{true} apabila  \textit{email} diidentifikasi sebagai  \textit{email} pengumuman dan mengembalikan \textit{false} apabila \textit{email} diidentifikasi tidak termasuk \textit{email} pengumuman.
 				\end{enumerate} \\
 \hline
 \end{tabular}
@@ -180,7 +181,7 @@ Deskripsi	& \\
 \hline
 Algoritma	& \begin{enumerate}
 				\item Membuat \textit{query} untuk mendapatkan semua id \textit{user} LINE pengikut \textit{bot} dan memasukkan hasilnya ke suatu array.
-				\item Membuat \textit{text message builder} dengan parameter \textit{input} pesan yang ingin dikirimkan ke pengikut \textit{bot}.
+				\item Membuat objek baru dari kelas \textit{text message builder} (kelas ini terdapat di LINE API) dengan parameter \textit{input} pesan yang ingin dikirimkan ke pengikut \textit{bot}.
 				\item Melakukan \textit{multicast} dengan parameter \textit{input} array id \textit{user} LINE yang akan dikirimkan pesan dan \textit{text message builder}.
 				\end{enumerate} \\
 \hline
@@ -402,10 +403,12 @@ Algoritma	& \begin{enumerate}
 \section{Perancangan Basis Data}
 Tabel-tabel yang sudah ada di BlueTape tidak diubah, namun ada dua tabel yang ditambahkan. Kedua tabel tersebut adalah tabel Pengumuman dan tabel Line\_followers. Tabel pengumuman berguna untuk menyimpan informasi dari \textit{email} pengumuman. Sedangkan tabel Line\_followers berguna untuk menyimpan \textit{user id} dari \textit{follower} akun \textit{bot} BlueTape.
 
-\subsubsection{Tabel Pengumuman}
-\begin{center}
-	\begin{table}[H]
-	\caption{Perancangan Tabel Pengumuman}
+\subsection{Tabel Pengumuman}
+Rancangan Tabel Pengumuman dapat dilihat pada Tabel \ref{table:rancangan-tabel-pengumuman}.
+\begin{table}[H]
+	\caption{Rancangan Tabel Pengumuman}
+	\label{table:rancangan-tabel-pengumuman}
+	\centering
 	\begin{tabular}{|c|c|c|c|c|c|}
  			\hline
 			\textbf{Atribut} & \textbf{Tipe Data} & \textbf{Constraint} & \textbf{PK*}  & \textbf{FK*} \\
@@ -425,9 +428,8 @@ Tabel-tabel yang sudah ada di BlueTape tidak diubah, namun ada dua tabel yang di
 			 ketersediaanLampiran & VARCHAR & 1 & Tidak & Tidak\\
 			\hline
 	\end{tabular}
-	\end{table}
-\end{center}
-\textit{*PK = Primary Key} \\
+\end{table}
+\noindent \textit{*PK = Primary Key} \\
 \textit{*FK = Foreign Key} \\
 
 Keterangan atribut:
@@ -441,10 +443,12 @@ Keterangan atribut:
 \item \textbf{ketersediaanLampiran}: Jika \textit{email} pengumuman memiliki lampiran maka atribut ini memiliki \textit{value} 'Y'. Jika tidak, maka \textit{value}-nya 'N'.
 \end{itemize}
 
-\subsubsection{Tabel PengumumanLineFollowers}
-\begin{center}
-	\begin{table}[H]
-	\caption{Perancangan Tabel PengumumanLineFollowers}
+\subsection{Tabel PengumumanLineFollowers}
+Rancangan Tabel PengumumanLineFollowers dapat dilihat pada Tabel \ref{table:rancangan-tabel-PengumumanLineFollowers}.
+\begin{table}[H]
+	\caption{Rancangan Tabel PengumumanLineFollowers}
+	\label{table:rancangan-tabel-PengumumanLineFollowers}
+	\centering
 	\begin{tabular}{|c|c|c|c|c|c|}
  			\hline
 			\textbf{Atribut} & \textbf{Tipe Data} & \textbf{Constraint} & \textbf{PK*}  & \textbf{FK*} \\
@@ -452,9 +456,8 @@ Keterangan atribut:
 			 userId & VARCHAR & 256 & Ya & Tidak\\
             \hline
 	\end{tabular}
-	\end{table}
-\end{center}
-\textit{*PK = Primary Key} \\
+\end{table}
+\noindent \textit{*PK = Primary Key} \\
 \textit{*FK = Foreign Key} \\
 
 Keterangan atribut:
@@ -476,7 +479,7 @@ Antarmuka yang digunakan fitur kolektor pengumuman ada dua, yaitu \textit{main} 
 	\label{fig:mockup-main} 
 \end{figure}
 
-Antarmuka \textit{main} menampilkan daftar pengumuman. Jumlah pengumuman yang ditampilkan di satu halaman dibatasi pada angka tertentu. Di halaman \textit{main} terdapat navigasi \textit{next} dan \textit{prev} untuk menampilkan daftar selanjutnya dan sesudahnya. Gambar~ \ref{fig:mockup-main} menampilkan \textit{mockup} antarmuka \textit{main}.
+Antarmuka \textit{main} menampilkan daftar pengumuman. Jumlah pengumuman yang ditampilkan di satu halaman dibatasi sebanyak 10 pengumuman. Di halaman \textit{main} terdapat navigasi \textit{next} dan \textit{prev} untuk menampilkan daftar selanjutnya dan sesudahnya. Gambar~ \ref{fig:mockup-main} menampilkan \textit{mockup} antarmuka \textit{main}.
 
 \subsubsection{read}
 

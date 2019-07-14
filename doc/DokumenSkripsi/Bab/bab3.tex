@@ -11,7 +11,7 @@
 \label{chap:analisis}
 	Pengumpulan data dalam skripsi ini dilakukan dengan cara studi pustaka.
 
-\section{Analisis Sistem yang Sudah Ada}
+\section{Analisis Sistem Kini}
 \label{sec:analisiskini}
 \begin{figure}[H]
 	\centering  
@@ -20,7 +20,10 @@
 	\label{fig:bluetape-login} 
 \end{figure}
 
-	\textit{BlueTape} adalah perangkat lunak yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Pada saat skripsi ini dibuat, BlueTape dapat diakses melalui situs web \url{https://bluetape.azurewebsites.net/} (Gambar~\ref{fig:bluetape-login}). Perangkat lunak ini bersifat \textit{open source}, sehingga kode program BlueTape bisa dipelajari, diubah, dan distribusi oleh siapapun untuk tujuan apapun. Kode program ini dapat diakses di \url{https://github.com/ftisunpar/BlueTape}. BlueTape memanfaatkan CodeIgniter (versi 3.1.4) dan ZURB Foundation.
+	BlueTape adalah aplikasi yang berfungsi untuk membantu urusan-urusan \textit{paper-based} di FTIS UNPAR menjadi \textit{paperless}. Aplikasi ini berbasis web dengan memanfaatkan \textit{framework} CodeIgniter (versi 3.1.4) dan ZURB Foundation. Selain itu, BlueTape menggunakan layanan OAuth dari Google untuk autentikasi pengguna. Saat skripsi ini ditulis, aplikasi BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen memberikan layanan untuk menyimpan dan menampilkan jadwal dosen. \footnotemark
+	\footnotetext{https://github.com/ftisunpar/BlueTape}
+
+	Pada saat skripsi ini dibuat, BlueTape dapat diakses melalui situs web \url{https://bluetape.azurewebsites.net/} (Gambar~\ref{fig:bluetape-login}). Perangkat lunak ini bersifat \textit{open source}, sehingga kode program BlueTape bisa dipelajari, diubah, dan distribusi oleh siapapun untuk tujuan apapun. Kode program ini dapat diakses di \url{https://github.com/ftisunpar/BlueTape}.
 	
 	Pola pengembangan yang dipakai BlueTape adalah MVC (\textit{Model-View-Controller}). MVC (\textit{Model-View-Controller}) adalah sebuah metode untuk membuat perangkat lunak menjadi tiga bagian: \textit{Model, View, dan Controller}. \textit{Model} adalah kelas yang merepresentasikan struktur data. \textit{View} adalah informasi yang disajikan ke pengguna. \textit{Controller} adalah penghubung antara \textit{Model}, \textit{View}, dan sumber daya lain yang dibutuhkan untuk mengolah HTTP \textit{request} dan menghasilkan situs web.
 
@@ -117,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 \end{lstlisting}
 
 \subsection{Fitur - Fitur BlueTape}
-	Saat skripsi ini ditulis, BlueTape memiliki perangkat lunak BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen untuk merekam dan menampilkan jadwal dosen.
+	Saat skripsi ini ditulis, BlueTape memiliki tiga layanan, yaitu Transkrip \textit{Request} / \textit{Manage}, Perubahan Kuliah \textit{Request} / \textit{Manage}, dan perekam jadwal dosen. Layanan Transkrip \textit{Request} / \textit{Manage} memberikan layanan untuk melakukan permohonan serta pencetakan transkrip mahasiswa. Layanan Perubahan Kuliah \textit{Request} / \textit{Manage} memberikan layanan untuk permohonan dan pencetakan perubahan jadwal kuliah oleh dosen. Layanan perekam jadwal dosen untuk merekam dan menampilkan jadwal dosen.
 
 	\subsubsection{Transkrip \textit{Request}} 
 	\begin{figure}[H]
@@ -127,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		\label{fig:bluetape-cetak-transkrip} 
 	\end{figure}
 	
-	Gambar~ \ref{fig:bluetape-cetak-transkrip} menampilkan halaman utama saat cetak transkrip. Halaman ini hanya bisa diakses oleh \textit{user} yang termasuk roles 'root' dan 'mahasiswa.ftis'. Terdapat form yang meminta \textit{input} alamat \textit{email} pemohon, npm, nama, tipe transkrip, dan keperluan. Input alamat \textit{email} pemohon, npm, dan nama sudah terisi otomatis dan tidak bisa diubah lagi sehingga \textit{user} hanya perlu mengganti tipe transkrip dan mengisi keperluan. Tipe transkrip memiliki tiga pilihan, yaitu: DPS Bahasa Indonesia (Seluruh Semester), DPS Bahasa Inggris (Seluruh Semester), dan LHS (Semester Terakhir). Selain form tersebut, terdapat tabel histori permohonan yang akan menampilkan riwayat permohonan cetak transkrip jika sudah pernah memohon. Tabel histori permohonan memiliki tujuh kolom, yaitu: ID, Status, Tanggal Permohonan, Tipe Transkrip, Tanggal Jawab/Cetak, Keterangan, dan Aksi (tindakan yang bisa dilakukan dengan record). Gambar~ \ref{fig:bluetape-cetak-transkrip-request} menampilkan tampilan setelah form permohonan transkrip baru dikirimkan. Pada Gambar~ \ref{fig:bluetape-cetak-transkrip-request} aksi yang tersedia hanya melihat detail permohonan.
+	Gambar~ \ref{fig:bluetape-cetak-transkrip} menampilkan halaman utama saat cetak transkrip. Halaman ini hanya bisa diakses oleh \textit{user} yang termasuk roles 'root' (admin) dan 'mahasiswa.ftis'. Terdapat form yang meminta \textit{input} alamat \textit{email} pemohon, npm, nama, tipe transkrip, dan keperluan. Input alamat \textit{email} pemohon, npm, dan nama sudah terisi otomatis dan tidak bisa diubah lagi sehingga \textit{user} hanya perlu mengganti tipe transkrip dan mengisi keperluan. Tipe transkrip memiliki tiga pilihan, yaitu: DPS Bahasa Indonesia (Seluruh Semester), DPS Bahasa Inggris (Seluruh Semester), dan LHS (Semester Terakhir). Selain form tersebut, terdapat tabel histori permohonan yang akan menampilkan riwayat permohonan cetak transkrip jika sudah pernah memohon. Tabel histori permohonan memiliki tujuh kolom, yaitu: ID, Status, Tanggal Permohonan, Tipe Transkrip, Tanggal Jawab/Cetak, Keterangan, dan Aksi (tindakan yang bisa dilakukan dengan record). Gambar~ \ref{fig:bluetape-cetak-transkrip-request} menampilkan tampilan setelah form permohonan transkrip baru dikirimkan. Pada Gambar~ \ref{fig:bluetape-cetak-transkrip-request} aksi yang tersedia hanya melihat detail permohonan.
 
 	\begin{figure}[H]
 		\centering  
@@ -206,7 +209,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	Setiap \textit{role} memiliki batasan dalam mengakses \textit{module} di BlueTape. \textit{Role} root tidak memiliki batasan dan dapat mengakses setiap \textit{module} yang ada. \textit{Role} tu.ftis hanya dapat mengakses \textit{module} \texttt{TranskripManage}, dan \textit{module} \texttt{PerubahanKuliahManage}. \textit{Role} mahasiswa.ftis hanya dapat mengakses \textit{module} \texttt{TranskripRequest} dan \textit{module} \texttt{LihatJadwalDosen}. \textit{Role} staf.unpar hanya dapat mengakses \textit{module} \texttt{PerubahanKuliahRequest}. \texttt{Role} dosen.informatika hanya dapat mengakses \textit{module} \texttt{EntriJadwalDosen}.
 
-\section{Analisis Fitur yang Dibangun}
+\subsection{Struktur Kelas BlueTape}
+BlueTape memiliki struktur kelas MVC (\textit{Model View Controller}).
+
+\subsubsection{Model}
+Model yang sudah ada adalah:
+\begin{itemize}
+	\item Auth\_model: berisi algoritma yang dibutuhkan untuk autentikasi saat \textit{login}.
+	\item Email\_model: berisi algoritma yang dibutuhkan untuk mengirim \textit{email}.
+	\item JadwalDosen\_model: berisi algoritma yang dibutuhkan untuk fitur lihat jadwal dosen.
+	\item PerubahanKuliah\_model: berisi algoritma yang dibutuhkan untuk fitur perubahan kuliah \textit{request} dan perubahan kuliah \textit{manage}.
+	\item Transkrip\_model: berisi algoritma yang dibutuhkan untuk fitur transkrip \textit{request} dan transkrip \textit{manage}.
+\end{itemize} 
+
+\subsubsection{Controller}
+Controller yang sudah ada adalah:
+\begin{itemize}
+	\item Auth: berfungsi untuk menjalankan perintah-perintah yang harus dijalankan saat \textit{login}.
+	\item EntriJadwalDosen: berfungsi untuk menjalankan perintah-perintah yang harus dijalankan saat memasukkan jadwal dosen.
+	\item LihatJadwalDosen: berfungsi untuk menjalankan perintah-perintah yang harus dijalankan saat \textit{user} ingin melihat jadwal dosen.
+	\item Migrate: berfungsi untuk menjalankan perintah-perintah yang harus dijalankan saat melakukan \textit{migration}.
+	\item PerubahanKuliahManage: berfungsi untuk menjalankan perintah-perintah yang harus dijalankan saat mengatur perubahan kuliah.
+	\item PerubahanKuliahRequest: berfungsi untuk menjalankan perintah-perintah yang harus dijalankan saat meminta perubahan kuliah.
+	\item TranskripManage: berfungsi untuk menjalankan perintah-perintah yang harus dijalankan saat mengatur permintaan transkrip.
+	\item TranskripRequest: berfungsi untuk menjalankan perintah-perintah yang harus dijalankan saat \textit{user} ingin meminta transkrip.
+\end{itemize} 
+
+\subsubsection{View}
+View yang sudah ada adalah:
+\begin{itemize}
+	\item Auth/login: tampilan saat \textit{login} (email, dan main), TranskripManage (email dan main), dan TranskripRequest (email dan main).
+	\item EntriJadwalDosen/main: tampilan saat memasukkan jadwal dosen.
+	\item LihatJadwalDosen/main: tampilan saat melihat jadwal dosen.
+	\item PerubahanKuliahManage/email: tampilan \textit{email} yang dikirimkan saat ada permintaan perubahan kuliah.
+	\item PerubahanKuliahManage/main: tampilan saat di halaman pengolahan perubahan kuliah.
+	\item PerubahanKuliahManage/printview: tampilan pengumuman perubahan kuliah.
+	\item TranskripManage/email: tampilan \textit{email} yang dikirimkan saat ada permintaan transkrip.
+	\item TranskripManage/main: tampilan saat di halaman pengolahan permintaan transkrip.
+	\item TranskripRequest/email: tampilan \textit{email} yang dikirimkan saat permintaan transkrip diajukan.
+	\item TranskripRequest/main: tampilan saat di halaman permintaan transkrip.
+\end{itemize} 
+
+\section{Analisis Sistem Usulan}
 \label{sec:analisisYangDibangun}
 	Bagian ini membahas analisis fitur kolektor pengumuman.
 
@@ -265,7 +309,7 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram \textit{use case} fit
 	\end{enumerate}
 \end{itemize}
 
-\item Melihat pengumuman terkirim di dashboard
+\item Melihat pengumuman terkirim di \textit{dashboard}
 
 \begin{itemize}
 	\item Aktor: Dosen Informatika, Mahasiswa Informatika, dan root (admin).
@@ -278,7 +322,7 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram \textit{use case} fit
 \end{itemize}
 \end{enumerate}
 
-\subsection{Arsitektur Heroku yang digunakan untuk Bluetape}
+\subsection{Analisis Heroku}
 	\subsubsection{\textit{Dependency}}
 		BlueTape membutuhkan \textit{dependency} tambahan agar perangkat lunak dapat dijalankan. \textit{Dependency} tambahan perangkat lunak BlueTape tertera pada dokumen \texttt{composer.json}. Berikut isinya:
 		\begin{lstlisting}
@@ -298,15 +342,12 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram \textit{use case} fit
 		BlueTape hanya membutuhkan satu \textit{process type} di Procfile, yaitu \textit{process type} \texttt{web} dan \textit{process type} \texttt{release}. \textit{Process type} \texttt{web} adalah \textit{process type} yang digunakan untuk menerima arus HTTP eksternal dari router Heroku.
 		
 	\subsubsection{Procfile}
-		Procfile adalah \textit{file} yang menjelaskan Heroku bagian-bagian perangkat lunak yang dapat dieksekusi. Procfile berisi daftar \textit{process type} beserta cara menjalankannya. BlueTape hanya memiliki satu \textit{process type}, yaitu \textit{process type} \texttt{web}. Isi Procfile adalah:
+		Procfile adalah \textit{file} yang menjelaskan bagian-bagian perangkat lunak yang dapat dieksekusi. Procfile berisi daftar \textit{process type} beserta cara menjalankannya. BlueTape hanya memiliki satu \textit{process type}, yaitu \textit{process type} \texttt{web}. Isi Procfile adalah:
 		\begin{lstlisting}
 		web: vendor/bin/heroku-php-apache2 www/
 		\end{lstlisting}
 		
 		Maksud dari satu baris Procfile tersebut adalah: untuk menjalankan \textit{process type} web, heroku harus menjalankan \textit{server apache} di Heroku dan kemudian \textit{server} menjalankan aplikasi web yang ada di direktori \texttt{www}. Perintah \texttt{vendor/bin/heroku-php-apache2} adalah perintah untuk menjalankan \textit{server apache} di heroku yang ada di \textit{package} \texttt{heroku-php-apache2}. \textit{Package} \texttt{heroku-php-apache2} ini otomatis disediakan saat membuat perangkat lunak php di heroku sehingga tidak perlu ditambahkan di composer.json. Perintah \texttt{www/} berguna untuk mengarahkan \textit{server apache} heroku ke direktori \texttt{www}.
-		
-	\subsubsection{\textit{Slug}}
-		Pada skripsi ini, \textit{file} \texttt{.slugignore} tidak perlu ditambahkan karena tidak diperlukan.
 		
 	\subsubsection{\textit{Buildpack}}
 	\textit{Buildpack} yang dipakai pada skripsi ini cukup hanya \texttt{heroku/php}. \textit{Buildpack} ini secara otomatis akan dipakai oleh Heroku karena BlueTape memakai bahasa PHP.
@@ -342,7 +383,7 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram \textit{use case} fit
 	\textit{Region} yang dipakai adalah \textit{region default}, yaitu \textit{United States}.
 		
 	\subsubsection{\textit{Stack}}
-	\textit{Stack} yang dipakai adalah \textit{stack} yang paling baru, yaitu heroku-18. \textit{Stack} ini dipilih karena Heroku masa kadaluarsa dukungan untuk \textit{stack} ini yang paling lama (didukung sampai bulan April 2023). Alasan lain adalah komputer lokal yang digunakan untuk mengerjakan skripsi ini menggunakan lingkungan yang mirip dengan Heroku, yaitu menggunakan Ubuntu 18.04.
+	\textit{Stack} yang dipakai adalah \textit{stack} yang paling baru saat skripsi ini ditulis, yaitu heroku-18. \textit{Stack} ini dipilih karena periode dukungannya paling lama, yaitu sampai bulan April 2023. Alasan lain adalah komputer lokal yang digunakan untuk mengerjakan skripsi ini menggunakan lingkungan yang mirip dengan Heroku, yaitu menggunakan Ubuntu 18.04.
 
 	\subsubsection{Basis Data}
 		Basis data yang digunakan untuk skripsi ini adalah basis data Heroku Postgres dengan plan \textit{hobby-dev}. Alasan basis data ini digunakan adalah karena basis data ini adalah basis data yang secara otomatis disediakan oleh Heroku dan fiturnya cukup untuk digunakan oleh BlueTape.
@@ -350,8 +391,8 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram \textit{use case} fit
 		Sebelumnya BlueTape menggunakan MySQL untuk basis datanya. Proses migrasi dari MySQL ke Heroku Postgres tidak rumit, karena menggunakan fitur \textit{Migration} dari CodeIgniter. Namun, ada beberapa perubahan pada dokumen \textit{Migration}. Perubahan-perubahan tersebut adalah:
 	\begin{itemize}
 		\item Menyelaraskan nama tabel karena sifat case sensitive pada Postgres
-		\item Mengubah Replace menjadi Insert dan Update karena Replace tidak didukung oleh Postgres
-		\item Mengubah tipe data kolom yang sebelumnya menggunakan DATETIME menjadi timestamp
+		\item Mengubah \textit{Replace} menjadi \textit{Insert} dan \textit{Update} karena \textit{Replace} tidak didukung oleh Postgres
+		\item Mengubah tipe data kolom yang sebelumnya menggunakan DATETIME menjadi \textit{timestamp}
 	\end{itemize}  
 
 \subsection{Sinkronisasi \textit{Email}}
@@ -370,7 +411,12 @@ Gambar~\ref{fig:use-case-diagram} merupakan gambar diagram \textit{use case} fit
 \label{sec:analisisline}
 	Produk LINE yang digunakan untuk menghubungkan BlueTape dengan LINE adalah LINE Messaging API. Produk ini paling memenuhi kriteria fitur kolektor pengumuman, yaitu dapat mengirimkan \textit{push message}.
 	
-	Sebelum menghubungkan BlueTape dengan LINE, ada beberapa hal yang harus dilakukan terlebih dahulu di LINE Developers \textit{console}. Pertama, membuat akun LINE dan mendaftar sebagai developer di LINE Developers \textit{console}. Kedua, membuat \textit{provider} di LINE Developers \textit{console}. Ketiga, membuat \textit{channel} pada \textit{provider} tersebut. \textit{Channel} yang dibuat harus menggunakan \textit{plan Developer Trial} karena \textit{plan} ini yang memiliki fitur \textit{push message}. Setelah \textit{channel} terbuat, sebuah akun \textit{bot} otomatis dibuat.
+	Sebelum menghubungkan BlueTape dengan LINE, ada beberapa hal yang harus dilakukan terlebih dahulu di LINE Developers \textit{console}: 
+	\begin{enumerate}
+		\item Membuat akun LINE dan mendaftar sebagai developer di LINE Developers \textit{console}.
+		\item Membuat \textit{provider} di LINE Developers \textit{console}.
+		\item Membuat \textit{channel} pada \textit{provider} tersebut. \textit{Channel} yang dibuat harus menggunakan \textit{plan Developer Trial} karena \textit{plan} ini yang memiliki fitur \textit{push message}. Setelah \textit{channel} terbuat, sebuah akun \textit{bot} otomatis dibuat.
+	\end{enumerate}
 	
 	Pada \textit{channel}, terdapat tiga bagian penting: \textit{channel access token, channel secret}, dan \textit{webhook URL}. \textit{Channel access token} dan \textit{channel secret} digunakan untuk autentikasi saat aplikasi BlueTape dan LINE berinteraksi. Kedua kode ini dapat diubah-ubah menggunakan tombol \textit{issue} pada masing-masing kolom. Sedangkan \textit{webhook URL} adalah alamat URL untuk menerima POST \textit{request} berisi \textit{event-event} yang terjadi pada \textit{bot}. Contoh: \textit{event following} yang terjadi saat ada akun LINE yang \textit{follow} atau menambah akun bot sebagai teman. \textit{Webhook URL} dapat diubah-ubah, namun harus menggunakan alamat https. Selain itu, fitur \textit{csrf protection} milik Codeigniter harus dimatikan pada alamat URL tersebut.
 	
