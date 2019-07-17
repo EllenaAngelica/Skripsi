@@ -1,11 +1,9 @@
-\lstset{
-  basicstyle=\ttfamily,
-  columns=fullflexible,
-  frame=single,
-  breaklines=true,
-  showlines=true,
-  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
-}
+\lstset{numbers=left,stepnumber=1, numbersep=5pt, frame=leftline,
+	tabsize=4, breaklines=true, basicstyle=\fontfamily{fvm}\selectfont\tiny, 
+	commentstyle=\itshape\color{gray}, keywordstyle=\bfseries\color{blue}, 
+	identifierstyle=\color{black}, stringstyle=\color{orange},
+	literate={-}{-}1{-\,-}{--}1
+} 
 
 \chapter{Implementasi dan Pengujian}
 \label{chap:implementasiDanPengujian}
@@ -63,7 +61,8 @@ Pengumuman\_Line\_model merupakan kelas yang dikhususkan untuk algoritma untuk m
 
 \item Kelas \textit{controller} Pengumuman
 
-Pengumuman merupakan kelas yang berfungsi untuk mengatur hubungan antara Pengumuman\_model dan \textit{view} yang ada di \textit{package} Pengumuman. Kode program untuk kelas tersebut dapat dilihat di Listing~\ref{code-pengumuman-controller}.
+Pengumuman merupakan kelas yang berfungsi untuk mengatur hubungan antara \\
+Pengumuman\_model dan \textit{view} yang ada di \textit{package} Pengumuman. Kode program untuk kelas tersebut dapat dilihat di Listing~\ref{code-pengumuman-controller}.
 
 \lstinputlisting[language={PHP}, label={code-pengumuman-controller}, caption={/www/application/controllers/Pengumuman.php}]{./Lampiran/Code/Pengumuman.php}
 
@@ -105,7 +104,7 @@ Untuk mendukung kinerja kelas-kelas tersebut, dibuat juga \textit{file}:
 
 \textit{File} ini digunakan untuk membuat tabel PengumumanLineFollowers. Kode program untuk \textit{file} tersebut dapat dilihat di Listing~\ref{code-pengumuman-line-migration}.
 
-\lstinputlisting[language={PHP}, label={code-pengumuman-line-migration}, caption={/www/application/migrations/20190210224400\_PengumumanLineFollowers\_initial.php}]{./Lampiran/Code/20190210224400_PengumumanLineFollowers_initial.php}
+\lstinputlisting[language={PHP}, label={code-pengumuman-line-migration}, caption={/www/application/migrations/20190210224400\_PengumumanLineFollowers\_ initial.php}]{./Lampiran/Code/20190210224400_PengumumanLineFollowers_initial.php}
 
 \end{itemize}
 
@@ -179,6 +178,7 @@ Pengujian fungsional dilakukan dengan metode \textit{black box testing}. Berikut
 
     Pengujian ini bertujuan untuk menguji apakah isi \textit{email} yang ditampilkan sesuai dengan yang diharapkan. Pengujian ini dilakukan dengan mengirimkan beberapa \textit{email} dengan isi yang berbeda melalui salah satu \textit{email} yang terdaftar di BlueTape, yaitu alamat \textit{email} \href{mailto:shadowbluetape@gmail.com}{shadowbluetape@gmail.com}. Hasil pengujian dapat dilihat di Tabel ~\ref{table:pengujian-fungsional-isi-variatif}.
 
+	\newpage
       \begin{longtable}{|p{5cm}|p{5cm}|p{5cm}|}
         \caption{Pengujian Mengirim \textit{Email} dengan Isi \textit{Email} yang Variatif}
         \label{table:pengujian-fungsional-isi-variatif}\\
@@ -363,7 +363,7 @@ Pada pertanyaan "Jika Anda belum login saat membuka url yang dicantumkan di noti
 	\label{fig:summary-7-Dosen-Lihat-Pengumuman} 
 \end{figure}
 
-Pada pertanyaan "Apakah Anda dapat melihat pengumuman yang Anda kirimkan di menu pengumuman shadowtape (https://shadowtape.herokuapp.com/pengumuman) pada jam 12 siang setelah Anda mengirimkan pengumuman?", 1 dosen menjawab "Ya" dan 1 dosen menjawab "Tidak". Diagram jawaban untuk pertanyaan ini dapat dilihat pada Gambar~\ref{fig:summary-7-Dosen-Lihat-Pengumuman}. Dosen yang menjawab "Ya" adalah Pak Pascal Alfadian, sedangkan dosen yang menjawab "Tidak" adalah Pak Keenan Adiwijaya Leman. Pak Pascal pernah mengirimkan \textit{email} ke \href{mailto:shadowbluetape@gmail.com}{shadowbluetape@gmail.com} pada tanggal 24 April 2019, sedangkan Pak Keenan tidak pernah.
+Pada pertanyaan "Apakah Anda dapat melihat pengumuman yang Anda kirimkan di menu pengumuman shadowtape (https://shadowtape.herokuapp.com/pengumuman) pada jam 12 siang setelah Anda mengirimkan pengumuman?", 1 dosen menjawab "Ya" dan 1 dosen menjawab "Tidak". Diagram jawaban untuk pertanyaan ini dapat dilihat pada Gambar~\ref{fig:summary-7-Dosen-Lihat-Pengumuman}. Dosen yang menjawab "Ya" adalah dosen dengan alamat email (dianonimkan) b44980@unpar.ac.id, sedangkan dosen yang menjawab "Tidak" adalah dosen dengan alamat email (dianonimkan) 8759eb@unpar.ac.id. Dosen dengan alamat email (dianonimkan) b44980@unpar.ac.id pernah mengirimkan \textit{email} ke \href{mailto:shadowbluetape@gmail.com}{shadowbluetape@gmail.com} pada tanggal 24 April 2019, sedangkan dosen dengan alamat email (dianonimkan) 8759eb@unpar.ac.id tidak pernah.
 
 \begin{figure}[H]
 	\centering  
@@ -372,7 +372,7 @@ Pada pertanyaan "Apakah Anda dapat melihat pengumuman yang Anda kirimkan di menu
 	\label{fig:summary-8-Dosen-Judul} 
 \end{figure}
 
-Pada pertanyaan "Apakah judul pengumuman sesuai dengan subjek \textit{email} yang Anda kirimkan?", Pak Pascal Alfadian menjawab "Ya". Diagram jawaban untuk pertanyaan ini dapat dilihat pada Gambar~\ref{fig:summary-8-Dosen-Judul}.
+Pada pertanyaan "Apakah judul pengumuman sesuai dengan subjek \textit{email} yang Anda kirimkan?", dosen dengan alamat email (dianonimkan) b44980@unpar.ac.id menjawab "Ya". Diagram jawaban untuk pertanyaan ini dapat dilihat pada Gambar~\ref{fig:summary-8-Dosen-Judul}.
 
 \begin{figure}[H]
 	\centering  
@@ -381,7 +381,7 @@ Pada pertanyaan "Apakah judul pengumuman sesuai dengan subjek \textit{email} yan
 	\label{fig:summary-9-Dosen-Isi} 
 \end{figure}
 
-Pada pertanyaan "Apakah isi \textit{email} sesuai dengan yang Anda kirimkan?", Pak Pascal Alfadian menjawab "Ya". Diagram jawaban untuk pertanyaan ini dapat dilihat pada Gambar~\ref{fig:summary-9-Dosen-Isi}.
+Pada pertanyaan "Apakah isi \textit{email} sesuai dengan yang Anda kirimkan?", dosen dengan alamat email (dianonimkan) b44980@unpar.ac.id menjawab "Ya". Diagram jawaban untuk pertanyaan ini dapat dilihat pada Gambar~\ref{fig:summary-9-Dosen-Isi}.
 
 \begin{figure}[H]
 	\centering  
@@ -484,38 +484,24 @@ Setelah menghitung skor \textit{System Usability Scale} seluruh responden yang m
 
 Dari kolom saran, peneliti mendapatkan beberapa saran. Tabel~\ref{table:saran} menampilkan saran yang didapatkan peneliti.
 
-\begin{center}
-	\begin{table}[H]
+\begin{longtable}{|c|p{7cm}|}
 	\caption{Tabel saran}
-	\label{table:saran}
-	\begin{tabular}{|c|p{11cm}|}
-	\hline
-  Alamat email	& Saran\\
-  \hline
-  keenan.leman@unpar.ac.id	& Tidak bisa "add friend" karena akun telah mencapai batas banyak teman.\\
-  \hline
-  7316027@student.unpar.ac.id	& Lebih diperbagus tampilannya sehingga menarik user untuk menggunakannya\\
-  \hline
-  7314028@student.unpar.ac.id	& Good Job!\\
-  \hline
-  2017730022@student.unpar.ac.id	& terdapat beberapa error dalam login, dimana email saya (@student.unpar) tidak memiliki akses\\
-  \hline
-  2017730047@student.unpar.ac.id	& memperbaiki url login yang dikirimkan di shadowtape\\
-  \hline
-  2017730011@student.unpar.ac.id	& saran saya, usahakan tidak menggunakan aplikasi luar lain seperti LINE. dikarenakan tidak semua orang menggunakan line\\
-  \hline
-  2017730037@student.unpar.ac.id	& Link yang dibuka langsung dari line tidak memiliki hak akses\\
-  \hline
-  2017730008@student.unpar.ac.id	& Fitur ini bagus, memudahkan mahasiswa dalam menerima notifikasi email. Namun, waktunya sebaiknya tidak hanya pada jam 12 siang karena waktu tersebut adalah saat orang-orang makan siang yang mungkin saja sedang tidak membuka gadget/aplikasi Line pada khususnya.\\
-  \hline
-  2017730044@student.unpar.ac.id	& Log in masih tidak dapat dilakukan, terdapat pernyataan bahwa "alamat email" tidak memiliki hak akses ke pengumuman. Contohnya email yang saya gunakan "2017730044@student.unpar.ac.id tidak memiliki hak akses ke pengumuman"\\
-  \hline
-  7316025@student.unpar.ac.id	& "Lebih user friendly
-"\\
-  \hline
-	\end{tabular}
-	\end{table}
-\end{center}
+	\label{table:saran} \\
+\hline
+\hline	\textbf{Alamat Email (dianonimkan)}	&	\centerline{\textbf{Saran Anda untuk fitur ini}}	\\
+\hline	b44980@unpar.ac.id	&	Tidak bisa "\textit{add friend}" karena akun telah mencapai batas banyak teman.	\\
+\hline	70d55b@student.unpar.ac.id	&	Lebih diperbagus tampilannya sehingga menarik \textit{user} untuk menggunakannya	\\
+\hline	0f13c2@student.unpar.ac.id	&	\textit{Good Job}!	\\
+\hline	2932f4@student.unpar.ac.id	&	terdapat beberapa \textit{error} dalam \textit{login}, dimana \textit{email} saya (@student.unpar) tidak memiliki akses	\\
+\hline	d1acef@student.unpar.ac.id	&	memperbaiki \textit{url login} yang dikirimkan di shadowtape	\\
+\hline	66ccabd@student.unpar.ac.id	&	saran saya, usahakan tidak menggunakan aplikasi luar lain seperti LINE. dikarenakan tidak semua orang menggunakan line	\\
+\hline	0b62ed@student.unpar.ac.id	&	\textit{Link} yang dibuka langsung dari line tidak memiliki hak akses	\\
+\hline	fa0a7c@student.unpar.ac.id	&	Fitur ini bagus, memudahkan mahasiswa dalam menerima notifikasi \textit{email}. Namun, waktunya sebaiknya tidak hanya pada jam 12 siang karena waktu tersebut adalah saat orang-orang makan siang yang mungkin saja sedang tidak membuka \textit{gadget}/aplikasi Line pada khususnya.	\\
+\hline	d79022@student.unpar.ac.id	&	\textit{Log in} masih tidak dapat dilakukan, terdapat pernyataan bahwa "alamat \textit{email}" tidak memiliki hak akses ke pengumuman. Contohnya \textit{email} yang saya gunakan "2017730044@student.unpar.ac.id tidak memiliki hak akses ke pengumuman"	\\
+\hline	2fced5@student.unpar.ac.id	&	"Lebih \textit{user friendly}
+"	\\
+\hline
+\end{longtable}
 
 Setelah masa pengujian eksperimental selesai, peneliti menemukan bahwa layanan LINE@ akan diberhentikan. Saat pengujian eksperimental selesai dilaksanakan, pengguna LINE tidak bisa membuat akun LINE@ baru. Sebagai ganti LINE@, LINE membuat layanan baru tapi serupa bernama LINE Official Account. Akun LINE@ yang sudah ada akan diubah menjadi akun LINE Official Account pada bulan Juni 2019.
 

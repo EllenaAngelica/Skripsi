@@ -1012,7 +1012,7 @@ Setelah \textit{user sign-in} untuk pertama kalinya, \textit{authorization resul
 \label{sec:PHPIMAP}
 \textit{IMAP (Internet Message Access Protocol)} adalah metode untuk mengakses pesan elektronik yang disimpan di sebuah \textit{mail server}.
 
-Ekstensi ini dapat digunakan apabila \textit{c-client library} sudah terpasang. Library ini dapat ditemukan di \url{https://www.washington.edu/imap/}. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori \textit{system}, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori \textit{system}, lalu memasukkan \textit{file} IMAP ke dalamnya. Contoh : \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tambahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua \textit{file} dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, \textit{file} bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
+Ekstensi ini dapat digunakan apabila \textit{c-client library} sudah terpasang. Library ini dapat ditemukan di \url{https://www.washington.edu/imap/}. Dokumen IMAP tidak boleh diletakkan langsung ke dalam direktori \textit{system}, karena dapat memicu konflik. Sebaiknya membuat direktori baru di dalam direktori \textit{system}, lalu memasukkan \textit{file} IMAP ke dalamnya. Contohnya : direktori \texttt{/usr/local/imap-2000b}. Di dalam direktori baru tambahkan direktori lagi bernama \texttt{lib/} dan \texttt{include/}. Semua \textit{file} dengan ekstensi \texttt{.c} dimasukkan ke direktori \texttt{lib/}. Saat IMAP dikompilasi, \textit{file} bernama \texttt{c-client.a} akan terbentuk. Dokumen tersebut juga diletakkan di direktori \texttt{lib/}.
 
 Setelah itu, kompilasi PHP dengan \texttt{--with-imap[=DIR]} dengan \texttt{DIR} adalah tempat c-client. Contoh: \texttt{with-imap=/usr/local/imap-2000b}. Pengguna sistem operasi Windows mungkin harus mengaktifkan \texttt{php\_imap.dll}.
 
@@ -1416,7 +1416,7 @@ Apabila \textit{developer} baru pertama kali masuk ke LINE Developers \textit{co
 \begin{itemize}
 \item Ikon aplikasi
 
-Dokumen gambar untuk ikon aplikasi harus dibawah 3 MB dengan ekstensi JPEG/PNG/GIF/BMP.
+Dokumen gambar untuk ikon aplikasi harus dibawah 3 MB dengan ekstensi JPEG / PNG / GIF / BMP.
 
 \item Nama aplikasi
 

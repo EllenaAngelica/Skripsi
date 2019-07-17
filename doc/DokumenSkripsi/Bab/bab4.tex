@@ -15,7 +15,7 @@ Gambar~\ref{fig:class-diagram} merupakan gambar diagram kelas yang dipakai untuk
 \subsection{Model}
 Model yang digunakan ada dua, yaitu Pengumuman\_model dan Pengumuman\_Line\_model.
 \subsubsection{Pengumuman\_model}
-Pengumuman\_model berisi algoritma yang dibutuhkan oleh fitur kolektor pengumuman. Pengumuman\_model memiliki tiga \textit{method}: \_\_construct, checkEmail, dan proceedEmail. Tabel \ref{table:pengumuman-model-construct}, \ref{table:pengumuman-model-checkemail}, dan \ref{table:pengumuman-model-proceedemail} menjelaskan secara rinci \textit{method-method} tersebut.
+Pengumuman\_model berisi algoritma yang dibutuhkan oleh fitur kolektor pengumuman. \\Pengumuman\_model memiliki tiga \textit{method}: \_\_construct, checkEmail, dan proceedEmail. \\Tabel \ref{table:pengumuman-model-construct}, \ref{table:pengumuman-model-checkemail}, dan \ref{table:pengumuman-model-proceedemail} menjelaskan secara rinci \textit{method-method} tersebut.
 
 \begin{center}
 	\begin{table}[H]
@@ -104,7 +104,8 @@ Algoritma	& \begin{enumerate}
 \end{center}
 
 \subsubsection{Pengumuman\_Line\_model}
-Pengumuman\_Line\_model berisi algoritma yang dibutuhkan untuk berkomunikasi dengan Line API. Algoritma tersebut sengaja tidak disatukan ke dalam kelas Pengumuman\_model karena menggunakan banyak \textit{package} tambahan dan memiliki atribut-atribut yang tidak dibutuhkan semua \textit{method} yang berada di Pengumuman\_model. Atribut-atribut tersebut adalah: \textdollar channelAccessToken, \textdollar channelSecret, \textdollar httpClient, dan \textdollar \textit{bot}. Pengumuman\_Line\_model memiliki tiga \textit{method}: \_\_construct, proceedWebhook, dan pushMessageToAllFollowers. Tabel \ref{table:pengumuman-line-model-construct}, \ref{table:pengumuman-line-model-proceedwebhook}, dan \ref{table:pengumuman-line-model-pushmessagetoallfollowers} menjelaskan secara rinci \textit{method-method} tersebut.
+Pengumuman\_Line\_model berisi algoritma yang dibutuhkan untuk berkomunikasi dengan Line API. Algoritma tersebut sengaja tidak disatukan ke dalam kelas Pengumuman\_model karena menggunakan banyak \textit{package} tambahan dan memiliki atribut-atribut yang tidak dibutuhkan semua \textit{method} yang berada di Pengumuman\_model. Atribut-atribut tersebut adalah: \textdollar channelAccessToken, \textdollar channelSecret, \textdollar httpClient, dan \textdollar \textit{bot}. Pengumuman\_Line\_model memiliki tiga \textit{method}: \\
+\_\_construct, proceedWebhook, dan pushMessageToAllFollowers. Tabel \ref{table:pengumuman-line-model-construct}, \ref{table:pengumuman-line-model-proceedwebhook}, dan \ref{table:pengumuman-line-model-pushmessagetoallfollowers} menjelaskan secara rinci \textit{method-method} tersebut.
 
 \begin{center}
 	\begin{table}[H]
